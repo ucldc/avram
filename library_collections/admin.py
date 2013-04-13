@@ -30,5 +30,4 @@ admin.site.register(Status)
 admin.site.register(Restriction)
 #admin.site.register(Need)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
-
-admin.site.unregister(Group)
+admin.site.unregister(Site)
