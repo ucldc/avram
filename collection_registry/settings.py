@@ -170,6 +170,8 @@ LOGGING = {
     }
 }
 
+TASTYPIE_DEFAULT_FORMATS = ['json', 'xml']
+
 ADMIN_REORDER = (
     ("Library_Collection", ("Provenancial collections", "Campuses", "Statuses", "Restrictions", "Needs")),
 )
