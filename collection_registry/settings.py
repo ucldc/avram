@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'library_collections',
     'south',
+    # 'rest_framework',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
@@ -168,6 +169,11 @@ LOGGING = {
         },
     }
 }
+
+ADMIN_REORDER = (
+    ("Library_Collections", ("Provenancial collections", "Campuses", "Statuses", "Restrictions", "Needs")),
+)
+
 
 try: 
     from local_settings import *; 
