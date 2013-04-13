@@ -1,5 +1,5 @@
 from django.contrib.syndication.views import Feed
-from library_collections.models import ProvenancialCollection
+from library_collection.models import ProvenancialCollection
 
 class AllFeed(Feed):
     title = "ucdlc rss feed"

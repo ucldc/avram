@@ -1,7 +1,7 @@
 # views.py
 
 from django.shortcuts import render_to_response
-from library_collections.models import ProvenancialCollection, Campus
+from library_collection.models import ProvenancialCollection, Campus
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
 from django.db.models import Sum
@@ -15,7 +15,7 @@ def home(request):
     extent = bytes2human( raw_extent )
     
     return render_to_response(
-        'library_collections/index.html', { 
+        'library_collection/index.html', { 
             'collections': collections, 
             'extent': extent, 
             'campuses': campuses, 
@@ -30,7 +30,7 @@ def details(request, colid, urlstuff):
         return redirect(collection, permanent=True)
     else:
         return render_to_response(
-            'library_collections/collection.html', { 
+            'library_collection/collection.html', { 
                 'collection': collection,
                 'campuses': campuses, 
             }
@@ -46,7 +46,7 @@ def UC(request, urlstuff):
     extent = bytes2human( ProvenancialCollection.objects.filter(campus__slug__exact=urlstuff).aggregate(Sum('extent'))['extent__sum'] or 0)
     collections = ProvenancialCollection.objects.filter(campus__slug__exact=urlstuff).order_by('name')
     return render_to_response(
-        'library_collections/campus.html', {
+        'library_collection/campus.html', {
             'campus': campus, 
             'collections': collections, 
             'extent': extent, 

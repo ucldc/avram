@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(pathname, '..')))
 csv_filepathname = os.path.join(pathname, "refine.tsv")
 os.environ['DJANGO_SETTINGS_MODULE'] = 'collection_registry.settings'
 
-from library_collections.models import *
+from library_collection.models import *
 
 dataReader = csv.reader(open(csv_filepathname), delimiter='\t')
 

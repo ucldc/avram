@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
 
 from django.core.urlresolvers import reverse_lazy
 
-#LOGIN_REDIRECT_URL = reverse_lazy('library_collections.views.home')
+#LOGIN_REDIRECT_URL = reverse_lazy('library_collection.views.home')
 LOGIN_REDIRECT_URL = "/"
 
 ROOT_URLCONF = 'collection_registry.urls'
@@ -118,7 +118,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(SITE_ROOT, '..', 'templates'),
     os.path.join(SITE_ROOT, 'templates'),
-    os.path.join(SITE_ROOT, '..', 'library_collections', 'templates')
+    os.path.join(SITE_ROOT, '..', 'library_collection', 'templates')
 )
 
 INSTALLED_APPS = (
@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'library_collections',
+    'library_collection',
     'south',
     # 'rest_framework',
 )
@@ -171,7 +171,7 @@ LOGGING = {
 }
 
 ADMIN_REORDER = (
-    ("Library_Collections", ("Provenancial collections", "Campuses", "Statuses", "Restrictions", "Needs")),
+    ("Library_Collection", ("Provenancial collections", "Campuses", "Statuses", "Restrictions", "Needs")),
 )
 
 

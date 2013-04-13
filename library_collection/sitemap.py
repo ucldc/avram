@@ -1,7 +1,7 @@
 # sitemap.py
 
 from django.contrib.sitemaps import Sitemap
-from library_collections.models import ProvenancialCollection
+from library_collection.models import ProvenancialCollection
 
 class RegistrySitemap(Sitemap):
     priority = 0.5

@@ -1,7 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
-from library_collections.models import ProvenancialCollection
+from library_collection.models import ProvenancialCollection
 
 class ProvenancialCollectionResource(ModelResource):
     class Meta:

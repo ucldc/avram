@@ -1,7 +1,7 @@
 # admin.py
 
 from django.contrib import admin
-from library_collections.models import *
+from library_collection.models import *
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
@@ -31,3 +31,4 @@ admin.site.register(Restriction)
 #admin.site.register(Need)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
 admin.site.unregister(Site)
+admin.site.disable_action('delete_selected')
