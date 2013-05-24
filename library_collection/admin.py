@@ -65,7 +65,7 @@ class ProvenancialCollectionAdmin(admin.ModelAdmin):
 
     list_display = ( 'name', campuses, 'human_extent', 'appendix', 'phase_one',)
     list_editable = ('appendix', 'phase_one')
-    list_filter = [ 'campus', 'need_for_dams', URLFieldsListFilter]
+    list_filter = [ 'campus', 'need_for_dams', 'appendix', URLFieldsListFilter]
     search_fields = ['name','description']
 
     def human_extent(self, obj):
@@ -83,4 +83,3 @@ admin.site.register(Restriction)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
 admin.site.unregister(Site)
 admin.site.disable_action('delete_selected')
-
