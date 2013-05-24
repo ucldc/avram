@@ -13,13 +13,13 @@ sys.path.insert(0, os.path.abspath(os.path.join(pathname, '..')))
 csv_filepathname = os.path.join(pathname, "refine.tsv")
 os.environ['DJANGO_SETTINGS_MODULE'] = 'collection_registry.settings'
 
-from dl_collections.models import *
+from library_collection.models import *
 
 dataReader = csv.reader(open(csv_filepathname), delimiter='\t')
 
 for row in dataReader:
     if row[0] != 'File': # Ignore the header row, import everything else
-        collection = Collection()
+        collection = ProvenancialCollection()
         if row[0] == 'appendixA.csv':
             collection.appendix = 'A'
         if row[0] == 'appendixB.csv':
@@ -32,7 +32,7 @@ for row in dataReader:
         collection.hosted = row[8]
         collection.metadata_standard = row[10]
         collection.metadata_level = row[11]
-        collection.ready_for_surfacing = row[12]
+        
         if row[9]:
             collection.need_for_dams = Need.objects.get(name = row[9])
         if row[4]:

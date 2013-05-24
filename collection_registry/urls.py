@@ -1,6 +1,6 @@
 # urls.py
 from django.conf.urls import patterns, include, url
-from dl_collections.models import Collection, Campus
+from library_collection.models import ProvenancialCollection, Campus
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -15,7 +15,7 @@ from django.conf.urls import patterns, url, include
 admin.autodiscover()
 
 collection_dict = {
-    'queryset': Collection.objects.all(),
+    'queryset': ProvenancialCollection.objects.all(),
 }
 
 campus_dict = {
@@ -29,6 +29,7 @@ sitemaps = {
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}, name='sitemap'),
-    url(r'^', include('dl_collections.urls')),
+    url(r'^', include('library_collection.urls')),
 )
