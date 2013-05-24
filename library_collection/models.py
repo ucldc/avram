@@ -1,4 +1,4 @@
-# modeles.py
+# models.py
 
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
@@ -43,9 +43,10 @@ class ProvenancialCollection(models.Model):
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
     campus = models.ManyToManyField(Campus)	# why not a multi-campus collection?
     description = models.TextField(blank=True)
-    url_local = models.CharField(max_length=255,blank=True)
-    url_oac = models.CharField(max_length=255,blank=True)
-    url_was = models.CharField(max_length=255,blank=True)
+    url_local = models.URLField(max_length=255,blank=True)
+    url_oac = models.URLField(max_length=255,blank=True)
+    url_was = models.URLField(max_length=255,blank=True)
+    url_oai = models.URLField(max_length=255,blank=True)
     hosted = models.CharField(max_length=255,blank=True)
     status = models.ForeignKey(Status, null=True, blank=True, default = None)
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
@@ -53,6 +54,7 @@ class ProvenancialCollection(models.Model):
     metadata_level = models.CharField(max_length=255,blank=True)
     metadata_standard = models.CharField(max_length=255,blank=True)
     need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
+    oai_set_spec = models.CharField(max_length=255, blank=True)
     appendix = models.CharField(max_length=1, choices=( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl')) )
     phase_one = models.BooleanField()
 
