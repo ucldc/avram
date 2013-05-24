@@ -16,9 +16,12 @@ framework.
 import os
 import sys
 from os.path import abspath, dirname, join
+import site
 
 sys.path.insert(0, abspath(join(dirname(__file__), "../")))
 
+# http://code.google.com/p/modwsgi/wiki/VirtualEnvironments
+site.addsitedir(abspath(join(dirname(__file__), "../lib/python2.6/site-packages/" )))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "collection_registry.settings")
 

@@ -14,7 +14,7 @@ class Campus(models.Model):
         return self.name
     @models.permalink
     def get_absolute_url(self):
-        return ('dl_collections.views.UC', [str(self.slug)])
+        return ('library_collection.views.UC', [str(self.slug)])
 
 class Status(models.Model):
     name = models.CharField(max_length=255)
@@ -33,17 +33,11 @@ class Need(models.Model):
     def __unicode__(self):
         return self.name
 
-class Collection(models.Model):
+class ProvenancialCollection(models.Model):
     DAMNS = 'D'
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
-    ACCESS_MODES = (
-        (DAMNS, 'Nuxeo DAMS'),
-        (OAI, 'OAI Harvest'),
-        (CRAWL, 'Crawl'),
-        (PENDING, 'Pending'),
-    )
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
@@ -59,23 +53,19 @@ class Collection(models.Model):
     metadata_level = models.CharField(max_length=255,blank=True)
     metadata_standard = models.CharField(max_length=255,blank=True)
     need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
-    ready_for_surfacing = models.BooleanField()
-    appendix = models.CharField(max_length=1, choices=( ('A', 'A'), ('B', 'B')) )
-    access_mode = models.CharField(max_length=1,
-                                      choices=ACCESS_MODES,
-                                      default=PENDING)
-    
+    appendix = models.CharField(max_length=1, choices=( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl')) )
+    phase_one = models.BooleanField()
 
     def url(self):
         return self.url_local;
 
     def human_extent(self):
-        return bytes2human(self.extent)
+        return bytes2human(self.extent,format=u'%(value).1f\xa0%(symbol)s')
 
     def __unicode__(self):
         return self.name
 
     @models.permalink
     def get_absolute_url(self):
-        return ('dl_collections.views.details', [self.id, str(self.slug)])
+        return ('library_collection.views.details', [self.id, str(self.slug)])
 

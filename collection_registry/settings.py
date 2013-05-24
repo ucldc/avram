@@ -100,6 +100,11 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+from django.core.urlresolvers import reverse_lazy
+
+#LOGIN_REDIRECT_URL = reverse_lazy('library_collection.views.home')
+LOGIN_REDIRECT_URL = "/"
+
 ROOT_URLCONF = 'collection_registry.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -113,7 +118,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(SITE_ROOT, '..', 'templates'),
     os.path.join(SITE_ROOT, 'templates'),
-    os.path.join(SITE_ROOT, '..', 'dl_collections', 'templates')
+    os.path.join(SITE_ROOT, '..', 'library_collection', 'templates')
 )
 
 INSTALLED_APPS = (
@@ -129,8 +134,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'dl_collections',
+    'library_collection',
+    'south',
+    # 'rest_framework',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -160,6 +169,13 @@ LOGGING = {
         },
     }
 }
+
+TASTYPIE_DEFAULT_FORMATS = ['json', 'xml']
+
+ADMIN_REORDER = (
+    ("Library_Collection", ("Provenancial collections", "Campuses", "Statuses", "Restrictions", "Needs")),
+)
+
 
 try: 
     from local_settings import *; 
