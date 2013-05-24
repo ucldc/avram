@@ -4,13 +4,19 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
-
+from library_collection.models import ProvenancialCollection
 from django.test import TestCase
 
 
-class SimpleTest(TestCase):
+class ProvenancialCollectionTestCase(TestCase):
     def test_basic_addition(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Sanity check on ProvenancialCollection model
         """
-        self.assertEqual(1 + 1, 2)
+        pc = ProvenancialCollection()
+        pc.url_local = 'http://www.oac.cdlib.org/'
+        pc.extent = 1234567890
+        pc.name = 'A test collection'
+        self.assertEqual(pc.url, pc.url_local)
+        self.assertEqual(pc.human_extent, u'1.1\xa0G')
+        self.assertEqual(pc.name, unicode(pc))

@@ -58,9 +58,11 @@ class ProvenancialCollection(models.Model):
     appendix = models.CharField(max_length=1, choices=( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl')) )
     phase_one = models.BooleanField()
 
+    @property
     def url(self):
         return self.url_local;
 
+    @property
     def human_extent(self):
         return bytes2human(self.extent,format=u'%(value).1f\xa0%(symbol)s')
 
