@@ -13,6 +13,7 @@ class CampusResource(ModelResource):
 
 class ProvenancialCollectionResource(ModelResource):
     campus = fields.ToManyField(CampusResource, 'campus', full=True)
+    appendix = fields.CharField(attribute='get_appendix_display')
 
     class Meta:
         queryset = ProvenancialCollection.objects.all()
