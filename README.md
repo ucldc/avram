@@ -5,18 +5,19 @@ Digital Collections.
 
 ## notes
 
-http://stackoverflow.com/questions/4114942/django-svn-deployment
+```
+virtualenv --no-site-packages .
+source bin/activate
+pip install -r requirements.txt 
+```
 
 ## load
 
 via `fixtures/initial_data.json` and loading individual fixtures
 
 ```
-
-python manage.py syncdb && python manage.py loaddata library_collection/fixtures/provenancialcolletion.json 
-
-
-The original data comes from  the original_data/refine.tsv file. Run python original_data/load_tsv.py to load that, but the fixtures should supersede the refine.tsv.
+python manage.py syncdb
+python manage.py loaddata library_collection/fixtures/provenancialcolletion.json 
 
 ```
 
