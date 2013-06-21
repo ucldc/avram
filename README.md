@@ -8,7 +8,7 @@ Digital Collections.
 ```
 virtualenv --no-site-packages .
 source bin/activate
-pip install -r requirements.txt 
+pip install -r requirements.txt --use-mirrors
 ```
 
 ## load
