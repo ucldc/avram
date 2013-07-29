@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.RemoteUserBackend',
+    'collection_registry.backends.RegistryUserBackend',
 )
 
 from django.core.urlresolvers import reverse_lazy
