@@ -17,7 +17,8 @@ via `fixtures/initial_data.json` and loading individual fixtures
 
 ```
 python manage.py syncdb
-python manage.py loaddata library_collection/fixtures/provenancialcolletion.json 
+python manage.py loaddata library_collection/fixtures/provenancialcolletion.json
+python manage.py collectstatic
 
 ```
 
