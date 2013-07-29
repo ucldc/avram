@@ -7,4 +7,4 @@ django-extensions==1.1.1
 lxml==3.1.2
 six==1.3.0
 wsgiref==0.1.2
-admin_bootstrap
+-e git://github.com/aobo711/bootstrap-django-admin.git#egg=bootstrap-django-admin
