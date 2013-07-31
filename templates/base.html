@@ -40,12 +40,7 @@
           {% endfor %}
         </ul>
         <ul class="nav pull-right">
-          <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-              this would link to a UC Trust WAYF page <!-- (add with javascript so this does not go to screen readers?) -->
-            </div>
-          </li>
+          <li><a href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">About</a></li>
         </ul>
       </div>
     </div>
@@ -57,7 +52,6 @@
 {% block hero %}
     <div class="hero-unit row">
      {% block hero-content %}<h1>University of California Libraries <small>Digital Collection</small></h1>{% endblock %}
-     <a href="javascript:false();" rel="tooltip" title="this would only show to logged in librarians" style="position:relative;top:2em;" class="btn btn-primary"><i class="icon-white icon-plus"></i> Add Collection</a>
     </div>
 {% endblock %}
 
@@ -85,7 +79,7 @@
 
 <hr/>
     <div class="row">
-      <div class="span3"><a href="{% url "django.contrib.sitemaps.views.sitemap" %}">sitemap.xml</a></div>
+      <div class="span3"><a href="/api">registry api</a></div>
       <div class="span3">
         <a href="http://libraries.universityofcalifornia.edu/ngts/activities-and-groups">NGTS Power of Three Groups (POTs)</a>
       </div>
