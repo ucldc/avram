@@ -41,9 +41,10 @@
         </table>
     {% endfor %}
 {% else %}
-    <p>Hello ___, we see that you logged in from ____.</p>
+    <p>Hello {{ user.email }}, we see that you logged in from {{ user.groups.all }}.</p>
     <p>Full access to the registry is for UC Libraries employees and authorized users.</p>
-    <p>For full access, please fill out this form.  We will email you at ____ when access has been granted</p>
+    <p>Your authority will be verified and you will be contacted with further instructions.</p>
+    <p>If you have any questions, please email UCLDC staff at oacops@cdlib.org</p>
 {% endif %}
 </div>
 {% endblock %}
