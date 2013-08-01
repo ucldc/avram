@@ -41,6 +41,7 @@ class Collection(models.Model):
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
+    collection_type = models.CharField(max_length=1, choices=(('A', 'Archival'), ('C', 'Curated')))
     campus = models.ManyToManyField(Campus)	# why not a multi-campus collection?
     description = models.TextField(blank=True)
     url_local = models.URLField(max_length=255,blank=True)
