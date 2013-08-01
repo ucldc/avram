@@ -57,7 +57,7 @@ class URLFieldsListFilter(SimpleListFilter):
             return queryset.filter(url_was__exact='')
  
 
-class ProvenancialCollectionAdmin(admin.ModelAdmin):
+class CollectionAdmin(admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     def campuses(self):
         return ", " . join([x.__str__() for x in self.campus.all()])
@@ -75,7 +75,7 @@ class ProvenancialCollectionAdmin(admin.ModelAdmin):
 class CampusAdmin(admin.ModelAdmin):
     list_display = ('name','slug',)
 
-admin.site.register(ProvenancialCollection, ProvenancialCollectionAdmin)
+admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
 admin.site.register(Status)
 admin.site.register(Restriction)

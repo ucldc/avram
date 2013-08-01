@@ -1,11 +1,11 @@
 from django.contrib.syndication.views import Feed
-from library_collection.models import ProvenancialCollection
+from library_collection.models import Collection
 
 class AllFeed(Feed):
     title = "ucdlc rss feed"
     link = "/"
     def items(self):
-        return ProvenancialCollection.objects.all()[:30]
+        return Collection.objects.all()[:30]
 
     def item_title(self, item):
         return item.name

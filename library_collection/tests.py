@@ -11,12 +11,12 @@ from django.contrib.auth.models import User
 #from library_collection.admin import URLFieldsListFilter
 
 
-class ProvenancialCollectionTestCase(TestCase):
+class CollectionTestCase(TestCase):
     def test_basic_addition(self):
         """
-        Sanity check on ProvenancialCollection model
+        Sanity check on Collection model
         """
-        pc = ProvenancialCollection()
+        pc = Collection()
         pc.url_local = 'http://www.oac.cdlib.org/'
         pc.extent = 1234567890
         pc.name = 'A test collection'
@@ -24,16 +24,16 @@ class ProvenancialCollectionTestCase(TestCase):
         self.assertEqual(pc.human_extent, u'1.1\xa0G')
         self.assertEqual(pc.name, unicode(pc))
 
-class ProvenancialCollectionAdminTestCase(TestCase):
+class CollectionAdminTestCase(TestCase):
     '''Check that the list filter is defined correctly. Will need test
     fixtures here.
     '''
     def setUp(self):
-        pc = ProvenancialCollection()
+        pc = Collection()
         pc.name = 'PC-1'
         pc.url_local = 'http://local'
         pc.save()
-        pc = ProvenancialCollection()
+        pc = Collection()
         pc.name = 'PC-2'
         pc.url_oac = 'http://oac'
         pc.save()
@@ -49,7 +49,7 @@ class ProvenancialCollectionAdminTestCase(TestCase):
         return
         # https://code.djangoproject.com/ticket/13394
         # https://groups.google.com/d/msg/django-users/VpPrGVPS0aw/SwE8X51Q8jYJ
-        url_admin = '/admin/library_collection/provenancialcollection/'
+        url_admin = '/admin/library_collection/collection/'
         response = self.client.get(url_admin)
         self.assertContains(response, 'Password')
         ret = self.client.login(username='test', password='fake')
