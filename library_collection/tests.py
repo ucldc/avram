@@ -23,6 +23,8 @@ class CollectionTestCase(TestCase):
         self.assertEqual(pc.url, pc.url_local)
         self.assertEqual(pc.human_extent, u'1.1\xa0G')
         self.assertEqual(pc.name, unicode(pc))
+        pc.save()
+        pc.repository
 
 class CollectionAdminTestCase(TestCase):
     '''Check that the list filter is defined correctly. Will need test

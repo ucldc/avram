@@ -43,6 +43,7 @@ class Collection(models.Model):
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
     collection_type = models.CharField(max_length=1, choices=(('A', 'Archival'), ('C', 'Curated')))
     campus = models.ManyToManyField(Campus)	# why not a multi-campus collection?
+    repository = models.ManyToManyField('Repository', null=True, blank=True)
     description = models.TextField(blank=True)
     url_local = models.URLField(max_length=255,blank=True)
     url_oac = models.URLField(max_length=255,blank=True)
