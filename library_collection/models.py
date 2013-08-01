@@ -73,3 +73,8 @@ class Collection(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
+
+class Repository(models.Model):
+    '''Representation of a holding "repository" for UCLDC'''
+    name = models.CharField(max_length=255)
+    campus = models.ManyToManyField(Campus, null=True, blank=True)

@@ -65,3 +65,16 @@ class CollectionAdminTestCase(TestCase):
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'PC-1')
         self.assertNotContains(response, 'PC-2')
+
+
+class RepositoryTestCase(TestCase):
+    '''Test the base repository model'''
+    #No point until some non-standard Django behavior needed
+    def testRepositoryModelExists(self):
+        r = Repository()
+        r.name = "test repo"
+        r.save()
+
+class RepositoryAdminTestCase(TestCase):
+    '''Test the admin for repository'''
+    pass
