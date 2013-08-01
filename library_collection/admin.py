@@ -77,6 +77,7 @@ class CampusAdmin(admin.ModelAdmin):
 
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
+admin.site.register(Repository)
 admin.site.register(Status)
 admin.site.register(Restriction)
 #admin.site.register(Need)

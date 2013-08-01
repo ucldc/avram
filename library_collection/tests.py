@@ -46,7 +46,6 @@ class CollectionAdminTestCase(TestCase):
     def testURLFieldsListFilter(self):
         '''Test that the URL fields filter works'''
         #setup some datas, use fixtures once fixtures in place
-        return
         # https://code.djangoproject.com/ticket/13394
         # https://groups.google.com/d/msg/django-users/VpPrGVPS0aw/SwE8X51Q8jYJ
         url_admin = '/admin/library_collection/collection/'
@@ -77,4 +76,22 @@ class RepositoryTestCase(TestCase):
 
 class RepositoryAdminTestCase(TestCase):
     '''Test the admin for repository'''
-    pass
+    def setUp(self):
+        r = Repository()
+        r.name = 'TEST REPO'
+        r.save()
+        u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
+        u.is_superuser = True
+        u.is_active = True
+        u.is_staff = True #needs to be staff to access admin
+        u.save()
+
+    def testRepoInAdmin(self):
+        url_admin = '/admin/library_collection/repository/'
+        response = self.client.get(url_admin)
+        self.assertContains(response, 'Password')
+        ret = self.client.login(username='test', password='fake')
+        self.failUnless(ret)
+        response = self.client.get(url_admin)
+        self.assertNotContains(response, 'Password')
+        self.assertContains(response, 'TEST REPO')
