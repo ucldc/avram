@@ -26,7 +26,9 @@ python manage.py collectstatic
 ## Test:
 The remoteuser shibboleth login won't work when testing. Use the collection_registry.test_settings module for testing, it adds the typical Django authentication module to the AUTHENTICATION_BACKENDS list.
 
+```
 python manage.py test --settings=collection_registry.test_settings  library_collection
+```
 
 
 License
