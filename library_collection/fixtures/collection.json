@@ -1,7 +1,7 @@
 [
 {
   "pk": 1, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -27,7 +27,7 @@
 },
 {
   "pk": 2, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 3, 
     "url_local": "", 
@@ -53,7 +53,7 @@
 },
 {
   "pk": 3, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -79,7 +79,7 @@
 },
 {
   "pk": 4, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -105,7 +105,7 @@
 },
 {
   "pk": 5, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 3, 
     "url_local": "", 
@@ -131,7 +131,7 @@
 },
 {
   "pk": 6, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -157,7 +157,7 @@
 },
 {
   "pk": 7, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
@@ -183,7 +183,7 @@
 },
 {
   "pk": 8, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
@@ -209,7 +209,7 @@
 },
 {
   "pk": 9, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
@@ -235,7 +235,7 @@
 },
 {
   "pk": 10, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://digital.lib.ucdavis.edu/projects/bwrp/", 
@@ -261,7 +261,7 @@
 },
 {
   "pk": 11, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://archive.org/search.php?query=collection%3A%22caminesgeo%22", 
@@ -287,7 +287,7 @@
 },
 {
   "pk": 12, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://archive.org/search.php?query=collection%3A%22cawaterres%22", 
@@ -313,7 +313,7 @@
 },
 {
   "pk": 13, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://archive.org/details/californiaagriculturalexperimentstationpublications", 
@@ -339,7 +339,7 @@
 },
 {
   "pk": 14, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -365,7 +365,7 @@
 },
 {
   "pk": 15, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -391,7 +391,7 @@
 },
 {
   "pk": 16, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 3, 
     "url_local": "", 
@@ -417,7 +417,7 @@
 },
 {
   "pk": 17, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -443,7 +443,7 @@
 },
 {
   "pk": 18, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 3, 
     "url_local": "", 
@@ -469,7 +469,7 @@
 },
 {
   "pk": 19, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -495,7 +495,7 @@
 },
 {
   "pk": 20, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -521,7 +521,7 @@
 },
 {
   "pk": 21, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -547,7 +547,7 @@
 },
 {
   "pk": 22, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://library.artstor.org/library/welcome.html#3|search|6|All20Collections3A20cancian|Filtered20Search|||type3D3626kw3Dcancian26geoIds3D26clsIds3D26id3Dall26bDate3D26eDate3D26dExact3D3126prGeoId3D", 
@@ -573,7 +573,7 @@
 },
 {
   "pk": 23, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -599,7 +599,7 @@
 },
 {
   "pk": 24, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -625,7 +625,7 @@
 },
 {
   "pk": 25, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -651,7 +651,7 @@
 },
 {
   "pk": 26, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -677,7 +677,7 @@
 },
 {
   "pk": 27, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucispace.lib.uci.edu/handle/10575/1593", 
@@ -703,7 +703,7 @@
 },
 {
   "pk": 28, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucispace.lib.uci.edu/handle/10575/1060", 
@@ -729,7 +729,7 @@
 },
 {
   "pk": 29, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucispace.lib.uci.edu/handle/10575/1076", 
@@ -755,7 +755,7 @@
 },
 {
   "pk": 30, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucispace.lib.uci.edu/handle/10575/1090", 
@@ -781,7 +781,7 @@
 },
 {
   "pk": 31, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucispace.lib.uci.edu/handle/10575/1656", 
@@ -807,7 +807,7 @@
 },
 {
   "pk": 32, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucispace.lib.uci.edu/handle/10575/7", 
@@ -833,7 +833,7 @@
 },
 {
   "pk": 33, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://webarchives.cdlib.org/a/ocgovinfo", 
@@ -859,7 +859,7 @@
 },
 {
   "pk": 34, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://webarchives.cdlib.org/a/salvador", 
@@ -885,7 +885,7 @@
 },
 {
   "pk": 35, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -911,7 +911,7 @@
 },
 {
   "pk": 36, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -937,7 +937,7 @@
 },
 {
   "pk": 37, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.lib.uci.edu/quest/", 
@@ -963,7 +963,7 @@
 },
 {
   "pk": 38, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -989,7 +989,7 @@
 },
 {
   "pk": 39, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://data.lib.uci.edu/ocs/", 
@@ -1015,7 +1015,7 @@
 },
 {
   "pk": 40, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 3, 
     "url_local": "", 
@@ -1041,7 +1041,7 @@
 },
 {
   "pk": 41, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -1067,7 +1067,7 @@
 },
 {
   "pk": 42, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://seaadoc.lib.uci.edu/", 
@@ -1093,7 +1093,7 @@
 },
 {
   "pk": 43, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.lib.uci.edu/ucihistory/", 
@@ -1119,7 +1119,7 @@
 },
 {
   "pk": 44, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt996nd0d0/", 
@@ -1145,7 +1145,7 @@
 },
 {
   "pk": 45, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2f59q35j/", 
@@ -1171,7 +1171,7 @@
 },
 {
   "pk": 46, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://pacpoll.lib.uci.edu/", 
@@ -1197,7 +1197,7 @@
 },
 {
   "pk": 47, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://data.lib.uci.edu/wvsv/", 
@@ -1223,7 +1223,7 @@
 },
 {
   "pk": 48, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt4p3021fr/", 
@@ -1249,7 +1249,7 @@
 },
 {
   "pk": 49, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt85801594/", 
@@ -1275,7 +1275,7 @@
 },
 {
   "pk": 50, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6dt/", 
@@ -1301,7 +1301,7 @@
 },
 {
   "pk": 51, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6s2013d1/", 
@@ -1327,7 +1327,7 @@
 },
 {
   "pk": 52, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt8z09p8pd/", 
@@ -1353,7 +1353,7 @@
 },
 {
   "pk": 53, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5s2013bp/", 
@@ -1379,7 +1379,7 @@
 },
 {
   "pk": 54, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt467nc6pc/", 
@@ -1405,7 +1405,7 @@
 },
 {
   "pk": 55, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7j49q6qg/", 
@@ -1431,7 +1431,7 @@
 },
 {
   "pk": 56, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6fb/", 
@@ -1457,7 +1457,7 @@
 },
 {
   "pk": 57, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/tf8f59p1tg/", 
@@ -1483,7 +1483,7 @@
 },
 {
   "pk": 58, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19p6sq/", 
@@ -1509,7 +1509,7 @@
 },
 {
   "pk": 59, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/tf9k4009f8/", 
@@ -1535,7 +1535,7 @@
 },
 {
   "pk": 60, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt196nc419/", 
@@ -1561,7 +1561,7 @@
 },
 {
   "pk": 61, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1m3nb7nk/", 
@@ -1587,7 +1587,7 @@
 },
 {
   "pk": 62, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/tf967nb619/", 
@@ -1613,7 +1613,7 @@
 },
 {
   "pk": 63, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -1639,7 +1639,7 @@
 },
 {
   "pk": 64, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -1665,7 +1665,7 @@
 },
 {
   "pk": 65, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -1691,7 +1691,7 @@
 },
 {
   "pk": 66, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -1717,7 +1717,7 @@
 },
 {
   "pk": 67, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -1743,7 +1743,7 @@
 },
 {
   "pk": 68, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -1769,7 +1769,7 @@
 },
 {
   "pk": 69, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -1795,7 +1795,7 @@
 },
 {
   "pk": 70, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://ucmercedlibrary.info/on-display/special-collections/chinese-seals", 
@@ -1821,7 +1821,7 @@
 },
 {
   "pk": 71, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -1847,7 +1847,7 @@
 },
 {
   "pk": 72, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -1873,7 +1873,7 @@
 },
 {
   "pk": 73, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://escholarship.org/uc/item/2x96d3sn", 
@@ -1899,7 +1899,7 @@
 },
 {
   "pk": 74, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://escholarship.org/uc/search?entity=ucmercedlibrary_jca", 
@@ -1925,7 +1925,7 @@
 },
 {
   "pk": 75, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://escholarship.org/uc/search?entity=ucmercedlibrary_jcgba", 
@@ -1951,7 +1951,7 @@
 },
 {
   "pk": 76, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://content.cdlib.org/ark:/13030/kt9h4nf6h6/", 
@@ -1977,7 +1977,7 @@
 },
 {
   "pk": 77, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2003,7 +2003,7 @@
 },
 {
   "pk": 78, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157623308538614/", 
@@ -2029,7 +2029,7 @@
 },
 {
   "pk": 79, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -2055,7 +2055,7 @@
 },
 {
   "pk": 80, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157627672095642/", 
@@ -2081,7 +2081,7 @@
 },
 {
   "pk": 81, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2107,7 +2107,7 @@
 },
 {
   "pk": 82, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2133,7 +2133,7 @@
 },
 {
   "pk": 83, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2159,7 +2159,7 @@
 },
 {
   "pk": 84, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -2185,7 +2185,7 @@
 },
 {
   "pk": 85, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2211,7 +2211,7 @@
 },
 {
   "pk": 86, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157623547417199/", 
@@ -2237,7 +2237,7 @@
 },
 {
   "pk": 87, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157624695915567/", 
@@ -2263,7 +2263,7 @@
 },
 {
   "pk": 88, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2289,7 +2289,7 @@
 },
 {
   "pk": 89, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://websites.lib.ucr.edu/agnic/webber/", 
@@ -2315,7 +2315,7 @@
 },
 {
   "pk": 90, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://websites.lib.ucr.edu/agnic/butterfield/butterfield.pdf", 
@@ -2341,7 +2341,7 @@
 },
 {
   "pk": 91, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://websites.lib.ucr.edu/agnic/condit.pdf", 
@@ -2367,7 +2367,7 @@
 },
 {
   "pk": 92, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://cdm16353.contentdm.oclc.org/cdm/landingpage/collection/p15226dc", 
@@ -2393,7 +2393,7 @@
 },
 {
   "pk": 93, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://slr.ucr.edu/", 
@@ -2419,7 +2419,7 @@
 },
 {
   "pk": 94, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://library.ucr.edu/?l=news&article=466", 
@@ -2445,7 +2445,7 @@
 },
 {
   "pk": 95, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/tf3h4nb0ks/dsc/#c02-1.8.6.4.10", 
@@ -2471,7 +2471,7 @@
 },
 {
   "pk": 96, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2497,7 +2497,7 @@
 },
 {
   "pk": 97, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://escholarship.org/uc/ucr", 
@@ -2523,7 +2523,7 @@
 },
 {
   "pk": 98, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://library.ucr.edu/?view=collections/spcol/travensite/index.html", 
@@ -2549,7 +2549,7 @@
 },
 {
   "pk": 99, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://library.ucr.edu/?view=collections/spcol/ces/cesexhibit.html", 
@@ -2575,7 +2575,7 @@
 },
 {
   "pk": 100, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2601,7 +2601,7 @@
 },
 {
   "pk": 101, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://escholarship.org/uc/wrca", 
@@ -2627,7 +2627,7 @@
 },
 {
   "pk": 102, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://webarchives.cdlib.org/a/CAWaterDistricts", 
@@ -2653,7 +2653,7 @@
 },
 {
   "pk": 103, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://webarchives.cdlib.org/a/SacSJDelta", 
@@ -2679,7 +2679,7 @@
 },
 {
   "pk": 104, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "https://digital.library.ucsf.edu/", 
@@ -2705,7 +2705,7 @@
 },
 {
   "pk": 105, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "https://digital.library.ucsf.edu/", 
@@ -2731,7 +2731,7 @@
 },
 {
   "pk": 106, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://www.library.ucsf.edu/collections/homeopathy", 
@@ -2757,7 +2757,7 @@
 },
 {
   "pk": 107, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://synapse.library.ucsf.edu/", 
@@ -2783,7 +2783,7 @@
 },
 {
   "pk": 108, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://asian.library.ucsf.edu/", 
@@ -2809,7 +2809,7 @@
 },
 {
   "pk": 109, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2835,7 +2835,7 @@
 },
 {
   "pk": 110, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2861,7 +2861,7 @@
 },
 {
   "pk": 111, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "Digital.library.ucsb.edu", 
@@ -2887,7 +2887,7 @@
 },
 {
   "pk": 112, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "victor.library.ucsb.edu", 
@@ -2913,7 +2913,7 @@
 },
 {
   "pk": 113, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "cylinders.library.ucsb.edu", 
@@ -2939,7 +2939,7 @@
 },
 {
   "pk": 114, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -2965,7 +2965,7 @@
 },
 {
   "pk": 115, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -2991,7 +2991,7 @@
 },
 {
   "pk": 116, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -3017,7 +3017,7 @@
 },
 {
   "pk": 117, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -3043,7 +3043,7 @@
 },
 {
   "pk": 118, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://cemaweb.library.ucsb.edu/ETCList.html", 
@@ -3069,7 +3069,7 @@
 },
 {
   "pk": 119, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://archive.org/details/californialightandsound", 
@@ -3095,7 +3095,7 @@
 },
 {
   "pk": 120, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "", 
@@ -3121,7 +3121,7 @@
 },
 {
   "pk": 121, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "", 
@@ -3147,7 +3147,7 @@
 },
 {
   "pk": 122, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://www.library.ucsb.edu/mil/aerial-photography-tools", 
@@ -3173,7 +3173,7 @@
 },
 {
   "pk": 123, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu/", 
@@ -3199,7 +3199,7 @@
 },
 {
   "pk": 124, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu/", 
@@ -3225,7 +3225,7 @@
 },
 {
   "pk": 125, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3251,7 +3251,7 @@
 },
 {
   "pk": 126, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3277,7 +3277,7 @@
 },
 {
   "pk": 127, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3303,7 +3303,7 @@
 },
 {
   "pk": 128, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://www.gdao.org", 
@@ -3329,7 +3329,7 @@
 },
 {
   "pk": 129, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://www.gdao.org", 
@@ -3355,7 +3355,7 @@
 },
 {
   "pk": 130, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3381,7 +3381,7 @@
 },
 {
   "pk": 131, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3407,7 +3407,7 @@
 },
 {
   "pk": 132, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3433,7 +3433,7 @@
 },
 {
   "pk": 133, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3459,7 +3459,7 @@
 },
 {
   "pk": 134, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3485,7 +3485,7 @@
 },
 {
   "pk": 135, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "http://digitalcollections.ucsc.edu", 
@@ -3511,7 +3511,7 @@
 },
 {
   "pk": 136, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "artstor.org", 
@@ -3537,7 +3537,7 @@
 },
 {
   "pk": 137, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
     "url_local": "artstor.org", 
@@ -3563,7 +3563,7 @@
 },
 {
   "pk": 138, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/collections/earthquakeandfire/", 
@@ -3589,7 +3589,7 @@
 },
 {
   "pk": 139, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/collections/casedphotos/project.html", 
@@ -3615,7 +3615,7 @@
 },
 {
   "pk": 140, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/collections/drilm.html", 
@@ -3641,7 +3641,7 @@
 },
 {
   "pk": 141, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/collections/honeyman.html", 
@@ -3667,7 +3667,7 @@
 },
 {
   "pk": 142, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/CalHistory/", 
@@ -3693,7 +3693,7 @@
 },
 {
   "pk": 143, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/collections/chineseinca/", 
@@ -3719,7 +3719,7 @@
 },
 {
   "pk": 144, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://sunsite.berkeley.edu/uchistory/", 
@@ -3745,7 +3745,7 @@
 },
 {
   "pk": 145, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://bancroft.berkeley.edu/collections/loyaltyoath/", 
@@ -3771,7 +3771,7 @@
 },
 {
   "pk": 146, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://ucblibrary4.berkeley.edu:8088/xtf/servlet/org.cdlib.xtf.crossQuery.CrossQuery?rmode=btr", 
@@ -3797,7 +3797,7 @@
 },
 {
   "pk": 147, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://www.stat.berkeley.edu/tech-reports/", 
@@ -3823,7 +3823,7 @@
 },
 {
   "pk": 148, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://www.lib.berkeley.edu/ANTH/anthrohub/", 
@@ -3849,7 +3849,7 @@
 },
 {
   "pk": 149, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://projecteuclid.org/", 
@@ -3875,7 +3875,7 @@
 },
 {
   "pk": 150, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://www.lib.berkeley.edu/BIOS/vtm/", 
@@ -3901,7 +3901,7 @@
 },
 {
   "pk": 151, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://archive.org/search.php?query=collection%3A%22cawaterres%22", 
@@ -3927,7 +3927,7 @@
 },
 {
   "pk": 152, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0015w23z", 
@@ -3953,7 +3953,7 @@
 },
 {
   "pk": 153, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0002np7z", 
@@ -3979,7 +3979,7 @@
 },
 {
   "pk": 154, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00294nz8", 
@@ -4005,7 +4005,7 @@
 },
 {
   "pk": 155, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0008b9tw", 
@@ -4031,7 +4031,7 @@
 },
 {
   "pk": 156, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00253vz2", 
@@ -4057,7 +4057,7 @@
 },
 {
   "pk": 157, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do;?ark=21198/zz0002ksb2", 
@@ -4083,7 +4083,7 @@
 },
 {
   "pk": 158, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz001dzc12", 
@@ -4109,7 +4109,7 @@
 },
 {
   "pk": 159, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00000bv3", 
@@ -4135,7 +4135,7 @@
 },
 {
   "pk": 160, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0028tr8x", 
@@ -4161,7 +4161,7 @@
 },
 {
   "pk": 161, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00095z2v", 
@@ -4187,7 +4187,7 @@
 },
 {
   "pk": 162, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://animation.library.ucla.edu/", 
@@ -4213,7 +4213,7 @@
 },
 {
   "pk": 163, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu", 
@@ -4239,7 +4239,7 @@
 },
 {
   "pk": 164, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://oralhistory.library.ucla.edu", 
@@ -4265,7 +4265,7 @@
 },
 {
   "pk": 165, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4291,7 +4291,7 @@
 },
 {
   "pk": 166, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital2.library.ucla.edu/viewItem.do;?ark=21198/zz00089bvf", 
@@ -4317,7 +4317,7 @@
 },
 {
   "pk": 167, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://archive.org", 
@@ -4343,7 +4343,7 @@
 },
 {
   "pk": 168, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://songgis.ucmercedlibrary.info/", 
@@ -4369,7 +4369,7 @@
 },
 {
   "pk": 169, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4395,7 +4395,7 @@
 },
 {
   "pk": 170, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4421,7 +4421,7 @@
 },
 {
   "pk": 171, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4447,7 +4447,7 @@
 },
 {
   "pk": 172, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4473,7 +4473,7 @@
 },
 {
   "pk": 173, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4499,7 +4499,7 @@
 },
 {
   "pk": 174, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4525,7 +4525,7 @@
 },
 {
   "pk": 175, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4551,7 +4551,7 @@
 },
 {
   "pk": 176, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4577,7 +4577,7 @@
 },
 {
   "pk": 177, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4603,7 +4603,7 @@
 },
 {
   "pk": 178, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4629,7 +4629,7 @@
 },
 {
   "pk": 179, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4655,7 +4655,7 @@
 },
 {
   "pk": 180, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4681,7 +4681,7 @@
 },
 {
   "pk": 181, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4707,7 +4707,7 @@
 },
 {
   "pk": 182, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4733,7 +4733,7 @@
 },
 {
   "pk": 183, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4759,7 +4759,7 @@
 },
 {
   "pk": 184, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4785,7 +4785,7 @@
 },
 {
   "pk": 185, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4811,7 +4811,7 @@
 },
 {
   "pk": 186, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "", 
@@ -4837,7 +4837,7 @@
 },
 {
   "pk": 187, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "https://digital.library.ucsf.edu/", 
@@ -4863,7 +4863,7 @@
 },
 {
   "pk": 188, 
-  "model": "library_collection.provenancialcollection", 
+  "model": "library_collection.collection", 
   "fields": {
     "status": null, 
     "url_local": "http://digital.library.ucsb.edu", 

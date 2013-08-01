@@ -8,4 +8,4 @@ install:
   - "pip install -r requirements.txt --use-mirrors"
 
 # command to run tests
-script: python manage.py test library_collection
+script: python manage.py test --settings=collection_registry.test_settings library_collection
