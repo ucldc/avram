@@ -1,6 +1,6 @@
 # urls.py
 from django.conf.urls import patterns, include, url
-from library_collection.models import ProvenancialCollection, Campus
+from library_collection.models import Collection, Campus
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -15,7 +15,7 @@ from django.conf.urls import patterns, url, include
 admin.autodiscover()
 
 collection_dict = {
-    'queryset': ProvenancialCollection.objects.all(),
+    'queryset': Collection.objects.all(),
 }
 
 campus_dict = {

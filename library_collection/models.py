@@ -33,7 +33,7 @@ class Need(models.Model):
     def __unicode__(self):
         return self.name
 
-class ProvenancialCollection(models.Model):
+class Collection(models.Model):
     DAMNS = 'D'
     OAI = 'O'
     CRAWL = 'C'
@@ -41,7 +41,9 @@ class ProvenancialCollection(models.Model):
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
+    collection_type = models.CharField(max_length=1, choices=(('A', 'Archival'), ('C', 'Curated')))
     campus = models.ManyToManyField(Campus)	# why not a multi-campus collection?
+    repository = models.ManyToManyField('Repository', null=True, blank=True)
     description = models.TextField(blank=True)
     url_local = models.URLField(max_length=255,blank=True)
     url_oac = models.URLField(max_length=255,blank=True)
@@ -73,3 +75,12 @@ class ProvenancialCollection(models.Model):
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
 
+class Repository(models.Model):
+    '''Representation of a holding "repository" for UCLDC'''
+    name = models.CharField(max_length=255)
+    campus = models.ManyToManyField(Campus, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "repositories"
+    def __unicode__(self):
+        return self.name
