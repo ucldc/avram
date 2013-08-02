@@ -1,0 +1,74 @@
+[
+{
+  "pk": 1, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "eScholarship", 
+    "campus": []
+  }
+},
+{
+  "pk": 2, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Calisphere", 
+    "campus": []
+  }
+},
+{
+  "pk": 3, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Internet Archive", 
+    "campus": []
+  }
+},
+{
+  "pk": 4, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Mandeville Special Collections Library", 
+    "campus": [
+      6
+    ]
+  }
+},
+{
+  "pk": 5, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "UCLA Library Digital Collections", 
+    "campus": [
+      10
+    ]
+  }
+},
+{
+  "pk": 6, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Project Euclid", 
+    "campus": []
+  }
+},
+{
+  "pk": 7, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Special Collections and Archives", 
+    "campus": [
+      9
+    ]
+  }
+},
+{
+  "pk": 8, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "UCIspace", 
+    "campus": [
+      3
+    ]
+  }
+}
+]
