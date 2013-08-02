@@ -97,3 +97,29 @@ class RepositoryAdminTestCase(TestCase):
         response = self.client.get(url_admin)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'TEST REPO')
+
+class TastyPieAPITest(TestCase):
+    '''Verify the tastypie RESTful feed'''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    url_api =  '/api/v1/' #how to get from django?
+
+    def testAPIFeed(self):
+        '''Sanity check'''
+        response = self.client.get(self.url_api)
+        self.assertContains(response, 'collection')
+
+    def testDataInApiFeed(self):
+        '''Test that the required data elements appear in the api'''
+        url_collection = self.url_api + 'collection/?limit=200'
+        response = self.client.get(url_collection)
+        self.assertContains(response, 'collection')
+        self.assertContains(response, 'campus')
+        self.assertContains(response, 'repository')
+        self.assertContains(response, 'url_oai')
+        self.assertContains(response, 'appendix')
+        #now check some specific instance data?
+        self.assertContains(response, 'UCD')
+        self.assertContains(response, 'eScholarship')
+        self.assertContains(response, 'Internet Archive')
+        self.assertContains(response, 'Bulletin of Calif. division of Mines and Geology')
+
