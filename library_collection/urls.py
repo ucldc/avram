@@ -4,10 +4,12 @@ from library_collection.feeds import AllFeed
 from tastypie.api import Api
 from library_collection.api import CollectionResource
 from library_collection.api import CampusResource
+from library_collection.api import RepositoryResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(CollectionResource())
 v1_api.register(CampusResource())
+v1_api.register(RepositoryResource())
 
 urlpatterns = patterns('',
     # Examples:

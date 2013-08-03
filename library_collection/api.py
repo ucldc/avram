@@ -2,7 +2,7 @@ from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
-from library_collection.models import Collection, Campus
+from library_collection.models import Collection, Campus, Repository
 
 class CampusResource(ModelResource):
     class Meta:
@@ -11,8 +11,16 @@ class CampusResource(ModelResource):
         authorization = ReadOnlyAuthorization()
         excludes = ['id']
 
+class RepositoryResource(ModelResource):
+    class Meta:
+        queryset = Repository.objects.all()
+        authentication = Authentication()
+        authorization = ReadOnlyAuthorization()
+        excludes = ['id']
+
 class CollectionResource(ModelResource):
     campus = fields.ToManyField(CampusResource, 'campus', full=True)
+    repository = fields.ToManyField(RepositoryResource, 'repository', full=True)
     appendix = fields.CharField(attribute='get_appendix_display')
 
     class Meta:
