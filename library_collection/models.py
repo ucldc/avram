@@ -83,4 +83,4 @@ class Repository(models.Model):
     class Meta:
         verbose_name_plural = "repositories"
     def __unicode__(self):
-        return self.name
+        return u"{0} {1}".format(self.campus.all()[0].slug, self.name)
