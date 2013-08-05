@@ -113,12 +113,12 @@ class TastyPieAPITest(TestCase):
         url_collection = self.url_api + 'collection/?limit=200&format=json'
         response = self.client.get(url_collection)
         self.assertContains(response, '"collection_type":', count=188)
-        self.assertContains(response, '"campus":', count=188)
+        self.assertContains(response, '"campus":', count=201)
         self.assertContains(response, '"repository":', count=188)
         self.assertContains(response, '"url_oai":', count=188)
         self.assertContains(response, 'appendix":', count=188)
         #now check some specific instance data?
-        self.assertContains(response, '"name":', count=389)
+        self.assertContains(response, '"name":', count=395)
         self.assertContains(response, 'UCD')
         self.assertContains(response, 'eScholarship')
         self.assertContains(response, 'Internet Archive')
