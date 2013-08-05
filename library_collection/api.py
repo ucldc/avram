@@ -12,6 +12,7 @@ class CampusResource(ModelResource):
         excludes = ['id']
 
 class RepositoryResource(ModelResource):
+    campus = fields.ToManyField(CampusResource, 'campus', full=True)
     class Meta:
         queryset = Repository.objects.all()
         authentication = Authentication()
