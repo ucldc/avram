@@ -62,8 +62,11 @@ class CollectionAdmin(admin.ModelAdmin):
     def campuses(self):
         return ", " . join([x.__str__() for x in self.campus.all()])
     campuses.short_description = "Campus"
+    def repositories(self):
+        return ", " . join([x.__str__() for x in self.repository.all()])
+    repositories.short_description = "Repository"
 
-    list_display = ( 'name', campuses, 'human_extent', 'appendix', 'phase_one',)
+    list_display = ( 'name', campuses, repositories, 'human_extent', 'appendix', 'phase_one',)
     list_editable = ('appendix', 'phase_one')
     list_filter = [ 'campus', 'need_for_dams', 'appendix', URLFieldsListFilter]
     search_fields = ['name','description']
