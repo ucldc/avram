@@ -46,6 +46,68 @@
 
 {% endblock %}
 
+{% block content %}
+<div class="container-fluid">
+  <div class="row span12">
+    <div class="row">
+    <h2 class="pull-left">Affiliation</h2>
+    </div>
+    <div class="well">
+        <div>
+	<span class="label">Campus</span>
+	  {% for campus in collection.campus.all %}
+		<span>{{ campus.name }}</span>
+          {% endfor %}
+        </div>
+        <div>
+	<span class="label">Repository</span>
+	  {% for repository in collection.repository.all %}
+		<span>{{ repository.name }}</span>
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+  <div class="row span12">
+    <div class="row">
+    <h2 class="pull-left">Description</h2>
+    </div>
+    <div class="well">
+        <div>
+	<span class="label">Type</span>
+	  <span>{{ collection.get_collection_type_display }}</span>
+        </div>
+	{% if collection.url_local or collection.url_oac %}
+        <div>
+        <h3>Primary Descriptive Record</h3>
+	  {% if collection.url_local %}
+	  <div>
+	  <span class="label">Canonical</span>
+		<span>{{ collection.url_local }}</span>
+	  </div>
+	  {% endif %}
+	  {% if collection.url_oac %}
+	  <div>
+	  <span class="label">Finding Aid</span>
+		<span>{{ collection.url_oac }}</span>
+	  </div>
+	  {% endif %}
+        </div>
+        {% endif %}
+    </div>
+  </div>
+  <div class="row span12">
+    <div class="row">
+    <h2 class="pull-left">Source</h2>
+    </div>
+    <div class="well">
+        <div>
+	<span class="label">Collection Data Source</span>
+	  <span>{{ collection.get_appendix_display }}</span>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
 
   </body>
 </html>

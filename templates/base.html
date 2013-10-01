@@ -20,8 +20,7 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
 
-
-{% block hero %}
+{% block header_top %}
     <div class="container-fluid">
     <div class="row" >
       <div class="span9" >
@@ -37,6 +36,9 @@
        </div>
     </div>
     </div>
+{% endblock header_top %}
+
+{% block hero %}
     <div class="hero-unit row">
      {% block hero-content %}<h1>University of California Libraries <small>Digital Collection</small></h1>{% endblock %}
     </div>
