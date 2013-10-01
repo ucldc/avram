@@ -1,7 +1,7 @@
 # views.py
 
 from django.shortcuts import render_to_response
-from library_collection.models import Collection, Campus
+from library_collection.models import Collection, Campus, Repository
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
 from django.db.models import Sum
@@ -19,6 +19,7 @@ def home(request):
             'collections': collections, 
             'extent': extent, 
             'campuses': campuses, 
+	    'active_tab': active_tab(request),
         }
     )
 
@@ -40,6 +41,31 @@ def details_by_id(request, colid):
     collection = get_object_or_404(Collection, pk=colid)
     return redirect(collection, permanent=True)
 
+def active_tab(request):
+    '''Return a key for the active tab, by parsing the request.path
+    Currently one of "collection" or "repository"'''
+    tab = 'collection'
+    if "repositor" in request.path:
+        tab = 'repositories'
+    return tab
+
+def repositories(request, campus=None):
+    '''View of repositories, for whole collection or just single campus'''
+    if campus:
+        campus = get_object_or_404(Campus, slug=campus)
+        repositories = Repository.objects.filter(campus=campus)
+    else:
+        repositories = Repository.objects.all()
+    return render_to_response(
+	'library_collection/repository_list.html', {
+	'campus': campus,
+	'repositories': repositories,
+        'campuses': campuses, 
+	'active_tab': active_tab(request),
+        }
+    )
+	
+
 #view for a UC campus
 def UC(request, urlstuff):
     campus = get_object_or_404(Campus, slug=urlstuff)
@@ -51,6 +77,7 @@ def UC(request, urlstuff):
             'collections': collections, 
             'extent': extent, 
             'campuses': campuses, 
+	    'active_tab': active_tab(request),
         }
     )
 

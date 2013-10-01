@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     #url(r'',),
     url(r'^api/', include(v1_api.urls)),
     # Status/Format/Restriction/Need
+    url(r'^repositories/$', 'library_collection.views.repositories', name='repos'),
+    url(r'^(?P<campus>UC\w*)/repositories/$', 'library_collection.views.repositories', name='repos'),
     url(r'^(UC.*)/$', 'library_collection.views.UC', name='UC'),
     #url(r'^(UC.*)/(Status)/(.*)$', 'library_collection.views.UClimit', name='UClimit'),
     #url(r'^(UC.*)/(Format)/(.*)$', 'library_collection.views.UClimit', name='UClimit'),
