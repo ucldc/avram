@@ -19,37 +19,24 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
-{% block navbar %}
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <!-- Be sure to leave the brand out there if you want it shown -->
-      <a class="brand" href="{% url "library_collection.views.home" %}">Digital Collection</a>
-      <!-- Everything you want hidden at 940px or less, place within here -->
-      <div class="nav-collapse">
-        <!-- .nav, .navbar-search, .navbar-form, etc -->
-        <ul class="nav">
-          {% for campus in campuses %}
-          <li><a href="{% url "library_collection.views.UC" campus.slug %}">{{ campus.slug }}</a></li>
-          {% endfor %}
-        </ul>
-        <ul class="nav pull-right">
-          <li><a href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">About</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
 
 
 {% block hero %}
+    <div class="container-fluid">
+    <div class="row" >
+      <div class="span9" >
+        <a href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">
+	<h3>UC Libraries Digital Collection</h3>
+	</a>
+      </div>
+      <div class="span3">
+        <span class="pull-right"> 
+          <a class="span1 pull-left" href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation" title="This is the collection registry for the UCLDC. From here you can view and edit the collections contained in the UCLDC.">About</a>
+        <a href="/admin" class="btn" title="Login to edit collections or repositories">Login</a>
+        </span>
+       </div>
+    </div>
+    </div>
     <div class="hero-unit row">
      {% block hero-content %}<h1>University of California Libraries <small>Digital Collection</small></h1>{% endblock %}
     </div>
@@ -65,15 +52,48 @@
     </div>
   </div>
   {% if collections %}
-    <ul class="thumbnails">
+  <div class="row">
+    <div class="span10">
+      <table class="table table-striped">
+	<tbody>
       {% for collection in collections %}
-          <li class="span3">
-            <div class="thumbnail">
+          <tr>
+	    <td>
               <a href="{% url 'library_collection.views.details' collection.id collection.slug %}">{{ collection.name }}</a>
-            </div>
-          </li>
+	    </td>
+          </tr>
       {% endfor %}
-      </ul>
+	</tbody>
+      </table>
+    </div>
+    <div class="span2">
+{% block navbar %}
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <!-- Be sure to leave the brand out there if you want it shown -->
+      <a class="brand" href="{% url "library_collection.views.home" %}">Digital Collection</a>
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse">
+        <!-- .nav, .navbar-search, .navbar-form, etc -->
+        <ul class="nav nav-stacked">
+          {% for campus in campuses %}
+          <li class="span2"><a href="{% url "library_collection.views.UC" campus.slug %}">{{ campus.slug }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+    </div>
+  </div>
   {% endif %}
 {% endblock %}
 
