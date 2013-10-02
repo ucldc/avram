@@ -72,7 +72,7 @@ def UC(request, urlstuff):
     extent = bytes2human( Collection.objects.filter(campus__slug__exact=urlstuff).aggregate(Sum('extent'))['extent__sum'] or 0)
     collections = Collection.objects.filter(campus__slug__exact=urlstuff).order_by('name')
     return render_to_response(
-        'library_collection/campus.html', {
+        'base.html', {
             'campus': campus, 
             'collections': collections, 
             'extent': extent, 

@@ -1,18 +1,6 @@
-{% extends "library_collection/campus.html" %}
+{% extends "base.html" %}
 
-{% block hero %}
-    <div class="hero-unit row">
-  {% if campus %}
-    	<div class="pull-right">University of California Libraries</div>
-	<h1>{{ campus.name }}
-  {% else %}
-	<h1>University of California Libraries
-  {% endif %}
-	<small>Repositories</small></h1>
-    </div>
-{% endblock %}
-
-  {% block content-inner %}
+{% block content-inner %}
   <div class="row">
     <div class="span10">
       <table class="table table-bordered table-striped">
@@ -45,8 +33,9 @@
       <div class="nav-collapse">
         <!-- .nav, .navbar-search, .navbar-form, etc -->
         <ul class="nav nav-stacked">
-          {% for campus in campuses %}
-          <li class="span2"><a href="{% url "library_collection.views.repositories" campus.slug %}">{{ campus.slug }}</a></li>
+          {% for campus_iter in campuses %}
+          <li class="span1 {% if campus_iter == campus %}active{% endif %}">
+          <a href="{% url "library_collection.views.repositories" campus_iter.slug %}">{{ campus_iter.slug }}</a></li>
           {% endfor %}
         </ul>
       </div>

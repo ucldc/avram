@@ -39,8 +39,9 @@
 {% endblock header_top %}
 
 {% block hero %}
-    <div class="hero-unit row">
-     {% block hero-content %}<h1>University of California Libraries <small>Digital Collection</small></h1>{% endblock %}
+    <div class="row span12">
+     {% block hero-content %}<h2>Collection Registry</h2>{% endblock %}
+    <hr></hr>
     </div>
 {% endblock %}
 
@@ -54,7 +55,7 @@
     </div>
   </div>
   {% block nav-tabs %}
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs span12" style="margin-left: 0px;">
     <li {% if active_tab == 'collection' %}class="active"{%endif%}>
 	<a href="/{%if campus %}{{campus.slug}}/{%endif%}">Collections</a>
     </li>
@@ -97,8 +98,9 @@
           <div class="nav-collapse">
             <!-- .nav, .navbar-search, .navbar-form, etc -->
             <ul class="nav nav-stacked">
-              {% for campus in campuses %}
-              <li class="span2"><a href="{% url "library_collection.views.UC" campus.slug %}">{{ campus.slug }}</a></li>
+              {% for campus_iter in campuses %}
+              <li class="span1 {% if campus_iter == campus %}active{% endif %}">
+		<a href="{% url "library_collection.views.UC" campus_iter.slug %}">{{ campus_iter.slug }}</a></li>
               {% endfor %}
             </ul>
           </div>
