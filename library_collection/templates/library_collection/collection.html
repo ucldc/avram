@@ -9,38 +9,6 @@
         {% endfor %}</small>
         </small>
         </h1>
-        <div>{{ collection.description }}</div>
-        {% if collection.extent %}
-        <div>Extent: {{ collection.human_extent }}</div>
-        {% endif %}
-        {% if collection.url %}
-        <a href="{{ collection.url }}">{{ collection.url }}</a>
-        {% endif %}
-
-
-        {% if collection.metadata_level %}
-        <div>Metadata level: {{ collection.metadata_level }}</div>
-        {% endif %}
-        {% if collection.metadata_standard %}
-        <div>Metadata standard: {{ collection.metadata_standard }}</div>
-        {% endif %}
-
-<!-- # Status/Format/Restriction/Need -->
-<!-- status format access_restrictions -->
-
-{% for x in collection.status.all %}
-    <div>Status: {{ x.name }}</div>
-{% endfor %}
-{% for x in collection.format.all %}
-    <div>Format: {{ x.name }}</div>
-{% endfor %}
-{% for x in collection.access_restrictions.all %}
-    <div>Access Restrictions: {{ x.name }}</div>
-{% endfor %}
-{% for x in collection.need_for_dams.all %}
-    <div>Need for DAMS: {{ x.name }}</div>
-{% endfor %}
-
     </div>
 {% endif %}
 
@@ -69,36 +37,12 @@
   </div>
   <div class="row span12">
     <div class="row">
-    <h2 class="pull-left">Description</h2>
-    </div>
-    <div class="well">
-        <h3>Primary Descriptive Record</h3>
-	  <div>
-	  <span class="label">Finding Aid</span>
-		<span>{{ collection.url_oac }}</span>
-	  </div>
-	  <div>
-	  <span class="label">MARC record</span>
-		<span>We need to add this to the collection model</span>
-	  </div>
-	  <div>
-	  <span class="label">Other description</span>
-		<span>{{ collection.url_local }}</span>
-	  </div>
-    </div>
-  </div>
-  <div class="row span12">
-    <div class="row">
     <h2 class="pull-left">Source</h2>
     </div>
     <div class="well">
         <div>
 	<span class="label">Collection Data Source</span>
 	  <span>{{ collection.get_appendix_display }}</span>
-        </div>
-        <div>
-	<span class="label">Harvest URL</span>
-          <span>{{ collection.url_oai }}</span>
         </div>
     </div>
   </div>

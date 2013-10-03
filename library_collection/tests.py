@@ -124,3 +124,42 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, 'Internet Archive')
         self.assertContains(response, 'Bulletin of Calif. division of Mines and Geology')
 
+class PublicViewTestCase(TestCase):
+    '''Test the view for the public'''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+
+    def testRootView(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/index.html')
+        self.assertContains(response, 'collections')
+        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+     
+    def testUCBCollectionView(self):
+        response = self.client.get('/UCB/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertContains(response, 'collections')
+        self.assertNotContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, '/150/wieslander-vegetation-type-maps-photographs-in-192/')
+
+    def testRepositoriesView(self):
+        response = self.client.get('/repositories/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertContains(response, 'Mandeville')
+
+    def testUCBRepositoriesView(self):
+        response = self.client.get('/UCB/repositories/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertNotContains(response, 'Mandeville')
+        self.assertContains(response, 'Bancroft Library')
+
+    def testCollectionPublicView(self):
+        '''Test view of one collection'''
+        response = self.client.get('/2/halberstadt-collection-selections-of-photographs-p/')
+        self.assertContains(response, 'Halberstadt Collection')
+        self.assertContains(response, 'Campus')
+        self.assertContains(response, 'Davis')
+        self.assertNotContains(response, 'Metadata')
+

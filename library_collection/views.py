@@ -43,7 +43,7 @@ def details_by_id(request, colid):
 
 def active_tab(request):
     '''Return a key for the active tab, by parsing the request.path
-    Currently one of "collection" or "repository"'''
+    Currently one of "collection" or "repositories"'''
     tab = 'collection'
     if "repositor" in request.path:
         tab = 'repositories'
