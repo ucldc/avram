@@ -3,12 +3,12 @@
 {% block hero %}
 {% if collection %}
     <div class="hero-unit row">
-        <h1>{{ collection.name }}
+        <h2>{{ collection.name }}
         <small>{% for campus in collection.campus.all %}
-          {{ campus.slug }}
+          {{ campus.name }}
         {% endfor %}</small>
         </small>
-        </h1>
+        </h2>
     </div>
 {% endif %}
 
