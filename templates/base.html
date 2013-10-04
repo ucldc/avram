@@ -35,7 +35,7 @@
           {% if user.is_authenticated %}
           Welcome {{user}}
           {%else%}
-          <a href="/edit{{current_path}}" class="btn" title="Login to edit collections or repositories">Edit</a>
+          <a href="/edit{{current_path}}" title="Login to edit collections or repositories">Edit</a>
           {%endif%}
           </span>
         </span>
