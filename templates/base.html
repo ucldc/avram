@@ -24,8 +24,8 @@
     <div class="container-fluid">
     <div class="row" >
       <div class="span8" >
-        <a href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">
-	<h3>UC Libraries Digital Collection</h3>
+        <a href="{% url 'registry:collections' %}">
+	<h3>UCLDC Collection Registry</h3>
 	</a>
       </div>
       <div class="span5">
@@ -45,21 +45,10 @@
 {% endblock header_top %}
 
 {% block hero %}
-    <div class="row span12">
-        {% block hero-content %}<a href="{% url 'registry:collections' %}"><h2>Collection Registry</h2></a>{% endblock %}
-    <hr></hr>
-    </div>
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      {% if extent and extent != "0.0 B" %}
-      {{ extent }} bytes need DAMS solution
-      {% endif %}
-    </div>
-  </div>
   {% block nav-tabs %}
   <ul class="nav nav-tabs span12" style="margin-left: 0px;">
     <li {% if active_tab == 'collection' %}class="active"{%endif%}>
@@ -129,15 +118,9 @@
 {% endblock %}
 
 <hr/>
-    <div class="row">
+    <div class="row span12">
       <div class="span3"><a href="/api">registry api</a></div>
-      <div class="span3">
-        <a href="http://libraries.universityofcalifornia.edu/ngts/activities-and-groups">NGTS Power of Three Groups (POTs)</a>
-      </div>
-      <div class="span3">
-        <a href="http://ucngts.tumblr.com/">UC Libraries Next-Generation Technical Services Tumblr</a>
-      </div>
-      <div class="span3">
+      <div class="span3 pull-right">
       Copyright © 2013 UC Regents.<br/> All rights reserved.
       </div>
     </div>
