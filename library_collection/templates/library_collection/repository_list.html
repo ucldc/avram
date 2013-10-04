@@ -28,14 +28,14 @@
         <span class="icon-bar"></span>
       </a>
       <!-- Be sure to leave the brand out there if you want it shown -->
-      <a class="brand" href="{% url "library_collection.views.repositories" %}">All</a>
+      <a class="brand" href="{% url "registry:repositories" %}">All</a>
       <!-- Everything you want hidden at 940px or less, place within here -->
       <div class="nav-collapse">
         <!-- .nav, .navbar-search, .navbar-form, etc -->
         <ul class="nav nav-stacked">
           {% for campus_iter in campuses %}
           <li class="span1 {% if campus_iter == campus %}active{% endif %}">
-          <a href="{% url "library_collection.views.repositories" campus_iter.slug %}">{{ campus_iter.slug }}</a></li>
+          <a href="{% url "registry:repositories" campus_slug=campus_iter.slug %}">{{ campus_iter.slug }}</a></li>
           {% endfor %}
         </ul>
       </div>
