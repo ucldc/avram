@@ -11,6 +11,7 @@ campuses = Campus.objects.all().order_by('slug')
 
 # view of collections in list. Currently home page
 def collections(request, campus_slug=None):
+    campus = None
     if campus_slug:
         campus = get_object_or_404(Campus, slug=campus_slug)
         extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
