@@ -103,7 +103,7 @@
             <ul class="nav nav-stacked">
               {% for campus_iter in campuses %}
               <li class="span1 {% if campus_iter == campus %}active{% endif %}">
-		<a href="{% url "registry:collections" campus_slug=campus_iter.slug %}">{{ campus_iter.slug }}</a></li>
+		<a href="{% url "registry:collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a></li>
               {% endfor %}
             </ul>
           </div>
