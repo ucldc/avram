@@ -23,6 +23,7 @@ def collections(request, campus_slug=None):
         dictionary = { 
             'collections': collections, 
             'extent': extent, 
+            'campus': campus,
             'campuses': campuses, 
             'active_tab': active_tab(request),
             'current_path': request.path,
