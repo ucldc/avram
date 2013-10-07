@@ -209,8 +209,9 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertNotContains(response, 'Mandeville')
         self.assertContains(response, 'Bancroft Library')
-        self.assertContains(response, '/edit/UCB')
-        self.assertContains(response, '/edit/')
+        url_edit_base = reverse('registry:collections', current_app=EditViewTestCase.current_app)
+        self.assertContains(response, url_edit_base)
+        self.assertContains(response, url_edit_base+'UCB')
 
     def testCollectionView(self):
         '''Test view of one collection'''
@@ -223,4 +224,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Halberstadt Collection')
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
+        url_edit_base = reverse('registry:collections', current_app=EditViewTestCase.current_app)
+        self.assertContains(response, url_edit_base)
+        self.assertContains(response, url_edit_base+'2/')
         self.assertNotContains(response, 'Metadata')

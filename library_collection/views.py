@@ -44,6 +44,7 @@ def details(request, colid=None, col_slug=None):
             dictionary={ 
                 'collection': collection,
                 'campuses': campuses, 
+                'current_path': request.path,
             },
             current_app = resolve(request.path).namespace,
         )
