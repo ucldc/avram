@@ -70,5 +70,15 @@
       3
     ]
   }
+},
+{
+  "pk": 9, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Bancroft Library", 
+    "campus": [
+      1
+    ]
+  }
 }
 ]
