@@ -3,49 +3,51 @@
 {% block hero %}
 {% if collection %}
     <div class="hero-unit row">
-        <h1>{{ collection.name }}
+        <h2>{{ collection.name }}
         <small>{% for campus in collection.campus.all %}
-          {{ campus.slug }}
+          {{ campus.name }}
         {% endfor %}</small>
         </small>
-        </h1>
-        <div>{{ collection.description }}</div>
-        {% if collection.extent %}
-        <div>Extent: {{ collection.human_extent }}</div>
-        {% endif %}
-        {% if collection.url %}
-        <a href="{{ collection.url }}">{{ collection.url }}</a>
-        {% endif %}
-
-
-        {% if collection.metadata_level %}
-        <div>Metadata level: {{ collection.metadata_level }}</div>
-        {% endif %}
-        {% if collection.metadata_standard %}
-        <div>Metadata standard: {{ collection.metadata_standard }}</div>
-        {% endif %}
-
-<!-- # Status/Format/Restriction/Need -->
-<!-- status format access_restrictions -->
-
-{% for x in collection.status.all %}
-    <div>Status: {{ x.name }}</div>
-{% endfor %}
-{% for x in collection.format.all %}
-    <div>Format: {{ x.name }}</div>
-{% endfor %}
-{% for x in collection.access_restrictions.all %}
-    <div>Access Restrictions: {{ x.name }}</div>
-{% endfor %}
-{% for x in collection.need_for_dams.all %}
-    <div>Need for DAMS: {{ x.name }}</div>
-{% endfor %}
-
+        </h2>
     </div>
 {% endif %}
 
 {% endblock %}
 
+{% block content %}
+<div class="container-fluid">
+  <div class="row span12">
+    <div class="row">
+    <h2 class="pull-left">Affiliation</h2>
+    </div>
+    <div class="well">
+        <div>
+	<span class="label">Campus</span>
+	  {% for campus in collection.campus.all %}
+		<span>{{ campus.name }}</span>
+          {% endfor %}
+        </div>
+        <div>
+	<span class="label">Repository</span>
+	  {% for repository in collection.repository.all %}
+		<span>{{ repository.name }}</span>
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+  <div class="row span12">
+    <div class="row">
+    <h2 class="pull-left">Source</h2>
+    </div>
+    <div class="well">
+        <div>
+	<span class="label">Collection Data Source</span>
+	  <span>{{ collection.get_appendix_display }}</span>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
 
   </body>
 </html>

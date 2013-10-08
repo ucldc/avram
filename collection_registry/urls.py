@@ -31,5 +31,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}, name='sitemap'),
-    url(r'^', include('library_collection.urls')),
+    url(r'^edit/', include('library_collection.urls', app_name='registry', namespace='edit')),
+    url(r'^', include('library_collection.urls', app_name='registry', namespace='registry')),
 )
