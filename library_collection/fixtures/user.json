@@ -1,0 +1,56 @@
+[
+{
+  "pk": 1, 
+  "model": "auth.user", 
+  "fields": {
+    "username": "test_user_super", 
+    "first_name": "", 
+    "last_name": "", 
+    "is_active": true, 
+    "is_superuser": true, 
+    "is_staff": true, 
+    "last_login": "2013-10-08T20:37:34Z", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$10000$5C7UBSPNPVzA$WTr+Mbpdj9KRCbWdIyvBnN1vpljYTsNqBYJmQdyaIH8=", 
+    "email": "mark.redar@ucop.edu", 
+    "date_joined": "2013-10-08T20:37:34Z"
+  }
+},
+{
+  "pk": 2, 
+  "model": "auth.user", 
+  "fields": {
+    "username": "test_user_staff", 
+    "first_name": "", 
+    "last_name": "", 
+    "is_active": true, 
+    "is_superuser": false, 
+    "is_staff": true, 
+    "last_login": "2013-10-08T20:38:07Z", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$10000$a3sit5fQEa6R$msQnNFjC2fX51p6SNTbtwpFVwHh6D2bXV6B4KORC07M=", 
+    "email": "mark.redar@ucop.edu",
+    "date_joined": "2013-10-08T20:38:07Z"
+  }
+},
+{
+  "pk": 3, 
+  "model": "auth.user", 
+  "fields": {
+    "username": "test_user", 
+    "first_name": "", 
+    "last_name": "", 
+    "is_active": true, 
+    "is_superuser": false, 
+    "is_staff": false, 
+    "last_login": "2013-10-08T20:38:20.914Z", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$10000$GtlJ3PoAw9PD$G0tZB9/5fQKZxka5tWjVEz9wrzVIRjKKh22JWZ7snCA=", 
+    "email": "mark.redar@ucop.edu",
+    "date_joined": "2013-10-08T20:38:20.914Z"
+  }
+}
+]

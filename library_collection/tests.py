@@ -167,12 +167,14 @@ class PublicViewTestCase(TestCase):
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json')
     current_app = 'edit'
 
+    def setUp(self):
+        self.client.login(username='test_user', password='test_user')
+
     def testRootView(self):
-        url = reverse('registry:collections',
-                current_app=EditViewTestCase.current_app)
+        url = reverse('edit_collections')
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/index.html')
@@ -180,8 +182,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, EditViewTestCase.current_app+'/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
      
     def testUCBCollectionView(self):
-        url = reverse('registry:collections',
-                current_app=EditViewTestCase.current_app,
+        url = reverse('edit_collections',
                 kwargs={ 'campus_slug':'UCB', }
             )
         response = self.client.get(url)
@@ -191,7 +192,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, EditViewTestCase.current_app+'/150/wieslander-vegetation-type-maps-photographs-in-192/')
 
     def testRepositoriesView(self):
-        url = reverse('registry:repositories', current_app=EditViewTestCase.current_app)
+        url = reverse('edit_repositories')
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
@@ -200,8 +201,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, '/edit/')
 
     def testUCBRepositoriesView(self):
-        url = reverse('registry:repositories',
-                current_app=EditViewTestCase.current_app,
+        url = reverse('edit_repositories',
                 kwargs={ 'campus_slug':'UCB', }
             )
         response = self.client.get(url)
@@ -209,14 +209,13 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertNotContains(response, 'Mandeville')
         self.assertContains(response, 'Bancroft Library')
-        url_edit_base = reverse('registry:collections', current_app=EditViewTestCase.current_app)
+        url_edit_base = reverse('edit_collections')
         self.assertContains(response, url_edit_base)
         self.assertContains(response, url_edit_base+'UCB')
 
     def testCollectionView(self):
         '''Test view of one collection'''
-        url = reverse('registry:detail',
-                current_app=EditViewTestCase.current_app,
+        url = reverse('edit_detail',
                 kwargs={ 'colid':2,
                     'col_slug':'halberstadt-collection-selections-of-photographs-p'},
             )
@@ -224,7 +223,4 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Halberstadt Collection')
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
-        url_edit_base = reverse('registry:collections', current_app=EditViewTestCase.current_app)
-        self.assertContains(response, url_edit_base)
-        self.assertContains(response, url_edit_base+'2/')
         self.assertNotContains(response, 'Metadata')
