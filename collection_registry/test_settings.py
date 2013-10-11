@@ -1,7 +1,10 @@
 from settings import *
-AUTHENTICATION_BACKENDS += (
-        'django.contrib.auth.backends.ModelBackend',
-)
+
+MIDDLEWARE_CLASSES = (
+        #'collection_registry.middleware.RemoteUserMockMiddleware',
+'collection_registry.middleware.BasicAuthMockMiddleware',
+) + MIDDLEWARE_CLASSES
+
 
 DATABASES = {
     'default': {

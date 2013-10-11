@@ -53,17 +53,19 @@ class CollectionAdminTestCase(TestCase):
         # https://groups.google.com/d/msg/django-users/VpPrGVPS0aw/SwE8X51Q8jYJ
         url_admin = '/admin/library_collection/collection/'
         response = self.client.get(url_admin)
-        self.assertContains(response, 'Password')
-        ret = self.client.login(username='test', password='fake')
-        self.failUnless(ret)
-        response = self.client.get(url_admin)
-        self.assertNotContains(response, 'Password')
+        self.assertEqual(response.status_code, 401)
+        # this doesn't work when using the BasicAuthMockMiddleware
+        # need to add the http_auth to request to get logged in
+        # ret = self.client.login(username='test', password='fake')
+        http_auth = 'basic '+'test:fake'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'PC-1')
-        response = self.client.get(url_admin+'?urlfields=LOCALNOT')
+        response = self.client.get(url_admin+'?urlfields=LOCALNOT', HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertNotContains(response, 'PC-1')
         self.assertContains(response, 'PC-2')
-        response = self.client.get(url_admin+'?urlfields=OACNOT')
+        response = self.client.get(url_admin+'?urlfields=OACNOT', HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'PC-1')
         self.assertNotContains(response, 'PC-2')
@@ -92,10 +94,9 @@ class RepositoryAdminTestCase(TestCase):
     def testRepoInAdmin(self):
         url_admin = '/admin/library_collection/repository/'
         response = self.client.get(url_admin)
-        self.assertContains(response, 'Password')
-        ret = self.client.login(username='test', password='fake')
-        self.failUnless(ret)
-        response = self.client.get(url_admin)
+        self.assertEqual(response.status_code, 401)
+        http_auth = 'basic '+'test:fake'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'TEST REPO')
 
@@ -171,11 +172,11 @@ class EditViewTestCase(TestCase):
     current_app = 'edit'
 
     def setUp(self):
-        self.client.login(username='test_user', password='test_user')
+        self.http_auth = 'basic '+'test_user:test_user'.encode('base64')
 
     def testRootView(self):
         url = reverse('edit_collections')
-        response = self.client.get(url)
+        response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/index.html')
         self.assertContains(response, 'collections')
@@ -185,7 +186,7 @@ class EditViewTestCase(TestCase):
         url = reverse('edit_collections',
                 kwargs={ 'campus_slug':'UCB', }
             )
-        response = self.client.get(url)
+        response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertContains(response, 'collections')
         self.assertNotContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
@@ -193,7 +194,7 @@ class EditViewTestCase(TestCase):
 
     def testRepositoriesView(self):
         url = reverse('edit_repositories')
-        response = self.client.get(url)
+        response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertContains(response, 'Mandeville')
@@ -204,7 +205,7 @@ class EditViewTestCase(TestCase):
         url = reverse('edit_repositories',
                 kwargs={ 'campus_slug':'UCB', }
             )
-        response = self.client.get(url)
+        response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertNotContains(response, 'Mandeville')
@@ -219,7 +220,7 @@ class EditViewTestCase(TestCase):
                 kwargs={ 'colid':2,
                     'col_slug':'halberstadt-collection-selections-of-photographs-p'},
             )
-        response = self.client.get(url)
+        response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertContains(response, 'Halberstadt Collection')
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
