@@ -7,7 +7,7 @@ from human_to_bytes import bytes2human
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 
-campuses = Campus.objects.all().order_by('slug')
+campuses = Campus.objects.all().order_by('name')
 
 def active_tab(request):
     '''Return a key for the active tab, by parsing the request.path
