@@ -133,7 +133,7 @@ class PublicViewTestCase(TestCase):
     def testRootView(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'library_collection/index.html')
+        self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'collections')
         self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
      
@@ -178,7 +178,7 @@ class EditViewTestCase(TestCase):
         url = reverse('edit_collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'library_collection/index.html')
+        self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'collections')
         self.assertContains(response, EditViewTestCase.current_app+'/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
      

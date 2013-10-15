@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content-inner %}
+{% if collections %}
+<div class="row">
+  <div class="span10">
+    <table class="table table-bordered table-striped">
+      <tbody>
+        {% for collection in collections %}
+        <tr>
+          <td>
+            {% if user.is_authenticated and editing %}
+            <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+            {% else %}
+            <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="span2">
+    {% block navbar-campus %}
+    <h4>Limit by campus</h4>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <!-- Be sure to leave the brand out there if you want it shown -->
+          {% if user.is_authenticated and editing %}
+          <a class="brand" href="{% url "edit_collections" %}">All</a>
+          {% else %}
+          <a class="brand" href="{% url "collections" %}">All</a>
+          {% endif %}
+          <!-- Everything you want hidden at 940px or less, place within here -->
+          <div class="nav-collapse">
+            <!-- .nav, .navbar-search, .navbar-form, etc -->
+            <ul class="nav nav-stacked">
+              {% for campus_iter in campuses %}
+              <li class="span1 {% if campus_iter == campus %}active{% endif %}">
+                {% if user.is_authenticated and editing %}
+                <a href="{% url "edit_collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
+                {% else %}
+                <a href="{% url "collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock navbar-campus %}
+  </div>
+</div>
+{% endif %}
+{% endblock content-inner %}

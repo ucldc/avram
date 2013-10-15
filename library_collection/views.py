@@ -43,7 +43,7 @@ def collections(request, campus_slug=None):
         collections = Collection.objects.all().order_by('name')
         extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
     return render(request,
-        template_name='library_collection/index.html',
+        template_name='library_collection/collection_list.html',
         dictionary = { 
             'collections': collections, 
             'extent': extent, 
