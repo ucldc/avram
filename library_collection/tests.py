@@ -165,7 +165,6 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Davis')
         self.assertNotContains(response, 'Metadata')
 
-
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
     fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json')
@@ -225,6 +224,34 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
         self.assertNotContains(response, 'Metadata')
+        self.assertNotContains(response, 'Bancroft Library')
+
+    def testCollectionViewForm(self):
+        '''Test form for modifying a collection'''
+        url = reverse('edit_detail', 
+                kwargs={ 'colid': 2, 
+                'col_slug':'halberstadt-collection-selections-of-photographs-p'},
+            )
+        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'Save')
+
+    def testCollectionViewFormUpdate(self):
+        '''Test form submission to modify a collection'''
+        url = reverse('edit_detail', 
+                kwargs={ 'colid': 2, 
+                'col_slug':'halberstadt-collection-selections-of-photographs-p'},
+            )
+        response = self.client.post(url, {'appendix': 'A',
+                'repositories': '9',
+                'name': 'Halberstadt Collection',
+                'campuses': ['1', '2']}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection.html')
+        self.assertContains(response, 'Edit')
+        self.assertContains(response, 'Berkeley')
+        self.assertContains(response, 'Bancroft Library')
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.

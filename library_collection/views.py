@@ -57,7 +57,41 @@ def collections(request, campus_slug=None):
 
 @login_required
 def edit_details(request, colid=None, col_slug=None):
-    return details(request, colid, col_slug)
+    collection = get_object_or_404(Collection, pk=colid)
+    if col_slug != collection.slug:
+        return redirect(collection, permanent=True)
+    else:
+        context = {
+            'collection': collection,
+            'campuses': campuses,
+            'current_path': request.path,
+            'editing': editing(request.path),
+        }
+        print context
+        if (request.method == 'POST'):
+            print request.POST
+            requestObj = request.POST
+            if ('edit' in requestObj):
+                context['campuses'] = campuses
+                context['repositories'] = Repository.objects.all().order_by('name')
+                context['appendixChoices'] = Collection.APPENDIX_CHOICES
+                context['edit'] = 'true'
+                return render(request,
+                    template_name='library_collection/collection_edit.html',
+                    dictionary=context
+                )
+            else: 
+                collection.name = requestObj["name"]
+                collection.appendix = requestObj['appendix']
+                collection.repository.clear()
+                collection.repository = requestObj.getlist('repositories')
+                collection.campus = requestObj.getlist("campuses")
+                collection.save();
+        
+        return render(request,
+            template_name='library_collection/collection.html',
+            dictionary=context
+        )
 
 # view for collection details
 def details(request, colid=None, col_slug=None):

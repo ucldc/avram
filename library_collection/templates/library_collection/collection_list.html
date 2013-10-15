@@ -12,7 +12,7 @@
             {% if user.is_authenticated and editing %}
             <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
             {% else %}
-            <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+            <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
             {% endif %}
           </td>
         </tr>

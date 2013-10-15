@@ -9,6 +9,16 @@
         {{ campus.name }}
         {% endfor %}
       </small>
+      {% if user.is_authenticated %}
+        {% if edit == "true" %}
+          <br><button type="submit" name="submit" form="edit_collection_detail">Save</button>
+        {% else %}
+          <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="edit" value="true">Edit</a>
+          </form>
+        {% endif %}
+      {% endif %}
     </h2>
   </div>
 {% endif %}
