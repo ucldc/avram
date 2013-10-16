@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from library_collection.decorators import verification_required
 
 campuses = Campus.objects.all().order_by('name')
 
@@ -15,6 +17,8 @@ def active_tab(request):
     tab = 'collection'
     if "repositor" in request.path:
         tab = 'repositories'
+    if "about" in request.path:
+        tab = 'about'
     return tab
 
 def editing(path):
@@ -26,10 +30,35 @@ def editing(path):
     return True if path.split('/', 2)[1].strip('/') == 'edit' else False
 
 @login_required
+@verification_required
 def edit_collections(request, campus_slug=None):
     '''Edit view of all collections. Only difference from read-only is the 
     "add" link/button.
     '''
+    if (request.method == 'POST'):
+        requestObj = request.POST
+        if ('edit' in requestObj):
+            context = {
+                'campuses': campuses,
+                'current_path': request.path,
+                'editing': editing(request.path),
+                'repositories': Repository.objects.all().order_by('name'),
+                'appendixChoices': Collection.APPENDIX_CHOICES,
+                'edit': 'true',
+            }
+            return render(request,
+                template_name='library_collection/new_collection.html',
+                dictionary=context
+            )
+        else: 
+            new_collection = Collection()
+            new_collection.name = requestObj['name']
+            new_collection.appendix = requestObj['appendix']
+            new_collection.save();
+            new_collection.repository = requestObj.getlist('repositories')
+            new_collection.campus = requestObj.getlist('campuses')
+            return edit_details(request, new_collection.pk, new_collection.slug)
+            
     return collections(request, campus_slug)
 
 # view of collections in list. Currently home page
@@ -56,6 +85,7 @@ def collections(request, campus_slug=None):
     )
 
 @login_required
+@verification_required
 def edit_details(request, colid=None, col_slug=None):
     collection = get_object_or_404(Collection, pk=colid)
     if col_slug != collection.slug:
@@ -63,7 +93,6 @@ def edit_details(request, colid=None, col_slug=None):
     else:
         context = {
             'collection': collection,
-            'campuses': campuses,
             'current_path': request.path,
             'editing': editing(request.path),
         }
@@ -85,7 +114,7 @@ def edit_details(request, colid=None, col_slug=None):
                 collection.repository = requestObj.getlist('repositories')
                 collection.campus = requestObj.getlist("campuses")
                 collection.save();
-        
+    
         return render(request,
             template_name='library_collection/collection.html',
             dictionary=context
@@ -102,13 +131,13 @@ def details(request, colid=None, col_slug=None):
             template_name='library_collection/collection.html',
             dictionary={ 
                 'collection': collection,
-                'campuses': campuses, 
                 'current_path': request.path,
                 'editing': editing(request.path),
             },
         )
 
 @login_required
+@verification_required
 def edit_details_by_id(request, colid):
     return details_by_id(request, colid)
 
@@ -117,7 +146,45 @@ def details_by_id(request, colid):
     return redirect(collection, permanent=True)
 
 @login_required
+@verification_required
 def edit_repositories(request, campus_slug=None):
+    campus = None
+    if campus_slug:
+        campus = get_object_or_404(Campus, slug=campus_slug)
+        repositoryObjs = Repository.objects.filter(campus=campus)
+    else:
+        repositoryObjs = Repository.objects.all()
+        
+    if (request.method == 'POST'):
+        requestObj = request.POST
+        if ('edit' in requestObj):
+            context = {
+                'campuses': campuses,
+                'current_path': request.path,
+                'editing': editing(request.path),
+                'edit': 'true',
+                'repositories': repositoryObjs
+            }
+            return render(request,
+                template_name='library_collection/repository_list.html',
+                dictionary=context
+            )
+        else: 
+            new_repository = Repository()
+            new_repository.name = requestObj['name']
+            new_repository.save();
+            new_repository.campus = requestObj.getlist('campuses')
+            return render(request, template_name='library_collection/repository_list.html', 
+                dictionary={
+                    'campus': campus,
+                    'repositories': repositoryObjs,
+                    'campuses': campuses,
+                    'active_tab': active_tab(request),
+                    'current_path': request.path,
+                    'editing': editing(request.path),
+                },
+            )
+    
     return repositories(request, campus_slug)
 
 def repositories(request, campus_slug=None):
@@ -138,4 +205,19 @@ def repositories(request, campus_slug=None):
                 'current_path': request.path,
                 'editing': editing(request.path),
             },
+    )
+
+@login_required
+@verification_required
+def edit_about(request):
+    return about(request)
+
+def about(request):
+    return render(request, 
+        template_name='library_collection/about.html',
+        dictionary={
+            'active_tab': active_tab(request),
+            'current_path': request.path,
+            'editing': editing(request.path),
+        },
     )

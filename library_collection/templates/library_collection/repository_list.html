@@ -3,8 +3,33 @@
 {% block content-inner %}
 <div class="row">
   <div class="span10">
+    {% if user.is_authenticated and editing %}
+        <form action="{% url 'edit_repositories' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="edit" value="true">Add</button>
+        </form>
+    {% endif %}
+    
     <table class="table table-bordered table-striped">
       <tbody>
+        {% if edit %}
+          <form action="{% url 'edit_repositories' %}" method="post">
+            {% csrf_token %}
+            <tr>
+              <td>
+                <input type="text" name="name" style="width: 400px"></input>
+                <select multiple name="campuses" class="chosen-select">
+                  {% for campus in campuses %}
+                  <option value="{{ campus.id }}">
+                    {{ campus.name }}
+                  </option>
+                  {% endfor %}
+                </select>
+                <input type="submit" value="Save"></input>
+              </td>
+            </tr>
+          </form>
+        {% endif %}
         {% for repository in repositories %}
         <tr>
           <td>
@@ -57,3 +82,11 @@
   </div>
 </div>
 {% endblock content-inner %}
+
+{% if user.is_authenticated %}
+{% block inlineScripts %}
+<script>
+    $(".chosen-select").chosen();
+</script>
+{% endblock %}
+{% endif %}
