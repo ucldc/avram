@@ -236,7 +236,7 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'Save')
 
-    def testCollectionViewFormUpdate(self):
+    def testCollectionViewFormSubmission(self):
         '''Test form submission to modify a collection'''
         url = reverse('edit_detail', 
                 kwargs={ 'colid': 2, 
@@ -253,6 +253,42 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'Bancroft Library')
 
+    def testCollectionCreateViewForm(self):
+        '''Test form to create a new collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/new_collection.html')
+        self.assertContains(response, 'Save')
+    
+    def testCollectionCreateViewFormSubmission(self):
+        '''Test form submission to create a collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'appendix': 'B', 
+                'repositories': '3', 
+                'name': 'new collection', 
+                'campuses': ['1', '3']}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection.html')
+        self.assertContains(response, 'Edit')
+        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'Berkeley')
+    
+    def testRepositoryCreateViewForm(self):
+        '''Test form to create a new repository'''
+        url = reverse('edit_repositories')
+        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertContains(response, 'Save')
+    
+    def testRepositoryCreateViewFormSubmission(self):
+        '''Test form submission to create a repository'''
+        url = reverse('edit_repositories')
+        response = self.client.post(url, {'name': 'new repository', 'campuses': ['1', '4']}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertContains(response, 'Add')
+        self.assertContains(response, 'new repository')
+
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
     With the HttpAuthMockMiddleware, a new user should be authenticated,
@@ -265,6 +301,7 @@ class NewUserTestCase(TestCase):
         http_auth = 'basic '+'bogus_new_user:bogus_new_user'.encode('base64')
         url = reverse('edit_collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=http_auth)
-        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'library_collection/verification_required.html')
+        # self.assertEqual(response.status_code, 200)
         #TODO: Test that the new user message page is presented to new user
         # check correct template and view????
