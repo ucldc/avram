@@ -167,7 +167,7 @@ class PublicViewTestCase(TestCase):
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json')
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
     current_app = 'edit'
 
     def setUp(self):
@@ -301,6 +301,7 @@ class NewUserTestCase(TestCase):
         http_auth = 'basic '+'bogus_new_user:bogus_new_user'.encode('base64')
         url = reverse('edit_collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=http_auth)
-        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'library_collection/verification_required.html')
+        # self.assertEqual(response.status_code, 200)
         #TODO: Test that the new user message page is presented to new user
         # check correct template and view????

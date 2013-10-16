@@ -7,6 +7,7 @@ from human_to_bytes import bytes2human
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from library_collection.decorators import verification_required
 
 campuses = Campus.objects.all().order_by('name')
 
@@ -29,6 +30,7 @@ def editing(path):
     return True if path.split('/', 2)[1].strip('/') == 'edit' else False
 
 @login_required
+@verification_required
 def edit_collections(request, campus_slug=None):
     '''Edit view of all collections. Only difference from read-only is the 
     "add" link/button.
@@ -83,6 +85,7 @@ def collections(request, campus_slug=None):
     )
 
 @login_required
+@verification_required
 def edit_details(request, colid=None, col_slug=None):
     collection = get_object_or_404(Collection, pk=colid)
     if col_slug != collection.slug:
@@ -134,6 +137,7 @@ def details(request, colid=None, col_slug=None):
         )
 
 @login_required
+@verification_required
 def edit_details_by_id(request, colid):
     return details_by_id(request, colid)
 
@@ -142,6 +146,7 @@ def details_by_id(request, colid):
     return redirect(collection, permanent=True)
 
 @login_required
+@verification_required
 def edit_repositories(request, campus_slug=None):
     campus = None
     if campus_slug:
@@ -203,6 +208,7 @@ def repositories(request, campus_slug=None):
     )
 
 @login_required
+@verification_required
 def edit_about(request):
     return about(request)
 
