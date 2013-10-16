@@ -167,7 +167,7 @@ class PublicViewTestCase(TestCase):
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json')
     current_app = 'edit'
 
     def setUp(self):

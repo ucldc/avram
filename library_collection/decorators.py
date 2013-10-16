@@ -34,7 +34,7 @@ def verification_required(function=None):
     to the log-in page if necessary.
     """
     actual_decorator = user_passes_verification(
-        lambda u: u.groups.filter(name='verified').exists()
+        lambda u: u.is_active
     )
     
     if function:
