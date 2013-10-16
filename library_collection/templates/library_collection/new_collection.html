@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+  <form action="{% url 'edit_collections' %}" method="post" id="new_collection">
+    {% csrf_token %}
+    <div class="row span12">
+      <div class="row">
+        <h2 class="pull-left">Name</h2>
+      </div>
+      <div class="well">
+        <div>
+          <span class="label">Collection Name</span>
+          <input type="text" name="name" style="width: 400px"></input>
+        </div>
+      </div>
+    </div>
+    <div class="row span12">
+      <div class="row">
+        <h2 class="pull-left">Affiliation</h2>
+      </div>
+      <div class="well">
+        <div>
+          <span class="label">Campus</span>
+          <select multiple name="campuses" class="chosen-select">
+            {% for campus in campuses %}
+            <option value="{{ campus.id }}">
+              {{ campus.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <span class="label">Repository</span>
+          <select multiple name="repositories" class="chosen-select">
+            {% for repo in repositories %}
+            <option value="{{ repo.id }}">
+              {{ repo.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row span12">
+      <div class="row">
+        <h2 class="pull-left">Source</h2>
+      </div>
+      <div class="well">
+        <div>
+          <span class="label">Collection Data Source</span>
+          {% for choice in appendixChoices %}
+          <input type="radio" name="appendix" value="{{ choice.0 }}">
+            {{ choice.1 }}
+          </input>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="row span12">
+      <input type="submit" value="Save"></input>
+    </div>
+  </form>
+</div>
+{% endblock content %}
+
+{% if user.is_authenticated %}
+{% block inlineScripts %}
+<script>
+    $(".chosen-select").chosen();
+</script>
+{% endblock %}
+{% endif %}

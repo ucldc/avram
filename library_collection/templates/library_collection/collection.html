@@ -15,7 +15,7 @@
         {% else %}
           <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post">
             {% csrf_token %}
-            <button type="submit" name="edit" value="true">Edit</a>
+            <button type="submit" name="edit" value="true">Edit</button>
           </form>
         {% endif %}
       {% endif %}

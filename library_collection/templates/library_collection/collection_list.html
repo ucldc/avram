@@ -4,6 +4,13 @@
 {% if collections %}
 <div class="row">
   <div class="span10">
+    {% if user.is_authenticated and editing %}
+        <form action="{% url 'edit_collections' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="edit" value="true">Add</button>
+        </form>
+    {% endif %}
+      
     <table class="table table-bordered table-striped">
       <tbody>
         {% for collection in collections %}

@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 campuses = Campus.objects.all().order_by('name')
 
@@ -30,6 +31,33 @@ def edit_collections(request, campus_slug=None):
     '''Edit view of all collections. Only difference from read-only is the 
     "add" link/button.
     '''
+    if (request.method == 'POST'):
+        requestObj = request.POST
+        if ('edit' in requestObj):
+            context = {
+                'campuses': campuses,
+                'current_path': request.path,
+                'editing': editing(request.path),
+                'repositories': Repository.objects.all().order_by('name'),
+                'appendixChoices': Collection.APPENDIX_CHOICES,
+                'edit': 'true',
+            }
+            return render(request,
+                template_name='library_collection/new_collection.html',
+                dictionary=context
+            )
+        else: 
+            new_collection = Collection()
+            new_collection.name = requestObj['name']
+            new_collection.appendix = requestObj['appendix']
+            new_collection.save();
+            new_collection.repository = requestObj.getlist('repositories')
+            new_collection.campus = requestObj.getlist('campuses')
+            return redirect(reverse('edit_detail',
+                    kwargs={ 'colid': new_collection.pk,
+                        'col_slug': new_collection.slug }
+                ))
+            
     return collections(request, campus_slug)
 
 # view of collections in list. Currently home page
@@ -63,13 +91,10 @@ def edit_details(request, colid=None, col_slug=None):
     else:
         context = {
             'collection': collection,
-            'campuses': campuses,
             'current_path': request.path,
             'editing': editing(request.path),
         }
-        print context
         if (request.method == 'POST'):
-            print request.POST
             requestObj = request.POST
             if ('edit' in requestObj):
                 context['campuses'] = campuses
@@ -87,7 +112,7 @@ def edit_details(request, colid=None, col_slug=None):
                 collection.repository = requestObj.getlist('repositories')
                 collection.campus = requestObj.getlist("campuses")
                 collection.save();
-        
+    
         return render(request,
             template_name='library_collection/collection.html',
             dictionary=context
@@ -104,7 +129,6 @@ def details(request, colid=None, col_slug=None):
             template_name='library_collection/collection.html',
             dictionary={ 
                 'collection': collection,
-                'campuses': campuses, 
                 'current_path': request.path,
                 'editing': editing(request.path),
             },
