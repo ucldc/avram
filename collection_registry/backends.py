@@ -9,6 +9,7 @@ class RegistryUserBackend(RemoteUserBackend):
         """
         Registry user setup
         """
+        user.is_active = False
         request = collection_registry.middleware.get_current_request()
         user.email = request.META['mail']
         user.save()
