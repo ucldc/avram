@@ -16,6 +16,8 @@ def active_tab(request):
     tab = 'collection'
     if "repositor" in request.path:
         tab = 'repositories'
+    if "about" in request.path:
+        tab = 'about'
     return tab
 
 def editing(path):
@@ -198,4 +200,18 @@ def repositories(request, campus_slug=None):
                 'current_path': request.path,
                 'editing': editing(request.path),
             },
+    )
+
+@login_required
+def edit_about(request):
+    return about(request)
+
+def about(request):
+    return render(request, 
+        template_name='library_collection/about.html',
+        dictionary={
+            'active_tab': active_tab(request),
+            'current_path': request.path,
+            'editing': editing(request.path),
+        },
     )
