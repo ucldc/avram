@@ -2,52 +2,59 @@
 
 {% block hero %}
 {% if collection %}
-    <div class="hero-unit row">
-        <h2>{{ collection.name }}
-        <small>{% for campus in collection.campus.all %}
-          {{ campus.name }}
-        {% endfor %}</small>
-        </small>
-        </h2>
-    </div>
+  <div class="hero-unit row">
+    <h2>{{ collection.name }}
+      <small>
+        {% for campus in collection.campus.all %}
+        {{ campus.name }}
+        {% endfor %}
+      </small>
+      {% if user.is_authenticated %}
+        {% if edit == "true" %}
+          <br><button type="submit" name="submit" form="edit_collection_detail">Save</button>
+        {% else %}
+          <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="edit" value="true">Edit</a>
+          </form>
+        {% endif %}
+      {% endif %}
+    </h2>
+  </div>
 {% endif %}
-
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
   <div class="row span12">
     <div class="row">
-    <h2 class="pull-left">Affiliation</h2>
+      <h2 class="pull-left">Affiliation</h2>
     </div>
     <div class="well">
-        <div>
-	<span class="label">Campus</span>
-	  {% for campus in collection.campus.all %}
-		<span>{{ campus.name }}</span>
-          {% endfor %}
-        </div>
-        <div>
-	<span class="label">Repository</span>
-	  {% for repository in collection.repository.all %}
-		<span>{{ repository.name }}</span>
-          {% endfor %}
-        </div>
+      <div>
+        <span class="label">Campus</span>
+        {% for campus in collection.campus.all %}
+        <span>{{ campus.name }}</span>
+        {% endfor %}
+      </div>
+      <div>
+        <span class="label">Repository</span>
+        {% for repository in collection.repository.all %}
+        <span>{{ repository.name }}</span>
+        {% endfor %}
+      </div>
     </div>
   </div>
   <div class="row span12">
     <div class="row">
-    <h2 class="pull-left">Source</h2>
+      <h2 class="pull-left">Source</h2>
     </div>
     <div class="well">
-        <div>
-	<span class="label">Collection Data Source</span>
-	  <span>{{ collection.get_appendix_display }}</span>
-        </div>
+      <div>
+        <span class="label">Collection Data Source</span>
+        <span>{{ collection.get_appendix_display }}</span>
+      </div>
     </div>
   </div>
 </div>
 {% endblock content %}
-
-  </body>
-</html>

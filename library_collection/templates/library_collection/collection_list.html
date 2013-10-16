@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 
 {% block content-inner %}
+{% if collections %}
 <div class="row">
   <div class="span10">
     <table class="table table-bordered table-striped">
       <tbody>
-        {% for repository in repositories %}
+        {% for collection in collections %}
         <tr>
           <td>
-            {{ repository.name }}
+            {% if user.is_authenticated and editing %}
+            <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+            {% else %}
+            <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
@@ -35,15 +40,15 @@
               <li class="{% if campus_iter == campus %}active{% endif %}">
                 {% if user.is_authenticated and editing %}
                   {% if campus_iter == campus %}
-                    <a href="{% url "edit_repositories" %}">X {{ campus_iter.name }}</a>
+                    <a href="{% url "edit_collections" %}">{{ campus_iter.name }} X</a>
                   {% else %}
-                    <a href="{% url "edit_repositories" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
+                    <a href="{% url "edit_collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
                   {% endif %}
                 {% else %}
                   {% if campus_iter == campus %}
-                    <a href="{% url "repositories" %}">X {{ campus_iter.name }}</a>
+                    <a href="{% url "collections" %}">{{ campus_iter.name }} X</a>
                   {% else %}
-                    <a href="{% url "repositories" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
+                    <a href="{% url "collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
                   {% endif %}
                 {% endif %}
               </li>
@@ -53,7 +58,8 @@
         </div>
       </div>
     </div>
-    {% endblock %}
+    {% endblock navbar-campus %}
   </div>
 </div>
+{% endif %}
 {% endblock content-inner %}

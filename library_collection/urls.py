@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic import TemplateView
 from library_collection.feeds import AllFeed
 
 from tastypie.api import Api
@@ -19,11 +20,13 @@ urlpatterns = patterns('',
     #url(r'',),
     url(r'^api/', include(v1_api.urls)),
     url(r'^edit/repositories/$', 'library_collection.views.edit_repositories', name='edit_repositories'),
+    url(r'^edit/about/$', TemplateView.as_view(template_name='library_collection/about.html'), name='edit_about'),
     url(r'^edit/(?P<campus_slug>UC\w*)/repositories/$', 'library_collection.views.edit_repositories', name='edit_repositories'),
     url(r'^edit/(?P<campus_slug>UC.*)/$', 'library_collection.views.edit_collections', name='edit_collections'),
     url(r'^edit/(?P<colid>\d*)/(?P<col_slug>.*)/$', 'library_collection.views.edit_details', name='edit_detail'),
     url(r'^edit/(?P<colid>\d*)/$', 'library_collection.views.edit_details_by_id', name='edit_detail'),
     url(r'^repositories/$', 'library_collection.views.repositories', name='repositories'),
+    url(r'^about/$', TemplateView.as_view(template_name='library_collection/about.html'), name='about'),
     url(r'^(?P<campus_slug>UC\w*)/repositories/$', 'library_collection.views.repositories', name='repositories'),
     url(r'^(?P<campus_slug>UC.*)/$', 'library_collection.views.collections', name='collections'),
     url(r'^(?P<colid>\d*)/(?P<col_slug>.*)/$', 'library_collection.views.details', name='detail'),

@@ -6,6 +6,7 @@
     <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap -->
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet"/>
+    <link href="{% static 'chosen/css/chosen.css' %}" rel="stylesheet"/>
     <style>
     body { font-family: Arial, Helvetica, sans-serif;
            color: #7C7E7F;
@@ -18,152 +19,102 @@
   <body>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-
-
-{% block header_top %}
+    <script src="{% static 'chosen/js/chosen.jquery.min.js' %}"></script>
+    
+    {% block header_top %}
     <div class="container-fluid">
-    <div class="row" >
-      <div class="span8" >
-        {% if user.is_authenticated and editing %}
-        <a href="{% url 'edit_collections' %}">
-        {% else %}
-        <a href="{% url 'collections' %}">
-        {% endif %}
-	<h3>UCLDC Collection Registry</h3>
-	</a>
-      </div>
-      <div class="span5">
-        <span class="pull-right"> 
-          <a class="span1 pull-left" href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation" title="This is the collection registry for the UCLDC. From here you can view and edit the collections contained in the UCLDC.">About</a>
-          <span class="span3">
-          {% if user.is_authenticated %}
-          Welcome {{user}}
-          {%else%}
-          <a href="/edit{{current_path}}" title="Login to edit collections or repositories">Edit</a>
-          {%endif%}
-          </span>
-        </span>
-       </div>
-    </div>
-    </div>
-{% endblock header_top %}
-
-{% block hero %}
-{% endblock %}
-
-{% block content %}
-<div class="container-fluid">
-  {% block nav-tabs %}
-  <ul class="nav nav-tabs span12" style="margin-left: 0px;">
-    <li {% if active_tab == 'collection' %}class="active"{%endif%}>
-    {%if campus %}
-        {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_collections' campus_slug=campus.slug %}">Collections</a>
-        {% else %}
-            <a href="{%url 'collections' campus_slug=campus.slug %}">Collections</a>
-        {% endif %}
-    {% else %}
-        {% if user.is_authenticated and editing %}
-        <a href="{%url 'edit_collections' %}">Collections</a>
-        {% else %}
-        <a href="{%url 'collections' %}">Collections</a>
-        {% endif %}
-    {% endif %}
-    </li>
-    <li {% if active_tab == 'repositories' %}class="active"{%endif%}>
-    {%if campus %}
-        {% if user.is_authenticated and editing %}
-    <a href="{%url 'edit_repositories' campus_slug=campus.slug %}">Repositories</a>
-    {% else %}
-    <a href="{%url 'repositories' campus_slug=campus.slug %}">Repositories</a>
-    {% endif %}
-    {% else %}
-        {% if user.is_authenticated and editing %}
-        <a href="{%url 'edit_repositories' %}">Repositories</a>
-        {% else %}
-        <a href="{%url 'repositories' %}">Repositories</a>
-        {% endif %}
-    {% endif %}
-    </li>
-  </ul>
-  {% endblock nav-tabs %}
-  {% block content-inner %}
-  {% if collections %}
-  <div class="row">
-    <div class="span10">
-      <table class="table table-bordered table-striped">
-	<tbody>
-      {% for collection in collections %}
-          <tr>
-	    <td>
-        {% if user.is_authenticated and editing %}
-              <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
-        {% else %}
-              <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
-        {% endif %}
-	    </td>
-          </tr>
-      {% endfor %}
-	</tbody>
-      </table>
-    </div>
-    <div class="span2">
-    {% block navbar-campus %}
-    <h4>Limit by campus</h4>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+      <div class="row" >
+        <div class="span8" >
+          {% if user.is_authenticated and editing %}
+          <a href="{% url 'edit_collections' %}">
+          {% else %}
+          <a href="{% url 'collections' %}">
+          {% endif %}
+            <h3>UCLDC Collection Registry</h3>
           </a>
-          <!-- Be sure to leave the brand out there if you want it shown -->
-        {% if user.is_authenticated and editing %}
-          <a class="brand" href="{% url "edit_collections" %}">All</a>
-        {% else %}
-          <a class="brand" href="{% url "collections" %}">All</a>
-        {% endif %}
-          <!-- Everything you want hidden at 940px or less, place within here -->
-          <div class="nav-collapse">
-            <!-- .nav, .navbar-search, .navbar-form, etc -->
-            <ul class="nav nav-stacked">
-              {% for campus_iter in campuses %}
-              <li class="span1 {% if campus_iter == campus %}active{% endif %}">
-        {% if user.is_authenticated and editing %}
-		<a href="{% url "edit_collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a></li>
-        {% else %}
-		<a href="{% url "collections" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a></li>
-        {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
+        </div>
+        <div class="span5">
+          <span class="pull-right"> 
+            <a class="span1 pull-left" href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation" title="This is the collection registry for the UCLDC. From here you can view and edit the collections contained in the UCLDC.">About</a>
+            <span class="span3">
+              {% if user.is_authenticated %}
+              Welcome {{user}}
+              {%else%}
+              <a href="/edit{{current_path}}" title="Login to edit collections or repositories">Edit</a>
+              {%endif%}
+            </span>
+          </span>
         </div>
       </div>
     </div>
-    {% endblock navbar-campus %}
+    {% endblock header_top %}
+    
+    {% block hero %}
+    {% endblock %}
+    
+    {% block content %}
+    <div class="container-fluid">
+      {% block nav-tabs %}
+      <ul class="nav nav-tabs span12" style="margin-left: 0px;">
+        <li {% if active_tab == 'collection' %}class="active"{%endif%}>
+          {%if campus %}
+            {% if user.is_authenticated and editing %}
+            <a href="{%url 'edit_collections' campus_slug=campus.slug %}">Collections</a>
+            {% else %}
+            <a href="{%url 'collections' campus_slug=campus.slug %}">Collections</a>
+            {% endif %}
+          {% else %}
+            {% if user.is_authenticated and editing %}
+            <a href="{%url 'edit_collections' %}">Collections</a>
+            {% else %}
+            <a href="{%url 'collections' %}">Collections</a>
+            {% endif %}
+          {% endif %}
+        </li>
+        <li {% if active_tab == 'repositories' %}class="active"{%endif%}>
+          {%if campus %}
+            {% if user.is_authenticated and editing %}
+            <a href="{%url 'edit_repositories' campus_slug=campus.slug %}">Repositories</a>
+            {% else %}
+            <a href="{%url 'repositories' campus_slug=campus.slug %}">Repositories</a>
+            {% endif %}
+          {% else %}
+            {% if user.is_authenticated and editing %}
+            <a href="{%url 'edit_repositories' %}">Repositories</a>
+            {% else %}
+            <a href="{%url 'repositories' %}">Repositories</a>
+            {% endif %}
+          {% endif %}
+        </li>
+        <li {% if active_tab == 'about' %}class="active"{%endif%}>
+          {% if user.is_authenticated and editing %}
+          <a href="{%url 'edit_about' %}">About</a>
+          {% else %}
+          <a href="{%url 'about' %}">About</a>
+          {% endif %}
+        </li>
+      </ul>
+      {% endblock nav-tabs %}
+      
+      {% block content-inner %}
+      {% endblock content-inner %}
     </div>
-  </div>
-  {% endif %}
-  {% endblock content-inner %}
-{% endblock %}
-
-<hr/>
+    {% endblock %}
+    
+    <hr/>
     <div class="row span12">
       <div class="span3"><a href="/api">registry api</a></div>
       <div class="span3 pull-right">
-      Copyright © 2013 UC Regents.<br/> All rights reserved.
+        Copyright © 2013 UC Regents.<br/> All rights reserved.
       </div>
     </div>
-
-  </div>
-
-<script>
-  $(function () {
-    $('a[rel=tooltip]').tooltip({'title': this.title, 'placement':'right'});
-  })
-</script>
-
+    
+    <script>
+      $(function () {
+        $('a[rel=tooltip]').tooltip({'title': this.title, 'placement':'right'});
+      })
+    </script>
+    {% block inlineScripts %}{% endblock %}
+    
   </body>
 </html>

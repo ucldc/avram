@@ -42,5 +42,8 @@ class BasicAuthMockMiddleware(object):
                     username, password = auth.split(':',1)
                     ## let anything through and set REMOTE_USER
                     request.META['REMOTE_USER'] = username
-                    return None
+                    # The next bits are so this will pass the 
+                    # RegistryUserBackend
+                    request.META['mail'] = "mark.redar@ucop.edu" 
+                    request.META['Shib-Identity-Provider'] = 'test'
         return None
