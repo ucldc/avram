@@ -67,9 +67,7 @@ def edit_details(request, colid=None, col_slug=None):
             'current_path': request.path,
             'editing': editing(request.path),
         }
-        print context
         if (request.method == 'POST'):
-            print request.POST
             requestObj = request.POST
             if ('edit' in requestObj):
                 context['campuses'] = campuses
