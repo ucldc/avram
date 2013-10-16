@@ -53,10 +53,7 @@ def edit_collections(request, campus_slug=None):
             new_collection.save();
             new_collection.repository = requestObj.getlist('repositories')
             new_collection.campus = requestObj.getlist('campuses')
-            return redirect(reverse('edit_detail',
-                    kwargs={ 'colid': new_collection.pk,
-                        'col_slug': new_collection.slug }
-                ))
+            return edit_details(request, new_collection.pk, new_collection.slug)
             
     return collections(request, campus_slug)
 

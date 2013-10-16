@@ -236,7 +236,7 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'Save')
 
-    def testCollectionViewFormUpdate(self):
+    def testCollectionViewFormSubmission(self):
         '''Test form submission to modify a collection'''
         url = reverse('edit_detail', 
                 kwargs={ 'colid': 2, 
@@ -252,6 +252,27 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Edit')
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'Bancroft Library')
+
+    def testCollectionCreateViewForm(self):
+        '''Test form to create a new collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/new_collection.html')
+        self.assertContains(response, 'Save')
+    
+    def testCollectionCreateViewFormSubmission(self):
+        '''Test form submission to create a collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'appendix': 'B', 
+                'repositories': '3', 
+                'name': 'new collection', 
+                'campuses': ['1', '3']}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection.html')
+        self.assertContains(response, 'Edit')
+        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'Berkeley')
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
