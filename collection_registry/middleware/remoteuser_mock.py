@@ -44,6 +44,6 @@ class BasicAuthMockMiddleware(object):
                     request.META['REMOTE_USER'] = username
                     # The next bits are so this will pass the 
                     # RegistryUserBackend
-                    request.META['mail'] = "mark.redar@ucop.edu" 
+                    request.META['mail'] = "mark.redar@ucop.edu" if not hasattr(settings, 'REMOTE_USER_MOCK_EMAIL') else settings.REMOTE_USER_MOCK_EMAIL
                     request.META['Shib-Identity-Provider'] = 'test'
         return None
