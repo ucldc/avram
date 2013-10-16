@@ -57,7 +57,8 @@ class Collection(models.Model):
     metadata_standard = models.CharField(max_length=255,blank=True)
     need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
     oai_set_spec = models.CharField(max_length=255, blank=True)
-    appendix = models.CharField(max_length=1, choices=( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl')) )
+    APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'))
+    appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES)
     phase_one = models.BooleanField()
 
     @property

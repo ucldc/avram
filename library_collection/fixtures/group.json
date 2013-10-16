@@ -1,0 +1,41 @@
+[
+{
+  "pk": 1, 
+  "model": "auth.group", 
+  "fields": {
+    "name": "test", 
+    "permissions": [
+      [
+        "add_collection", 
+        "library_collection", 
+        "collection"
+      ], 
+      [
+        "change_collection", 
+        "library_collection", 
+        "collection"
+      ], 
+      [
+        "delete_collection", 
+        "library_collection", 
+        "collection"
+      ], 
+      [
+        "add_repository", 
+        "library_collection", 
+        "repository"
+      ], 
+      [
+        "change_repository", 
+        "library_collection", 
+        "repository"
+      ], 
+      [
+        "delete_repository", 
+        "library_collection", 
+        "repository"
+      ]
+    ]
+  }
+}
+]
