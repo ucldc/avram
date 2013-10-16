@@ -141,6 +141,43 @@ def details_by_id(request, colid):
 
 @login_required
 def edit_repositories(request, campus_slug=None):
+    campus = None
+    if campus_slug:
+        campus = get_object_or_404(Campus, slug=campus_slug)
+        repositoryObjs = Repository.objects.filter(campus=campus)
+    else:
+        repositoryObjs = Repository.objects.all()
+        
+    if (request.method == 'POST'):
+        requestObj = request.POST
+        if ('edit' in requestObj):
+            context = {
+                'campuses': campuses,
+                'current_path': request.path,
+                'editing': editing(request.path),
+                'edit': 'true',
+                'repositories': repositoryObjs
+            }
+            return render(request,
+                template_name='library_collection/repository_list.html',
+                dictionary=context
+            )
+        else: 
+            new_repository = Repository()
+            new_repository.name = requestObj['name']
+            new_repository.save();
+            new_repository.campus = requestObj.getlist('campuses')
+            return render(request, template_name='library_collection/repository_list.html', 
+                dictionary={
+                    'campus': campus,
+                    'repositories': repositoryObjs,
+                    'campuses': campuses,
+                    'active_tab': active_tab(request),
+                    'current_path': request.path,
+                    'editing': editing(request.path),
+                },
+            )
+    
     return repositories(request, campus_slug)
 
 def repositories(request, campus_slug=None):

@@ -273,6 +273,21 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Edit')
         self.assertContains(response, 'new collection')
         self.assertContains(response, 'Berkeley')
+    
+    def testRepositoryCreateViewForm(self):
+        '''Test form to create a new repository'''
+        url = reverse('edit_repositories')
+        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertContains(response, 'Save')
+    
+    def testRepositoryCreateViewFormSubmission(self):
+        '''Test form submission to create a repository'''
+        url = reverse('edit_repositories')
+        response = self.client.post(url, {'name': 'new repository', 'campuses': ['1', '4']}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertContains(response, 'Add')
+        self.assertContains(response, 'new repository')
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
