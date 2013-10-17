@@ -17,8 +17,8 @@
             {% csrf_token %}
             <tr>
               <td>
-                <input type="text" name="name" style="width: 400px"></input>
-                <select multiple name="campuses" class="chosen-select">
+                <input type="text" name="name" style="width: 400px" placeholder="New Unit Title"></input>
+                <select multiple name="campuses" class="chosen-select" data-placeholder="Select Campus Affiliation">
                   {% for campus in campuses %}
                   <option value="{{ campus.id }}">
                     {{ campus.name }}

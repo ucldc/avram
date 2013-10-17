@@ -6,11 +6,11 @@
     {% csrf_token %}
     <div class="row span12">
       <div class="row">
-        <h2 class="pull-left">Name</h2>
+        <h2 class="pull-left">Title</h2>
       </div>
       <div class="well">
         <div>
-          <span class="label">Collection Name</span>
+          <span class="label">Collection Title</span>
           <input type="text" name="name" style="width: 400px"></input>
         </div>
       </div>
@@ -31,7 +31,7 @@
           </select>
         </div>
         <div>
-          <span class="label">Repository</span>
+          <span class="label">Edit</span>
           <select multiple name="repositories" class="chosen-select">
             {% for repo in repositories %}
             <option value="{{ repo.id }}">
