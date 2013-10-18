@@ -6,7 +6,7 @@
     {% if user.is_authenticated and editing %}
         <form action="{% url 'edit_repositories' %}" method="post">
           {% csrf_token %}
-          <button type="submit" name="edit" value="true">Add</button>
+          <button type="submit" name="edit" value="true" class="btn"><i class="icon-plus"></i> Add new Unit</button>
         </form>
     {% endif %}
     
@@ -17,15 +17,16 @@
             {% csrf_token %}
             <tr>
               <td>
-                <input type="text" name="name" style="width: 400px"></input>
-                <select multiple name="campuses" class="chosen-select">
+                <input type="text" name="name" style="width: 400px; margin-bottom:0px" placeholder="Unit Title"></input>
+                <select multiple name="campuses" class="chosen-select" data-placeholder="Select Campus Affiliation">
                   {% for campus in campuses %}
                   <option value="{{ campus.id }}">
                     {{ campus.name }}
                   </option>
                   {% endfor %}
                 </select>
-                <input type="submit" value="Save"></input>
+                <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save</button>
+                <a href="{% url 'edit_repositories' %}" class="btn"><i class="icon-ban-circle"></i> Cancel</a>
               </td>
             </tr>
           </form>
@@ -44,7 +45,7 @@
     {% block navbar-campus %}
     <h4>Limit by campus</h4>
     <div class="navbar">
-      <div class="navbar-inner">
+      <div class="navbar-inner" style="padding-right: 0px; padding-left: 0px">
         <div class="container">
           <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -55,20 +56,20 @@
           <!-- Everything you want hidden at 940px or less, place within here -->
           <div class="nav-collapse">
             <!-- .nav, .navbar-search, .navbar-form, etc -->
-            <ul class="nav nav-stacked">
+            <ul class="nav nav-stacked" style="margin: 0px">
               {% for campus_iter in campuses %}
-              <li class="{% if campus_iter == campus %}active{% endif %}">
+              <li class="{% if campus_iter == campus %}active{% endif %}" style="width: 100%">
                 {% if user.is_authenticated and editing %}
                   {% if campus_iter == campus %}
-                    <a href="{% url "edit_repositories" %}">X {{ campus_iter.name }}</a>
+                    <a href="{% url "edit_repositories" %}"><i class="icon-remove" style="margin-right: .75em;"></i>{{ campus_iter.name }}</a>
                   {% else %}
-                    <a href="{% url "edit_repositories" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
+                    <a href="{% url "edit_repositories" campus_slug=campus_iter.slug %}"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i>{{ campus_iter.name }}</a>
                   {% endif %}
                 {% else %}
                   {% if campus_iter == campus %}
-                    <a href="{% url "repositories" %}">X {{ campus_iter.name }}</a>
+                    <a href="{% url "repositories" %}"><i class="icon-remove" style="margin-right: .75em;"></i>{{ campus_iter.name }}</a>
                   {% else %}
-                    <a href="{% url "repositories" campus_slug=campus_iter.slug %}">{{ campus_iter.name }}</a>
+                    <a href="{% url "repositories" campus_slug=campus_iter.slug %}"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i>{{ campus_iter.name }}</a>
                   {% endif %}
                 {% endif %}
               </li>

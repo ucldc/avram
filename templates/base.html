@@ -4,6 +4,8 @@
 <html lang="en">
   <head>
     <title>{% block title %}{% endblock %}</title>
+    {% block styles %}{% endblock %}
+
     <!-- Bootstrap -->
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet"/>
     <link href="{% static 'chosen/css/chosen.css' %}" rel="stylesheet"/>
@@ -74,15 +76,15 @@
         <li {% if active_tab == 'repositories' %}class="active"{%endif%}>
           {%if campus %}
             {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_repositories' campus_slug=campus.slug %}">Repositories</a>
+            <a href="{%url 'edit_repositories' campus_slug=campus.slug %}">Units</a>
             {% else %}
-            <a href="{%url 'repositories' campus_slug=campus.slug %}">Repositories</a>
+            <a href="{%url 'repositories' campus_slug=campus.slug %}">Units</a>
             {% endif %}
           {% else %}
             {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_repositories' %}">Repositories</a>
+            <a href="{%url 'edit_repositories' %}">Units</a>
             {% else %}
-            <a href="{%url 'repositories' %}">Repositories</a>
+            <a href="{%url 'repositories' %}">Units</a>
             {% endif %}
           {% endif %}
         </li>
@@ -103,7 +105,7 @@
     
     <hr/>
     <div class="row span12">
-      <div class="span3"><a href="/api">registry api</a></div>
+      <!-- <div class="span3"><a href="/api">registry api</a></div> -->
       <div class="span3 pull-right">
         Copyright © 2013 UC Regents.<br/> All rights reserved.
       </div>

@@ -1,66 +1,71 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
+{% block styles %}
+<link href="{% static 'collection_edit.css' %}" rel="stylesheet"/>
+{% endblock %}
+
 {% block content %}
-<div class="container-fluid">
-  <form action="{% url 'edit_collections' %}" method="post" id="new_collection">
-    {% csrf_token %}
-    <div class="row span12">
-      <div class="row">
-        <h2 class="pull-left">Name</h2>
-      </div>
-      <div class="well">
-        <div>
-          <span class="label">Collection Name</span>
-          <input type="text" name="name" style="width: 400px"></input>
+<div class="container-fluid collection-edit">
+  <div class="row span12 well">
+    <form action="{% url 'edit_collections' %}" method="post" id="new_collection">
+      {% csrf_token %}
+      <input type="text" name="name" placeholder="Collection Title" class="span11 title-input"></input>
+      
+      <div style="position: relative; top: -10px">
+        <h4>Affiliation</h4>
+        <div class="well">
+          <div class="row">
+            <div class="span1" style="text-align: left">
+              <span style="color: #0088CC">Campus</span>
+            </div>
+            <div class="span10">
+              <select multiple name="campuses" class="chosen-select span3" data-placeholder="Select Campus Affiliation">
+                {% for campus in campuses %}
+                <option value="{{ campus.id }}">
+                  {{ campus.name }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <hr class="collection-edit-hr" style="width: 100%; border-top: 0px; border-bottom: 1px solid #e3e3e3"/>
+          <div class="row">
+            <div class="span1" style="text-align: left">
+              <span style="color: #0088CC">Unit</span>
+            </div>
+            <div class="span10">
+              <select multiple name="repositories" class="chosen-select span3" data-placeholder="Select Unit">
+                {% for repo in repositories %}
+                <option value="{{ repo.id }}">
+                  {{ repo.name }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row span12">
-      <div class="row">
-        <h2 class="pull-left">Affiliation</h2>
-      </div>
-      <div class="well">
-        <div>
-          <span class="label">Campus</span>
-          <select multiple name="campuses" class="chosen-select">
-            {% for campus in campuses %}
-            <option value="{{ campus.id }}">
-              {{ campus.name }}
-            </option>
-            {% endfor %}
-          </select>
+        
+        <h4>Source</h4>
+        <div class="well">
+          <div class="row">
+            <div class="span1" style="text-align: left">
+              <span style="color: #0088CC">Data Source</span>
+            </div>
+            <div class="span10">
+              {% for choice in appendixChoices %}
+              <input type="radio" name="appendix" value="{{ choice.0 }}">
+                {{ choice.1 }}
+              </input>
+              {% endfor %}
+            </div>
+          </div>
         </div>
-        <div>
-          <span class="label">Repository</span>
-          <select multiple name="repositories" class="chosen-select">
-            {% for repo in repositories %}
-            <option value="{{ repo.id }}">
-              {{ repo.name }}
-            </option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row span12">
-      <div class="row">
-        <h2 class="pull-left">Source</h2>
-      </div>
-      <div class="well">
-        <div>
-          <span class="label">Collection Data Source</span>
-          {% for choice in appendixChoices %}
-          <input type="radio" name="appendix" value="{{ choice.0 }}">
-            {{ choice.1 }}
-          </input>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    <div class="row span12">
-      <input type="submit" value="Save"></input>
-    </div>
-  </form>
+        <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save</button>
+        <a href="{% url 'edit_collections' %}" class="btn"><i class="icon-ban-circle"></i> Cancel</a>
+    </form>
+  </div>
 </div>
 {% endblock content %}
 
