@@ -25,7 +25,8 @@
                   </option>
                   {% endfor %}
                 </select>
-                <button type="submit" class="btn">Save</button>
+                <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save</button>
+                <a href="{% url 'edit_repositories' %}" class="btn"><i class="icon-ban-circle"></i> Cancel</a>
               </td>
             </tr>
           </form>
