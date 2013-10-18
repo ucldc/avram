@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-{% block content-inner %}
-<div class="row">
-  <div class="span10 well" style="line-height:25px">
-    <h2>UC Libraries Digital Collection</h2>
-    <p>Welcome, {{user}}. You have requested an account for the UC Libraries Digital Collection (UCLDC). At this time, accounts are limited to UCLDC Implementation Project collaborators. If your request is approved, you will receive an email with additional instructions on how to access the editing interface for the Collection Registry and the Nuxeo digital asset management system (DAMS).</p>
+{% block content %}
+<div class="container-fluid" style="margin-top: 20px;">
+  <div class="row">
+    <div class="span10 well" style="line-height:25px">
+      <p>Welcome, {{user}}. You have requested an account for the UC Libraries Digital Collection (UCLDC). At this time, accounts are limited to UCLDC Implementation Project collaborators. If your request is approved, you will receive an email with additional instructions on how to access the editing interface for the Collection Registry and the Nuxeo digital asset management system (DAMS).</p>
 
-    <p>For more information about the UCLDC Implementation Project, visit our <a href="https://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">wiki</a> or contact <a href="mailto:ucldc@ucop.edu">ucldc@ucop.edu.</a></p>
+      <p>For more information about the UCLDC Implementation Project, visit our <a href="https://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">wiki</a> or contact <a href="mailto:ucldc@ucop.edu">ucldc@ucop.edu.</a></p>
+    </div>
   </div>
 </div>
 {% endblock %}
