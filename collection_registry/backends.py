@@ -19,7 +19,7 @@ class RegistryUserBackend(RemoteUserBackend):
 
         # https://docs.djangoproject.com/en/dev/topics/email/
         send_mail('New registry user {0}'.format(user.username), 'New registry user\n\teppn: {0}\n\temail:{1}'.format(user.username, user.email), user.email,
-            ['oacops@cdlib.org'], fail_silently=False)
+            ['ucldc@ucop.edu'], fail_silently=False)
 
         return user
 
