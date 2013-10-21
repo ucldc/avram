@@ -35,7 +35,7 @@ class RegistryUserBackend(RemoteUserBackend):
          <a href='https://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation'>wiki</a> or contact\
           <a href='mailto:ucldc@ucop.edu'>ucldc@ucop.edu</a>."
         
-        email_to_user = EmailMultiAlternatives('UCLDC account request', plaintext_message, 'ucldc@ucop.edu', [user.email], ['ucldc@ucop.edu'])
+        email_to_user = EmailMultiAlternatives('UCLDC account request', plaintext_content, 'ucldc@ucop.edu', [user.email], ['ucldc@ucop.edu'])
         email_to_user.attach_alternative(html_content, "text/html")
         email_to_user.send()
         
