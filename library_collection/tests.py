@@ -187,7 +187,7 @@ class EditViewTestCase(TestCase):
             )
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
-        self.assertContains(response, 'collections')
+        self.assertContains(response, 'Collections')
         self.assertNotContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
         self.assertContains(response, EditViewTestCase.current_app+'/150/wieslander-vegetation-type-maps-photographs-in-192/')
 

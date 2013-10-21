@@ -41,7 +41,7 @@
     
     {% block header_top %}
     <div class="container-fluid">
-      <div class="row" >
+      <div class="row-fluid" >
         <div class="span8" >
           <h3 class="logo">
             {% if user.is_authenticated and editing %}
@@ -53,16 +53,13 @@
             </a>
           </h3>
         </div>
-        <div class="span5">
+        <div class="span4">
           <span class="pull-right"> 
-            <!-- <a class="span1 pull-left" href="http://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation" title="This is the collection registry for the UCLDC. From here you can view and edit the collections contained in the UCLDC.">About</a> -->
-            <span class="span3">
-              {% if user.is_authenticated %}
-              Welcome {{user}}
-              {%else%}
-              <!-- <a href="/edit{{current_path}}" title="Login to edit collections or repositories">Edit</a> -->
-              {%endif%}
-            </span>
+            {% if user.is_authenticated %}
+            Welcome {{user}}
+            {%else%}
+            <!-- <a href="/edit{{current_path}}" title="Login to edit collections or repositories">Edit</a> -->
+            {%endif%}
           </span>
         </div>
       </div>

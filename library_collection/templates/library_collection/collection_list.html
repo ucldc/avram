@@ -49,15 +49,35 @@
               <li class="{% if campus_iter == campus %}active{% endif %}" style="width: 100%">
                 {% if user.is_authenticated and editing %}
                   {% if campus_iter == campus %}
-                    <a href="{% url "edit_collections" %}"><i class="icon-remove" style="margin-right: .75em;"></i>{{ campus_iter.name }}</a>
+                    <a href="{% url "edit_collections" %}">
+                      <div class="row-fluid">
+                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
+                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
+                      </div>
+                    </a>
                   {% else %}
-                    <a href="{% url "edit_collections" campus_slug=campus_iter.slug %}"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i>{{ campus_iter.name }}</a>
+                    <a href="{% url "edit_collections" campus_slug=campus_iter.slug %}">
+                      <div class="row-fluid">
+                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
+                        <div style="overflow: hidden;">{{ campus_iter.name }}</div>
+                      </div>
+                    </a>
                   {% endif %}
                 {% else %}
                   {% if campus_iter == campus %}
-                    <a href="{% url "collections" %}"><i class="icon-remove" style="margin-right: .75em;"></i>{{ campus_iter.name }}</a>
+                    <a href="{% url "collections" %}">
+                      <div class="row-fluid">
+                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
+                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
+                      </div>
+                    </a>
                   {% else %}
-                    <a href="{% url "collections" campus_slug=campus_iter.slug %}"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i>{{ campus_iter.name }}</a>
+                    <a href="{% url "collections" campus_slug=campus_iter.slug %}">
+                      <div class="row-fluid">
+                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
+                        <div style="overflow: hidden;">{{ campus_iter.name }}</div>
+                      </div>
+                    </a>
                   {% endif %}
                 {% endif %}
               </li>
