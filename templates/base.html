@@ -3,7 +3,7 @@
 {% load url from future %}
 <html lang="en">
   <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>UCLDC Collection Registry{% block title %}{% endblock %}</title>
     {% block styles %}{% endblock %}
 
     <!-- Bootstrap -->
@@ -12,6 +12,22 @@
     <style>
     body { font-family: Arial, Helvetica, sans-serif;
            color: #7C7E7F;
+    }
+    h3.logo { background: transparent url("{% static 'images/ucldc-registry.png' %}") no-repeat scroll 0% 0%;
+      width: 352px;
+      height: 54px;
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      border: 0;
+      margin: 20px 0;
+    }
+    h3.logo a {
+      display: block;
+      width: 360px;
+      height: 53px;
+      text-decoration: none;
+      border: 0;
     }
     </style>
     <meta charset="utf-8" />
@@ -27,13 +43,15 @@
     <div class="container-fluid">
       <div class="row" >
         <div class="span8" >
-          {% if user.is_authenticated and editing %}
-          <a href="{% url 'edit_collections' %}">
-          {% else %}
-          <a href="{% url 'collections' %}">
-          {% endif %}
-            <h3>UCLDC Collection Registry</h3>
-          </a>
+          <h3 class="logo">
+            {% if user.is_authenticated and editing %}
+            <a href="{% url 'edit_collections' %}">
+            {% else %}
+            <a href="{% url 'collections' %}">
+            {% endif %}
+              UCLDC Collection Registry
+            </a>
+          </h3>
         </div>
         <div class="span5">
           <span class="pull-right"> 

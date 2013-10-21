@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from library_collection.decorators import verification_required
 
-campuses = Campus.objects.all().order_by('name')
+campuses = Campus.objects.all().order_by('position')
 
 def active_tab(request):
     '''Return a key for the active tab, by parsing the request.path
