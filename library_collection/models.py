@@ -3,11 +3,13 @@
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from human_to_bytes import bytes2human
+from positions.fields import PositionField
 
 
 class Campus(models.Model):
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=4)
+    position = models.IntegerField(default=0)
     class Meta:
         verbose_name_plural = "campuses"
     def __unicode__(self):

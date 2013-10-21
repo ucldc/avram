@@ -10,3 +10,4 @@ wsgiref==0.1.2
 -e git://github.com/aobo711/bootstrap-django-admin.git#egg=bootstrap-django-admin
 MySQL-python==1.2.4
 longerusername==0.4
+-e git://github.com/jpwatts/django-positions#egg=django-positions
