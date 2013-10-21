@@ -6,7 +6,15 @@
 {% if collection %}
 <div class="container-fluid">
   <div class="row span12 well">
-    <h3>{{ collection.name }}</h3>
+    <h3>
+      {% if collection.first_url %}
+      <a href="{{ collection.first_url }}">
+        {{ collection.name }}
+      </a>
+      {% else %}
+      {{ collection.name }}
+      {% endif %}
+    </h3>
 
     <div>
       <h4>Affiliation</h4>

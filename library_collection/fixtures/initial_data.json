@@ -4,7 +4,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 0,
-      "name": "Berkeley", 
+      "name": "UC Berkeley", 
       "slug": "UCB"
     }
   }, 
@@ -13,7 +13,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 1,
-      "name": "Davis", 
+      "name": "UC Davis", 
       "slug": "UCD"
     }
   }, 
@@ -22,7 +22,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 2,
-      "name": "Irvine", 
+      "name": "UC Irvine", 
       "slug": "UCI"
     }
   }, 
@@ -31,7 +31,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 4,
-      "name": "Merced", 
+      "name": "UC Merced", 
       "slug": "UCM"
     }
   }, 
@@ -40,7 +40,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 5,
-      "name": "Riverside", 
+      "name": "UC Riverside", 
       "slug": "UCR"
     }
   }, 
@@ -49,7 +49,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 6,
-      "name": "San Diego", 
+      "name": "UC San Diego", 
       "slug": "UCSD"
     }
   }, 
@@ -58,7 +58,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 7,
-      "name": "San Francisco", 
+      "name": "UC San Francisco", 
       "slug": "UCSF"
     }
   }, 
@@ -67,7 +67,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 8,
-      "name": "Santa Barbara", 
+      "name": "UC Santa Barbara", 
       "slug": "UCSB"
     }
   }, 
@@ -76,7 +76,7 @@
     "model": "library_collection.campus", 
     "fields": {
       "position": 9,
-      "name": "Santa Cruz", 
+      "name": "UC Santa Cruz", 
       "slug": "UCSC"
     }
   }, 

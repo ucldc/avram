@@ -151,9 +151,9 @@ def edit_repositories(request, campus_slug=None):
     campus = None
     if campus_slug:
         campus = get_object_or_404(Campus, slug=campus_slug)
-        repositoryObjs = Repository.objects.filter(campus=campus)
+        repositoryObjs = Repository.objects.filter(campus=campus).order_by('name')
     else:
-        repositoryObjs = Repository.objects.all()
+        repositoryObjs = Repository.objects.all().order_by('name')
         
     if (request.method == 'POST'):
         requestObj = request.POST
@@ -192,9 +192,9 @@ def repositories(request, campus_slug=None):
     campus = None
     if campus_slug:
         campus = get_object_or_404(Campus, slug=campus_slug)
-        repositories = Repository.objects.filter(campus=campus)
+        repositories = Repository.objects.filter(campus=campus).order_by('name')
     else:
-        repositories = Repository.objects.all()
+        repositories = Repository.objects.all().order_by('name')
     return render(request,
             template_name='library_collection/repository_list.html',
             dictionary={
