@@ -66,6 +66,20 @@ class Collection(models.Model):
     @property
     def url(self):
         return self.url_local;
+    
+    # This is a temporary property for the case of just 
+    # giving some reference to actual content.
+    # The url fields will get revisited next cycle.  
+    @property
+    def first_url(self):
+        if self.url_local != '':
+            return self.url_local
+        elif self.url_oac != '':
+            return self.url_oac
+        elif self.url_was != '':
+            return self.url_was
+        else:
+            return False
 
     @property
     def human_extent(self):
