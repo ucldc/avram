@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %} | {% if campus %}{{ campus.name }}{% endif %} Collections{% endblock %}
+
 {% block content-inner %}
 {% if collections %}
 <div class="row">

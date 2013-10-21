@@ -1,6 +1,8 @@
 {% extends "library_collection/collection.html" %}
 {% load staticfiles %}
 
+{% block title %} | {{ collection.name }}{% endblock %}
+
 {% block styles %}
 <link href="{% static 'collection_edit.css' %}" rel="stylesheet"/>
 {% endblock %}
