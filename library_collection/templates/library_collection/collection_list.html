@@ -9,7 +9,7 @@
     {% if user.is_authenticated and editing %}
         <form action="{% url 'edit_collections' %}" method="post">
           {% csrf_token %}
-          <button type="submit" name="edit" value="true" class="btn"><i class="icon-plus"></i> Add new Collection</button>
+          <button type="submit" name="new" value="true" class="btn"><i class="icon-plus"></i> Add new Collection</button>
         </form>
     {% endif %}
       

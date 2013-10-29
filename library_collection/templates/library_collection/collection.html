@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} | {{ collection.name }}{% endblock %}
+{% block title %}{% if collection.name %} | {{ collection.name }}{% endif %}{% endblock %}
 
 {% block content %}
 {% if collection %}
