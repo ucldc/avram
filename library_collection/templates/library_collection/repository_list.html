@@ -19,12 +19,12 @@
             {% csrf_token %}
             <tr>
               <td>
-                <label for="name"><span class="hide">Unit Title</span></label>
+                <label for="name" class="hide">Unit Title</label>
                 <input type="text" id="name" name="name" style="width: 400px; margin-bottom:0px" placeholder="Unit Title"></input>
-                <label for="campuses"><span class="hide">Campuses</span></label>
+                <label for="campuses" class="hide">Campuses</label>
                 <select multiple id="campuses" name="campuses" class="chosen-select" data-placeholder="Select Campus Affiliation">
                   {% for campus in campuses %}
-                  <option value="{{ campus.id }}">
+                  <option value="{{ campus.id }}" {% if campus_list and campus in campus_list %}selected{% endif %}>
                     {{ campus.name }}
                   </option>
                   {% endfor %}

@@ -253,11 +253,24 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'Bancroft Library')
 
+        def testCollectionViewFormSubmissionEmptyForm(self):
+            '''Test form submission to modify a collection with an empty form'''
+            url = reverse('edit_detail', 
+                    kwargs={ 'colid': 2, 
+                    'col_slug':'halberstadt-collection-selections-of-photographs-p'},
+                )
+            response = self.client.post(url, {'name': ''}, 
+                    HTTP_AUTHORIZATION=self.http_auth
+                )
+            self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+            self.assertContains(response, 'Error:')
+            self.assertContains(response, 'Please enter a')
+
     def testCollectionCreateViewForm(self):
         '''Test form to create a new collection'''
         url = reverse('edit_collections')
-        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
-        self.assertTemplateUsed(response, 'library_collection/new_collection.html')
+        response = self.client.post(url, {'new': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'Save')
     
     def testCollectionCreateViewFormSubmission(self):
@@ -274,6 +287,13 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'new collection')
         self.assertContains(response, 'Berkeley')
     
+    def testCollectionCreateViewFormSubmissionEmptyForm(self):
+        '''Test form submission to create an empty collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'name': ''}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'Error:')
+    
     def testRepositoryCreateViewForm(self):
         '''Test form to create a new repository'''
         url = reverse('edit_repositories')
@@ -288,7 +308,15 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertContains(response, 'Add')
         self.assertContains(response, 'new repository')
-
+   
+    def testRepositoryCreateViewFormSubmissionEmptyForm(self):
+        '''Test form submission to create an empty repository'''
+        url = reverse('edit_repositories')
+        response = self.client.post(url, {'name': ''}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/repository_list.html')
+        self.assertContains(response, 'Error:')
+        self.assertContains(response, 'Please enter a unit title')
+   
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
     With the HttpAuthMockMiddleware, a new user should be authenticated,
