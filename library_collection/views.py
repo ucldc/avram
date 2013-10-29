@@ -8,6 +8,7 @@ from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from library_collection.decorators import verification_required
+from django.core.exceptions import ValidationError
 
 campuses = Campus.objects.all().order_by('position')
 
@@ -31,30 +32,53 @@ def editing(path):
 
 @login_required
 @verification_required
-def edit_collections(request, campus_slug=None):
+def edit_collections(request, campus_slug=None, error=None):
     '''Edit view of all collections. Only difference from read-only is the 
     "add" link/button.
     '''
     if (request.method == 'POST'):
         requestObj = request.POST
-        if ('edit' in requestObj):
+        if ('new' in requestObj or error):
             context = {
                 'campuses': campuses,
                 'current_path': request.path,
                 'editing': editing(request.path),
                 'repositories': Repository.objects.all().order_by('name'),
                 'appendixChoices': Collection.APPENDIX_CHOICES,
-                'edit': 'true',
+                'new': 'true',
             }
+            if error:
+                context['error'] = error
+                
+                collection = {'name': requestObj['name']}
+                if 'appendix' in requestObj:
+                    collection['appendix'] = requestObj['appendix']
+                if 'campuses' in requestObj:
+                    campus = []
+                    for campus_id in requestObj.getlist('campuses'):
+                        campus.append(Campus.objects.get(pk=campus_id))
+                    collection['campus'] = campus
+                if 'repositories' in requestObj:
+                    repository = []
+                    for repository_id in requestObj.getlist('repositories'):
+                        repository.append(Repository.objects.get(pk=repository_id))
+                    collection['repository'] = repository
+                context['collection'] = collection
+                
             return render(request,
-                template_name='library_collection/new_collection.html',
+                template_name='library_collection/collection_edit.html',
                 dictionary=context
             )
         else: 
-            new_collection = Collection()
-            new_collection.name = requestObj['name']
-            new_collection.appendix = requestObj['appendix']
-            new_collection.save();
+            try:
+                new_collection = Collection(name=requestObj['name'], appendix=requestObj['appendix'])
+                new_collection.full_clean()
+            except ValidationError as e:
+                return edit_collections(request, error='Please enter a collection title')
+            except KeyError as e:
+                return edit_collections(request, error='Please enter a data source')
+                
+            new_collection.save()
             new_collection.repository = requestObj.getlist('repositories')
             new_collection.campus = requestObj.getlist('campuses')
             return edit_details(request, new_collection.pk, new_collection.slug)
@@ -86,7 +110,7 @@ def collections(request, campus_slug=None):
 
 @login_required
 @verification_required
-def edit_details(request, colid=None, col_slug=None):
+def edit_details(request, colid=None, col_slug=None, error=None):
     collection = get_object_or_404(Collection, pk=colid)
     if col_slug != collection.slug:
         return redirect(collection, permanent=True)
@@ -98,11 +122,27 @@ def edit_details(request, colid=None, col_slug=None):
         }
         if (request.method == 'POST'):
             requestObj = request.POST
-            if ('edit' in requestObj):
+            if ('edit' in requestObj) or error:
                 context['campuses'] = campuses
                 context['repositories'] = Repository.objects.all().order_by('name')
                 context['appendixChoices'] = Collection.APPENDIX_CHOICES
                 context['edit'] = 'true'
+                
+                if error:
+                    context['error'] = error
+                    collection.name = requestObj['name']
+                    collection.campus = requestObj.getlist('campuses')
+                    collection.repository = requestObj.getlist('repositories')
+                    
+                    if requestObj['name'] == '':
+                        context['error'] = "Please enter a collection title"
+                    if 'appendix' in requestObj:
+                        collection.appendix = requestObj['appendix']
+                    else: 
+                        context['error'] = "Please enter a data source"
+                    
+                    context['collection'] = collection
+                
                 return render(request,
                     template_name='library_collection/collection_edit.html',
                     dictionary=context
@@ -110,10 +150,15 @@ def edit_details(request, colid=None, col_slug=None):
             else: 
                 collection.name = requestObj["name"]
                 collection.appendix = requestObj['appendix']
-                collection.repository.clear()
                 collection.repository = requestObj.getlist('repositories')
                 collection.campus = requestObj.getlist("campuses")
-                collection.save();
+                
+                try:
+                    collection.full_clean()
+                except ValidationError as e:
+                    return edit_details(request, colid, col_slug, error=e)
+                
+                collection.save()
     
         return render(request,
             template_name='library_collection/collection.html',
@@ -147,7 +192,7 @@ def details_by_id(request, colid):
 
 @login_required
 @verification_required
-def edit_repositories(request, campus_slug=None):
+def edit_repositories(request, campus_slug=None, error=None):
     campus = None
     if campus_slug:
         campus = get_object_or_404(Campus, slug=campus_slug)
@@ -157,7 +202,7 @@ def edit_repositories(request, campus_slug=None):
         
     if (request.method == 'POST'):
         requestObj = request.POST
-        if ('edit' in requestObj):
+        if ('edit' in requestObj or error):
             context = {
                 'campuses': campuses,
                 'current_path': request.path,
@@ -165,15 +210,28 @@ def edit_repositories(request, campus_slug=None):
                 'edit': 'true',
                 'repositories': repositoryObjs
             }
+            if error:
+                context['error'] = error
+                if 'campuses' in requestObj:
+                    campus = []
+                    for campus_id in requestObj.getlist('campuses'):
+                        campus.append(Campus.objects.get(pk=campus_id))
+                    context['campus_list'] = campus
+                
             return render(request,
                 template_name='library_collection/repository_list.html',
                 dictionary=context
             )
         else: 
-            new_repository = Repository()
-            new_repository.name = requestObj['name']
-            new_repository.save();
+            try: 
+                new_repository = Repository(name = requestObj['name'])
+                validated = new_repository.full_clean()
+            except ValidationError as e:
+                return edit_repositories(request, error='Please enter a unit title')
+            
+            new_repository.save()
             new_repository.campus = requestObj.getlist('campuses')
+            
             return render(request, template_name='library_collection/repository_list.html', 
                 dictionary={
                     'campus': campus,

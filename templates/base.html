@@ -39,6 +39,15 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'chosen/js/chosen.jquery.min.js' %}"></script>
     
+    {% block error %}
+    {% if error %}
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+    {% endblock %}
+    
     {% block header_top %}
     <div class="container-fluid">
       <div class="row-fluid" >

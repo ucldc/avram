@@ -256,8 +256,8 @@ class EditViewTestCase(TestCase):
     def testCollectionCreateViewForm(self):
         '''Test form to create a new collection'''
         url = reverse('edit_collections')
-        response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
-        self.assertTemplateUsed(response, 'library_collection/new_collection.html')
+        response = self.client.post(url, {'new': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'Save')
     
     def testCollectionCreateViewFormSubmission(self):
