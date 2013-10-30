@@ -77,7 +77,10 @@ def edit_collections(request, campus_slug=None, error=None):
                 return edit_collections(request, error='Please enter a collection title')
             except KeyError as e:
                 return edit_collections(request, error='Please enter a data source')
-                
+            
+            if len(requestObj.getlist('campuses')) < 1:
+               return edit_collections(request, error='Please enter at least one campus')
+            
             new_collection.save()
             new_collection.repository = requestObj.getlist('repositories')
             new_collection.campus = requestObj.getlist('campuses')
@@ -153,6 +156,9 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                 collection.repository = requestObj.getlist('repositories')
                 collection.campus = requestObj.getlist("campuses")
                 
+                if len(requestObj.getlist("campuses")) < 1:
+                   return edit_details(request, colid, col_slug, error="Please enter at least one campus")
+                
                 try:
                     collection.full_clean()
                 except ValidationError as e:
@@ -217,6 +223,8 @@ def edit_repositories(request, campus_slug=None, error=None):
                     for campus_id in requestObj.getlist('campuses'):
                         campus.append(Campus.objects.get(pk=campus_id))
                     context['campus_list'] = campus
+                if 'name' in requestObj:
+                    context['repository'] = {'name': requestObj['name']}
                 
             return render(request,
                 template_name='library_collection/repository_list.html',
@@ -228,6 +236,9 @@ def edit_repositories(request, campus_slug=None, error=None):
                 validated = new_repository.full_clean()
             except ValidationError as e:
                 return edit_repositories(request, error='Please enter a unit title')
+            
+            if len(requestObj.getlist('campuses')) < 1:
+               return edit_repositories(request, error='Please enter at least one campus')
             
             new_repository.save()
             new_repository.campus = requestObj.getlist('campuses')
