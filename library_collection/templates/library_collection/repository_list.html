@@ -20,7 +20,7 @@
             <tr>
               <td>
                 <label for="name" class="hide">Unit Title</label>
-                <input type="text" id="name" name="name" style="width: 400px; margin-bottom:0px" placeholder="Unit Title"></input>
+                <input type="text" id="name" name="name" style="width: 400px; margin-bottom:0px" placeholder="Unit Title" value="{% if repository %}{{repository.name}}{% endif %}"></input>
                 <label for="campuses" class="hide">Campuses</label>
                 <select multiple id="campuses" name="campuses" class="chosen-select" data-placeholder="Select Campus Affiliation">
                   {% for campus in campuses %}
