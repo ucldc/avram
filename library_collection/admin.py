@@ -17,6 +17,16 @@ admin.site.register(User, UserAdmin)
 class URLFieldsListFilter(SimpleListFilter):
     '''Filter to find blank or filled URL fields'''
     title = 'URL Fields'
+    lookup_table = {
+            'LOCAL': ('has local URL', lambda x: x.exclude(url_local__exact='')),
+            'LOCALNOT': ('missing local URL', lambda x: x.filter(url_local__exact='')),
+            'OAC': ('has OAC URL', lambda x: x.exclude(url_oac__exact='')),
+            'OACNOT': ('missing OAC URL', lambda x: x.filter(url_oac__exact='')),
+            'OAI': ('has OAI URL', lambda x: x.exclude(url_oai__exact='')),
+            'OAINOT': ('missing OAI URL', lambda x: x.filter(url_oai__exact='')),
+            'WAS': ('has WAS URL', lambda x: x.exclude(url_was__exact='')),
+            'WASNOT': ('missing WAS URL', lambda x: x.filter(url_was__exact='')),
+            }
 
     # Parameter for the filter that will be used in the URL query.
     parameter_name = 'urlfields'
@@ -29,16 +39,7 @@ class URLFieldsListFilter(SimpleListFilter):
         human-readable name for the option that will appear
         in the right sidebar.
         """
-        return (
-            ('LOCAL', 'has local URL'),
-            ('LOCALNOT', 'missing local URL'),
-            ('OAC', 'has OAC URL'),
-            ('OACNOT', 'missing OAC URL'),
-            ('OAI', 'has OAI URL'),
-            ('OAINOT', 'missing OAI URL'),
-            ('WAS', 'has WAS URL'),
-            ('WASNOT', 'missing WAS URL'),
-        )
+        return tuple([ (k, v[0]) for k,v in URLFieldsListFilter.lookup_table.items()])
 
     def queryset(self, request, queryset):
         """
@@ -46,23 +47,11 @@ class URLFieldsListFilter(SimpleListFilter):
         provided in the query string and retrievable via
         `self.value()`.
         """
-        if self.value() == 'LOCAL':
-            return queryset.exclude(url_local__exact='')
-        if self.value() == 'LOCALNOT':
-            return queryset.filter(url_local__exact='')
-        if self.value() == 'OAC':
-            return queryset.exclude(url_oac__exact='')
-        if self.value() == 'OACNOT':
-            return queryset.filter(url_oac__exact='')
-        if self.value() == 'OAI':
-            return queryset.exclude(url_oai__exact='')
-        if self.value() == 'OAINOT':
-            return queryset.filter(url_oai__exact='')
-        if self.value() == 'WAS':
-            return queryset.exclude(url_was__exact='')
-        if self.value() == 'WASNOT':
-            return queryset.filter(url_was__exact='')
- 
+        try:
+            return URLFieldsListFilter.lookup_table[self.value()][1](queryset)
+        except KeyError:
+            pass
+
 
 class CollectionAdmin(admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984

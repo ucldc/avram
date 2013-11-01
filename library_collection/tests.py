@@ -40,6 +40,14 @@ class CollectionAdminTestCase(TestCase):
         pc.name = 'PC-2'
         pc.url_oac = 'http://oac'
         pc.save()
+        pc = Collection()
+        pc.name = 'PC-3'
+        pc.url_local = 'http://local'
+        pc.save()
+        pc = Collection()
+        pc.name = 'PC-4'
+        pc.url_oai = 'http://oai'
+        pc.save()
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         u.is_superuser = True
         u.is_active = True
@@ -58,14 +66,19 @@ class CollectionAdminTestCase(TestCase):
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'PC-1')
-        response = self.client.get(url_admin+'?urlfields=LOCALNOT', HTTP_AUTHORIZATION=http_auth)
+        self.assertNotContains(response, '&lt;function')
+        response = self.client.get(url_admin+'?urlfields=LOCAL', HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
-        self.assertNotContains(response, 'PC-1')
-        self.assertContains(response, 'PC-2')
+        self.assertContains(response, 'PC-1')
+        self.assertNotContains(response, 'PC-2')
+        self.assertContains(response, 'PC-3')
+        self.assertContains(response, 'class="row1"', count=1)
+        self.assertContains(response, 'class="row2"', count=1)
         response = self.client.get(url_admin+'?urlfields=OACNOT', HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'PC-1')
         self.assertNotContains(response, 'PC-2')
+        self.assertContains(response, 'class="row1"', count=2)
 
     def testUserListHasRequiredColumns(self):
         '''Test that the "active" column is present in the admin user list
