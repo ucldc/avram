@@ -48,9 +48,6 @@ class CollectionAdminTestCase(TestCase):
 
     def testURLFieldsListFilter(self):
         '''Test that the URL fields filter works'''
-        #setup some datas, use fixtures once fixtures in place
-        # https://code.djangoproject.com/ticket/13394
-        # https://groups.google.com/d/msg/django-users/VpPrGVPS0aw/SwE8X51Q8jYJ
         url_admin = '/admin/library_collection/collection/'
         response = self.client.get(url_admin)
         self.assertEqual(response.status_code, 401)
@@ -69,6 +66,20 @@ class CollectionAdminTestCase(TestCase):
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'PC-1')
         self.assertNotContains(response, 'PC-2')
+
+    def testUserListHasRequiredColumns(self):
+        '''Test that the "active" column is present in the admin user list
+        view.
+        '''
+        url_admin = '/admin/auth/user/'
+        http_auth = 'basic '+'test:fake'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Username")
+        self.assertContains(response, "Active")
+        self.assertContains(response, "Email")
+        self.assertContains(response, "Date joined")
+        self.assertContains(response, "Staff status")
 
 
 class RepositoryTestCase(TestCase):

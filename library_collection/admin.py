@@ -3,9 +3,16 @@
 from django.contrib import admin
 from library_collection.models import *
 from django.contrib.sites.models import Site
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.admin import SimpleListFilter
+
+
+#Add is_active & date_joined to User admin list view
+UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 class URLFieldsListFilter(SimpleListFilter):
     '''Filter to find blank or filled URL fields'''
