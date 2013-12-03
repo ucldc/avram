@@ -6,6 +6,7 @@ Replace this with more appropriate tests for your application.
 """
 from urllib import quote
 from django.test import TestCase
+from unittest import TestCase as UnitTestCase
 from library_collection.models import *
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -26,6 +27,28 @@ class CollectionTestCase(TestCase):
         self.assertEqual(pc.name, unicode(pc))
         pc.save()
         pc.repository
+
+    def test_start_harvest_function(self):
+        '''
+        Test of harvest starting function. Kicks off a "harvest" for the 
+        given collection.
+        '''
+        pc = Collection()
+        self.assertTrue(hasattr(pc, 'start_harvest'))
+        pc.start_harvest()
+
+
+class CollectionModelAdminTestCase(UnitTestCase):
+    '''Use the basic unit test case to test some facts about the 
+    CollectionAdmin model.
+    '''
+    def testAdminHasStartHarvestAction(self):
+        '''Test that the admin interface has a start harvest action
+        '''
+        from library_collection.admin import start_harvest
+        from library_collection.admin import CollectionAdmin
+        self.assertTrue(start_harvest in CollectionAdmin.actions)
+
 
 class CollectionAdminTestCase(TestCase):
     '''Check that the list filter is defined correctly. Will need test
@@ -93,6 +116,16 @@ class CollectionAdminTestCase(TestCase):
         self.assertContains(response, "Email")
         self.assertContains(response, "Date joined")
         self.assertContains(response, "Staff status")
+
+    def testStartActionAvailable(self):
+        '''Test that the start harvest action appears on the collection
+        admin list page
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test:fake'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'start_harvest')
 
 
 class RepositoryTestCase(TestCase):

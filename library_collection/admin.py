@@ -53,6 +53,10 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
+def start_harvest(modeladmin, request, queryset):
+    pass
+start_harvest.short_description = 'Start harvest for selected collections'
+
 class CollectionAdmin(admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     def campuses(self):
@@ -66,6 +70,7 @@ class CollectionAdmin(admin.ModelAdmin):
     list_editable = ('appendix', 'phase_one')
     list_filter = [ 'campus', 'need_for_dams', 'appendix', URLFieldsListFilter]
     search_fields = ['name','description']
+    actions = [ start_harvest, ]
 
     def human_extent(self, obj):
         return obj.human_extent
@@ -81,5 +86,8 @@ admin.site.register(Status)
 admin.site.register(Restriction)
 #admin.site.register(Need)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
-admin.site.unregister(Site)
+try:
+    admin.site.unregister(Site)
+except admin.sites.NotRegistered:
+    pass
 admin.site.disable_action('delete_selected')

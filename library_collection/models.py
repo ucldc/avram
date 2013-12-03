@@ -92,6 +92,15 @@ class Collection(models.Model):
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
 
+    def start_harvest(self):
+        '''Kick off the harvest.
+
+        Harvest is asyncronous. Eamil is sent to site admin? annoucing the 
+        start of a harvest for the collection.
+
+        '''
+        return True
+
 class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''
     name = models.CharField(max_length=255)
