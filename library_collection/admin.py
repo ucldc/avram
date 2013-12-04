@@ -54,7 +54,8 @@ class URLFieldsListFilter(SimpleListFilter):
 
 
 def start_harvest(modeladmin, request, queryset):
-    pass
+    for collection in queryset:
+        collection.start_harvest()
 start_harvest.short_description = 'Start harvest for selected collections'
 
 class CollectionAdmin(admin.ModelAdmin):

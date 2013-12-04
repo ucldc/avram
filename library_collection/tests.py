@@ -7,10 +7,13 @@ Replace this with more appropriate tests for your application.
 from urllib import quote
 from django.test import TestCase
 from unittest import TestCase as UnitTestCase
+from django_webtest import WebTest
 from library_collection.models import *
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 #from library_collection.admin import URLFieldsListFilter
+from mock import patch
+from library_collection.models import Collection
 
 
 class CollectionTestCase(TestCase):
@@ -117,15 +120,43 @@ class CollectionAdminTestCase(TestCase):
         self.assertContains(response, "Date joined")
         self.assertContains(response, "Staff status")
 
-    def testStartActionAvailable(self):
+
+class CollectionAdminHarvestTestCase(WebTest):
+    '''Test the start harvest action on the collection list admin page
+    '''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
+    def testStartHarvestActionAvailable(self):
         '''Test that the start harvest action appears on the collection
         admin list page
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic '+'test:fake'.encode('base64')
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'start_harvest')
+
+    @patch.object(Collection, 'start_harvest')
+    def testStartHarvestOnCollections(self, mock):
+        '''Test that the user can select & start the harvest for a number of
+        collections
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        #response = self.app.get(url_admin, user='test_user_super', HTTP_AUTHORIZATION=http_auth)
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        form =  response.forms['changelist-form']
+        form.action = '.' #set to "" in html, need to point to . for WebTest
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        #TODO: Unclear how to test that function is actually run....
+        resp = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(resp.status_int, 302)
+        self.assertTrue(mock.called)
+        self.assertTrue(mock.call_count == 3)
 
 
 class RepositoryTestCase(TestCase):
