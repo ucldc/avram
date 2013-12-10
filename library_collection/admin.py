@@ -7,6 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.admin import SimpleListFilter
+import django.contrib.messages as messages
 
 
 #Add is_active & date_joined to User admin list view
@@ -55,7 +56,14 @@ class URLFieldsListFilter(SimpleListFilter):
 
 def start_harvest(modeladmin, request, queryset):
     for collection in queryset:
-        collection.start_harvest()
+        try:
+            collection.start_harvest(request)
+        except OSError, e:
+            if e.errno == 2:
+                msg = 'Cannot find executable ' + collection.harvest_script + ' for harvesting collection: ' + collection.name
+            else:
+                msg = str(e)
+            modeladmin.message_user(request, msg, level=messages.ERROR)
 start_harvest.short_description = 'Start harvest for selected collections'
 
 class CollectionAdmin(admin.ModelAdmin):

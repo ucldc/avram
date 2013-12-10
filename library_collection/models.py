@@ -1,5 +1,8 @@
 # models.py
 
+import subprocess
+import shlex
+import os
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from human_to_bytes import bytes2human
@@ -40,6 +43,7 @@ class Collection(models.Model):
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
+    harvest_script = os.environ['HOME'] + '/bin/start_harvest.bash'
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
@@ -92,14 +96,19 @@ class Collection(models.Model):
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
 
-    def start_harvest(self):
+    def start_harvest(self, user):
         '''Kick off the harvest.
 
-        Harvest is asyncronous. Eamil is sent to site admin? annoucing the 
+        Harvest is asyncronous. Email is sent to site admin? annoucing the 
         start of a harvest for the collection.
 
         '''
-        return True
+        #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
+        #cmd_line = ' '.join(('nice', harvest_script, user.email, self.name, self.campus,
+        #    self.repository, self.description, harvest_type, url_harvest, harvest_extra_data, )
+        cmd_line = self.harvest_script
+        p = subprocess.Popen(shlex.split(cmd_line))
+        return p.pid
 
 class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''

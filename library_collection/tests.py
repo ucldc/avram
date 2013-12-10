@@ -38,7 +38,12 @@ class CollectionTestCase(TestCase):
         '''
         pc = Collection()
         self.assertTrue(hasattr(pc, 'start_harvest'))
-        pc.start_harvest()
+        u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
+        pc.harvest_script = 'xxxxx'
+        self.assertRaises(OSError, pc.start_harvest, u)
+        pc.harvest_script = 'true'
+        retVal = pc.start_harvest(u)
+        self.assertTrue(isinstance(retVal, int))
 
 
 class CollectionModelAdminTestCase(UnitTestCase):
@@ -157,6 +162,41 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(resp.status_int, 302)
         self.assertTrue(mock.called)
         self.assertTrue(mock.call_count == 3)
+
+    def testStartHarvestOnCollectionErrorMessages(self):
+        '''Test that the start harvest action creates reasonable error
+        messages when it fails
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        Collection.harvest_script = 'xxxx'
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        self.assertContains(response, 'Cannot find executable xxxx', count=3)
+        Collection.harvest_script = 'true'
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        self.assertNotContains(response, 'Cannot find executable')
 
 
 class RepositoryTestCase(TestCase):
