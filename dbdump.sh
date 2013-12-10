@@ -15,4 +15,4 @@ cd $DIR
 set +u
 source bin/activate
 set -u
-python manage.py dbdump --destination=$HOME/dbdumps --compress=gzip
+python manage.py dbdump --destination=$HOME/dbdumps --compress=bzip2
