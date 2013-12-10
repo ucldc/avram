@@ -11,3 +11,4 @@ wsgiref==0.1.2
 MySQL-python==1.2.4
 longerusername==0.4
 -e git://github.com/jpwatts/django-positions#egg=django-positions
+django-dbdump==1.0.1
