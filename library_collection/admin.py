@@ -58,6 +58,8 @@ def start_harvest(modeladmin, request, queryset):
     for collection in queryset:
         try:
             collection.start_harvest(request.user)
+            msg = ' '.join(('Started harvest for', collection.name, '. You should receive an email shortly with status of the harvest.'))
+            modeladmin.message_user(request, msg, level=messages.SUCCESS)
         except OSError, e:
             if e.errno == 2:
                 msg = 'Cannot find executable ' + collection.harvest_script + ' for harvesting collection: ' + collection.name
