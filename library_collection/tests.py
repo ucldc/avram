@@ -396,18 +396,18 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'Bancroft Library')
 
-        def testCollectionViewFormSubmissionEmptyForm(self):
-            '''Test form submission to modify a collection with an empty form'''
-            url = reverse('edit_detail', 
-                    kwargs={ 'colid': 2, 
-                    'col_slug':'halberstadt-collection-selections-of-photographs-p'},
-                )
-            response = self.client.post(url, {'name': ''}, 
-                    HTTP_AUTHORIZATION=self.http_auth
-                )
-            self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
-            self.assertContains(response, 'Error:')
-            self.assertContains(response, 'Please enter a')
+    def testCollectionViewFormSubmissionEmptyForm(self):
+        '''Test form submission to modify a collection with an empty form'''
+        url = reverse('edit_detail', 
+                kwargs={ 'colid': 2, 
+                'col_slug':'halberstadt-collection-selections-of-photographs-p'},
+            )
+        response = self.client.post(url, {'name': ''}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'Error:')
+        self.assertContains(response, 'Please enter a')
 
     def testCollectionCreateViewForm(self):
         '''Test form to create a new collection'''
