@@ -57,7 +57,7 @@ class URLFieldsListFilter(SimpleListFilter):
 def start_harvest(modeladmin, request, queryset):
     for collection in queryset:
         try:
-            collection.start_harvest(request)
+            collection.start_harvest(request.user)
         except OSError, e:
             if e.errno == 2:
                 msg = 'Cannot find executable ' + collection.harvest_script + ' for harvesting collection: ' + collection.name

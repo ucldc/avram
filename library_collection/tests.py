@@ -160,7 +160,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''Test that the user can select & start the harvest for a number of
         collections
         '''
-        url_admin = '/admin/library_collection/collection/'
+        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
         #response = self.app.get(url_admin, user='test_user_super', HTTP_AUTHORIZATION=http_auth)
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
@@ -182,7 +182,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''Test that the start harvest action creates reasonable error
         messages when it fails
         '''
-        url_admin = '/admin/library_collection/collection/'
+        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
