@@ -182,8 +182,25 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''Test that the start harvest action creates reasonable error
         messages when it fails
         '''
-        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
+        url_admin = '/admin/library_collection/collection/'
         http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertContains(response, 'Not an OAI collection', count=3)
+        self.assertContains(response, 'Not an OAI collection - UCSB Libraries Digital Collections')
+        self.assertContains(response, 'Not an OAI collection - Cholera Collection')
+        self.assertContains(response, 'Not an OAI collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
+        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         form =  response.forms['changelist-form']

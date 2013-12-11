@@ -64,6 +64,9 @@ def start_harvest(modeladmin, request, queryset):
             else:
                 msg = str(e)
             modeladmin.message_user(request, msg, level=messages.ERROR)
+        except TypeError, e:
+            msg = str(e)
+            modeladmin.message_user(request, msg, level=messages.ERROR)
 start_harvest.short_description = 'Start harvest for selected collections'
 
 class CollectionAdmin(admin.ModelAdmin):

@@ -106,7 +106,7 @@ class Collection(models.Model):
         #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
         #TODO: support other harvests, rationalize the data
         if not self.url_oai:
-            raise Exception('Not an OAI collection')
+            raise TypeError('Not an OAI collection - ' + self.name)
         campus_list = ','.join([campus.slug for campus in self.campus.all()]) 
         campus_str = '"' + campus_list + '"'
         repository_list = ','.join([repository.name for repository in self.repository.all()]) 
