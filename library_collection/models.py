@@ -104,9 +104,19 @@ class Collection(models.Model):
 
         '''
         #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
-        #cmd_line = ' '.join(('nice', harvest_script, user.email, self.name, self.campus,
-        #    self.repository, self.description, harvest_type, url_harvest, harvest_extra_data, )
-        cmd_line = self.harvest_script
+        #TODO: support other harvests, rationalize the data
+        if not self.url_oai:
+            raise Exception('Not an OAI collection')
+        campus_list = ','.join([campus.slug for campus in self.campus.all()]) 
+        campus_str = '"' + campus_list + '"'
+        repository_list = ','.join([repository.name for repository in self.repository.all()]) 
+        repository_str = '"' + repository_list + '"'
+        # TODO: rationalize the harvest url & extra data 
+        cmd_line = ' '.join((self.harvest_script, user.email, '"'+self.name+'"',
+            campus_str, repository_str,)
+            )
+        if self.url_oai:
+            cmd_line += ' '.join((' OAI', self.url_oai, self.oai_set_spec))
         p = subprocess.Popen(shlex.split(cmd_line))
         return p.pid
 

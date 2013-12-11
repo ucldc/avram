@@ -14,9 +14,12 @@ from django.core.urlresolvers import reverse
 #from library_collection.admin import URLFieldsListFilter
 from mock import patch
 from library_collection.models import Collection
+from library_collection.models import Campus
+from library_collection.models import Repository
 
 
 class CollectionTestCase(TestCase):
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
     def test_basic_addition(self):
         """
         Sanity check on Collection model
@@ -36,14 +39,26 @@ class CollectionTestCase(TestCase):
         Test of harvest starting function. Kicks off a "harvest" for the 
         given collection.
         '''
-        pc = Collection()
+        pc = Collection.objects.all()[0]
         self.assertTrue(hasattr(pc, 'start_harvest'))
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
+        self.assertRaises(Exception)
         pc.harvest_script = 'xxxxx'
+        pc.url_oai = 'http://example.com/oai'
+        pc.oai_set_spec = 'testset'
+        pc.repository = [Repository.objects.get(id=1),]
+        pc.save()
         self.assertRaises(OSError, pc.start_harvest, u)
         pc.harvest_script = 'true'
         retVal = pc.start_harvest(u)
         self.assertTrue(isinstance(retVal, int))
+        with patch('subprocess.Popen') as mock_subprocess:
+            retVal = pc.start_harvest(u)
+            self.assertTrue(mock_subprocess.called)
+            mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
+                'On demand patron requests', 'UCD', 'eScholarship', 'OAI',
+                'http://example.com/oai', 'testset']
+                )
 
 
 class CollectionModelAdminTestCase(UnitTestCase):
