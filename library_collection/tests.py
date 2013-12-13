@@ -46,7 +46,7 @@ class CollectionTestCase(TestCase):
         pc.harvest_script = 'xxxxx'
         pc.url_oai = 'http://example.com/oai'
         pc.oai_set_spec = 'testset'
-        pc.repository = [Repository.objects.get(id=1),]
+        #pc.repository = [Repository.objects.get(id=1),]
         pc.save()
         self.assertRaises(OSError, pc.start_harvest, u)
         pc.harvest_script = 'true'
@@ -56,7 +56,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
-                'On demand patron requests', 'UCD', 'eScholarship', 'OAI',
+                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
                 'http://example.com/oai', 'testset']
                 )
 
@@ -278,12 +278,12 @@ class TastyPieAPITest(TestCase):
         url_collection = self.url_api + 'collection/?limit=200&format=json'
         response = self.client.get(url_collection)
         self.assertContains(response, '"collection_type":', count=188)
-        self.assertContains(response, '"campus":', count=201)
+        self.assertContains(response, '"campus":', count=203)
         self.assertContains(response, '"repository":', count=188)
         self.assertContains(response, '"url_oai":', count=188)
         self.assertContains(response, 'appendix":', count=188)
         #now check some specific instance data?
-        self.assertContains(response, '"name":', count=395)
+        self.assertContains(response, '"name":', count=399)
         self.assertContains(response, 'UCD')
         self.assertContains(response, 'eScholarship')
         self.assertContains(response, 'Internet Archive')
