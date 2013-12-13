@@ -5,8 +5,9 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 from urllib import quote
+import unittest
+from django.conf import settings
 from django.test import TestCase
-from unittest import TestCase as UnitTestCase
 from django_webtest import WebTest
 from library_collection.models import *
 from django.contrib.auth.models import User
@@ -17,6 +18,12 @@ from library_collection.models import Collection
 from library_collection.models import Campus
 from library_collection.models import Repository
 
+def skipUnlessIntegrationTest(selfobj=None):
+    '''Skip the test unless the environmen variable RUN_INTEGRATION_TESTS is set.
+    '''
+    if os.environ.get('RUN_INTEGRATION_TESTS', False):
+        return lambda func: func
+    return unittest.skip('RUN_INTEGRATION_TESTS not set. Skipping integration tests.')
 
 class CollectionTestCase(TestCase):
     fixtures = ('collection.json', 'initial_data.json', 'repository.json')
@@ -34,6 +41,24 @@ class CollectionTestCase(TestCase):
         pc.save()
         pc.repository
 
+    @skipUnlessIntegrationTest()
+    def test_start_harvest_integration(self):
+        pc = Collection.objects.all()[0]
+        u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
+        pc.url_oai = 'http://example.com/oai'
+        pc.oai_set_spec = 'testset'
+        pc.save()
+        retVal = pc.start_harvest(u)
+        self.assertTrue(isinstance(retVal, int))
+        with patch('subprocess.Popen') as mock_subprocess:
+            retVal = pc.start_harvest(u)
+            self.assertTrue(mock_subprocess.called)
+            mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
+                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
+                'http://example.com/oai', 'testset']
+                )
+
+
     def test_start_harvest_function(self):
         '''
         Test of harvest starting function. Kicks off a "harvest" for the 
@@ -42,7 +67,6 @@ class CollectionTestCase(TestCase):
         pc = Collection.objects.all()[0]
         self.assertTrue(hasattr(pc, 'start_harvest'))
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
-        self.assertRaises(Exception)
         pc.harvest_script = 'xxxxx'
         pc.url_oai = 'http://example.com/oai'
         pc.oai_set_spec = 'testset'
@@ -61,7 +85,7 @@ class CollectionTestCase(TestCase):
                 )
 
 
-class CollectionModelAdminTestCase(UnitTestCase):
+class CollectionModelAdminTestCase(unittest.TestCase):
     '''Use the basic unit test case to test some facts about the 
     CollectionAdmin model.
     '''

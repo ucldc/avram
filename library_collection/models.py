@@ -43,7 +43,7 @@ class Collection(models.Model):
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
-    harvest_script = os.environ['HOME'] + '/bin/start_harvest.bash'
+    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/bin/start_harvest.bash')
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
