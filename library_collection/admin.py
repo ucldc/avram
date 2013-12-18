@@ -57,8 +57,8 @@ class URLFieldsListFilter(SimpleListFilter):
 def start_harvest(modeladmin, request, queryset):
     for collection in queryset:
         try:
-            collection.start_harvest(request.user)
-            msg = ' '.join(('Started harvest for', collection.name, '. You should receive an email shortly with status of the harvest.'))
+            pid = collection.start_harvest(request.user)
+            msg = ' '.join(('Started harvest for', collection.name, '(PID=', str(pid), ')')) #'. You should receive an email shortly with status of the harvest. (PID=', str(pid), ')'))
             modeladmin.message_user(request, msg, level=messages.SUCCESS)
         except OSError, e:
             if e.errno == 2:
