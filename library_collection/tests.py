@@ -17,6 +17,9 @@ from mock import patch
 from library_collection.models import Collection
 from library_collection.models import Campus
 from library_collection.models import Repository
+from library_collection.models import Status
+from library_collection.models import Restriction
+from library_collection.models import Need
 
 def skipUnlessIntegrationTest(selfobj=None):
     '''Skip the test unless the environmen variable RUN_INTEGRATION_TESTS is set.
@@ -27,6 +30,13 @@ def skipUnlessIntegrationTest(selfobj=None):
 
 class CollectionTestCase(TestCase):
     fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    def setUp(self):
+        c = Collection.objects.all()[0]
+        c.status = Status.objects.get(id=1)
+        c.access_restrictions = Restriction.objects.get(id=1)
+        c.need_for_dams  = Need.objects.get(id=1)
+        c.save()
+
     def test_basic_addition(self):
         """
         Sanity check on Collection model
@@ -40,6 +50,12 @@ class CollectionTestCase(TestCase):
         self.assertEqual(pc.name, unicode(pc))
         pc.save()
         pc.repository
+
+    def test_linked_data(self):
+        c = Collection.objects.all()[0]
+        self.assertEqual(str(c.status), 'Completed')
+        self.assertEqual(str(c.access_restrictions), 'No')
+        self.assertEqual(str(c.need_for_dams), 'High')
 
     @skipUnlessIntegrationTest()
     def test_start_harvest_integration(self):
@@ -321,6 +337,7 @@ class PublicViewTestCase(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
+        self.assertContains(response, 'UC Berkeley')
         self.assertContains(response, 'collections')
         self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
      
@@ -351,6 +368,46 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
         self.assertNotContains(response, 'Metadata')
+
+class CampusTestCase(TestCase):
+    def testCampusSlugStartsWithUC(self):
+        c = Campus()
+        c.name = 'test'
+        c.slug = 'test'
+        self.assertRaises(ValueError, c.save)
+        c.slug = 'UCtest'
+        c.save()
+
+class PublicViewNewCampusTestCase(TestCase):
+    '''Test the public view immediately after a new campus added. fails if
+    no collections for a campus
+    NOTE: You need to run this test separate from the other tests to get
+    the reverse lookup fail, otherwise it just doesn't find the NTC at all,
+    don't know why...
+    '''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    def setUp(self):
+        c = Campus()
+        c.name = "New Test Campus"
+        c.slug = "NTC"
+        c.order = 200
+        self.assertRaises(ValueError, c.save)
+
+    def testRootViewNewCampus(self):
+        '''When adding new campuses without a collection, this view fails due
+        to a {% url %} tag in the template, forcing a revese lookup that fails.
+        This is because as of 2013-12-18, the urls.py has a hard-coded UC in
+        the view lookups.
+        NOW PROTECTED AGAINST THIS -- 2013-12-18
+        '''
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/collection_list.html')
+        self.assertContains(response, 'UC Berkeley')
+        #self.assertContains(response, 'New Test Campus')
+        self.assertContains(response, 'collections')
+        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''

@@ -21,12 +21,23 @@ class Campus(models.Model):
     def get_absolute_url(self):
         return ('library_collection.views.UC', [str(self.slug)])
 
+    def save(self, *args, **kwargs):
+        '''Make sure the campus slug starts with UC, has implications in the 
+        urls.py currently (2013-12-18)
+        May want to change this in future
+        '''
+        if self.slug[:2] != 'UC':
+            raise ValueError('Campus slug must currently start with UC. Causes problem with reverse lookups if not currently')
+        return super(Campus, self).save(*args, **kwargs)
+
+
 class Status(models.Model):
     name = models.CharField(max_length=255)
     class Meta:
         verbose_name_plural = "statuses"
     def __unicode__(self):
         return self.name
+
 
 class Restriction(models.Model):
     name = models.CharField(max_length=255)
@@ -37,6 +48,7 @@ class Need(models.Model):
     name = models.CharField(max_length=255)
     def __unicode__(self):
         return self.name
+
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -119,6 +131,7 @@ class Collection(models.Model):
             cmd_line += ' '.join((' OAI', self.url_oai, self.oai_set_spec))
         p = subprocess.Popen(shlex.split(cmd_line))
         return p.pid
+
 
 class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''
