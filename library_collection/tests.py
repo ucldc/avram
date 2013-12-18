@@ -253,9 +253,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find executable')
-        self.assertContains(response, 'Started harvest for Harold Scheffler Papers (Melanesian Archive) . You should receive an email shortly with status of the harvest.')
-        self.assertContains(response, 'Started harvest for AIDS Poster collection . You should receive an email shortly with status of the harvest.')
-        self.assertContains(response, 'Started harvest for Los Angeles Times Photographic Archive . You should receive an email shortly with status of the harvest.')
+        self.assertContains(response, 'Started harvest for Harold Scheffler Papers (Melanesian Archive) (PID= ')
+        self.assertContains(response, 'Started harvest for AIDS Poster collection (PID= ')
+        self.assertContains(response, 'Started harvest for Los Angeles Times Photographic Archive (PID= ')
 
 
 class RepositoryTestCase(TestCase):
