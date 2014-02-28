@@ -9,13 +9,17 @@
     "description": "", 
     "url_was": "", 
     "campus": [
-      2
+      2,
+      3
     ], 
     "metadata_level": "", 
     "access_restrictions": null, 
     "phase_one": false, 
     "metadata_standard": "", 
-    "repository": [], 
+    "repository": [
+        1,
+        10
+    ], 
     "appendix": "A", 
     "collection_type": "", 
     "extent": null, 

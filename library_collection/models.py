@@ -1,5 +1,8 @@
 # models.py
 
+import subprocess
+import shlex
+import os
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from human_to_bytes import bytes2human
@@ -18,12 +21,23 @@ class Campus(models.Model):
     def get_absolute_url(self):
         return ('library_collection.views.UC', [str(self.slug)])
 
+    def save(self, *args, **kwargs):
+        '''Make sure the campus slug starts with UC, has implications in the 
+        urls.py currently (2013-12-18)
+        May want to change this in future
+        '''
+        if self.slug[:2] != 'UC':
+            raise ValueError('Campus slug must currently start with UC. Causes problem with reverse lookups if not currently')
+        return super(Campus, self).save(*args, **kwargs)
+
+
 class Status(models.Model):
     name = models.CharField(max_length=255)
     class Meta:
         verbose_name_plural = "statuses"
     def __unicode__(self):
         return self.name
+
 
 class Restriction(models.Model):
     name = models.CharField(max_length=255)
@@ -35,11 +49,13 @@ class Need(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Collection(models.Model):
     DAMNS = 'D'
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
+    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/ucldc_harvester/start_harvest.bash')
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
@@ -91,6 +107,31 @@ class Collection(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
+
+    def start_harvest(self, user):
+        '''Kick off the harvest.
+
+        Harvest is asyncronous. Email is sent to site admin? annoucing the 
+        start of a harvest for the collection.
+
+        '''
+        #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
+        #TODO: support other harvests, rationalize the data
+        if not self.url_oai:
+            raise TypeError('Not an OAI collection - ' + self.name)
+        campus_list = ','.join([campus.slug for campus in self.campus.all()]) 
+        campus_str = '"' + campus_list + '"'
+        repository_list = ','.join([repository.name for repository in self.repository.all()]) 
+        repository_str = '"' + repository_list + '"'
+        # TODO: rationalize the harvest url & extra data 
+        cmd_line = ' '.join((self.harvest_script, user.email, '"'+self.name+'"',
+            campus_str, repository_str,)
+            )
+        if self.url_oai:
+            cmd_line += ' '.join((' OAI', self.url_oai, self.oai_set_spec))
+        p = subprocess.Popen(shlex.split(cmd_line))
+        return p.pid
+
 
 class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''

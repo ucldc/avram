@@ -7,6 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.admin import SimpleListFilter
+import django.contrib.messages as messages
 
 
 #Add is_active & date_joined to User admin list view
@@ -53,6 +54,23 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
+def start_harvest(modeladmin, request, queryset):
+    for collection in queryset:
+        try:
+            pid = collection.start_harvest(request.user)
+            msg = ' '.join(('Started harvest for', collection.name, '(PID=', str(pid), ')')) #'. You should receive an email shortly with status of the harvest. (PID=', str(pid), ')'))
+            modeladmin.message_user(request, msg, level=messages.SUCCESS)
+        except OSError, e:
+            if e.errno == 2:
+                msg = 'Cannot find executable ' + collection.harvest_script + ' for harvesting collection: ' + collection.name
+            else:
+                msg = str(e)
+            modeladmin.message_user(request, msg, level=messages.ERROR)
+        except TypeError, e:
+            msg = str(e)
+            modeladmin.message_user(request, msg, level=messages.ERROR)
+start_harvest.short_description = 'Start harvest for selected collections'
+
 class CollectionAdmin(admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     def campuses(self):
@@ -66,6 +84,7 @@ class CollectionAdmin(admin.ModelAdmin):
     list_editable = ('appendix', 'phase_one')
     list_filter = [ 'campus', 'need_for_dams', 'appendix', URLFieldsListFilter]
     search_fields = ['name','description']
+    actions = [ start_harvest, ]
 
     def human_extent(self, obj):
         return obj.human_extent
@@ -81,5 +100,8 @@ admin.site.register(Status)
 admin.site.register(Restriction)
 #admin.site.register(Need)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
-admin.site.unregister(Site)
+try:
+    admin.site.unregister(Site)
+except admin.sites.NotRegistered:
+    pass
 admin.site.disable_action('delete_selected')

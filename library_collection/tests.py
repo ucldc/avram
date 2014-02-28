@@ -5,14 +5,38 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 from urllib import quote
+import unittest
+from django.conf import settings
 from django.test import TestCase
+from django_webtest import WebTest
 from library_collection.models import *
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 #from library_collection.admin import URLFieldsListFilter
+from mock import patch
+from library_collection.models import Collection
+from library_collection.models import Campus
+from library_collection.models import Repository
+from library_collection.models import Status
+from library_collection.models import Restriction
+from library_collection.models import Need
 
+def skipUnlessIntegrationTest(selfobj=None):
+    '''Skip the test unless the environmen variable RUN_INTEGRATION_TESTS is set.
+    '''
+    if os.environ.get('RUN_INTEGRATION_TESTS', False):
+        return lambda func: func
+    return unittest.skip('RUN_INTEGRATION_TESTS not set. Skipping integration tests.')
 
 class CollectionTestCase(TestCase):
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    def setUp(self):
+        c = Collection.objects.all()[0]
+        c.status = Status.objects.get(id=1)
+        c.access_restrictions = Restriction.objects.get(id=1)
+        c.need_for_dams  = Need.objects.get(id=1)
+        c.save()
+
     def test_basic_addition(self):
         """
         Sanity check on Collection model
@@ -26,6 +50,68 @@ class CollectionTestCase(TestCase):
         self.assertEqual(pc.name, unicode(pc))
         pc.save()
         pc.repository
+
+    def test_linked_data(self):
+        c = Collection.objects.all()[0]
+        self.assertEqual(str(c.status), 'Completed')
+        self.assertEqual(str(c.access_restrictions), 'No')
+        self.assertEqual(str(c.need_for_dams), 'High')
+
+    @skipUnlessIntegrationTest()
+    def test_start_harvest_integration(self):
+        pc = Collection.objects.all()[0]
+        u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
+        pc.url_oai = 'http://example.com/oai'
+        pc.oai_set_spec = 'testset'
+        pc.save()
+        retVal = pc.start_harvest(u)
+        self.assertTrue(isinstance(retVal, int))
+        with patch('subprocess.Popen') as mock_subprocess:
+            retVal = pc.start_harvest(u)
+            self.assertTrue(mock_subprocess.called)
+            mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
+                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
+                'http://example.com/oai', 'testset']
+                )
+
+
+    def test_start_harvest_function(self):
+        '''
+        Test of harvest starting function. Kicks off a "harvest" for the 
+        given collection.
+        '''
+        pc = Collection.objects.all()[0]
+        self.assertTrue(hasattr(pc, 'start_harvest'))
+        u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
+        pc.harvest_script = 'xxxxx'
+        pc.url_oai = 'http://example.com/oai'
+        pc.oai_set_spec = 'testset'
+        #pc.repository = [Repository.objects.get(id=1),]
+        pc.save()
+        self.assertRaises(OSError, pc.start_harvest, u)
+        pc.harvest_script = 'true'
+        retVal = pc.start_harvest(u)
+        self.assertTrue(isinstance(retVal, int))
+        with patch('subprocess.Popen') as mock_subprocess:
+            retVal = pc.start_harvest(u)
+            self.assertTrue(mock_subprocess.called)
+            mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
+                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
+                'http://example.com/oai', 'testset']
+                )
+
+
+class CollectionModelAdminTestCase(unittest.TestCase):
+    '''Use the basic unit test case to test some facts about the 
+    CollectionAdmin model.
+    '''
+    def testAdminHasStartHarvestAction(self):
+        '''Test that the admin interface has a start harvest action
+        '''
+        from library_collection.admin import start_harvest
+        from library_collection.admin import CollectionAdmin
+        self.assertTrue(start_harvest in CollectionAdmin.actions)
+
 
 class CollectionAdminTestCase(TestCase):
     '''Check that the list filter is defined correctly. Will need test
@@ -95,6 +181,99 @@ class CollectionAdminTestCase(TestCase):
         self.assertContains(response, "Staff status")
 
 
+class CollectionAdminHarvestTestCase(WebTest):
+    '''Test the start harvest action on the collection list admin page
+    '''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
+    def testStartHarvestActionAvailable(self):
+        '''Test that the start harvest action appears on the collection
+        admin list page
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'start_harvest')
+
+    @patch.object(Collection, 'start_harvest')
+    def testStartHarvestOnCollections(self, mock):
+        '''Test that the user can select & start the harvest for a number of
+        collections
+        '''
+        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        #response = self.app.get(url_admin, user='test_user_super', HTTP_AUTHORIZATION=http_auth)
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        form =  response.forms['changelist-form']
+        form.action = '.' #set to "" in html, need to point to . for WebTest
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        #TODO: Unclear how to test that function is actually run....
+        resp = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(resp.status_int, 302)
+        self.assertTrue(mock.called)
+        self.assertTrue(mock.call_count == 3)
+
+    def testStartHarvestOnCollectionErrorMessages(self):
+        '''Test that the start harvest action creates reasonable error
+        messages when it fails
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertContains(response, 'Not an OAI collection', count=3)
+        self.assertContains(response, 'Not an OAI collection - UCSB Libraries Digital Collections')
+        self.assertContains(response, 'Not an OAI collection - Cholera Collection')
+        self.assertContains(response, 'Not an OAI collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
+        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        Collection.harvest_script = 'xxxx'
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        self.assertContains(response, 'Cannot find executable xxxx', count=3)
+        Collection.harvest_script = 'true'
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'start_harvest'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        self.assertNotContains(response, 'Cannot find executable')
+        self.assertContains(response, 'Started harvest for Harold Scheffler Papers (Melanesian Archive) (PID= ')
+        self.assertContains(response, 'Started harvest for AIDS Poster collection (PID= ')
+        self.assertContains(response, 'Started harvest for Los Angeles Times Photographic Archive (PID= ')
+
+
 class RepositoryTestCase(TestCase):
     '''Test the base repository model'''
     #No point until some non-standard Django behavior needed
@@ -139,12 +318,12 @@ class TastyPieAPITest(TestCase):
         url_collection = self.url_api + 'collection/?limit=200&format=json'
         response = self.client.get(url_collection)
         self.assertContains(response, '"collection_type":', count=188)
-        self.assertContains(response, '"campus":', count=201)
+        self.assertContains(response, '"campus":', count=203)
         self.assertContains(response, '"repository":', count=188)
         self.assertContains(response, '"url_oai":', count=188)
         self.assertContains(response, 'appendix":', count=188)
         #now check some specific instance data?
-        self.assertContains(response, '"name":', count=395)
+        self.assertContains(response, '"name":', count=399)
         self.assertContains(response, 'UCD')
         self.assertContains(response, 'eScholarship')
         self.assertContains(response, 'Internet Archive')
@@ -158,6 +337,7 @@ class PublicViewTestCase(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
+        self.assertContains(response, 'UC Berkeley')
         self.assertContains(response, 'collections')
         self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
      
@@ -188,6 +368,46 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
         self.assertNotContains(response, 'Metadata')
+
+class CampusTestCase(TestCase):
+    def testCampusSlugStartsWithUC(self):
+        c = Campus()
+        c.name = 'test'
+        c.slug = 'test'
+        self.assertRaises(ValueError, c.save)
+        c.slug = 'UCtest'
+        c.save()
+
+class PublicViewNewCampusTestCase(TestCase):
+    '''Test the public view immediately after a new campus added. fails if
+    no collections for a campus
+    NOTE: You need to run this test separate from the other tests to get
+    the reverse lookup fail, otherwise it just doesn't find the NTC at all,
+    don't know why...
+    '''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    def setUp(self):
+        c = Campus()
+        c.name = "New Test Campus"
+        c.slug = "NTC"
+        c.order = 200
+        self.assertRaises(ValueError, c.save)
+
+    def testRootViewNewCampus(self):
+        '''When adding new campuses without a collection, this view fails due
+        to a {% url %} tag in the template, forcing a revese lookup that fails.
+        This is because as of 2013-12-18, the urls.py has a hard-coded UC in
+        the view lookups.
+        NOW PROTECTED AGAINST THIS -- 2013-12-18
+        '''
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/collection_list.html')
+        self.assertContains(response, 'UC Berkeley')
+        #self.assertContains(response, 'New Test Campus')
+        self.assertContains(response, 'collections')
+        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
@@ -277,18 +497,18 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'Bancroft Library')
 
-        def testCollectionViewFormSubmissionEmptyForm(self):
-            '''Test form submission to modify a collection with an empty form'''
-            url = reverse('edit_detail', 
-                    kwargs={ 'colid': 2, 
-                    'col_slug':'halberstadt-collection-selections-of-photographs-p'},
-                )
-            response = self.client.post(url, {'name': ''}, 
-                    HTTP_AUTHORIZATION=self.http_auth
-                )
-            self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
-            self.assertContains(response, 'Error:')
-            self.assertContains(response, 'Please enter a')
+    def testCollectionViewFormSubmissionEmptyForm(self):
+        '''Test form submission to modify a collection with an empty form'''
+        url = reverse('edit_detail', 
+                kwargs={ 'colid': 2, 
+                'col_slug':'halberstadt-collection-selections-of-photographs-p'},
+            )
+        response = self.client.post(url, {'name': ''}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'Error:')
+        self.assertContains(response, 'Please enter a')
 
     def testCollectionCreateViewForm(self):
         '''Test form to create a new collection'''

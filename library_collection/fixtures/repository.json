@@ -80,5 +80,15 @@
       1
     ]
   }
+},
+{
+  "pk": 10, 
+  "model": "library_collection.repository", 
+  "fields": {
+    "name": "Special Collections",
+    "campus": [
+      2
+    ]
+  }
 }
 ]

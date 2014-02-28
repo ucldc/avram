@@ -151,8 +151,8 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                     dictionary=context
                 )
             else: 
-                collection.name = requestObj["name"]
-                collection.appendix = requestObj['appendix']
+                collection.name = requestObj.get("name")
+                collection.appendix = requestObj.get('appendix')
                 collection.repository = requestObj.getlist('repositories')
                 collection.campus = requestObj.getlist("campuses")
                 

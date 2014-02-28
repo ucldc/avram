@@ -12,4 +12,7 @@ wsgiref==0.1.2
 MySQL-python==1.2.4
 longerusername==0.4
 -e git://github.com/jpwatts/django-positions#egg=django-positions
+WebTest>=2.0.10
+django-webtest>=1.7.5
+mock>=1.0.1
 django-dbdump==1.0.1
