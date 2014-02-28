@@ -1,5 +1,6 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
+from tastypie.serializers import Serializer
 from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
@@ -29,3 +30,4 @@ class CollectionResource(ModelResource):
         authentication = Authentication()
         authorization = ReadOnlyAuthorization()
         excludes = ['id']
+        serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'html', 'plist'])
