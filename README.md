@@ -1,5 +1,7 @@
 # Collection Registry
 
+[![Build Status](https://travis-ci.org/ucldc/avram.png?branch=master)](https://travis-ci.org/ucldc/avram)
+
 Playing around with a django app for managing a registry of UC Libraries
 Digital Collections.
 
