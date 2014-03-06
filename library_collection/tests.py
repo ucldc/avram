@@ -281,6 +281,7 @@ class RepositoryTestCase(TestCase):
         r = Repository()
         r.name = "test repo"
         r.save()
+        self.assertTrue(hasattr(r, 'slug'))
 
 class RepositoryAdminTestCase(TestCase):
     '''Test the admin for repository'''
@@ -320,6 +321,7 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, '"collection_type":', count=188)
         self.assertContains(response, '"campus":', count=203)
         self.assertContains(response, '"repository":', count=188)
+        self.assertContains(response, '"slug":', count=399)
         self.assertContains(response, '"url_oai":', count=188)
         self.assertContains(response, 'appendix":', count=188)
         #now check some specific instance data?

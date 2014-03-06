@@ -137,6 +137,7 @@ class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''
     name = models.CharField(max_length=255)
     campus = models.ManyToManyField(Campus, null=True, blank=True)
+    slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
 
     class Meta:
         verbose_name_plural = "repositories"
