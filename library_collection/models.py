@@ -67,6 +67,7 @@ class Collection(models.Model):
     url_oac = models.URLField(max_length=255,blank=True)
     url_was = models.URLField(max_length=255,blank=True)
     url_oai = models.URLField(max_length=255,blank=True)
+    url_harvest = models.URLField(max_length=255,blank=True)
     hosted = models.CharField(max_length=255,blank=True)
     status = models.ForeignKey(Status, null=True, blank=True, default = None)
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
@@ -74,10 +75,13 @@ class Collection(models.Model):
     metadata_level = models.CharField(max_length=255,blank=True)
     metadata_standard = models.CharField(max_length=255,blank=True)
     need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
-    oai_set_spec = models.CharField(max_length=255, blank=True)
+    HARVEST_TYPE_CHOICES = ( ('X', 'None'), ('OAC', 'OAC json api'), ('OAI', 'OAI-PMH'))
+    harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
+    harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
     APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'))
     appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES)
     phase_one = models.BooleanField()
+    enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
 
     @property
     def url(self):
@@ -128,7 +132,7 @@ class Collection(models.Model):
             campus_str, repository_str,)
             )
         if self.url_oai:
-            cmd_line += ' '.join((' OAI', self.url_oai, self.oai_set_spec))
+            cmd_line += ' '.join((' OAI', self.url_oai, self.harvest_extra_data))
         p = subprocess.Popen(shlex.split(cmd_line))
         return p.pid
 

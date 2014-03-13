@@ -48,6 +48,10 @@ class CollectionTestCase(TestCase):
         self.assertEqual(pc.url, pc.url_local)
         self.assertEqual(pc.human_extent, u'1.1\xa0G')
         self.assertEqual(pc.name, unicode(pc))
+        self.assertTrue(hasattr(pc, 'url_harvest'))
+        self.assertTrue(hasattr(pc, 'harvest_type'))
+        self.assertTrue(hasattr(pc, 'harvest_extra_data'))
+        self.assertTrue(hasattr(pc, 'enrichments_item'))
         pc.save()
         pc.repository
 
@@ -62,7 +66,7 @@ class CollectionTestCase(TestCase):
         pc = Collection.objects.all()[0]
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.url_oai = 'http://example.com/oai'
-        pc.oai_set_spec = 'testset'
+        pc.harvest_extra_data = 'testset'
         pc.save()
         retVal = pc.start_harvest(u)
         self.assertTrue(isinstance(retVal, int))
@@ -85,7 +89,7 @@ class CollectionTestCase(TestCase):
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.harvest_script = 'xxxxx'
         pc.url_oai = 'http://example.com/oai'
-        pc.oai_set_spec = 'testset'
+        pc.harvest_extra_data = 'testset'
         #pc.repository = [Repository.objects.get(id=1),]
         pc.save()
         self.assertRaises(OSError, pc.start_harvest, u)
