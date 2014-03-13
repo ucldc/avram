@@ -27,6 +27,8 @@ class URLFieldsListFilter(SimpleListFilter):
             'OAINOT': ('missing OAI URL', lambda x: x.filter(url_oai__exact='')),
             'WAS': ('has WAS URL', lambda x: x.exclude(url_was__exact='')),
             'WASNOT': ('missing WAS URL', lambda x: x.filter(url_was__exact='')),
+            'HARVEST': ('has HARVEST URL', lambda x: x.exclude(url_harvest__exact='')),
+            'HARVESTNOT': ('missing HARVEST URL', lambda x: x.filter(url_harvest__exact='')),
             }
 
     # Parameter for the filter that will be used in the URL query.
