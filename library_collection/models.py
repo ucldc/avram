@@ -5,6 +5,7 @@ import shlex
 import os
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
+from django.core.urlresolvers import reverse
 from human_to_bytes import bytes2human
 from positions.fields import PositionField
 
@@ -87,6 +88,11 @@ class Collection(models.Model):
     def url(self):
         return self.url_local;
     
+    @property
+    def url_api(self):
+        '''Return url for the tastypie api endpoint for this collection'''
+        return reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id}) 
+
     # This is a temporary property for the case of just 
     # giving some reference to actual content.
     # The url fields will get revisited next cycle.  
@@ -118,21 +124,14 @@ class Collection(models.Model):
         Harvest is asyncronous. Email is sent to site admin? annoucing the 
         start of a harvest for the collection.
 
+        passes the user email and the uri for the tastypie data for the
+        collection.
         '''
         #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
         #TODO: support other harvests, rationalize the data
-        if not self.url_oai:
-            raise TypeError('Not an OAI collection - ' + self.name)
-        campus_list = ','.join([campus.slug for campus in self.campus.all()]) 
-        campus_str = '"' + campus_list + '"'
-        repository_list = ','.join([repository.name for repository in self.repository.all()]) 
-        repository_str = '"' + repository_list + '"'
-        # TODO: rationalize the harvest url & extra data 
-        cmd_line = ' '.join((self.harvest_script, user.email, '"'+self.name+'"',
-            campus_str, repository_str,)
-            )
-        if self.url_oai:
-            cmd_line += ' '.join((' OAI', self.url_oai, self.harvest_extra_data))
+        if not self.url_harvest:
+            raise TypeError('Not a harvestable collection - ' + self.name)
+        cmd_line = ' '.join((self.harvest_script, user.email, self.url_api))
         p = subprocess.Popen(shlex.split(cmd_line))
         return p.pid
 

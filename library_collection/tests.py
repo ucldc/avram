@@ -60,12 +60,16 @@ class CollectionTestCase(TestCase):
         self.assertEqual(str(c.status), 'Completed')
         self.assertEqual(str(c.access_restrictions), 'No')
         self.assertEqual(str(c.need_for_dams), 'High')
+        self.assertTrue(hasattr(c, 'url_api'))
+        self.assertIsNotNone(c.url_api)
+        self.assertEqual(c.url_api, '/api/v1/collection/1/')
 
     @skipUnlessIntegrationTest()
     def test_start_harvest_integration(self):
         pc = Collection.objects.all()[0]
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.url_oai = 'http://example.com/oai'
+        pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
         retVal = pc.start_harvest(u)
@@ -74,8 +78,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
-                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
-                'http://example.com/oai', 'testset']
+                '/api/v1/collection/1/']
                 )
 
 
@@ -89,8 +92,8 @@ class CollectionTestCase(TestCase):
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.harvest_script = 'xxxxx'
         pc.url_oai = 'http://example.com/oai'
+        pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
-        #pc.repository = [Repository.objects.get(id=1),]
         pc.save()
         self.assertRaises(OSError, pc.start_harvest, u)
         pc.harvest_script = 'true'
@@ -100,8 +103,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
-                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
-                'http://example.com/oai', 'testset']
+                '/api/v1/collection/1/']
                 )
 
 
@@ -240,10 +242,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = form.submit('index', headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
-        self.assertContains(response, 'Not an OAI collection', count=3)
-        self.assertContains(response, 'Not an OAI collection - UCSB Libraries Digital Collections')
-        self.assertContains(response, 'Not an OAI collection - Cholera Collection')
-        self.assertContains(response, 'Not an OAI collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
+        self.assertContains(response, 'Not a harvestable collection', count=3)
+        self.assertContains(response, 'Not a harvestable collection - UCSB Libraries Digital Collections')
+        self.assertContains(response, 'Not a harvestable collection - Cholera Collection')
+        self.assertContains(response, 'Not a harvestable collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
