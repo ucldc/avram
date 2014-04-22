@@ -385,6 +385,7 @@ class CampusTestCase(TestCase):
         self.assertRaises(ValueError, c.save)
         c.slug = 'UCtest'
         c.save()
+        self.assertTrue(hasattr(c, 'ark'))
 
 class PublicViewNewCampusTestCase(TestCase):
     '''Test the public view immediately after a new campus added. fails if

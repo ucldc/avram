@@ -14,6 +14,7 @@ class Campus(models.Model):
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=4)
     position = models.IntegerField(default=0)
+    ark = models.CharField(max_length=255, blank=True) 
     class Meta:
         verbose_name_plural = "campuses"
     def __unicode__(self):
