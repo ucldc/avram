@@ -31,11 +31,12 @@ class Campus(models.Model):
         '''
         if self.slug[:2] != 'UC':
             raise ValueError('Campus slug must currently start with UC. Causes problem with reverse lookups if not currently')
-        try:
-            c = Campus.objects.get(ark=self.ark)
-            raise ValueError("Campus with ark "+self.ark+" already exists")
-        except ObjectDoesNotExist:
-            pass
+        if self.ark: #not blank
+            try:
+                c = Campus.objects.get(ark=self.ark)
+                raise ValueError("Campus with ark "+self.ark+" already exists")
+            except ObjectDoesNotExist:
+                pass
         return super(Campus, self).save(*args, **kwargs)
 
 
@@ -148,6 +149,7 @@ class Repository(models.Model):
     name = models.CharField(max_length=255)
     campus = models.ManyToManyField(Campus, null=True, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
+    ark = models.CharField(max_length=255, blank=True) 
 
     class Meta:
         verbose_name_plural = "repositories"

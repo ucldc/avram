@@ -288,6 +288,7 @@ class RepositoryTestCase(TestCase):
         r.name = "test repo"
         r.save()
         self.assertTrue(hasattr(r, 'slug'))
+        self.assertTrue(hasattr(r, 'ark'))
 
 class RepositoryAdminTestCase(TestCase):
     '''Test the admin for repository'''
@@ -406,8 +407,16 @@ class CampusTestCase(TestCase):
         try:
             c.save()
         except ValueError, e:
-            self.assertEqual(e.message, 'Campus with ark ark:/13030/tf0p3009mq already exists')
+            self.assertEqual(e.args, ('Campus with ark ark:/13030/tf0p3009mq already exists',))
+        c.ark = ''
+        c.save()
+        c2 = Campus()
+        c2.name = 'test2'
+        c2.slug = 'UCtest2'
+        c2.ark = ''
+        c2.save()
 
+        
 class PublicViewNewCampusTestCase(TestCase):
     '''Test the public view immediately after a new campus added. fails if
     no collections for a campus
