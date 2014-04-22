@@ -378,6 +378,7 @@ class PublicViewTestCase(TestCase):
         self.assertNotContains(response, 'Metadata')
 
 class CampusTestCase(TestCase):
+    fixtures = ('initial_data.json',)
     def testCampusSlugStartsWithUC(self):
         c = Campus()
         c.name = 'test'
@@ -386,6 +387,11 @@ class CampusTestCase(TestCase):
         c.slug = 'UCtest'
         c.save()
         self.assertTrue(hasattr(c, 'ark'))
+
+    def testCampusARKCorrect(self):
+        c = Campus.objects.get(pk=1)
+        self.assertEqual(c.slug, 'UCB')
+        self.assertEqual(c.ark, 'ark:/13030/tf0p3009mq')
 
 class PublicViewNewCampusTestCase(TestCase):
     '''Test the public view immediately after a new campus added. fails if
