@@ -159,3 +159,14 @@ class Repository(models.Model):
             return u'{0} {1}'.format(campuses[0].slug, self.name)
         else:
             return self.name
+
+    def save(self, *args, **kwargs):
+        '''Check no duplicate arks for repos that have them
+        '''
+        if self.ark: #not blank
+            try:
+                c = Repository.objects.get(ark=self.ark)
+                raise ValueError("Unit with ark "+self.ark+" already exists")
+            except ObjectDoesNotExist:
+                pass
+        return super(Repository, self).save(*args, **kwargs)

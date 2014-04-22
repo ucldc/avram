@@ -290,6 +290,30 @@ class RepositoryTestCase(TestCase):
         self.assertTrue(hasattr(r, 'slug'))
         self.assertTrue(hasattr(r, 'ark'))
 
+    def testRepositoryNoDupArks(self):
+        '''Check that the Repostiories can't have duplicate arks.
+        Again, since it is a char & we allow blank, can't use db unique
+        check'''
+        r = Repository()
+        r.name = "test repo"
+        r.ark = "fakeARK"
+        r.save()
+        r2 = Repository()
+        r2.name = "test repo"
+        r2.ark = "fakeARK"
+        self.assertRaises(ValueError, r2.save)
+        try:
+            r2.save()
+        except ValueError, e:
+            self.assertEqual(e.args, ('Unit with ark fakeARK already exists',))
+        r2.ark = ''
+        r2.save()
+        r3 = Repository()
+        r3.name = "test repo"
+        r3.ark = ''
+        r3.save()
+
+    
 class RepositoryAdminTestCase(TestCase):
     '''Test the admin for repository'''
     def setUp(self):
