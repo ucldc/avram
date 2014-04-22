@@ -393,6 +393,21 @@ class CampusTestCase(TestCase):
         self.assertEqual(c.slug, 'UCB')
         self.assertEqual(c.ark, 'ark:/13030/tf0p3009mq')
 
+    def testNoDupArks(self):
+        '''Need to programatically check that the arks are unique.
+        Due to the need for blank arks (django weird char null), we can't 
+        use the DB unique property.
+        '''
+        c = Campus()
+        c.name = 'test'
+        c.slug = 'UCtest'
+        c.ark = 'ark:/13030/tf0p3009mq'
+        self.assertRaises(ValueError, c.save)
+        try:
+            c.save()
+        except ValueError, e:
+            self.assertEqual(e.message, 'Campus with ark ark:/13030/tf0p3009mq already exists')
+
 class PublicViewNewCampusTestCase(TestCase):
     '''Test the public view immediately after a new campus added. fails if
     no collections for a campus

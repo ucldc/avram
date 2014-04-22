@@ -8,6 +8,7 @@ from django_extensions.db.fields import AutoSlugField
 from django.core.urlresolvers import reverse
 from human_to_bytes import bytes2human
 from positions.fields import PositionField
+from  django.core.exceptions import ObjectDoesNotExist
 
 
 class Campus(models.Model):
@@ -30,6 +31,11 @@ class Campus(models.Model):
         '''
         if self.slug[:2] != 'UC':
             raise ValueError('Campus slug must currently start with UC. Causes problem with reverse lookups if not currently')
+        try:
+            c = Campus.objects.get(ark=self.ark)
+            raise ValueError("Campus with ark "+self.ark+" already exists")
+        except ObjectDoesNotExist:
+            pass
         return super(Campus, self).save(*args, **kwargs)
 
 
