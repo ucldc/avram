@@ -48,6 +48,10 @@ class CollectionTestCase(TestCase):
         self.assertEqual(pc.url, pc.url_local)
         self.assertEqual(pc.human_extent, u'1.1\xa0G')
         self.assertEqual(pc.name, unicode(pc))
+        self.assertTrue(hasattr(pc, 'url_harvest'))
+        self.assertTrue(hasattr(pc, 'harvest_type'))
+        self.assertTrue(hasattr(pc, 'harvest_extra_data'))
+        self.assertTrue(hasattr(pc, 'enrichments_item'))
         pc.save()
         pc.repository
 
@@ -56,13 +60,17 @@ class CollectionTestCase(TestCase):
         self.assertEqual(str(c.status), 'Completed')
         self.assertEqual(str(c.access_restrictions), 'No')
         self.assertEqual(str(c.need_for_dams), 'High')
+        self.assertTrue(hasattr(c, 'url_api'))
+        self.assertIsNotNone(c.url_api)
+        self.assertEqual(c.url_api, '/api/v1/collection/1/')
 
     @skipUnlessIntegrationTest()
     def test_start_harvest_integration(self):
         pc = Collection.objects.all()[0]
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.url_oai = 'http://example.com/oai'
-        pc.oai_set_spec = 'testset'
+        pc.url_harvest = 'http://example.com/oai'
+        pc.harvest_extra_data = 'testset'
         pc.save()
         retVal = pc.start_harvest(u)
         self.assertTrue(isinstance(retVal, int))
@@ -70,8 +78,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
-                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
-                'http://example.com/oai', 'testset']
+                '/api/v1/collection/1/']
                 )
 
 
@@ -85,8 +92,8 @@ class CollectionTestCase(TestCase):
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.harvest_script = 'xxxxx'
         pc.url_oai = 'http://example.com/oai'
-        pc.oai_set_spec = 'testset'
-        #pc.repository = [Repository.objects.get(id=1),]
+        pc.url_harvest = 'http://example.com/oai'
+        pc.harvest_extra_data = 'testset'
         pc.save()
         self.assertRaises(OSError, pc.start_harvest, u)
         pc.harvest_script = 'true'
@@ -96,8 +103,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
-                'On demand patron requests', 'UCD,UCI', 'eScholarship,Special Collections', 'OAI',
-                'http://example.com/oai', 'testset']
+                '/api/v1/collection/1/']
                 )
 
 
@@ -236,10 +242,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = form.submit('index', headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
-        self.assertContains(response, 'Not an OAI collection', count=3)
-        self.assertContains(response, 'Not an OAI collection - UCSB Libraries Digital Collections')
-        self.assertContains(response, 'Not an OAI collection - Cholera Collection')
-        self.assertContains(response, 'Not an OAI collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
+        self.assertContains(response, 'Not a harvestable collection', count=3)
+        self.assertContains(response, 'Not a harvestable collection - UCSB Libraries Digital Collections')
+        self.assertContains(response, 'Not a harvestable collection - Cholera Collection')
+        self.assertContains(response, 'Not a harvestable collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
@@ -281,7 +287,33 @@ class RepositoryTestCase(TestCase):
         r = Repository()
         r.name = "test repo"
         r.save()
+        self.assertTrue(hasattr(r, 'slug'))
+        self.assertTrue(hasattr(r, 'ark'))
 
+    def testRepositoryNoDupArks(self):
+        '''Check that the Repostiories can't have duplicate arks.
+        Again, since it is a char & we allow blank, can't use db unique
+        check'''
+        r = Repository()
+        r.name = "test repo"
+        r.ark = "fakeARK"
+        r.save()
+        r2 = Repository()
+        r2.name = "test repo"
+        r2.ark = "fakeARK"
+        self.assertRaises(ValueError, r2.save)
+        try:
+            r2.save()
+        except ValueError, e:
+            self.assertEqual(e.args, ('Unit with ark fakeARK already exists',))
+        r2.ark = ''
+        r2.save()
+        r3 = Repository()
+        r3.name = "test repo"
+        r3.ark = ''
+        r3.save()
+
+    
 class RepositoryAdminTestCase(TestCase):
     '''Test the admin for repository'''
     def setUp(self):
@@ -320,6 +352,7 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, '"collection_type":', count=188)
         self.assertContains(response, '"campus":', count=203)
         self.assertContains(response, '"repository":', count=188)
+        self.assertContains(response, '"slug":', count=399)
         self.assertContains(response, '"url_oai":', count=188)
         self.assertContains(response, 'appendix":', count=188)
         #now check some specific instance data?
@@ -370,6 +403,7 @@ class PublicViewTestCase(TestCase):
         self.assertNotContains(response, 'Metadata')
 
 class CampusTestCase(TestCase):
+    fixtures = ('initial_data.json',)
     def testCampusSlugStartsWithUC(self):
         c = Campus()
         c.name = 'test'
@@ -377,7 +411,36 @@ class CampusTestCase(TestCase):
         self.assertRaises(ValueError, c.save)
         c.slug = 'UCtest'
         c.save()
+        self.assertTrue(hasattr(c, 'ark'))
 
+    def testCampusARKCorrect(self):
+        c = Campus.objects.get(pk=1)
+        self.assertEqual(c.slug, 'UCB')
+        self.assertEqual(c.ark, 'ark:/13030/tf0p3009mq')
+
+    def testNoDupArks(self):
+        '''Need to programatically check that the arks are unique.
+        Due to the need for blank arks (django weird char null), we can't 
+        use the DB unique property.
+        '''
+        c = Campus()
+        c.name = 'test'
+        c.slug = 'UCtest'
+        c.ark = 'ark:/13030/tf0p3009mq'
+        self.assertRaises(ValueError, c.save)
+        try:
+            c.save()
+        except ValueError, e:
+            self.assertEqual(e.args, ('Campus with ark ark:/13030/tf0p3009mq already exists',))
+        c.ark = ''
+        c.save()
+        c2 = Campus()
+        c2.name = 'test2'
+        c2.slug = 'UCtest2'
+        c2.ark = ''
+        c2.save()
+
+        
 class PublicViewNewCampusTestCase(TestCase):
     '''Test the public view immediately after a new campus added. fails if
     no collections for a campus

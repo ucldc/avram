@@ -5,14 +5,17 @@ import shlex
 import os
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
+from django.core.urlresolvers import reverse
 from human_to_bytes import bytes2human
 from positions.fields import PositionField
+from  django.core.exceptions import ObjectDoesNotExist
 
 
 class Campus(models.Model):
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=4)
     position = models.IntegerField(default=0)
+    ark = models.CharField(max_length=255, blank=True) 
     class Meta:
         verbose_name_plural = "campuses"
     def __unicode__(self):
@@ -28,6 +31,12 @@ class Campus(models.Model):
         '''
         if self.slug[:2] != 'UC':
             raise ValueError('Campus slug must currently start with UC. Causes problem with reverse lookups if not currently')
+        if self.ark: #not blank
+            try:
+                c = Campus.objects.get(ark=self.ark)
+                raise ValueError("Campus with ark "+self.ark+" already exists")
+            except ObjectDoesNotExist:
+                pass
         return super(Campus, self).save(*args, **kwargs)
 
 
@@ -67,6 +76,7 @@ class Collection(models.Model):
     url_oac = models.URLField(max_length=255,blank=True)
     url_was = models.URLField(max_length=255,blank=True)
     url_oai = models.URLField(max_length=255,blank=True)
+    url_harvest = models.URLField(max_length=255,blank=True)
     hosted = models.CharField(max_length=255,blank=True)
     status = models.ForeignKey(Status, null=True, blank=True, default = None)
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
@@ -74,15 +84,23 @@ class Collection(models.Model):
     metadata_level = models.CharField(max_length=255,blank=True)
     metadata_standard = models.CharField(max_length=255,blank=True)
     need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
-    oai_set_spec = models.CharField(max_length=255, blank=True)
+    HARVEST_TYPE_CHOICES = ( ('X', 'None'), ('OAC', 'OAC xml collection search'), ('OAJ', 'OAC json api'), ('OAI', 'OAI-PMH'))
+    harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
+    harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
     APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'))
     appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES)
     phase_one = models.BooleanField()
+    enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
 
     @property
     def url(self):
         return self.url_local;
     
+    @property
+    def url_api(self):
+        '''Return url for the tastypie api endpoint for this collection'''
+        return reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id}) 
+
     # This is a temporary property for the case of just 
     # giving some reference to actual content.
     # The url fields will get revisited next cycle.  
@@ -114,21 +132,14 @@ class Collection(models.Model):
         Harvest is asyncronous. Email is sent to site admin? annoucing the 
         start of a harvest for the collection.
 
+        passes the user email and the uri for the tastypie data for the
+        collection.
         '''
         #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
         #TODO: support other harvests, rationalize the data
-        if not self.url_oai:
-            raise TypeError('Not an OAI collection - ' + self.name)
-        campus_list = ','.join([campus.slug for campus in self.campus.all()]) 
-        campus_str = '"' + campus_list + '"'
-        repository_list = ','.join([repository.name for repository in self.repository.all()]) 
-        repository_str = '"' + repository_list + '"'
-        # TODO: rationalize the harvest url & extra data 
-        cmd_line = ' '.join((self.harvest_script, user.email, '"'+self.name+'"',
-            campus_str, repository_str,)
-            )
-        if self.url_oai:
-            cmd_line += ' '.join((' OAI', self.url_oai, self.oai_set_spec))
+        if not self.url_harvest:
+            raise TypeError('Not a harvestable collection - ' + self.name)
+        cmd_line = ' '.join((self.harvest_script, user.email, self.url_api))
         p = subprocess.Popen(shlex.split(cmd_line))
         return p.pid
 
@@ -137,6 +148,8 @@ class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''
     name = models.CharField(max_length=255)
     campus = models.ManyToManyField(Campus, null=True, blank=True)
+    slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
+    ark = models.CharField(max_length=255, blank=True) 
 
     class Meta:
         verbose_name_plural = "repositories"
@@ -146,3 +159,14 @@ class Repository(models.Model):
             return u'{0} {1}'.format(campuses[0].slug, self.name)
         else:
             return self.name
+
+    def save(self, *args, **kwargs):
+        '''Check no duplicate arks for repos that have them
+        '''
+        if self.ark: #not blank
+            try:
+                c = Repository.objects.get(ark=self.ark)
+                raise ValueError("Unit with ark "+self.ark+" already exists")
+            except ObjectDoesNotExist:
+                pass
+        return super(Repository, self).save(*args, **kwargs)
