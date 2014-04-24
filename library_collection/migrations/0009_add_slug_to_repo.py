@@ -18,6 +18,9 @@ class Migration(SchemaMigration):
         for r in orm.Repository.objects.all():
             if r.slug == 'X':
                 r.slug = slugify(r.name)
+                # need to do this, else the migration fails saying that
+                # data was truncated
+                r.slug = r.slug[:49]
                 r.save()
 
     def backwards(self, orm):
