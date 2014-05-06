@@ -28,6 +28,7 @@
   "model": "library_collection.repository", 
   "fields": {
     "name": "Mandeville Special Collections Library", 
+    "ark": "ark:/13030/tf5r29p653",
     "campus": [
       6
     ]
@@ -56,6 +57,7 @@
   "model": "library_collection.repository", 
   "fields": {
     "name": "Special Collections and Archives", 
+    "ark": "ark:/13030/tf5h4nb7td",
     "campus": [
       9
     ]
@@ -76,6 +78,7 @@
   "model": "library_collection.repository", 
   "fields": {
     "name": "Bancroft Library", 
+    "ark": "ark:/13030/tf7r29p8s0",
     "campus": [
       1
     ]
@@ -86,6 +89,7 @@
   "model": "library_collection.repository", 
   "fields": {
     "name": "Special Collections",
+    "ark": "ark:/13030/tf1489p250",
     "campus": [
       2
     ]

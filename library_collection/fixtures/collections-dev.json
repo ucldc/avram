@@ -1,0 +1,5722 @@
+[
+{
+  "pk": 1, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "C", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "on-demand-patron-requests", 
+    "url_oac": "", 
+    "name": "On demand patron requests"
+  }
+},
+{
+  "pk": 2, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 3, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Selections of photographs, proofs, transparencies, and negatives of Milton \"Hal\" Halberstadt commericial and artistic photography.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item level; Collection level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS (forthcoming); EAD", 
+    "repository": [
+      12
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "halberstadt-collection-selections-of-photographs-p", 
+    "url_oac": "", 
+    "name": "Milton Halberstadt Papers and Photographs"
+  }
+},
+{
+  "pk": 3, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Amerine Lectures.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Local (UCD File Server)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "viticulture-lectures-amerine-lectures", 
+    "url_oac": "", 
+    "name": "Viticulture Lectures"
+  }
+},
+{
+  "pk": 4, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Videos", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      12
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Local (UCD File Server)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "crowly-carnivale-films-videos", 
+    "url_oac": "", 
+    "name": "Daniel J. Crowley and Jean Colvin Carnival of Salvador de Bahia, Brazil videocassettes, 1983"
+  }
+},
+{
+  "pk": 5, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 3, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "This collection consists of approximately 620 aerial photos taken in Yolo County in 1937.", 
+    "url_was": "", 
+    "campus": [
+      2, 
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS (very minimal); METS", 
+    "repository": [
+      4
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 51539607552, 
+    "hosted": "Local (UCD File Server)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "1937-yolo-county-aerial-photographs-this-collectio", 
+    "url_oac": "", 
+    "name": "1937 Yolo County Aerial Photographs"
+  }
+},
+{
+  "pk": 6, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Third-party (ProQuest and hopefully eScholarship in the future)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "electronic-theses-and-dissertations", 
+    "url_oac": "", 
+    "name": "Electronic Theses and Dissertations"
+  }
+},
+{
+  "pk": 7, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
+    "need_for_dams": 1, 
+    "description": "The collection contains photographic prints and negatives, and depicts buildings and grounds, faculty and staff, annual events such as Picnic Day, campus events, classes and classrooms, student clubs and activities, departments, and sporting events.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item level; Collection level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      13
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 124554051584, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "university-archives-photos-the-collection-contains", 
+    "url_oac": "", 
+    "name": "University Archives Photographs"
+  }
+},
+{
+  "pk": 8, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
+    "need_for_dams": 1, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item level; Collection level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "METS; MARC; EAD", 
+    "repository": [
+      12
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 207232172032, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "eastman-originals", 
+    "url_oac": "", 
+    "name": "Eastman's Originals"
+  }
+},
+{
+  "pk": 9, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
+    "need_for_dams": 1, 
+    "description": "In 1942, Higgins took photographs of Mexican workers entering the United States \"brought in for the [sugar] beet harvest\" for California Fields Crops, Inc. and as Higgins explains in a letter that he tried \"to catch a lot of the social side in pictures.\" The photographs were taken mainly in the agricultural areas of the California communities of Woodland, Pleasanton, Manteca, and Salinas.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item level; Collection level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS, METS, EAD", 
+    "repository": [
+      12
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "higgins-images-of-mexican-beet-workers-in-1942-hig", 
+    "url_oac": "", 
+    "name": "Floyd Halleck Higgins Photographs of Mexican Sugar Beet Workers"
+  }
+},
+{
+  "pk": 10, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://digital.lib.ucdavis.edu/projects/bwrp/", 
+    "need_for_dams": 2, 
+    "description": "The British Women Romantic Poets is a collection of works published by British women poets between 1789 and 1832. Texts are drawn from the UCD Library's Kohler Collection of British Poetry, over 14,000 texts housed in the Special Collections Department and on microfilm. A more detailed description of the project may be found here: http://digital.lib.ucdavis.edu/projects/bwrp/BWRPDesc.htm", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item level; Collection level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC(for most), METS (for most), EAD Finding Aid ", 
+    "repository": [
+      12
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1610612736, 
+    "hosted": "Locally (UCD Library Web Server); CDL (OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "british-women-romantic-poets-the-british-women-rom", 
+    "url_oac": "", 
+    "name": "British Women Romantic Poets"
+  }
+},
+{
+  "pk": 11, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://archive.org/search.php?query=collection%3A%22caminesgeo%22", 
+    "need_for_dams": 2, 
+    "description": "The Bulletin of the California Division of Mines and Geology collection is a series of publications published from 1888 to 2001 by the Division and its predecessor agencies.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Third-party (Internet Archive)", 
+    "harvest_extra_data": "collection:caminesgeo", 
+    "url_oai": "http://archive.org/services/oai2.php", 
+    "url_harvest": "http://archive.org/services/oai2.php", 
+    "slug": "bulletin-of-calif-division-of-mines-and-geology-th", 
+    "url_oac": "", 
+    "name": "Bulletin of Calif. division of Mines and Geology"
+  }
+},
+{
+  "pk": 12, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://archive.org/search.php?query=collection%3A%22cawaterres%22", 
+    "need_for_dams": 2, 
+    "description": "The Bulletin of the California Department of Water Resources is a collection of volumes published from 1922 to 2004 by the Department and its predecessor agencies.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Third-party (Internet Archive)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "bulleting-of-calif-dept-of-water-resources-the-bul", 
+    "url_oac": "", 
+    "name": "Bulleting of Calif. Dept. of Water Resources"
+  }
+},
+{
+  "pk": 13, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://archive.org/details/californiaagriculturalexperimentstationpublications", 
+    "need_for_dams": 2, 
+    "description": "This is a collection of publications produced by the University of California\u00eds Agricultural Experiment Station. It contains all items in the Bulletin series which was published from 1884 to 1983. It also contains other series produced by the California Agricultural Experiment Station.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Third-party (Internet Archive)", 
+    "harvest_extra_data": "collection:californiaagriculturalexperimentstationpublications", 
+    "url_oai": "http://archive.org/services/oai2.php", 
+    "url_harvest": "http://archive.org/services/oai2.php", 
+    "slug": "california-agricultural-experiment-station-publica", 
+    "url_oac": "", 
+    "name": "California Agricultural Experiment Station Publications"
+  }
+},
+{
+  "pk": 14, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Contains court records and correspondence documenting Chol Soo Lee murder case and appeals. Also include digitized issues of Koreatown Newspaper.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item level; Collection level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS, METS", 
+    "repository": [
+      12
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 139586437120, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "kw-lee-papers-contains-court-records-and-correspon", 
+    "url_oac": "", 
+    "name": "K.W. (Kyung Won) Lee Papers, 1972-1998"
+  }
+},
+{
+  "pk": 15, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "This collection provides digital access to contracts between the United Farm Workers Union AFL-CIO and California growers spanning about 30 years. The project is a collaboration between the Digital Initiatives program and the Agricultural and Resource Economics Library. The goal of the project is to provide researchers with access to a searchable and browseable collection of otherwise elusive materials.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC, TEI ", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 4499439616, 
+    "hosted": "Locally (UCD Library Web Server); CDL (OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "labor-contracts-ufw-this-collection-provides-digit", 
+    "url_oac": "", 
+    "name": "Labor Contracts (UFW)"
+  }
+},
+{
+  "pk": 16, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 3, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Dr. F. Sherwood Rowland, Donald Bren Research Professor of Chemistry in Earth System Science, came to the University of California Irvine in 1964 as the first chair of the Department of Chemistry. Dr. Rowland was, with postdoctoral colleague Mario Molina, the first to warn that chlorofluorocarbons (CFCs) released into the atmosphere were depleting the earth\u00eds critical ozone layer. Collection comprises Desktop and Document directories from Dr. Rowland's Mac and Macbook Pro.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Future: Series Level, Item Level", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 12884901888, 
+    "hosted": "Current: Locally (Redundantly on hard drives), Future: CDL (Merritt for Preservation) and Locally (UCISpace)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "f-sherwood-rowland-born-digital-files-dr-f-sherwoo", 
+    "url_oac": "", 
+    "name": "F. Sherwood Rowland born digital files"
+  }
+},
+{
+  "pk": 17, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "3 1/2\" floppy disks: approximately 300 Ranges from 720 KB to 1.4 MB each; 5 1/4\" floppy disks: 152 Ranges from 360 KB to 1.2 MB each; External hard drives: 2 Unknown MB", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Future: Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      14
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 26843545600, 
+    "hosted": "Current: Locally (floppy disks and USB Hard Drives), Future: CDL (Merritt for Preservation) and Locally (UCISpace)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "j-hillis-miller-born-digital-files-3-12-floppy-dis", 
+    "url_oac": "", 
+    "name": "J. Hillis Miller born digital files"
+  }
+},
+{
+  "pk": 18, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 3, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "80 3.5\" Floppies 158 5.25\" Floppies 1 external HD - Unknown Size", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Future: Series Level, Item Level", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      14
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Current: Locally (floppy disks and USB Hard Drives), Future: CDL (Merritt for Preservation) and Locally (UCISpace)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "stanley-fish-born-digital-files-80-35-floppies-158", 
+    "url_oac": "", 
+    "name": "Stanley Fish born digital files"
+  }
+},
+{
+  "pk": 19, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "This collection is comprised of approximately 1,200 photographs taken by Edward W. Cochems, a prominent commercial photographer in Santa Ana, California, between ca. 1919-ca. 1949. The images are principally views of Southern California, primarily Orange County locations.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 15784004812, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "edward-cochems-photographs-this-collection-is-comp", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf867nb584/", 
+    "name": "Edward Cochems photographs"
+  }
+},
+{
+  "pk": 20, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "This collection consists of black and white photographs taken by Hugh McMillan in the late 1940s and 1950s. Most of the photos were taken in and around Newport Beach while McMillan worked as a reporter and photographer for the Ensign newspaper.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 21689584844, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "hugh-mcmillan-photographs-this-collection-consists", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7f59s3rs/", 
+    "name": "Hugh McMillan photographs"
+  }
+},
+{
+  "pk": 21, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Photographs of Newport Beach, Costa Mesa, Corona del Mar, and other Orange County localities", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 55405078118, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "w-gerhardt-photographs-photographs-of-newport-bea", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2k4035rh/", 
+    "name": "W. Gerhardt photographs"
+  }
+},
+{
+  "pk": 22, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://library.artstor.org/library/welcome.html#3|search|6|All20Collections3A20cancian|Filtered20Search|||type3D3626kw3Dcancian26geoIds3D26clsIds3D26id3Dall26bDate3D26eDate3D26dExact3D3126prGeoId3D", 
+    "need_for_dams": 1, 
+    "description": "Frank Cancian Documentary Photograph Archive", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "ARTStor", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "frank-cancian-photographs-of-orange-county-housecl", 
+    "url_oac": "", 
+    "name": "Frank Cancian photographs of Orange County housecleaners, Zinacantan, and Lacedonia"
+  }
+},
+{
+  "pk": 23, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "The Early Campus Photo Albums comprise 372 photographs documenting UCI\u00eds first decade, 1959-1969. The mostly black and white photographs are arranged in chronological order in seven bound volumes. Many prints are 11 x 14 with excellent image quality. Coverage includes aerial and landscape photographs of the campus and Irvine Ranch area, construction of major campus buildings, scenes from daily campus life, and significant events and people from UCI\u00eds early history.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "n/a", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [
+      17
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 478150656, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "early-campus-photograph-albums-the-early-campus-ph", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt0r29p3hm/", 
+    "name": "Early campus photograph albums"
+  }
+},
+{
+  "pk": 24, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 623843999744, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "university-communications-images", 
+    "url_oac": "", 
+    "name": "University Communications images"
+  }
+},
+{
+  "pk": 25, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Video files from the various stages of Loring's career, which culminated in a position as the founding chairman of the University of California, Irvine Dance Department (1965-1978).", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 17072495001, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "eugene-loring-films-video-files-from-the-various-s", 
+    "url_oac": "", 
+    "name": "Eugene Loring films"
+  }
+},
+{
+  "pk": 26, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Custom", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 112742891520, 
+    "hosted": "Locally (Canto Cumulus)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "michael-merrifield-videos", 
+    "url_oac": "", 
+    "name": "Michael Merrifield videos"
+  }
+},
+{
+  "pk": 27, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucispace.lib.uci.edu/handle/10575/1593", 
+    "need_for_dams": 2, 
+    "description": "raw video footage used in the creation of the Emmy-winning documentary, Bolinao 52, by Duc Nguyen.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "duc-nguyen-video-footage-for-bolinao-52-raw-video", 
+    "url_oac": "", 
+    "name": "Duc Nguyen video footage for Bolinao 52"
+  }
+},
+{
+  "pk": 28, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucispace.lib.uci.edu/handle/10575/1060", 
+    "need_for_dams": 2, 
+    "description": "scanned original documents and audio recordings related to Hugh Everett III (November 11, 1930 \u00f1 July 19, 1982), the American physicist who first proposed what has come to be known as the many-worlds interpretation (MWI) of quantum physics.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 596639744, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "hugh-everett-iii-manuscripts-scanned-original-docu", 
+    "url_oac": "", 
+    "name": "Hugh Everett III Manuscripts"
+  }
+},
+{
+  "pk": 29, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucispace.lib.uci.edu/handle/10575/1076", 
+    "need_for_dams": 2, 
+    "description": "Jaded, an alternative media magazine published by students at the University of California, Irvine, attempted to celebrate and support the Asian Pacific Islander community, according to its mission statement, by retelling the past, engaging the present, and creating a voice for the future. This collection includes all 12 issues published from 2004-2007.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 183500800, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "jaded-magazines-jaded-an-alternative-media-magazin", 
+    "url_oac": "", 
+    "name": "Jaded magazines"
+  }
+},
+{
+  "pk": 30, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucispace.lib.uci.edu/handle/10575/1090", 
+    "need_for_dams": 2, 
+    "description": "The unpublished manuscripts in this online collection are book length projects that Paul de Man worked on during his life but never published. There are two separate manuscripts, a handwritten manuscript on Rousseau entitled Textual Allegories, and the edited collection of translations The Portable Rousseau.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      14
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 311427072, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "paul-de-man-manuscripts-the-unpublished-manuscript", 
+    "url_oac": "", 
+    "name": "Paul de Man manuscripts"
+  }
+},
+{
+  "pk": 31, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucispace.lib.uci.edu/handle/10575/1656", 
+    "need_for_dams": 2, 
+    "description": "Raymond L. Watson (1926-) is an architect and planner and former President and CEO of The Irvine Company. Included in this collection are electronic word-processing files, created between 1992 and 2010, and digitized slides, created in 1996 and 1997.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "raymond-l-watson-born-digital-files-and-digitzed-s", 
+    "url_oac": "", 
+    "name": "Raymond L. Watson born digital files and digitzed slides"
+  }
+},
+{
+  "pk": 32, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucispace.lib.uci.edu/handle/10575/7", 
+    "need_for_dams": 2, 
+    "description": "Richard Rorty (1931-2007) was a pragmatist philosopher, critical theorist, and public intellectual who is commonly described as one of the most important thinkers of his era. Included in this collection are electronic word-processing files, created between 1988 and 2003.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      14
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 774897664, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "hdl_10575_10", 
+    "url_oai": "http://ucispace.lib.uci.edu/oai/request", 
+    "url_harvest": "http://ucispace.lib.uci.edu/oai/request", 
+    "slug": "richard-rorty-born-digital-files-richard-rorty-193", 
+    "url_oac": "", 
+    "name": "Richard Rorty born digital files"
+  }
+},
+{
+  "pk": 33, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "This on-line archive includes material issued by the County of Orange and all 33 cities in the county. There is an emphasis is on budgets, general plans, and significant planning documents. Most of the county and city websites are scanned annually beginning in 2007.", 
+    "url_was": "http://webarchives.cdlib.org/a/ocgovinfo", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Container Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (WAS)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "orange-county-government-information-web-archive-t", 
+    "url_oac": "", 
+    "name": "Orange County Government Information Web Archive"
+  }
+},
+{
+  "pk": 34, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "A web archive of Salvadoran government websites: Tracing content changes before and after the March 15, 2009 presidential elections", 
+    "url_was": "http://webarchives.cdlib.org/a/salvador", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Container Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (WAS)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "salvadoran-presidential-election-march-2009-web-ar", 
+    "url_oac": "", 
+    "name": "Salvadoran Presidential Election March 2009 - Web Archive"
+  }
+},
+{
+  "pk": 35, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Mark Poster is a professor emeritus of the History Department, the Department of Film and Media Studies, and the Critical Theory Emphasis. He was also director of the Critical Theory Institute at the University of California, Irvine.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      14
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "mark-poster-papers-mark-poster-is-a-professor-emer", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt809ng0c3/", 
+    "name": "Mark Poster papers"
+  }
+},
+{
+  "pk": 36, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "The Vietnamese American Oral History Project (VAOHP) at UC Irvine collects, preserves, and disseminates the life stories of Vietnamese Americans in Southern California. Along with original audio-taped life stories, the VAOHP includes Vietnamese and/or English-language transcripts of the interviews, time log summaries, and photographs of each narrator.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "vietnamese-american-oral-history-project-the-vietn", 
+    "url_oac": "", 
+    "name": "Vietnamese American Oral History project"
+  }
+},
+{
+  "pk": 37, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://www.lib.uci.edu/quest/", 
+    "need_for_dams": 2, 
+    "description": "The Quest for Peace interviews are a comprehensive collection of interviews conducted between 1983 and 1989 with some of the most informed, influential, and thoughtful people from the United States, the then Soviet Union, and other countries around the world.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "quest-for-peace-interviews-the-quest-for-peace-int", 
+    "url_oac": "", 
+    "name": "Quest for Peace interviews"
+  }
+},
+{
+  "pk": 38, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Frank Cancian is a Cultural Anthropology Professor at UCI. In August 2010, Cancian initiated the Main Street UCI project to document campus life, focusing on UCI\u00eds \u00ecMain Street\u00ee (the Ring Mall between Social Sciences Buildings and the Student Center). Cancian now has approximately 3,000 digital images that he wishes to preserve and make accessible through UCISpace @ The Libraries.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "n/a", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "frank-cancian-photographs-of-main-street-uci-frank", 
+    "url_oac": "", 
+    "name": "Frank Cancian photographs of Main Street UCI"
+  }
+},
+{
+  "pk": 39, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://data.lib.uci.edu/ocs/", 
+    "need_for_dams": 3, 
+    "description": "The Special Survey of Orange County and preceding the Orange County Annual Survey are conducted by Mark Baldassare, formerly with the University of California, Irvine, and now at the Public Policy Institute of California. Co-director of the Orange County Annual Survey was Cheryl Katz. These datasets are archived here under an agreement by Mark Baldassare with the University of California, Irvine's School of Social Ecology. This digital archive is maintained by the Social Science Data Archives at the University of California, Irvine, Libraries. We thank the UCI Communications Office for making available digitized versions of the 1996-2000 Orange County Annual Survey reports.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (Social Science Data Archive)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "orange-county-surveys-the-special-survey-of-orange", 
+    "url_oac": "", 
+    "name": "Orange County Surveys"
+  }
+},
+{
+  "pk": 40, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 3, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "This collection comprises oral history interviews conducted with 97 prominent faculty and administrators of the University of California, Irvine (UCI) by Samuel C. McCulloch, UCI historian and emeritus professor of History, who was a member of the founding faculty.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "n/a", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (audio tape)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "sam-mcculloch-oral-histories-this-collection-compr", 
+    "url_oac": "", 
+    "name": "Sam McCulloch oral histories"
+  }
+},
+{
+  "pk": 41, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item level; Series level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (eScholarship)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "escholarship-lauc-i-and-library-staff-research", 
+    "url_oac": "", 
+    "name": "eScholarship: LAUC-I and Library Staff Research"
+  }
+},
+{
+  "pk": 42, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://seaadoc.lib.uci.edu/", 
+    "need_for_dams": 3, 
+    "description": "Web portal that consolidates digitized content from the UCI Libraries Southeast Asian Archive that lives in the Online Archive of California", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Container level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (main site), CDL via Calisphere (some content)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "seaadoc-web-portal-that-consolidates-digitized-con", 
+    "url_oac": "", 
+    "name": "SEAAdoc"
+  }
+},
+{
+  "pk": 43, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://www.lib.uci.edu/ucihistory/", 
+    "need_for_dams": 3, 
+    "description": "Database with a web front end of the resources related the the 40th anniversary of the campus in 2005.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "anteater-chronicles-database-with-a-web-front-end", 
+    "url_oac": "", 
+    "name": "Anteater Chronicles"
+  }
+},
+{
+  "pk": 44, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "bonner-mitchell-i-photographs-and-ephemera", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt996nd0d0/", 
+    "name": "Bonner (Mitchell I.) Photographs and Ephemera"
+  }
+},
+{
+  "pk": 45, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "fort-chaffee-photographs-of-vietnamese-and-cambodi", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2f59q35j/", 
+    "name": "Fort Chaffee Photographs of Vietnamese and Cambodian Refugees"
+  }
+},
+{
+  "pk": 46, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://pacpoll.lib.uci.edu/", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (Social Science Data Archive)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "pacific-poll", 
+    "url_oac": "", 
+    "name": "Pacific Poll"
+  }
+},
+{
+  "pk": 47, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://data.lib.uci.edu/wvsv/", 
+    "need_for_dams": 3, 
+    "description": "This dataset is provided courtesy of the Center for the Study of Democracy at UC Irvine. It is mounted here using SDA data analysis software by the Social Science Data Archives at UC Irvine Libraries for secondary analysis.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Collection Level, Series Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (Social Science Data Archive)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "world-values-survey-vietnam-this-dataset-is-provid", 
+    "url_oac": "", 
+    "name": "World Values Survey: Vietnam"
+  }
+},
+{
+  "pk": 48, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "frank-anne-photographs-of-southeast-asian-american", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt4p3021fr/", 
+    "name": "Frank (Anne) Photographs of Southeast Asian American Communities"
+  }
+},
+{
+  "pk": 49, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ly-kien-truc-photographs-of-the-hi-tek-demonstrati", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt85801594/", 
+    "name": "Ly Kien Truc Photographs of the Hi-Tek Demonstrations"
+  }
+},
+{
+  "pk": 50, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "marshall-brigitte-files-on-southeast-asian-refugee", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6dt/", 
+    "name": "Marshall (Brigitte) Files on Southeast Asian Refugees."
+  }
+},
+{
+  "pk": 51, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "morrison-gayle-files-on-southeast-asian-refugees", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6s2013d1/", 
+    "name": "Morrison (Gayle) Files on Southeast Asian Refugees"
+  }
+},
+{
+  "pk": 52, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "project-ngoc-records", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt8z09p8pd/", 
+    "name": "Project Ngoc Records"
+  }
+},
+{
+  "pk": 53, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "refugee-forums-collection-on", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5s2013bp/", 
+    "name": "Refugee Forums, Collection on"
+  }
+},
+{
+  "pk": 54, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "southeast-asia-resource-action-center-records", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt467nc6pc/", 
+    "name": "Southeast Asia Resource Action Center Records"
+  }
+},
+{
+  "pk": 55, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "southeast-asian-archive-vertical-file-collection", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7j49q6qg/", 
+    "name": "Southeast Asian Archive Vertical File Collection"
+  }
+},
+{
+  "pk": 56, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "southeast-asian-genetics-program-records", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6fb/", 
+    "name": "Southeast Asian Genetics Program records"
+  }
+},
+{
+  "pk": 57, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "tran-paul-files-on-southeast-asian-refugees", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf8f59p1tg/", 
+    "name": "Tran (Paul) Files on Southeast Asian Refugees"
+  }
+},
+{
+  "pk": 58, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      15
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "walsh-robert-files-on-southeast-asian-refugee-rese", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19p6sq/", 
+    "name": "Walsh (Robert) Files on Southeast Asian Refugee Resettlement and Education"
+  }
+},
+{
+  "pk": 59, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "egan-richard-manuscript-maps-of-orange-county", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf9k4009f8/", 
+    "name": "Egan (Richard) Manuscript Maps of Orange County"
+  }
+},
+{
+  "pk": 60, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "orange-county-californio-families-portrait-photogr", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt196nc419/", 
+    "name": "Orange County Californio Families Portrait Photograph Album"
+  }
+},
+{
+  "pk": 61, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "orange-county-rancho-title-abstracts-collection-of", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1m3nb7nk/", 
+    "name": "Orange County Rancho Title Abstracts, Collection of"
+  }
+},
+{
+  "pk": 62, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Archive Level, Collection Level, Series Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, Dublin Core", 
+    "repository": [
+      16
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "pleasants-family-papers", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf967nb619/", 
+    "name": "Pleasants Family Papers"
+  }
+},
+{
+  "pk": 63, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "On May 14, 2010, UC Irvine hosted a symposium to celebrate the opening of the Richard Rorty Papers in the UC Irvine Libraries Critical Theory Archive for research. Rorty was a pragmatist philosopher, critical theorist, and public intellectual who is commonly described as one of the most important thinkers of his era. In addition to almost 25 linear feet of papers, the Richard Rorty Archive also include over 1,000 born-digital word processing files that were preserved from Rorty's floppy disks in UCIspace @ the Libraries.", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Item level; Series level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (eScholarship)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "escholarship-time-will-tell-but-epistemology-wont", 
+    "url_oac": "", 
+    "name": "eScholarship: \"Time Will Tell, But Epistemology Won't: In Memory of Richard Rorty\" A Symposium to Celebrate Richard Rorty's Archive"
+  }
+},
+{
+  "pk": 64, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      3
+    ], 
+    "metadata_level": "Container Level, Item Level", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core, MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 15032385536, 
+    "hosted": "CDL (Merritt for preservation), Third Party (ProQuest for Access)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "uci-etds", 
+    "url_oac": "", 
+    "name": "UCI Electronic Theses and Dissertations"
+  }
+},
+{
+  "pk": 65, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Digitization of museum collection of over 1200 works of art; includes scroll paintings, sculptures, ceramics, textiles, albums; images and QTVR for 3-D objects", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Collection Level, Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS; modified VRA Core ", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 510027366400, 
+    "hosted": "Local: Network Servers, CDL service: OAC/Calisphere, Third-party: UCB METS server, SDSC SRB storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ruth-and-sherman-lee-institute-for-japanese-art-co", 
+    "url_oac": "", 
+    "name": "Ruth and Sherman Lee Institute for Japanese Art Collection"
+  }
+},
+{
+  "pk": 66, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Newspapers published by internees at Merced, Pinedale, and Turlock assembly centers", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Collection Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1879048192, 
+    "hosted": "Local: Network Servers", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wwii-japanese-american-assembly-center-newsletters", 
+    "url_oac": "", 
+    "name": "WWII Japanese American Assembly Center newsletters"
+  }
+},
+{
+  "pk": 67, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Official arrest record of the criminals that passed through the county jail", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC for mugbook", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 61203283968, 
+    "hosted": "Local: Network Servers", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "mugbook-merced-county-ca1890-1907-official-arrest", 
+    "url_oac": "", 
+    "name": "Mugbook, Merced County, ca.1890-1907"
+  }
+},
+{
+  "pk": 68, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Items from private family collection, includes hotel register (visitors to Yosemite National Park), journals, photographs; collection also includes mining specimens and artifacts", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 62277025792, 
+    "hosted": "Local: Network Servers", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "mclean-collection-items-from-private-family-collec", 
+    "url_oac": "", 
+    "name": "McLean collection"
+  }
+},
+{
+  "pk": 69, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Documents and artifacts related to history of Angels Camp, CA; primarily mining related", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1073741824, 
+    "hosted": "Local: Network Servers", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "angels-camp-museum-documents-and-artifacts-related", 
+    "url_oac": "", 
+    "name": "Angels Camp Museum"
+  }
+},
+{
+  "pk": 70, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://ucmercedlibrary.info/on-display/special-collections/chinese-seals", 
+    "need_for_dams": 2, 
+    "description": "Imprints and drawings of Chinese seals dating from the Warring States Period (5th century BC) to the 20th century, contained in 14-volume set", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Container Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 2791728742, 
+    "hosted": "Local: Network Servers, website", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "chinese-seals-imprints-and-drawings-of-chinese-sea", 
+    "url_oac": "", 
+    "name": "Chinese seals"
+  }
+},
+{
+  "pk": 71, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "archive and make available theses and dissertations produced by UC Merced students", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item level", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "MARC, ProQuest XML", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "C", 
+    "extent": 536870912, 
+    "hosted": "Local: Network Servers, CDL: Merritt, eScholarship", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "etds-archive-and-make-available-theses-and-dissert", 
+    "url_oac": "", 
+    "name": "ETDs"
+  }
+},
+{
+  "pk": 72, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Faculty request: published by U.S. Chamber of Commerce, volumes from 1947, 1954, 1958, 1963, 1967, 1972, 1977", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "planned: CDL eScholarship", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "us-census-of-manufactures-selected-years-faculty-r", 
+    "url_oac": "", 
+    "name": "U.S. Census of Manufactures, selected years"
+  }
+},
+{
+  "pk": 73, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://escholarship.org/uc/item/2x96d3sn", 
+    "need_for_dams": 2, 
+    "description": "Faculty request; National Park Service publication", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1073741824, 
+    "hosted": "CDL (eScholarship)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "soil-resource-inventory-of-sequoia-national-park-c", 
+    "url_oac": "", 
+    "name": "Soil Resource Inventory of Sequoia National Park, Central Part, California, 1987"
+  }
+},
+{
+  "pk": 74, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://escholarship.org/uc/search?entity=ucmercedlibrary_jca", 
+    "need_for_dams": 3, 
+    "description": "Complete run of journal published by Malki Museum; 5-year embargo on most recent issues", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC, (escholarship standard?)", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 80530636800, 
+    "hosted": "Local:Network Servers, CDL: eScholarship", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "journal-of-california-anthropology-complete-run-of", 
+    "url_oac": "", 
+    "name": "Journal of California Anthropology"
+  }
+},
+{
+  "pk": 75, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://escholarship.org/uc/search?entity=ucmercedlibrary_jcgba", 
+    "need_for_dams": 3, 
+    "description": "Complete run of journal published by Malki Museum; 5-year embargo on most recent issues", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC, (escholarship standard?)", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 80530636800, 
+    "hosted": "Local:Network Servers, CDL: eScholarship", 
+    "harvest_extra_data": "ucmercedlibrary_jcgba", 
+    "url_oai": "http://www.escholarship.org/uc/oai", 
+    "url_harvest": "http://www.escholarship.org/uc/oai", 
+    "slug": "journal-of-california-and-great-basin-anthropology", 
+    "url_oac": "", 
+    "name": "Journal of California and Great Basin Anthropology"
+  }
+},
+{
+  "pk": 76, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://content.cdlib.org/ark:/13030/kt9h4nf6h6/", 
+    "need_for_dams": 3, 
+    "description": "Diary of Civil War soldier with firsthand account of Lincoln assasination", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "Item level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "EAD, METS", 
+    "repository": [
+      18
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 56908316672, 
+    "hosted": "Local: Network Servers, CDL: Merritt, OAC/Calisphere", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "henry-o-nightingale-diary-diary-of-civil-war-soldi", 
+    "url_oac": "", 
+    "name": "Henry O. Nightingale diary"
+  }
+},
+{
+  "pk": 77, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Oral History interviews regarding UCR, the Tuskegee Airmen, World War II, and Science Fiction Fandom", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 375809638400, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "oral-history-interviews-oral-history-interviews-re", 
+    "url_oac": "", 
+    "name": "Oral History Interviews"
+  }
+},
+{
+  "pk": 78, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157623308538614/", 
+    "need_for_dams": 1, 
+    "description": "Photographs regarding UC Riverside", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1073741824, 
+    "hosted": "Flickr", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "university-archives-photographs-photographs-regard", 
+    "url_oac": "", 
+    "name": "University Archives photographs"
+  }
+},
+{
+  "pk": 79, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Glass plate negatives of the Mexican Revolution", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 8589934592, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "sabino-osuna-papers-glass-plate-negatives-of-the-m", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/c8377746/", 
+    "name": "Sabino Osuna papers"
+  }
+},
+{
+  "pk": 80, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157627672095642/", 
+    "need_for_dams": 1, 
+    "description": "Documents photographs regarding the Tuskegee Airmen", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Flickr", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "tuskgee-airmen-archive-documents-photographs-regar", 
+    "url_oac": "", 
+    "name": "Tuskgee Airmen Archive"
+  }
+},
+{
+  "pk": 81, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Diaries kept by George Fujimoto, Sr. and Jr. including experience in WWII internment camps.", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 12884901888, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "george-fujimoto-diaries-diaries-kept-by-george-fuj", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt4c60391w/", 
+    "name": "George Fujimoto diaries"
+  }
+},
+{
+  "pk": 82, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Born digital copies of The Highlander student newspaper", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 3221225472, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "the-highlander-student-newspaper-born-digital-copi", 
+    "url_oac": "", 
+    "name": "The Highlander student newspaper"
+  }
+},
+{
+  "pk": 83, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Documents/images regarding music theorists Schenker, Jonas, and Violin", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 46170898432, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "oswald-jonas-memorial-collection-documentsimages-r", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf4j49n9zc/", 
+    "name": "Oswald Jonas memorial collection"
+  }
+},
+{
+  "pk": 84, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Photographs of the Mexican Revolution from various archival collections", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1073741824, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "mexican-revolution-photographs-photographs-of-the", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/c8707zv4/", 
+    "name": "Mexican Revolution photographs"
+  }
+},
+{
+  "pk": 85, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Photographs/documents from the Tomas Rivera Archive", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 5368709120, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "tomas-rivera-archive-photographsdocuments-from-the", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6r29p0kq/", 
+    "name": "Tomas Rivera Archive"
+  }
+},
+{
+  "pk": 86, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157623547417199/", 
+    "need_for_dams": 1, 
+    "description": "Documents from the Anne McCaffrey papers", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1073741824, 
+    "hosted": "Flickr", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "anne-mccaffrey-papers-documents-from-the-anne-mcca", 
+    "url_oac": "", 
+    "name": "Anne McCaffrey papers"
+  }
+},
+{
+  "pk": 87, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://www.flickr.com/photos/ucrspecialcollections/sets/72157624695915567/", 
+    "need_for_dams": 1, 
+    "description": "Photographs regarding Riverside, CA", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1073741824, 
+    "hosted": "Flickr", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "riverside-california-photographs-photographs-regar", 
+    "url_oac": "", 
+    "name": "Riverside, California photographs"
+  }
+},
+{
+  "pk": 88, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Images of the Colorodo River from Lippincott and images from Lee Collection of eastern Sierra; textual materials pertaining to the Santa Ana River Watershed", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [
+      21
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "n/a", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wrca-lee-collection-other-pu", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf7q2nb3b5/", 
+    "name": "WRCA Lee Collection & other published non-circulating materials"
+  }
+},
+{
+  "pk": 89, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://websites.lib.ucr.edu/agnic/webber/", 
+    "need_for_dams": 2, 
+    "description": "Historic work related to the Citrus Industry/CES", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "the-citrus-industry-1967-1989-historic-work-relate", 
+    "url_oac": "", 
+    "name": "The Citrus Industry (1967-1989)"
+  }
+},
+{
+  "pk": 90, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://websites.lib.ucr.edu/agnic/butterfield/butterfield.pdf", 
+    "need_for_dams": 2, 
+    "description": "Historic work related to the Citrus Industry/CES", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 15728640, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "a-history-of-subtropical-fruits-and-nuts-in-califo", 
+    "url_oac": "", 
+    "name": "A History of Subtropical fruits and nuts in California (1963)"
+  }
+},
+{
+  "pk": 91, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://websites.lib.ucr.edu/agnic/condit.pdf", 
+    "need_for_dams": 2, 
+    "description": "Historic work related to the Citrus Industry/CES", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 6291456, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "citrus-fruits-and-their-culture-in-kwangtung-provi", 
+    "url_oac": "", 
+    "name": "Citrus Fruits and their Culture in Kwangtung Province, South China(circa 1936)"
+  }
+},
+{
+  "pk": 92, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://cdm16353.contentdm.oclc.org/cdm/landingpage/collection/p15226dc", 
+    "need_for_dams": 2, 
+    "description": "Photographs, negatives, and other material documenting the growth and development of Riverside, California in the first half of the 20th century.", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      20
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 3221225472, 
+    "hosted": "CONTENTdm, Calisphere", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "avery-e-field-collection-photographs-negatives-and", 
+    "url_oac": "", 
+    "name": "Avery E. Field collection"
+  }
+},
+{
+  "pk": 93, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://slr.ucr.edu/", 
+    "need_for_dams": 2, 
+    "description": "Images of manuscript leaves detached from codices produced before 1600", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "pre-1600-single-leaf-registry-slr-images-of-manusc", 
+    "url_oac": "", 
+    "name": "Pre-1600 Single Leaf Registry (SLR)"
+  }
+},
+{
+  "pk": 94, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://library.ucr.edu/?l=news&article=466", 
+    "need_for_dams": 2, 
+    "description": "Video files of the UCR Libraries Author Series lectures that were held from 2002-2007", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 5368709120, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucr-libraries-author-series-video-webcasts-video-f", 
+    "url_oac": "", 
+    "name": "UCR Libraries Author Series video webcasts"
+  }
+},
+{
+  "pk": 95, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Approximately 800 photographs of the construction of the Los Angeles Aqueduct", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      21
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wrca-lippincott-collection-los-angeles-aqueduct-ap", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf3h4nb0ks/dsc/#c02-1.8.6.4.10", 
+    "name": "WRCA Lippincott Collection [Los Angeles Aqueduct]"
+  }
+},
+{
+  "pk": 96, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 2, 
+    "description": "Used OCLC web tool to harvest, catalog and preserve individual report from web", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "OCLC, Scotty, Melvyl", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wrca-contentdm-used-oclc-web-tool-to-harvest-catal", 
+    "url_oac": "", 
+    "name": "WRCA ContentDM"
+  }
+},
+{
+  "pk": 97, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://escholarship.org/uc/ucr", 
+    "need_for_dams": 3, 
+    "description": "Research publications by UCR faculty members", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "TEI", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (eScholarship)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucr-faculty-publications-research-publications-by", 
+    "url_oac": "", 
+    "name": "UCR faculty publications"
+  }
+},
+{
+  "pk": 98, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://library.ucr.edu/?view=collections/spcol/travensite/index.html", 
+    "need_for_dams": 3, 
+    "description": "Electronic exhibition featuring select digitized images drawn from our B. Traven holdings", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "the-b-traven-collections-at-uc-riverside-libraries", 
+    "url_oac": "", 
+    "name": "The B. Traven Collections at UC Riverside Libraries"
+  }
+},
+{
+  "pk": 99, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://library.ucr.edu/?view=collections/spcol/ces/cesexhibit.html", 
+    "need_for_dams": 3, 
+    "description": "Electronic exhibition featuring select digitized images drawn from our Citrus Experiment Station holdings", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally (web-based)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "citrus-experiment-station-centennial-exhibition-el", 
+    "url_oac": "", 
+    "name": "Citrus Experiment Station Centennial Exhibition"
+  }
+},
+{
+  "pk": 100, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "Archived web pages of the UC Riverside website and local (Riverside County) government documents", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Collection Level", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (WAS)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "web-archiving-service-archived-web-pages-of-the-uc", 
+    "url_oac": "", 
+    "name": "UC Riverside campus website and Riverside County government document web archives"
+  }
+},
+{
+  "pk": 101, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://escholarship.org/uc/wrca", 
+    "need_for_dams": 3, 
+    "description": "WRCA currently manages four paper series within eScholarship. These are called Hydrolology, Restoration of Rivers and Streams, Working Papers, Hydraulic Engineering Laboratory Reports and two Publication Series: Water Resources Center Technical Completion Reports and Contributions", 
+    "url_was": "", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (eScholarship)", 
+    "harvest_extra_data": "wrca", 
+    "url_oai": "http://www.escholarship.org/uc/oai", 
+    "url_harvest": "http://www.escholarship.org/uc/oai", 
+    "slug": "wrca-escholarship-wrca-currently-manages-four-pape", 
+    "url_oac": "", 
+    "name": "WRCA eScholarship"
+  }
+},
+{
+  "pk": 102, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "have 2 collections: California Water Districts and Sacramento-San Joaquin Delta", 
+    "url_was": "http://webarchives.cdlib.org/a/CAWaterDistricts", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Collection Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      21
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (WAS)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wrca-web-archiving-service-california-water-distri", 
+    "url_oac": "", 
+    "name": "WRCA Web Archiving Service California Water Districts"
+  }
+},
+{
+  "pk": 103, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 3, 
+    "description": "have 2 collections: California Water Districts and Sacramento-San Joaquin Delta", 
+    "url_was": "http://webarchives.cdlib.org/a/SacSJDelta", 
+    "campus": [
+      5
+    ], 
+    "metadata_level": "Collection Level", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      21
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (WAS)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wrca-web-archiving-service-sacramento-san-joaquin", 
+    "url_oac": "", 
+    "name": "WRCA Web Archiving Service Sacramento-San Joaquin Delta"
+  }
+},
+{
+  "pk": 104, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "https://digital.library.ucsf.edu/", 
+    "need_for_dams": 1, 
+    "description": "Pamphlet collection", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      25
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally using Omeka", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "cholera-collection-pamphlet-collection", 
+    "url_oac": "", 
+    "name": "Cholera Collection"
+  }
+},
+{
+  "pk": 105, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "https://digital.library.ucsf.edu/", 
+    "need_for_dams": 1, 
+    "description": "A selection of historic photos from Special Collections", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      25
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally using Omeka", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "historic-photos-a-selection-of-historic-photos-fro", 
+    "url_oac": "", 
+    "name": "Historic Photos"
+  }
+},
+{
+  "pk": 106, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://www.library.ucsf.edu/collections/homeopathy", 
+    "need_for_dams": 2, 
+    "description": "A selection of key items of homeopathy materials from our special collections", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "None", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "n/a", 
+    "repository": [
+      25
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Locally, on a website", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "homeopathy-a-selection-of-key-items-of-homeopathy", 
+    "url_oac": "", 
+    "name": "Homeopathy"
+  }
+},
+{
+  "pk": 107, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://synapse.library.ucsf.edu/", 
+    "need_for_dams": 3, 
+    "description": "UCSF Student newspaper", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "METS/ALTO", 
+    "repository": [
+      25
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Third-party: DL Consulting hosts our Veridian instance", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "synapse-ucsf-student-newspaper", 
+    "url_oac": "", 
+    "name": "Synapse"
+  }
+},
+{
+  "pk": 108, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://asian.library.ucsf.edu/", 
+    "need_for_dams": 3, 
+    "description": "The UCSF Japanese Woodblock Print Collection consists of four hundred Japanese woodblock prints on health-related themes.", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      25
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "CDL (Calisphere/OAC)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "japanese-prints-the-ucsf-japanese-woodblock-print", 
+    "url_oac": "", 
+    "name": "Japanese Prints"
+  }
+},
+{
+  "pk": 109, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Scanned ledger images used in Victor Discography Research Project", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "None", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 4288095348326, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "edvr-images-scanned-ledger-images-used-in-victor-d", 
+    "url_oac": "", 
+    "name": "EDVR Images"
+  }
+},
+{
+  "pk": 110, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Various items from Mss and other collections", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Archival control; primarily folder level", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "None", 
+    "repository": [
+      29
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "special-colections-patron-scanningdigitizing-reque", 
+    "url_oac": "", 
+    "name": "Special Colections patron scanning/digitizing requests"
+  }
+},
+{
+  "pk": 112, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "victor.library.ucsb.edu", 
+    "need_for_dams": 1, 
+    "description": "Digitized 78rpm discs", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "LCNAF; local", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1539316278886, 
+    "hosted": "Local disc storage and at Library of congress", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "edvrnational-jukebox-digitized-78rpm-discs", 
+    "url_oac": "", 
+    "name": "EDVR/National Jukebox"
+  }
+},
+{
+  "pk": 113, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://cylinders.library.ucsb.edu/", 
+    "need_for_dams": 1, 
+    "description": "Cylinder recordings, 1894-1928", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "LCSH; LCNAF", 
+    "repository": [
+      29
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1429365116108, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "cylinder-preservation-and-digitization-project-cyl", 
+    "url_oac": "", 
+    "name": "Cylinder Preservation and Digitization Project"
+  }
+},
+{
+  "pk": 114, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Air photos held by Map and Imagery Lab (MIL)", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Pre 2005 frame level; post 2005 collection level", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "Pre 2005 ADL place name dictionary", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 1099511627776, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "air-photos-air-photos-held-by-map-and-imagery-lab", 
+    "url_oac": "", 
+    "name": "Air Photos"
+  }
+},
+{
+  "pk": 115, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Chicano and Asian-American cultural and visual arts in the California Ethnic and Multicultural Archives", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "LCSH; LCNAF; Chicano Thesarus; AAT; Local", 
+    "repository": [
+      29
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 671088640000, 
+    "hosted": "Calisphere; Local storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "library-calisphere-collections-chicano-and-asian-a", 
+    "url_oac": "http://www.calisphere.universityofcalifornia.edu/institutions/UC+Santa+Barbara::Special+Collections/", 
+    "name": "Library Calisphere collections"
+  }
+},
+{
+  "pk": 116, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Various analog audiovisual materials held by Special Collections (oral histories, separations from mss collections, etc)", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "Some LCNAF/LCSH", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 12864286044979, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ongoing-av-preservationdigitization-various-analog", 
+    "url_oac": "", 
+    "name": "Ongoing AV preservation/digitization"
+  }
+},
+{
+  "pk": 117, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "7.5' CA topo maps scanned for USGS", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item level; Series level", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "LCSH; LCNAF", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 2199023255552, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "usgs-topos-scanning-75-ca-topo-maps-scanned-for-us", 
+    "url_oac": "", 
+    "name": "USGS Topos scanning"
+  }
+},
+{
+  "pk": 118, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://cemaweb.library.ucsb.edu/ETCList.html", 
+    "need_for_dams": 1, 
+    "description": "Videotapes from El Teatro Campesino (Chicano theater group)", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "None", 
+    "repository": [
+      29
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 730144440320, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "el-teatro-campesino-videos-videotapes-from-el-teat", 
+    "url_oac": "", 
+    "name": "El Teatro Campesino Videos"
+  }
+},
+{
+  "pk": 119, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://archive.org/details/californialightandsound", 
+    "need_for_dams": 1, 
+    "description": "Participant-contributing Califas (Chicano culture) Videotapes", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": 590558003200, 
+    "hosted": "Local disc storage; Internet Archive", 
+    "harvest_extra_data": "collection:californialightandsound", 
+    "url_oai": "http://archive.org/services/oai2.php", 
+    "url_harvest": "http://archive.org/services/oai2.php", 
+    "slug": "california-light-and-sound-participant-contributin", 
+    "url_oac": "", 
+    "name": "California Light and Sound"
+  }
+},
+{
+  "pk": 120, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Maps (Various USGS topos)", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "Unknown", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "maps-maps-various-usgs-topos", 
+    "url_oac": "", 
+    "name": "Maps"
+  }
+},
+{
+  "pk": 121, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "", 
+    "need_for_dams": 1, 
+    "description": "Various Maps", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item level; Series level", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "LCSH; LCNAF; MIL Call number", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": 1649267441664, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "mil-patron-scanningdigitizing-requests-various-map", 
+    "url_oac": "", 
+    "name": "MIL patron scanning/digitizing requests"
+  }
+},
+{
+  "pk": 122, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://www.library.ucsb.edu/mil/aerial-photography-tools", 
+    "need_for_dams": 1, 
+    "description": "Air photo and map set finding aids", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Local", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Local disc storage", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "mil-finding-aids-air-photo-and-map-set-finding-aid", 
+    "url_oac": "", 
+    "name": "MIL Finding aids"
+  }
+},
+{
+  "pk": 123, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu/cdm/landingpage/collection/p265101coll10", 
+    "need_for_dams": 3, 
+    "description": "Images from the Lick Observatory glass plate negative collection.\u2020 This is an ongoing collaboration with the Lick Observatory that currenty has approximately 900 images.", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC ", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 365072220160, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "p265101coll10", 
+    "url_oai": "https://server16019.contentdm.oclc.org/cgi-bin/oai.exe", 
+    "url_harvest": "https://server16019.contentdm.oclc.org/cgi-bin/oai.exe", 
+    "slug": "lick-observatory-records-images-from-the-lick-obse", 
+    "url_oac": "", 
+    "name": "Lick Observatory Records"
+  }
+},
+{
+  "pk": 124, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu/", 
+    "need_for_dams": 3, 
+    "description": "Glass plate negatives and slides from the Branson DeCou collection.\u2020 More than 1000 images available to date.", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC, VRA Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 214748364800, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "p265101coll30", 
+    "url_oai": "https://server16019.contentdm.oclc.org/cgi-bin/oai.exe", 
+    "url_harvest": "https://server16019.contentdm.oclc.org/cgi-bin/oai.exe", 
+    "slug": "branson-decou-digital-collection-glass-plate-negat", 
+    "url_oac": "", 
+    "name": "Branson DeCou Digital Collection"
+  }
+},
+{
+  "pk": 125, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu", 
+    "need_for_dams": 3, 
+    "description": "Transcripts and audio clips from the UCSC Regional History Project, part of the Special Collections and Archives", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC-MARC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 2147483648, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "regional-oral-histories-transcripts-and-audio-clip", 
+    "url_oac": "", 
+    "name": "Regional Oral Histories"
+  }
+},
+{
+  "pk": 126, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu", 
+    "need_for_dams": 3, 
+    "description": "Photos from Frank Kofsky Archive", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC, VRA Core ", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 26843545600, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "performing-arts-collections-photos-from-frank-kofs", 
+    "url_oac": "", 
+    "name": "Performing Arts Collections"
+  }
+},
+{
+  "pk": 127, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu/", 
+    "need_for_dams": 3, 
+    "description": "Photos, documents, maps, audio from campus archive", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [
+      30
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm, History Pin", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucsc-campus-history-photos-documents-maps-audio-fr", 
+    "url_oac": "", 
+    "name": "UCSC Campus History"
+  }
+},
+{
+  "pk": 128, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://www.gdao.org/", 
+    "need_for_dams": 3, 
+    "description": "Scanned digital objects from the band's archive plus user generated content", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "DC, MODS, METS", 
+    "repository": [
+      30
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": 3298534883328, 
+    "hosted": "Hosted in CONTENTdm (not public), also in locally-hosted Omeka (public)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "grateful-dead-records-scanned-digital-objects-from", 
+    "url_oac": "", 
+    "name": "Grateful Dead Records"
+  }
+},
+{
+  "pk": 129, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://www.gdao.org/", 
+    "need_for_dams": 3, 
+    "description": "Photos of 1960's and 70's rock bands, beginning with Grateful Dead.", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC, MODS, METS", 
+    "repository": [
+      30
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm (not public), also in locally-hosted Omeka (public)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "herb-greene-photographs-photos-of-1960s-and-70s-ro", 
+    "url_oac": "", 
+    "name": "Herb Greene Photographs"
+  }
+},
+{
+  "pk": 130, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://digitalcollections.ucsc.edu/cdm/landingpage/collection/p15130coll2", 
+    "need_for_dams": 3, 
+    "description": "Oral history transcripts", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "C", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "organic-farmingsustainable-ag-oral-histories-oral", 
+    "url_oac": "", 
+    "name": "Organic Farming/Sustainable Ag Oral Histories"
+  }
+},
+{
+  "pk": 131, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu/cdm/landingpage/collection/p15130coll3", 
+    "need_for_dams": 3, 
+    "description": "Local and historical maps, Sanborn maps", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "C", 
+    "extent": 214748364800, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucsc-map-collections-local-and-historical-maps-san", 
+    "url_oac": "", 
+    "name": "UCSC Map Collections"
+  }
+},
+{
+  "pk": 132, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu/cdm/landingpage/collection/p16019coll5", 
+    "need_for_dams": 3, 
+    "description": "Regional aerial photographs", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucsc-aerial-photograph-collection-regional-aerial", 
+    "url_oac": "", 
+    "name": "UCSC Aerial Photograph Collection"
+  }
+},
+{
+  "pk": 133, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://digitalcollections.ucsc.edu/cdm/landingpage/collection/p16019coll1", 
+    "need_for_dams": 3, 
+    "description": "Purchased geologic map collection, used by UCSC courses", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "dibblee-geologic-maps-purchased-geologic-map-colle", 
+    "url_oac": "", 
+    "name": "Dibblee Geologic Maps"
+  }
+},
+{
+  "pk": 134, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digitalcollections.ucsc.edu/", 
+    "need_for_dams": 3, 
+    "description": "Local photos from Spec Coll, documenting architecture and earthquake damage", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [
+      30
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "santa-cruz-county-historical-photographs-local-pho", 
+    "url_oac": "", 
+    "name": "Santa Cruz County Historical Photographs"
+  }
+},
+{
+  "pk": 135, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "http://digitalcollections.ucsc.edu/cdm/landingpage/collection/p15130coll1", 
+    "need_for_dams": 3, 
+    "description": "Transcribed deeds and letters of Santa Cruz historical figure, major land owner", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "DC", 
+    "repository": [
+      30
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "Hosted in CONTENTdm", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "hihn-younger-archive-transcribed-deeds-and-letters", 
+    "url_oac": "", 
+    "name": "Hihn-Younger Archive"
+  }
+},
+{
+  "pk": 136, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "artstor.org", 
+    "need_for_dams": 3, 
+    "description": "Scanned copystand slide images from books, used by UCSC instructors", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "VRA Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "ARTStor", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "instructional-image-collection-scanned-copystand-s", 
+    "url_oac": "", 
+    "name": "Instructional Image Collection"
+  }
+},
+{
+  "pk": 137, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 1, 
+    "url_local": "artstor.org", 
+    "need_for_dams": 3, 
+    "description": "Scanned publisher collection of slides", 
+    "url_was": "", 
+    "campus": [
+      9
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "VRA Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "ARTStor", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "history-of-costume-collection-scanned-publisher-co", 
+    "url_oac": "", 
+    "name": "History of Costume Collection"
+  }
+},
+{
+  "pk": 138, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/collections/earthquakeandfire/", 
+    "need_for_dams": null, 
+    "description": "The 1906 San Francisco Earthquake and Fire Digital Collection is a compilation of selected holdings from collections housed in the archives and special collections of The Bancroft Library, University of California, Berkeley; the California Historical Society, San Francisco; The California State Library, Sacramento; Stanford University Libraries - Special Collections & Archives, Stanford University, Stanford; The Huntington Library, San Marino; and The Society of California Pioneers, San Francisco. Presenting approximately 14,000 images and 7,000 pages of text, the digital collection makes accessible material related to the history of the 1906 earthquake and fire in San Francisco, as well as presenting material on other areas affected throughout the state. The project website for The 1906 San Francisco Earthquake and Fire Digital Collection includes a full introduction to the collection, an online exhibit, 360 degree panorama of the city, an interactive map, and search and browse capabilities.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "earthquake-and-fire-digital-collection-the-1906-sa", 
+    "url_oac": "", 
+    "name": "Earthquake and Fire Digital Collection"
+  }
+},
+{
+  "pk": 139, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/collections/casedphotos/project.html", 
+    "need_for_dams": null, 
+    "description": "The Cased Photographs Project provides access to digital images and detailed descriptions of daguerreotypes, ambrotypes, tintypes, and related photographs in the collections of The Bancroft Library and the California State Library. The main goals of this project were to preserve these exceedingly rare and significant pictorial documents, many of which date from the era of the California gold rush, as the first step in the creation of a comprehensive state-wide digital collection of cased photographs. The project was carried out in 1999-2000 with support from the U.S. Institute of Museum and Library Services under the provisions of the Library Services and Technology Act, administered in California by the State Librarian. The result is two archival finding aids with linked digital images which are available as part of the Online Archive of California.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "cased-photographs-the-cased-photographs-project-pr", 
+    "url_oac": "", 
+    "name": "Cased Photographs"
+  }
+},
+{
+  "pk": 140, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/collections/drilm.html", 
+    "need_for_dams": null, 
+    "description": "The world view on disability has shifted dramatically over the past thirty-five years. In the 1960s and 1970s, for reasons not yet fully explained, the grassroots call for self-determination by people with disabilities resounded through the country and gave birth to the framework of the independent living/disability rights movement that we know today. In the last third of this century, people with disabilities, most of whom had no history of political involvement, have organized and acted to change the conditions of their own lives. It is this period of historic change that is being documented here in the Disability Rights Independent Living Movement [DRILM] national research and documentation project.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "disability-rights-movement-the-world-view-on-disab", 
+    "url_oac": "", 
+    "name": "Disability Rights Movement"
+  }
+},
+{
+  "pk": 141, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/collections/honeyman.html", 
+    "need_for_dams": null, 
+    "description": "The Robert B. Honeyman Jr. Collection of Early Californian and Western American Pictorial Material is comprised of over 2300 items, with formats and media ranging from original oil paintings, watercolors, drawings, lithographs, engravings, etchings, lettersheets, clipper cards, and ephemera, to plates and spoons featuring western themes, and a fore-edge painting. The collection focuses on pictorial interpretations of the old West, with emphasis on the early California and Gold Rush periods. Views depict the changing landscape of the West under the impact of westward migration, the development of towns and cities, early settlements, California missions, railroads, gold mining scenes, pioneer and frontier life, native populations, social history, and many other topics. Many items in the collection are of unique historical value as they represent some of the earliest records of a particular scene, location, or event. Included are the earliest known views of the Presidio of Monterey, Mission Carmel, San Francisco, and Yosemite. Geographically, the collection focuses primarily on California, but also includes images from the Pacific Northwest, other Northern American states, South and Central America, Oceania, Europe, Russia, and other locations. The entire collection covers from ca.1790 through the early 1930s, with the bulk of works dating between 1850 and the 1870s.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "honeyman-collection-the-robert-b-honeyman-jr-colle", 
+    "url_oac": "", 
+    "name": "Honeyman Collection"
+  }
+},
+{
+  "pk": 142, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/CalHistory/", 
+    "need_for_dams": null, 
+    "description": "A virtual tour through the history of the University of California, Berkeley.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "days-of-cal-a-virtual-tour-through-the-history-of", 
+    "url_oac": "", 
+    "name": "Days of Cal"
+  }
+},
+{
+  "pk": 143, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/collections/chineseinca/", 
+    "need_for_dams": null, 
+    "description": "The materials selected are drawn from a variety of archival collections, compiled by institutions and libraries with varying missions. Many of the collections have distinctive histories of their own. In some cases entire collections have been included; more often a selection of materials relating to the Chinese in California has been selected from a collection with broader scope. It is our hope that The Chinese in California presents a balanced perspective on a tumultuous and changing history of this community in California. Major issues explored in these records include the Chinese contribution to California and the American West in the 19th and early 20th centuries; the rampant anti-Chinese sentiment encountered by these immigrants, eventually leading to the federal Chinese Exclusion Act of 1892 (repealed in 1943); and settlement and development in various communities, including San Francisco's Chinatown, which remains the largest Chinatown in the United States. The materials presented in The Chinese in California are only a small part of the wealth of historical and archival materials documenting this topic at participating institutions. Users should note the source of the materials found on this site and contact the holding libraries or archives for further information.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "the-chinese-in-california-the-materials-selected-a", 
+    "url_oac": "", 
+    "name": "The Chinese in California"
+  }
+},
+{
+  "pk": 144, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://sunsite.berkeley.edu/uchistory/", 
+    "need_for_dams": null, 
+    "description": "This websource prototype of the University of California History Digital Archives provides access to a growing collection of digitized historical documents, images and materials, along with past and current analysis on the history of the UC. This project is based at the Center for Studies in Higher Education and has three goals: one, to organize and collaborate with other efforts to preserve and provide access to archival materials; to provide a resource for the academic community and the general public; and three, to promote discussion on the history of the university and its future.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      11
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "uc-history-digital-archives-this-websource-prototy", 
+    "url_oac": "", 
+    "name": "UC History Digital Archives"
+  }
+},
+{
+  "pk": 145, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://bancroft.berkeley.edu/collections/loyaltyoath/", 
+    "need_for_dams": null, 
+    "description": "The California Loyalty Oath Digital Collection brings together a selection of documents and images from the holdings of four repositories at the University of California: the University Archives, The Bancroft Library, UC Berkeley; the University Archives, Young Research Library, UCLA; the Scripps Institution of Oceanography Archives, UC San Diego; and the Office of the Secretary of the Regents, Oakland. The California Loyalty Oath Digital Collection comprises more than 3500 pages of electronic text, more than 30 pictorial images, and 15 audio clips, which document the controversy (1949-1951) that roiled the University during the McCarthy Era. The loyalty oath debate reverberated across the country and caused lasting damage to the reputation of the University and the relations between its faculty and staff, administration, and Board of Regents. This website includes a timeline, resources for further study, and search and browse capabilities.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "california-loyalty-oath-digital-collection-the-cal", 
+    "url_oac": "", 
+    "name": "California Loyalty Oath Digital Collection"
+  }
+},
+{
+  "pk": 146, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://ucblibrary4.berkeley.edu:8088/xtf/servlet/org.cdlib.xtf.crossQuery.CrossQuery?rmode=btr", 
+    "need_for_dams": null, 
+    "description": "The EECS Technical Memorandum Series provides a dated archive of EECS research. It includes Ph.D. theses and master's reports as well as technical documents that complement traditional publication media such as journals. For example, technical reports may document work in progress, early versions of results that are eventually published in more traditional media, and supplemental information such as long proofs, software documentation, code listings, or elaborated examples. Technical reports listed here include the EECS Technical Report series (started in October 2005), the CS Technical Report series (from 1982 to 2005), and the ERL Technical report series (from 1984 to 2005, plus selected titles from before 1984). Full text is included for the EECS and CS series, but not for the ERL series. In the case of the ERL series, full text may be available on other web sites (such as the personal web pages of the authors).", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "eecs-technical-reports-the-eecs-technical-memorand", 
+    "url_oac": "", 
+    "name": "EECS Technical Reports"
+  }
+},
+{
+  "pk": 147, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://www.stat.berkeley.edu/tech-reports/", 
+    "need_for_dams": null, 
+    "description": "Technical Reports (Preprints) for the Department of Statitics, UC Berkeley", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      36
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "statistics-reports-technical-reports-preprints-for", 
+    "url_oac": "", 
+    "name": "Statistics Reports"
+  }
+},
+{
+  "pk": 148, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://www.lib.berkeley.edu/ANTH/anthrohub/", 
+    "need_for_dams": null, 
+    "description": "AnthroHub includes full text journals and monographs produced by the Department of Anthropology at UC Berkeley together with searchable citations and links to anthropological works in all formats created by and about UC Berkeley anthropologists. Included are books, journal articles, book chapters, reference entries, book reviews, oral histories, obituaries and some gray literature, as well as images, sound recordings and audio-visual materials.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "anthrohub-anthrohub-includes-full-text-journals-an", 
+    "url_oac": "", 
+    "name": "AnthroHub"
+  }
+},
+{
+  "pk": 149, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://projecteuclid.org/", 
+    "need_for_dams": null, 
+    "description": "Proceedings of the Berkeley Symposium on Mathematical Statistics and Probability. Berkeley: University of California Press, 1946-1971.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "bsmsp", 
+    "url_oai": "http://projecteuclid.org/DPubS", 
+    "url_harvest": "http://projecteuclid.org/DPubS", 
+    "slug": "berkeley-symposium-on-mathematical-statistics-and", 
+    "url_oac": "", 
+    "name": "Berkeley Symposium on Mathematical Statistics and Probability"
+  }
+},
+{
+  "pk": 150, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://www.lib.berkeley.edu/BIOS/vtm/", 
+    "need_for_dams": null, 
+    "description": "In 1926, the U.S. National Forest Service began a natural vegetation survey of California and those portions of Region 5 National Forests and adjacent areas that extended into Nevada and Oregon. The initial purpose was to provide data in support of statewide land use and fire protection policy development. The California survey was headed by A.E. Wieslander, Associate Silviculturist with the USFS California (now Pacific Southwest) Forest and Range Experiment Station. The project became known as the Wieslander Vegetation Type Map (VTM) Survey.", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      4
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "wieslander-vegetation-type-maps-photographs-in-192", 
+    "url_oac": "", 
+    "name": "Wieslander Vegetation Type Maps & Photographs"
+  }
+},
+{
+  "pk": 151, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://archive.org/search.php?query=collection%3A%22cawaterres%22", 
+    "need_for_dams": null, 
+    "description": "The Bulletin of the California Department of Water Resources is a collection of volumes published from 1922 to 2004 by the Department and its predecessor agencies.", 
+    "url_was": "", 
+    "campus": [
+      2
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "collection:cawaterres", 
+    "url_oai": "http://archive.org/services/oai2.php", 
+    "url_harvest": "http://archive.org/services/oai2.php", 
+    "slug": "bulletin-of-calif-dept-of-water-resources-the-bull", 
+    "url_oac": "", 
+    "name": "Bulletin of Calif. Dept. of Water Resources"
+  }
+},
+{
+  "pk": 152, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0015w23z", 
+    "need_for_dams": null, 
+    "description": "American motion picture film stills fron the 1920s on. Includes black and white photographs and some color prints and slides; also includes publicity stills from various studios.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "motion-picture-stills-american-motion-picture-film", 
+    "url_oac": "", 
+    "name": "Motion Picture Stills"
+  }
+},
+{
+  "pk": 153, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0002np7z", 
+    "need_for_dams": null, 
+    "description": "Photonegatives and photographic prints documenting events and people in Southern California, the U.S., and the world. Materials originate from the Los Angeles Times newspaper and includes glass negatives (ca. 1918-1932), nitrate negatives (ca. 1925-45), and safety negatives (ca. 1935-1990). The collection also includes prints and negatives from the Los Angeles Times Orange County and San Diego bureaus.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [
+      34
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "latimes", 
+    "url_oai": "http://digital2.library.ucla.edu/oai2_0.do", 
+    "url_harvest": "http://digital2.library.ucla.edu/oai2_0.do", 
+    "slug": "los-angeles-times-photographic-archive-photonegati", 
+    "url_oac": "", 
+    "name": "Los Angeles Times Photographic Archive"
+  }
+},
+{
+  "pk": 154, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00294nz8", 
+    "need_for_dams": null, 
+    "description": "Collection consists of photonegatives documenting events and people in Southern California. The material originates from the Los Angeles Daily News newspaper and includes glass negatives, nitrate negatives, and safety negatives.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [
+      34
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "los-angeles-daily-news-negatives-collection-consis", 
+    "url_oac": "", 
+    "name": "Los Angeles Daily News Negatives"
+  }
+},
+{
+  "pk": 155, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0008b9tw", 
+    "need_for_dams": null, 
+    "description": "A collection of modernist architect Richard Neutra's architectural and non-architectural art works, including photographs and drawings of his structures, architectural drafts and sketches, small paintings, intaglio prints, travel sketches and descriptive manuscripts.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [
+      34
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "neutra-richard-and-dion-collections-a-collection-o", 
+    "url_oac": "", 
+    "name": "Neutra (Richard and Dion) Collections"
+  }
+},
+{
+  "pk": 156, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00253vz2", 
+    "need_for_dams": null, 
+    "description": "Collection consists of digitized photographs and negatives, as well as sound recordings, from the Aldous and Laura Huxley papers.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [
+      34
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "huxley-aldous-papers-collection-consists-of-digiti", 
+    "url_oac": "", 
+    "name": "Huxley (Aldous) Papers"
+  }
+},
+{
+  "pk": 157, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do;?ark=21198/zz0002ksb2", 
+    "need_for_dams": null, 
+    "description": "AIDS posters from 44 countries. Demonstrates the efforts taken by various countries to promote AIDS awareness and modify risk behaviors. The physical collection was originally acquired by the History and Special Collections division of the Louise M. Darling Biomedical Library in 2005, and has been expanded through later acquisitions.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "aidsposters", 
+    "url_oai": "http://digital2.library.ucla.edu/oai2_0.do", 
+    "url_harvest": "http://digital2.library.ucla.edu/oai2_0.do", 
+    "slug": "aids-poster-collection-aids-posters-from-44-countr", 
+    "url_oac": "", 
+    "name": "AIDS Poster collection"
+  }
+},
+{
+  "pk": 158, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz001dzc12", 
+    "need_for_dams": null, 
+    "description": "Photographs of Jazz soloists performing in the Los Angeles and Pittsburg areas, taken by cellist James Arkatov. Arkatov was the artistic founder of the Los Angeles Chamber Orchestra, as well as a cellist with the Pittsburgh Symphony, the Indianapolis Symphony, the San Francisco Symphony, and NBC's orchestra. The collection contains over 500 black and white and color photographs.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [
+      35
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "arkatov-collection-of-photographs-of-musicians-pho", 
+    "url_oac": "", 
+    "name": "Arkatov Collection of photographs of musicians"
+  }
+},
+{
+  "pk": 159, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00000bv3", 
+    "need_for_dams": null, 
+    "description": "A collection photographs related to the history of UCLA, beginning with the Vermont Avenue Campus in 1927; the Westwood campus groundbreaking ceremony in 1927; the construction of Royce Hall, the Powell Library building and Kinsey Hall (the Physics building); models of the earliest buildings, and the moving days to the Westwood campus, among others. A highlight includes the photographs of the first snowfall on campus.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucla-historic-photographs-a-collection-photographs", 
+    "url_oac": "", 
+    "name": "UCLA Historic Photographs"
+  }
+},
+{
+  "pk": 160, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz0028tr8x", 
+    "need_for_dams": null, 
+    "description": "The Henry J. Bruman Map Collection at UCLA contains historical and contemporary maps from around the world. The digital collection focuses on historical maps of California, Los Angeles County, and the city of Los Angeles with an emphasis on maps from 1860-1950. This is an ongoing project and maps will be added to this collection as they are scanned and processed.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "bruman-map-collections-the-henry-j-bruman-map-coll", 
+    "url_oac": "", 
+    "name": "Bruman Map Collections"
+  }
+},
+{
+  "pk": 161, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do?ark=21198/zz00095z2v", 
+    "need_for_dams": null, 
+    "description": "A collection of jazz writer Mark Weber's photographs of experimental jazz musicians during the 1970's-2000's, with predominant focus on photos taken on the West Coast from 1976-1985. Features autographed prints, portraits and publicity shots of artists, and photographs of festivals and public performances, including multiple years of the Playboy Jazz Festival in Los Angeles and the San Francisco Blues Festival.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [
+      35
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "weber-mark-collection-a-collection-of-jazz-writer", 
+    "url_oac": "", 
+    "name": "Weber (Mark) Collection"
+  }
+},
+{
+  "pk": 162, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://animation.library.ucla.edu/", 
+    "need_for_dams": null, 
+    "description": "Although best-known for its restoration of feature films, UCLA Film & Television Archive has been preserving animated films for more than three decades, with over one hundred titles to its credit. The short subjects, trailers, and promotional films presented here provide a sampling of that work.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucla-preserved-silent-animation-although-best-know", 
+    "url_oac": "", 
+    "name": "UCLA Preserved Silent Animation"
+  }
+},
+{
+  "pk": 163, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu", 
+    "need_for_dams": null, 
+    "description": "Photographs, bound manuscripts (Medieval, Renaissance through to the 19th century; Arabic, Persian, Armenian, Ethiopic), maps, oral histories, newspapers, TEI texts, sound recordings", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ca-73-additional-collections-photographs-bound-man", 
+    "url_oac": "", 
+    "name": "ca. 73 additional collections"
+  }
+},
+{
+  "pk": 164, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://oralhistory.library.ucla.edu", 
+    "need_for_dams": null, 
+    "description": "UCLA Library's Center for Oral History Research documents the history of Southern California and the Los Angeles metropolitan region through oral history interviews. In addition to interviews conducted by its own staff, the center accepts donated interviews that enhance its collecting areas. Its staff members also undertake selected grant-funded projects that cover subjects beyond the Southern California area.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucla-center-for-oral-history-research-ucla-library", 
+    "url_oac": "", 
+    "name": "UCLA Center for Oral History Research"
+  }
+},
+{
+  "pk": 165, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "chicano-studies-research-center", 
+    "url_oac": "", 
+    "name": "Chicano Studies Research Center"
+  }
+},
+{
+  "pk": 166, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://digital2.library.ucla.edu/viewItem.do;?ark=21198/zz00089bvf", 
+    "need_for_dams": null, 
+    "description": "The D.K. Wilgus Folksong Collection consists of approximately 8,000 commercially recorded albums of traditional music, song, and narrative as well as 1,000 field-recorded tapes.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ethnomusicology-archive-d-k-wilgus-archive-the-dk", 
+    "url_oac": "", 
+    "name": "Ethnomusicology Archive: D. K. Wilgus Archive"
+  }
+},
+{
+  "pk": 167, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://archive.org", 
+    "need_for_dams": null, 
+    "description": "Large number of books and other printed material.", 
+    "url_was": "", 
+    "campus": [
+      10
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Qualified Dublin Core", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "internet-archive-collections-large-number-of-books", 
+    "url_oac": "", 
+    "name": "Internet Archive collections"
+  }
+},
+{
+  "pk": 168, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "http://songgis.ucmercedlibrary.info/", 
+    "need_for_dams": null, 
+    "description": "Web archive for Digital Gazetteer of Song Dynasty China", 
+    "url_was": "", 
+    "campus": [
+      4
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC", 
+    "repository": [
+      18
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "song-gis-web-archive-for-digital-gazetteer-of-song", 
+    "url_oac": "", 
+    "name": "Song GIS"
+  }
+},
+{
+  "pk": 169, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Sketches and drawings from the Theodor Seuss Geisel Collections.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "advertising-artwork-of-dr-seuss-sketches-and-drawi", 
+    "url_oac": "", 
+    "name": "Advertising Artwork of Dr. Seuss"
+  }
+},
+{
+  "pk": 170, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "A collection of political cartoons by Dr. Seuss.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "dr-seuss-went-to-war-a-collection-of-political-car", 
+    "url_oac": "", 
+    "name": "Dr. Seuss Went to War"
+  }
+},
+{
+  "pk": 171, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Selections documenting Spain's Second Republic (1931-1936), the Spanish Civil War (1936-1939) and the post-War years of the 1940s including Call To Arms, Adhesive Propaganda, Shots of War, Southworth Spanish Civil War, The Visual Front, Spanish Civil War Memory Project.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "southworth-spanish-civil-war-collection-selections", 
+    "url_oac": "", 
+    "name": "Southworth Spanish Civil War Collection"
+  }
+},
+{
+  "pk": 172, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Scheffler\u00eds papers document his ethnographic research in the Solomon Islands , specifically his dissertation fieldwork on Choiseul Island and his comparative study of religious revitalization movements and separatist churches on Rendova Island.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      22
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "mscl_scheffler", 
+    "url_oai": "http://oai.ucsd.edu/Oai/Oai-script", 
+    "url_harvest": "http://oai.ucsd.edu/Oai/Oai-script", 
+    "slug": "harold-scheffler-papers-melanesian-archive-scheffl", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt8q2nb36r/", 
+    "name": "Harold Scheffler Papers (Melanesian Archive)"
+  }
+},
+{
+  "pk": 173, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Keesing was a cultural and linguistic anthropologist and his papers document the research and material generated from his interest in the Solomon Islands, primarily in the culture, history and language of the Kwaio people.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      22
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "roger-keesing-papers-melanesian-archive-keesing-wa", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7z09q827/", 
+    "name": "Roger Keesing Papers (Melanesian Archive)"
+  }
+},
+{
+  "pk": 174, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "This collection consists of the manuscript drafts of reports, writings, photographs, and lantern slides related to Lambert's public health work conducted in the Pacific Islands for the Rockefeller Foundation.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      22
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "sylvester-m-lambert-papers-melanesian-archive-this", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2g5034m9/", 
+    "name": "Sylvester M. Lambert Papers (Melanesian Archive)"
+  }
+},
+{
+  "pk": 175, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Selections from the Scripps Institution of Oceanography Library collections documenting its history and contributions to science.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 3, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "scripps-images-selections-from-the-scripps-institu", 
+    "url_oac": "", 
+    "name": "Scripps Images"
+  }
+},
+{
+  "pk": 176, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Selections documenting Spain's Second Republic (1931-1936), the Spanish Civil War (1936-1939) and the post-War years of the 1940s including Call To Arms, Adhesive Propaganda, Shots of War, Southworth Spanish Civil War, The Visual Front, Spanish Civil War Memory Project.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "visual-front-spanish-civil-war-posters-selections", 
+    "url_oac": "", 
+    "name": "Visual Front: Spanish Civil War Posters"
+  }
+},
+{
+  "pk": 177, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Selections documenting Spain's Second Republic (1931-1936), the Spanish Civil War (1936-1939) and the post-War years of the 1940s including Call To Arms, Adhesive Propaganda, Shots of War, Southworth Spanish Civil War, The Visual Front, Spanish Civil War Memory Project.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "shots-of-war-selections-documenting-spains-second", 
+    "url_oac": "", 
+    "name": "Shots of War"
+  }
+},
+{
+  "pk": 178, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Black & white photographs of Sonora and Baja California taken by Harry Crosby. These materials are used widely by programs in Mexican history and ethnic studies.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      22
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "harry-crosby-collection-black-white-photographs-of", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf2v19n928/", 
+    "name": "Harry Crosby Collection"
+  }
+},
+{
+  "pk": 179, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Selections documenting the culture, history and natural history of Baja California taken by Marquis McDonald; document the peninsula's missions, ruins, and scenery.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      22
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "marquis-mcdonald-photographs-selections-documentin", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6h4nb4g3/", 
+    "name": "Marquis McDonald Photographs"
+  }
+},
+{
+  "pk": 180, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Photographs of Baja California's landscapes, coastlines, cities and built environment taken by Howard Gulick.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [
+      22
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "howard-e-gulick-papers-photographs-of-baja-califor", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf5w1007q5/", 
+    "name": "Howard E. Gulick Papers"
+  }
+},
+{
+  "pk": 181, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Selections documenting Spain's Second Republic (1931-1936), the Spanish Civil War (1936-1939) and the post-War years of the 1940s including Call To Arms, Adhesive Propaganda, Shots of War, Southworth Spanish Civil War, The Visual Front, Spanish Civil War Memory Project.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "call-to-arms-communist-ephemera-of-madrid-during-t", 
+    "url_oac": "", 
+    "name": "Call to Arms: Communist Ephemera of Madrid During the Spanish Civil War"
+  }
+},
+{
+  "pk": 182, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Holograph statistical report of the human and livestock population, acreage, and agricultural output at 14 Baja California missions at the end of June 1775 while under Dominican curatorship.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "estado-que-manifiesta-el-que-tenian-las-misiones-d", 
+    "url_oac": "", 
+    "name": "Estado que manifiesta el que tenian las misiones de la antigua California"
+  }
+},
+{
+  "pk": 183, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Images from the series of albumen photographs by William Henry Jackson, loaned from the collection of Kenneth E. and Dorothy V. Hill", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "missions-of-alta-california-images-from-the-series", 
+    "url_oac": "", 
+    "name": "Missions of Alta California"
+  }
+},
+{
+  "pk": 184, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "Oral interviews with faculty and campus leaders. These historical resources were digitized to celebrate UCSD's golden anniversary in 2010-2011.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucsd-history-oral-histories-50th-anniversary-oral", 
+    "url_oac": "", 
+    "name": "UCSD History: Oral Histories / 50th Anniversary"
+  }
+},
+{
+  "pk": 185, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "66 political posters purchased by Jim Cheng from Beijing Sunyong Scientific Trade Company, September, 2007.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "korean-posters-66-political-posters-purchased-by-j", 
+    "url_oac": "", 
+    "name": "Korean Posters"
+  }
+},
+{
+  "pk": 186, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "A collection of 77 posters relating to the Cultural Revolution donated to the Library by UCSD Professor Paul Pickowicz.", 
+    "url_was": "", 
+    "campus": [
+      6
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "MARC; MODS; METS", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "paul-g-pickowicz-collection-of-chinese-cultural-re", 
+    "url_oac": "", 
+    "name": "Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters"
+  }
+},
+{
+  "pk": 187, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "https://digital.library.ucsf.edu/", 
+    "need_for_dams": null, 
+    "description": "Pamphlet collection", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [
+      25
+    ], 
+    "appendix": "B", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "cholera-collection-pamphlet-collection-2", 
+    "url_oac": "", 
+    "name": "Cholera Collection"
+  }
+},
+{
+  "pk": 188, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": 2, 
+    "url_local": "http://digital.library.ucsb.edu/", 
+    "need_for_dams": 1, 
+    "description": "Library's digital collections portal, various mss collections, mostly from Special Collections", 
+    "url_was": "", 
+    "campus": [
+      8
+    ], 
+    "metadata_level": "Item", 
+    "access_restrictions": 1, 
+    "phase_one": false, 
+    "metadata_standard": "Dublin Core", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "C", 
+    "extent": null, 
+    "hosted": "Locally (Omeka server)", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "ucsb-libraries-digital-collections-librarys-digita", 
+    "url_oac": "", 
+    "name": "UCSB Libraries Digital Collections"
+  }
+},
+{
+  "pk": 189, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "This collection was assembled from a number of different audio/visual (mostly VHS and other video format) material donations, acquired by the Library as a part of the AIDS History Project. Materials range from Public Service Announcements (PSAs), television and radio news clippings, professional and amateur documentaries and features, to rough cuts. All deal with the medical and social aspects of AIDS and HIV, with a focus on prevention and correcting misconceptions about the disease. ", 
+    "url_was": "", 
+    "campus": [
+      7
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": 2, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      25
+    ], 
+    "appendix": "A", 
+    "collection_type": "A", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "aids-history-video-collection-this-collection-was", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt858028n6/", 
+    "name": "AIDS history video collection"
+  }
+},
+{
+  "pk": 190, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "A", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "test", 
+    "url_oac": "", 
+    "name": "Test"
+  }
+},
+{
+  "pk": 191, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      1
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "", 
+    "url_oai": "", 
+    "slug": "testy", 
+    "url_oac": "", 
+    "name": "testy"
+  }
+},
+{
+  "pk": 193, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      12
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      37
+    ], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "oac:images", 
+    "url_oai": "http://content.cdlib.org/oai", 
+    "url_harvest": "http://content.cdlib.org/oai", 
+    "slug": "calisphere-image-collection", 
+    "url_oac": "", 
+    "name": "Calisphere Image Collection"
+  }
+},
+{
+  "pk": 194, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      4, 
+      12
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      18, 
+      37
+    ], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "ucm_li", 
+    "url_oai": "http://content.cdlib.org/oai", 
+    "url_harvest": "http://content.cdlib.org/oai", 
+    "slug": "calisphere-the-ruth-and-sherman-lee-institute-of-j", 
+    "url_oac": "", 
+    "name": "Calisphere - The Ruth and Sherman Lee Institute of Japanese Art"
+  }
+},
+{
+  "pk": 195, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      5, 
+      12
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      21, 
+      37
+    ], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "cuwr:objects", 
+    "url_oai": "http://content.cdlib.org/oai", 
+    "url_harvest": "http://content.cdlib.org/oai", 
+    "slug": "water-resources-collections-and-archives-digital-o", 
+    "url_oac": "", 
+    "name": "Calisphere - Water Resources Collections and Archives: Digital Objects"
+  }
+},
+{
+  "pk": 196, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      12
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      37
+    ], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "clloy:objects", 
+    "url_oai": "http://content.cdlib.org/oai", 
+    "url_harvest": "http://content.cdlib.org/oai", 
+    "slug": "loyola-marymount-university-department-of-archives", 
+    "url_oac": "", 
+    "name": "Calisphere - Loyola Marymount University, Department of Archives and Special Collections, William H. Hannon Library: Digital Objects"
+  }
+},
+{
+  "pk": 197, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      12
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      37
+    ], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "scu:objects", 
+    "url_oai": "http://content.cdlib.org/oai", 
+    "url_harvest": "http://content.cdlib.org/oai", 
+    "slug": "calisphere-santa-clara-university-digital-objects", 
+    "url_oac": "", 
+    "name": "Calisphere - Santa Clara University: Digital Objects"
+  }
+},
+{
+  "pk": 198, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "status": null, 
+    "url_local": "", 
+    "need_for_dams": null, 
+    "description": "", 
+    "url_was": "", 
+    "campus": [
+      12
+    ], 
+    "metadata_level": "", 
+    "access_restrictions": null, 
+    "phase_one": false, 
+    "metadata_standard": "", 
+    "repository": [
+      37
+    ], 
+    "appendix": "B", 
+    "collection_type": "", 
+    "extent": null, 
+    "hosted": "", 
+    "harvest_extra_data": "css:objects", 
+    "url_oai": "http://content.cdlib.org/oai", 
+    "url_harvest": "http://content.cdlib.org/oai", 
+    "slug": "calisphere-california-state-university-sacramento", 
+    "url_oac": "", 
+    "name": "Calisphere - California State University, Sacramento Library"
+  }
+}
+]
