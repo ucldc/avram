@@ -28,51 +28,57 @@ def url_harvest(url_findingaid):
     ark = parse_ark(url_findingaid) 
     return ''.join((URL_HARVEST_BASE, ark))
 
-def main():
+def sync_collections_for_url(url_file):
+    new_input = []
+    for l in urllib.urlopen(url_file).readlines():
+        if len(l) > 10: #hokey blank line check, also drops first line
+            new_input.append(l)
+    #reader = csv.reader(urllib.urlopen(url_file), dialect='excel-tab')
+    reader = csv.reader(new_input, dialect='excel-tab')
+    #skip first row
+    reader.next()
+    n = n_new = n_up = 0
+    for url_oac, name, ark_repo in reader:
+        n += 1
+        c = repo = None
+        c = Collection.objects.filter(url_oac=url_oac)
+        if c:
+            #update with OAC info
+            if len(c) != 1:
+                print "DUPLICATE url_oac:", str([c])
+                next
+            c = c[0]
+            n_up += 1
+            c.name = name
+            if not c.url_harvest:
+                c.url_harvest = url_harvest(url_oac)
+        else:
+            #create new collection
+            c = Collection(name=name, url_oac=url_oac, url_harvest=url_harvest(url_oac))
+            n_new +=1
+            c.save() #need to save here to get id for later add of repo
+        try:
+            repo = Repository.objects.get(ark=ark_repo)
+            c.repository.add(repo)
+        except Repository.DoesNotExist:
+            pass
+        c.save()
+    return n, n_up, n_new
+
+def main(title_prefixes=TITLE_PREFIXES, url_github_raw_base=URL_GITHUB_RAW_BASE):
     '''Do the syncing, should probably break down for testing....
     '''
-    for prefix in TITLE_PREFIXES:
-        url_file = ''.join((URL_GITHUB_RAW_BASE, prefix, FILE_SUFFIX))
-        print url_file
+    n_total = n_updated = n_new = 0
+    prefix_totals = []
+    for prefix in title_prefixes:
+        url_file = ''.join((url_github_raw_base, prefix, FILE_SUFFIX))
         # some of the files have blank lines, doesn't work well with csv
-        new_input = []
-        for l in urllib.urlopen(url_file).readlines():
-            if len(l) > 10:
-                new_input.append(l)
-        print "PROCESSING ", str(len(new_input)), " COLLECTIONS for ", prefix
-        #reader = csv.reader(urllib.urlopen(url_file), dialect='excel-tab')
-        reader = csv.reader(new_input, dialect='excel-tab')
-        #skip first row
-        reader.next()
-        n = n_new = n_up = 0
-        for url_oac, name, ark_repo in reader:
-            n += 1
-            c = repo = None
-            try:
-                c = Collection.objects.filter(url_oac=url_oac)
-            except Collection.DoesNotExist:
-                pass
-            if c:
-                #update with OAC info
-                if len(c) != 1:
-                    print "DUPLICATE url_oac:", str([c])
-                    next
-                c = c[0]
-                n_up += 1
-                c.name = name
-                if not c.url_harvest:
-                    c.url_harvest = url_harvest(url_oac)
-            else:
-                #create new collection
-                c = Collection(name=name, url_oac=url_oac, url_harvest=url_harvest(url_oac))
-                n_new +=1
-            try:
-                repo = Repository.objects.get(ark=ark_repo)
-                c.repository.add(repo)
-            except Repository.DoesNotExist:
-                pass
-            c.save()
-    print "FOR PREFIX ", prefix, " SYNCED ", str(n), " UPDATED:", str(n_up), " ADDED:", str(n_new)
+        n, n_up, n_nw = sync_collections_for_url(url_file)
+        prefix_totals.append((prefix, n, n_up, n_nw))
+        n_total += n
+        n_updated += n_up
+        n_new += n_nw
+    return n_total, n_updated, n_new, prefix_totals 
 
 if __name__=='__main__':
     import datetime

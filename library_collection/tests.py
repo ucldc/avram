@@ -1,9 +1,4 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
+import os
 from urllib import quote
 import unittest
 from django.conf import settings
@@ -20,6 +15,9 @@ from library_collection.models import Repository
 from library_collection.models import Status
 from library_collection.models import Restriction
 from library_collection.models import Need
+from util import sync_oac_collections, sync_oac_repositories
+
+FILE_DIR = os.path.abspath(os.path.split(__file__)[0])
 
 def skipUnlessIntegrationTest(selfobj=None):
     '''Skip the test unless the environmen variable RUN_INTEGRATION_TESTS is set.
@@ -624,6 +622,57 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Error:')
         self.assertContains(response, 'Please enter a unit title')
    
+class SyncWithOACTestCase(TestCase):
+    '''Test sync with OAC repositories and EAD finding aid collections
+    '''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
+    
+    def setUp(self):
+        #need full path to fixtures dir to work with urllib file: schema
+        self.dir_fixtures = os.path.join(FILE_DIR, 'fixtures')
+        self.url_fixtures = 'file://localhost'+self.dir_fixtures+'/'
+
+    def testSyncRepositories(self):
+        '''See that the data updates. Use local test file in fixtures dir
+        '''
+        repos = Repository.objects.all()
+        self.assertEqual(10, len(repos))
+        n, n_up, n_new = sync_oac_repositories.main(url_oac_repo_list=self.url_fixtures+'repository_OAC.json')
+        self.assertEqual(124, n)
+        self.assertEqual(0, n_up)
+        self.assertEqual(120, n_new)
+        repos = Repository.objects.all()
+        self.assertEqual(130, len(repos))
+        r = repos[100]
+        r.name = 'bogus'
+        r.save()
+        n, n_up, n_new = sync_oac_repositories.main(url_oac_repo_list=self.url_fixtures+'repository_OAC.json')
+        self.assertEqual(124, n)
+        self.assertEqual(1, n_up)
+        self.assertEqual(0, n_new)
+        repos = Repository.objects.all()
+        self.assertEqual(130, len(repos))
+
+
+    def testSyncCollections(self):
+        '''See that the data updates. Use local test file in fixtures dir
+        TODO: edge cases?
+        '''
+        colls = Collection.objects.all()
+        self.assertEqual(188, len(colls))
+        n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
+        self.assertEqual(25, n)
+        self.assertEqual(0, n_up)
+        self.assertEqual(25, n_new)
+        colls = Collection.objects.all()
+        self.assertEqual(213, len(colls))
+        n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
+        self.assertEqual(25, n)
+        self.assertEqual(25, n_up)
+        self.assertEqual(0, n_new)
+        colls = Collection.objects.all()
+        self.assertEqual(213, len(colls))
+
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
     With the HttpAuthMockMiddleware, a new user should be authenticated,
