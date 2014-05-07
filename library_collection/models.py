@@ -163,10 +163,11 @@ class Repository(models.Model):
     def save(self, *args, **kwargs):
         '''Check no duplicate arks for repos that have them
         '''
-        if self.ark: #not blank
-            try:
-                c = Repository.objects.get(ark=self.ark)
-                raise ValueError("Unit with ark "+self.ark+" already exists")
-            except ObjectDoesNotExist:
-                pass
+        if not self.id: #new repo
+            if self.ark: #not blank
+                try:
+                    c = Repository.objects.get(ark=self.ark)
+                    raise ValueError("Unit with ark "+self.ark+" already exists")
+                except ObjectDoesNotExist:
+                    pass
         return super(Repository, self).save(*args, **kwargs)
