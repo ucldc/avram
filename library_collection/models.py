@@ -126,6 +126,16 @@ class Collection(models.Model):
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
 
+    def save(self, *args, **kwargs):
+        ''' When running in mysql, names that are too long (there is one at
+        http://www.oac.cdlib.org/findaid/ark:/13030/c8th8nj6) causes the 
+        save to bomb. Going to truncate to 255 chars and throw out rest -
+        MER 20140507
+        '''
+        if len(self.name) > 255:
+            self.name = self.name[:255]
+        return super(Collection, self).save(*args, **kwargs)
+
     def start_harvest(self, user):
         '''Kick off the harvest.
 

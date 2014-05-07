@@ -53,6 +53,14 @@ class CollectionTestCase(TestCase):
         pc.save()
         pc.repository
 
+    def testLongName(self):
+        '''In mysql, truncated strings cause saves to fail.
+        check that long names are truncated on save
+        '''
+        c = Collection(name=''.join('x' for i in range(300)))
+        c.save()
+        self.assertEqual(255, len(c.name))
+
     def test_linked_data(self):
         c = Collection.objects.all()[0]
         self.assertEqual(str(c.status), 'Completed')
