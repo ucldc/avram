@@ -60,6 +60,9 @@ def sync_collections_for_url(url_file):
         try:
             repo = Repository.objects.get(ark=ark_repo)
             c.repository.add(repo)
+            if repo.campus.count():
+                for campus in repo.campus.all():
+                    c.campus.add(campus)
         except Repository.DoesNotExist:
             pass
         c.save()
@@ -78,13 +81,18 @@ def main(title_prefixes=TITLE_PREFIXES, url_github_raw_base=URL_GITHUB_RAW_BASE)
         n_total += n
         n_updated += n_up
         n_new += n_nw
+        print "PREFIX {0} -> TOTAL OAC:{1} UPDATED:{2} NEW:{3}".format(prefix, n, n_up, n_new)
     return n_total, n_updated, n_new, prefix_totals 
 
 if __name__=='__main__':
     import datetime
     start = datetime.datetime.now()
     print "STARTING AT", start
-    main()
+    n_total, n_updated, n_new, prefix_totals = main()
     end = datetime.datetime.now()
     print "ENDED AT", end
     print "ELAPSED", end-start
+    print "OAC COLLECTIONS TOTAL:{0}, UPDATED:{1}, NEW:{2}".format(n_total, n_updated, n_new)
+    print "BY PREFIX: [<prefix>, <num OAC>, <num updated>, <num new>]"
+    print prefix_totals
+    

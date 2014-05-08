@@ -197,6 +197,7 @@ class CollectionAdminHarvestTestCase(WebTest):
     '''Test the start harvest action on the collection list admin page
     '''
     fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
+
     def testStartHarvestActionAvailable(self):
         '''Test that the start harvest action appears on the collection
         admin list page
@@ -680,6 +681,9 @@ class SyncWithOACTestCase(TestCase):
         self.assertEqual(0, n_new)
         colls = Collection.objects.all()
         self.assertEqual(213, len(colls))
+        c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5199r1g0')
+        self.assertEqual(1, c.campus.count())
+        self.assertEqual(1, c.campus.all()[0].id)
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
