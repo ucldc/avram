@@ -35,11 +35,17 @@
                 {% if collections.has_previous %}
                     <li><a href="?page=1" title="First Page">&laquo;&laquo;</a></li>
                     <li><a href="?page={{ collections.previous_page_number }}" title="Previous Page">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><a href="?page=1" title="First Page">&laquo;&laquo;</a></li>
+                    <li class="disabled"><a href="?page=1" title="Previous Page">&laquo;</a></li>
                 {% endif %}
                 <li class="active"><a href="#"><span class="sr-only">{{ collections.number}}</span></a></li>
                 {% if collections.has_next %}
                     <li><a href="?page={{ collections.next_page_number }}" title="Next Page">&raquo;</a></li>
                     <li><a href="?page={{ collections.paginator.num_pages }}" title="Last Page">&raquo;&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><a href="?page={{ collections.paginator.num_pages}}" title="Next Page">&raquo;</a></li>
+                    <li class="disabled"><a href="?page={{ collections.paginator.num_pages }}" title="Last Page">&raquo;&raquo;</a></li>
                 {% endif %}
                 </ul>
             </div>
