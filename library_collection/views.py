@@ -120,11 +120,11 @@ def collections(request, campus_slug=None):
     campus = None
     if campus_slug:
         campus = get_object_or_404(Campus, slug=campus_slug)
-        extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
+        #extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
         collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
     else:
         collections = Collection.objects.all().order_by('name')
-        extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
+        #extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
     try:
@@ -140,7 +140,7 @@ def collections(request, campus_slug=None):
         template_name='library_collection/collection_list.html',
         dictionary = { 
             'collections': collections_for_page, 
-            'extent': extent, 
+            #'extent': extent, 
             'campus': campus,
             'campuses': campuses, 
             'active_tab': active_tab(request),
