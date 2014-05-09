@@ -252,7 +252,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertContains(response, 'Not a harvestable collection', count=2)
         self.assertContains(response, 'Not a harvestable collection - UCSB Libraries Digital Collections')
         self.assertContains(response, 'Not a harvestable collection - Cholera Collection')
-        self.assertContains(response, 'Started harvest for &quot;A is for atom, B is for bomb&quot; video tape (PID=')
+        self.assertContains(response, 'A is for atom, B is for bomb')
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
