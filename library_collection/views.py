@@ -146,9 +146,13 @@ def collections(request, campus_slug=None):
         else:
             search = (Q(name__icontains=query), Q(url_oac__icontains=query))
     if campus_slug:
-        campus = get_object_or_404(Campus, slug=campus_slug)
+        if campus_slug == 'UC-':
+            campus = None
+            collections = Collection.objects.filter(campus=None).order_by('name')
+        else:
+            campus = get_object_or_404(Campus, slug=campus_slug)
         #extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
-        collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
+            collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
     else:
         collections = Collection.objects.all().order_by('name')
         #extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])

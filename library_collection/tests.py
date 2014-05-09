@@ -249,10 +249,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = form.submit('index', headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
-        self.assertContains(response, 'Not a harvestable collection', count=3)
+        self.assertContains(response, 'Not a harvestable collection', count=2)
         self.assertContains(response, 'Not a harvestable collection - UCSB Libraries Digital Collections')
         self.assertContains(response, 'Not a harvestable collection - Cholera Collection')
-        self.assertContains(response, 'Not a harvestable collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
+        self.assertContains(response, 'Started harvest for &quot;A is for atom, B is for bomb&quot; video tape (PID=')
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
@@ -356,14 +356,14 @@ class TastyPieAPITest(TestCase):
         '''Test that the required data elements appear in the api'''
         url_collection = self.url_api + 'collection/?limit=200&format=json'
         response = self.client.get(url_collection)
-        self.assertContains(response, '"collection_type":', count=188)
-        self.assertContains(response, '"campus":', count=203)
-        self.assertContains(response, '"repository":', count=188)
-        self.assertContains(response, '"slug":', count=399)
-        self.assertContains(response, '"url_oai":', count=188)
-        self.assertContains(response, 'appendix":', count=188)
+        self.assertContains(response, '"collection_type":', count=189)
+        self.assertContains(response, '"campus":', count=204)
+        self.assertContains(response, '"repository":', count=189)
+        self.assertContains(response, '"slug":', count=400)
+        self.assertContains(response, '"url_oai":', count=189)
+        self.assertContains(response, 'appendix":', count=189)
         #now check some specific instance data?
-        self.assertContains(response, '"name":', count=399)
+        self.assertContains(response, '"name":', count=400)
         self.assertContains(response, 'UCD')
         self.assertContains(response, 'eScholarship')
         self.assertContains(response, 'Internet Archive')
@@ -435,6 +435,11 @@ class PublicViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertNotContains(response, 'Mandeville')
         self.assertContains(response, 'Bancroft Library')
+
+    def testNOTUCCollectionView(self):
+        response = self.client.get('/UC-/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<tr>', count=1)
 
     def testCollectionPublicView(self):
         '''Test view of one collection'''
@@ -733,11 +738,11 @@ class SyncWithOACTestCase(TestCase):
         TODO: edge cases?
         '''
         colls = Collection.objects.all()
-        self.assertEqual(188, len(colls))
+        self.assertEqual(189, len(colls))
         n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
         self.assertEqual(25, n)
-        self.assertEqual(0, n_up)
-        self.assertEqual(25, n_new)
+        self.assertEqual(1, n_up)
+        self.assertEqual(24, n_new)
         colls = Collection.objects.all()
         self.assertEqual(213, len(colls))
         n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)

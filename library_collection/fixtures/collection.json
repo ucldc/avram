@@ -5306,5 +5306,34 @@
     "url_oac": "", 
     "name": "UCSB Libraries Digital Collections"
   }
+},
+{
+  "pk": 189, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "enrichments_item": "", 
+    "collection_type": "", 
+    "hosted": "", 
+    "campus": [], 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt3v19r7v6", 
+    "repository": [], 
+    "url_harvest": "http://http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/kt3v19r7v6", 
+    "metadata_standard": "", 
+    "status": null, 
+    "access_restrictions": null, 
+    "description": "", 
+    "url_was": "", 
+    "metadata_level": "", 
+    "need_for_dams": null, 
+    "harvest_type": "X", 
+    "phase_one": false, 
+    "appendix": "", 
+    "extent": null, 
+    "slug": "a-is-for-atom-b-is-for-bomb-video-tape", 
+    "name": "\"A is for atom, B is for bomb\" video tape", 
+    "url_local": "", 
+    "harvest_extra_data": "", 
+    "url_oai": ""
+  }
 }
 ]
