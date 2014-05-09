@@ -369,6 +369,11 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, 'Internet Archive')
         self.assertContains(response, 'Bulletin of Calif. division of Mines and Geology')
 
+class CollectionsViewTestCase(TestCase):
+    '''Test the view function "collections" directly'''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+
+
 class PublicViewTestCase(TestCase):
     '''Test the view for the public'''
     fixtures = ('collection.json', 'initial_data.json', 'repository.json')
@@ -379,7 +384,7 @@ class PublicViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'UC Berkeley')
         self.assertContains(response, 'collections')
-        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, '/12/bulleting-of-calif-dept-of-water-resources-the-bul/')
      
     def testUCBCollectionView(self):
         response = self.client.get('/UCB/')
@@ -408,6 +413,35 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
         self.assertNotContains(response, 'Metadata')
+
+    def testCollectionListViewPagination(self):
+        '''Check the pagination of the collections view. 
+        This view is the "Root" view as well.
+        Adding the OAC collections makes some sort of pagination needed 
+        here.'''
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/collection_list.html')
+        self.assertContains(response, '<tr>', count=25)
+        self.assertContains(response, 'class="pagination"')
+        self.assertNotContains(response, '&laquo;')
+        self.assertContains(response, '&raquo;')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">1</span></a></li>')
+        self.assertContains(response, 'page=8')
+        response = self.client.get('/?page=8')
+        self.assertNotContains(response, '&raquo;')
+        self.assertContains(response, '&laquo;')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">8</span></a></li>')
+        response = self.client.get('/?page=3')
+        self.assertContains(response, '&raquo;')
+        self.assertContains(response, '&laquo;')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">3</span></a></li>')
+        response = self.client.get('/?page=3000')
+        self.assertNotContains(response, '&raquo;')
+        self.assertContains(response, '&laquo;')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">8</span></a></li>')
+
+
 
 class CampusTestCase(TestCase):
     fixtures = ('initial_data.json',)
@@ -476,7 +510,7 @@ class PublicViewNewCampusTestCase(TestCase):
         self.assertContains(response, 'UC Berkeley')
         #self.assertContains(response, 'New Test Campus')
         self.assertContains(response, 'collections')
-        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, '/169/advertising-artwork-of-dr-seuss-sketches-and-drawi/')
 
 
 class EditViewTestCase(TestCase):
@@ -493,7 +527,7 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'collections')
-        self.assertContains(response, EditViewTestCase.current_app+'/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, EditViewTestCase.current_app+'/13/california-agricultural-experiment-station-publica/">California Agricultural Experiment Station Publications')
      
     def testUCBCollectionView(self):
         url = reverse('edit_collections',
@@ -502,7 +536,6 @@ class EditViewTestCase(TestCase):
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertContains(response, 'Collections')
-        self.assertNotContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
         self.assertContains(response, EditViewTestCase.current_app+'/150/wieslander-vegetation-type-maps-photographs-in-192/')
 
     def testRepositoriesView(self):

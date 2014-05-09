@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from library_collection.decorators import verification_required
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 campuses = Campus.objects.all().order_by('position')
 
@@ -98,10 +99,18 @@ def collections(request, campus_slug=None):
     else:
         collections = Collection.objects.all().order_by('name')
         extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
+    paginator = Paginator(collections, 25) #get from url param?
+    page = request.GET.get('page')
+    try:
+        collections_for_page = paginator.page(page)
+    except PageNotAnInteger:
+        collections_for_page = paginator.page(1)
+    except EmptyPage:
+        collections_for_page = paginator.page(paginator.num_pages)
     return render(request,
         template_name='library_collection/collection_list.html',
         dictionary = { 
-            'collections': collections, 
+            'collections': collections_for_page, 
             'extent': extent, 
             'campus': campus,
             'campuses': campuses, 
