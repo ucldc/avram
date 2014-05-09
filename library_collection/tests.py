@@ -385,7 +385,37 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'UC Berkeley')
         self.assertContains(response, 'collections')
         self.assertContains(response, '/12/bulleting-of-calif-dept-of-water-resources-the-bul/')
+        self.assertContains(response, '<form')
+        self.assertContains(response, 'value="Search"')
+        self.assertContains(response, '<input type="text"')
      
+    def testSearchView(self):
+        '''Test what happens when you search.
+        Need to find good way to test paging with search
+        '''
+        response = self.client.get('/?q=halb')
+        self.assertContains(response, '<tr>', count=1)
+        response = self.client.get('/?q=born+digital')
+        self.assertContains(response, '<tr>', count=5)
+        self.assertContains(response, 'Watson')
+        response = self.client.get('/?q=^born+digital')
+        #no results
+        self.assertNotContains(response, '<tr>')
+        self.assertContains(response, "No collections found for query: ^born dig")
+        response = self.client.get('/?q=^bulletin')
+        self.assertContains(response, '<tr>', count=3)
+        response = self.client.get('/?q=ark%3A%2F13030%2Fkt5h4nf5dx')
+        self.assertContains(response, '<tr>', count=1)
+        self.assertContains(response, 'University Archives')
+        response = self.client.get('/?q==Bulletin')
+        self.assertNotContains(response, '<tr>')
+        response = self.client.get('/?q==Bulletin of Calif. division of Mines and Geology')
+        self.assertContains(response, '<tr>', count=1)
+        response = self.client.get('/?q=^Calif')
+        self.assertContains(response, '<tr>', count=3)
+        response = self.client.get('/?q=Calif')
+        self.assertContains(response, '<tr>', count=16)
+
     def testUCBCollectionView(self):
         response = self.client.get('/UCB/')
         self.assertTemplateUsed(response, 'base.html')

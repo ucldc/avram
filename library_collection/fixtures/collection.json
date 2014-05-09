@@ -195,7 +195,8 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "university-archives-photos-the-collection-contains", 
-    "url_oac": "", 
+    "url_oac": "http://oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
+    "need_for_dams": 1, 
     "name": "University Archives Photos"
   }
 },
@@ -223,7 +224,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "eastman-originals", 
-    "url_oac": "", 
+    "url_oac": "http://oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
     "name": "Eastman Originals"
   }
 },
@@ -251,7 +252,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "higgins-images-of-mexican-beet-workers-in-1942-hig", 
-    "url_oac": "", 
+    "url_oac": "http://oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
     "name": "Higgins Images of Mexican Beet Workers"
   }
 },
@@ -1240,7 +1241,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "bonner-mitchell-i-photographs-and-ephemera", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt996nd0d0/", 
     "name": "Bonner (Mitchell I.) Photographs and Ephemera"
   }
 },
@@ -1268,7 +1269,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "fort-chaffee-photographs-of-vietnamese-and-cambodi", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2f59q35j/", 
     "name": "Fort Chaffee Photographs of Vietnamese and Cambodian Refugees"
   }
 },
@@ -1352,7 +1353,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "frank-anne-photographs-of-southeast-asian-american", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt4p3021fr/", 
     "name": "Frank (Anne) Photographs of Southeast Asian American Communities"
   }
 },
@@ -1380,7 +1381,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "ly-kien-truc-photographs-of-the-hi-tek-demonstrati", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt85801594/", 
     "name": "Ly Kien Truc Photographs of the Hi-Tek Demonstrations"
   }
 },
@@ -1408,7 +1409,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "marshall-brigitte-files-on-southeast-asian-refugee", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6dt/", 
     "name": "Marshall (Brigitte) Files on Southeast Asian Refugees."
   }
 },
@@ -1436,7 +1437,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "morrison-gayle-files-on-southeast-asian-refugees", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6s2013d1/", 
     "name": "Morrison (Gayle) Files on Southeast Asian Refugees"
   }
 },
@@ -1464,7 +1465,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "project-ngoc-records", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt8z09p8pd/", 
     "name": "Project Ngoc Records"
   }
 },
@@ -1492,7 +1493,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "refugee-forums-collection-on", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5s2013bp/", 
     "name": "Refugee Forums, Collection on"
   }
 },
@@ -1520,7 +1521,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "southeast-asia-resource-action-center-records", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt467nc6pc/", 
     "name": "Southeast Asia Resource Action Center Records"
   }
 },
@@ -1548,7 +1549,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "southeast-asian-archive-vertical-file-collection", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7j49q6qg/", 
     "name": "Southeast Asian Archive Vertical File Collection"
   }
 },
@@ -1576,7 +1577,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "southeast-asian-genetics-program-records", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6fb/", 
     "name": "Southeast Asian Genetics Program records"
   }
 },
@@ -1604,7 +1605,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "tran-paul-files-on-southeast-asian-refugees", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf8f59p1tg/", 
     "name": "Tran (Paul) Files on Southeast Asian Refugees"
   }
 },
@@ -1632,7 +1633,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "walsh-robert-files-on-southeast-asian-refugee-rese", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19p6sq/", 
     "name": "Walsh (Robert) Files on Southeast Asian Refugee Resettlement and Education"
   }
 },
@@ -1660,7 +1661,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "egan-richard-manuscript-maps-of-orange-county", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf9k4009f8/", 
     "name": "Egan (Richard) Manuscript Maps of Orange County"
   }
 },
