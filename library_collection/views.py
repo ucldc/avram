@@ -89,6 +89,32 @@ def edit_collections(request, campus_slug=None, error=None):
             
     return collections(request, campus_slug)
 
+def _get_direct_navigate_page_numbers(page_number, num_pages, total_displayed=6):
+    '''Return the ranges for the "before" and "after" direct page links.
+    Also, return the previous/next group start
+    want to build a list of 5-7 pages around the current page, 3 each side?
+    num_links indicates total number of additional links to create, if possible
+    '''
+    half = total_displayed / 2
+    if page_number - half <= 0: #lower boundary
+        lowest_page_number = 1
+        num_high = total_displayed - page_number
+        hnum = page_number + num_high + 2
+        highest_page_number = hnum if hnum < num_pages else num_pages
+    elif page_number + half > num_pages: # upper boundary
+        highest_page_number = num_pages
+        num_low = page_number + total_displayed - num_pages
+        lnum = page_number - num_low
+        lowest_page_number = lnum if lnum > 0 else 1
+    else: #ok just halve them
+        lowest_page_number = page_number - half
+        highest_page_number = page_number + half + 1
+    previous_page_numbers = [x for x in range(lowest_page_number, page_number)]
+    previous_group_start = lowest_page_number -1 if (lowest_page_number -1) > 1 else 1
+    next_page_numbers = [x for x in range(page_number+1, highest_page_number)]
+    next_group_start = highest_page_number  if highest_page_number  < num_pages else num_pages
+    return previous_page_numbers, next_page_numbers, previous_group_start, next_group_start
+
 # view of collections in list. Currently home page
 def collections(request, campus_slug=None):
     campus = None
@@ -107,6 +133,9 @@ def collections(request, campus_slug=None):
         collections_for_page = paginator.page(1)
     except EmptyPage:
         collections_for_page = paginator.page(paginator.num_pages)
+    page_number = collections_for_page.number
+    num_pages = paginator.num_pages
+    previous_page_numbers, next_page_numbers, previous_group_start, next_group_start = _get_direct_navigate_page_numbers(page_number, num_pages, 6)
     return render(request,
         template_name='library_collection/collection_list.html',
         dictionary = { 
@@ -117,6 +146,10 @@ def collections(request, campus_slug=None):
             'active_tab': active_tab(request),
             'current_path': request.path,
             'editing': editing(request.path),
+            'previous_page_numbers': previous_page_numbers,
+            'previous_group_start': previous_group_start,
+            'next_page_numbers': next_page_numbers,
+            'next_group_start': next_group_start,
         },
     )
 
