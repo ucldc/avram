@@ -65,6 +65,7 @@ def sync_collections_for_url(url_file):
                     c.campus.add(campus)
         except Repository.DoesNotExist:
             pass
+        c.harvest_type = 'OAC'
         c.save()
     return n, n_up, n_new
 

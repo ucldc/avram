@@ -732,7 +732,6 @@ class SyncWithOACTestCase(TestCase):
         repos = Repository.objects.all()
         self.assertEqual(130, len(repos))
 
-
     def testSyncCollections(self):
         '''See that the data updates. Use local test file in fixtures dir
         TODO: edge cases?
@@ -754,6 +753,7 @@ class SyncWithOACTestCase(TestCase):
         c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5199r1g0')
         self.assertEqual(1, c.campus.count())
         self.assertEqual(1, c.campus.all()[0].id)
+        self.assertEqual('OAC', c.harvest_type)
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
