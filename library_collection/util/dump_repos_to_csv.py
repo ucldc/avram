@@ -1,5 +1,5 @@
 # run python manage.py shell
-# >>> execfile('util/dump_repos_to_csv.py)
+# >>> execfile('library_collection/util/dump_repos_to_csv.py)
 # writes to repos.csv
 import csv
 import codecs
