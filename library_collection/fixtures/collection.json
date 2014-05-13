@@ -176,7 +176,7 @@
   "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
-    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
+    "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
     "need_for_dams": 1, 
     "description": "The collection contains photographic prints and negatives, and depicts buildings and grounds, faculty and staff, annual events such as Picnic Day, campus events, classes and classrooms, student clubs and activities, departments, and sporting events.", 
     "url_was": "", 
@@ -195,7 +195,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "university-archives-photos-the-collection-contains", 
-    "url_oac": "http://oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
     "need_for_dams": 1, 
     "name": "University Archives Photos"
   }
@@ -205,7 +205,7 @@
   "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
-    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
+    "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
     "need_for_dams": 1, 
     "description": "", 
     "url_was": "", 
@@ -224,7 +224,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "eastman-originals", 
-    "url_oac": "http://oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
     "name": "Eastman Originals"
   }
 },
@@ -233,7 +233,7 @@
   "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
-    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
+    "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
     "need_for_dams": 1, 
     "description": "In 1942, Higgins took photographs of Mexican workers entering the United States \"brought in for the [sugar] beet harvest\" for California Fields Crops, Inc. and as Higgins explains in a letter that he tried \"to catch a lot of the social side in pictures.\" The photographs were taken mainly in the agricultural areas of the California communities of Woodland, Pleasanton, Manteca, and Salinas.", 
     "url_was": "", 
@@ -252,7 +252,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "higgins-images-of-mexican-beet-workers-in-1942-hig", 
-    "url_oac": "http://oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
     "name": "Higgins Images of Mexican Beet Workers"
   }
 },

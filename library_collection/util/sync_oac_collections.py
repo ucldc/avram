@@ -12,7 +12,7 @@ from library_collection.models import Collection, Repository
 
 from django.contrib.admin import actions
 
-URL_HARVEST_BASE = 'http://http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation='
+URL_HARVEST_BASE = 'http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation='
 URL_GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/ucldc/oac_collections/master/az_titles/'
 FILE_SUFFIX = '_titles.tsv'
 TITLE_PREFIXES = [ alpha for alpha in string.lowercase]
@@ -38,10 +38,13 @@ def sync_collections_for_url(url_file):
     #skip first row
     reader.next()
     n = n_new = n_up = 0
-    for url_oac, name, ark_repo in reader:
+    for url_oac, name, ark_repo, online_items in reader:
+        online_items = True if online_items == 'true' else False
         n += 1
         c = repo = None
         c = Collection.objects.filter(url_oac=url_oac)
+        if not c:
+            c = Collection.objects.filter(url_oac=url_oac+'/')
         if c:
             #update with OAC info
             if len(c) != 1:
@@ -50,11 +53,15 @@ def sync_collections_for_url(url_file):
             c = c[0]
             n_up += 1
             c.name = name
-            if not c.url_harvest:
+            if online_items and not c.url_harvest:
                 c.url_harvest = url_harvest(url_oac)
+                c.harvest_type = 'OAC'
         else:
             #create new collection
-            c = Collection(name=name, url_oac=url_oac, url_harvest=url_harvest(url_oac))
+            c = Collection(name=name, url_oac=url_oac)
+            if online_items:
+                c.url_harvest = url_harvest(url_oac)
+                c.harvest_type = 'OAC'
             n_new +=1
             c.save() #need to save here to get id for later add of repo
         try:
@@ -65,7 +72,6 @@ def sync_collections_for_url(url_file):
                     c.campus.add(campus)
         except Repository.DoesNotExist:
             pass
-        c.harvest_type = 'OAC'
         c.save()
     return n, n_up, n_new
 
