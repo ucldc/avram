@@ -1,26 +1,27 @@
-rel=cannonical	title	parent
-http://www.oac.cdlib.org/findaid/ark:/13030/kt0n39p28v	A. Brown Co. Records	ark:/13030/tf129008pn
-http://www.oac.cdlib.org/findaid/ark:/13030/kt9c6039b3	"""A Celebration of the Life of Gerald Gunther"" [videorecording]"	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19s0x7	"""A Century of Women: Sexuality and Social Justice"""	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/kt8b69s31k	"""A Culinary Alphabet"""	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/kt3v19r7v6	"""A is for atom, B is for bomb"" video tape"	ark:/13030/tf4m3nb8sq
-http://www.oac.cdlib.org/findaid/ark:/13030/c8rr20xs	"""A Midsummer Night's Dream"" scrapbook"	ark:/13030/tf1p3009z6
-http://www.oac.cdlib.org/findaid/ark:/13030/c8qf8r9p	"""A Part of his Childhood Belongs to Peter Coutts; A Reminiscence of Wendell Fletcher."""	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/c8v40w0d	"""A Photographic Record of the Allied Air Effort in Support of the Invasion of the Continent of Europe"""	ark:/13030/kt4c60381d
-http://www.oac.cdlib.org/findaid/ark:/13030/kt9v19s29t	"""A Tribute to Wallace Stegner"""	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/c8rb769z	Aaron (Benjamin) papers	ark:/13030/tf129008pn
-http://www.oac.cdlib.org/findaid/ark:/13030/c89w0ggb	Aarons Enterprises files	ark:/13030/kt4199r6d2
-http://www.oac.cdlib.org/findaid/ark:/13030/kt4g5037cr	Aarons (Leroy) Papers	ark:/13030/kt2n39q9dc
-http://www.oac.cdlib.org/findaid/ark:/13030/c83j3dqg	AAUW Santa Cruz Records	ark:/13030/tf5h4nb7td
-http://www.oac.cdlib.org/findaid/ark:/13030/kt0p303568	Abbey of New Clairvaux Collection	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/tf129003ck	Abbeys - Collection of Material	ark:/13030/tf129008pn
-http://www.oac.cdlib.org/findaid/ark:/13030/tf2h4nb2bt	Abbott (Charles H.)Photographs	ark:/13030/tf5h4nb7td
-http://www.oac.cdlib.org/findaid/ark:/13030/c8gt5qb6	Abbott (Chuck and Esther) Slide Collection	ark:/13030/tf5h4nb7td
-http://www.oac.cdlib.org/findaid/ark:/13030/kt8w1028g6	Abbott (Clint) historical sheet music collection	ark:/13030/tf1p3008cx
-http://www.oac.cdlib.org/findaid/ark:/13030/c8930rjm	Abbott (Donald P.) papers	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/kt6x0nf63p	Abbott (Donald Putnam) Correspondence and Report	ark:/13030/tf458010c5
-http://www.oac.cdlib.org/findaid/ark:/13030/kt5q2nf4nc	ABC Television Network scripts and production material for television	ark:/13030/kt4199r6d2
-http://www.oac.cdlib.org/findaid/ark:/13030/kt6n39r8h4	Abdank-Kossovskii (Vladimir Konkordovich) Papers	ark:/13030/tf4m3nb8sq
-http://www.oac.cdlib.org/findaid/ark:/13030/tf5d5nb30d	Abdullah (Achmed) Papers	ark:/13030/tf129008pn
-http://www.oac.cdlib.org/findaid/ark:/13030/tf1n39n4q2	Abel (Elie) Papers	ark:/13030/tf4m3nb8sq
-http://www.oac.cdlib.org/findaid/ark:/13030/kt5j49p7mb	Abel (Rudolfe) Collection of Material about Dance in S. Calif.	ark:/13030/tf129008pn
+rel=cannonical	title	parent  onlineItems	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt0n39p28v	A. Brown Co. Records	ark:/13030/tf129008pn	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt9c6039b3	"""A Celebration of the Life of Gerald Gunther"" [videorecording]"	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19s0x7	"""A Century of Women: Sexuality and Social Justice"""	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt8b69s31k	"""A Culinary Alphabet"""	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt3v19r7v6	"""A is for atom, B is for bomb"" video tape"	ark:/13030/tf4m3nb8sq	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8rr20xs	"""A Midsummer Night's Dream"" scrapbook"	ark:/13030/tf1p3009z6	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8qf8r9p	"""A Part of his Childhood Belongs to Peter Coutts; A Reminiscence of Wendell Fletcher."""	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8v40w0d	"""A Photographic Record of the Allied Air Effort in Support of the Invasion of the Continent of Europe"""	ark:/13030/kt4c60381d	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt9v19s29t	"""A Tribute to Wallace Stegner"""	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8rb769z	Aaron (Benjamin) papers	ark:/13030/tf129008pn	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c89w0ggb	Aarons Enterprises files	ark:/13030/kt4199r6d2	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt4g5037cr	Aarons (Leroy) Papers	ark:/13030/kt2n39q9dc	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c83j3dqg	AAUW Santa Cruz Records	ark:/13030/tf5h4nb7td	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt0p303568	Abbey of New Clairvaux Collection	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/tf129003ck	Abbeys - Collection of Material	ark:/13030/tf129008pn	false
+http://www.oac.cdlib.org/findaid/ark:/13030/tf2h4nb2bt	Abbott (Charles H.)Photographs	ark:/13030/tf5h4nb7td	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8gt5qb6	Abbott (Chuck and Esther) Slide Collection	ark:/13030/tf5h4nb7td	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt8w1028g6	Abbott (Clint) historical sheet music collection	ark:/13030/tf1p3008cx	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8930rjm	Abbott (Donald P.) papers	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt6x0nf63p	Abbott (Donald Putnam) Correspondence and Report	ark:/13030/tf458010c5	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt5q2nf4nc	ABC Television Network scripts and production material for television	ark:/13030/kt4199r6d2	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt6n39r8h4	Abdank-Kossovskii (Vladimir Konkordovich) Papers	ark:/13030/tf4m3nb8sq	false
+http://www.oac.cdlib.org/findaid/ark:/13030/kt5199r1g0	Academy of American Franciscan History Microfilm Collection	ark:/13030/tf7r29p8s0	false
+http://www.oac.cdlib.org/findaid/ark:/13030/c8q52r3z	"Adams (Ansel) and Wallace Stegner, A Conversation [videorecording]"	ark:/13030/tf458010c5	true
+http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx	University Archives Photographs	ark:/13030/kt3z09r97h	true
+

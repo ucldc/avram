@@ -9,7 +9,7 @@ from os.path import join, abspath, split
 import shutil
 
 FILE_DIR = abspath(split(__file__)[0])
-AVRAM_DIR = abspath(join(FILE_DIR, '..'))
+AVRAM_DIR = abspath(join(FILE_DIR, '../..'))
 
 sys.path.append(FILE_DIR)
 sys.path.insert(0, AVRAM_DIR)

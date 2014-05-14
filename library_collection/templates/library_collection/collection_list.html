@@ -3,7 +3,6 @@
 {% block title %} | {% if campus %}{{ campus.name }}{% endif %} Collections{% endblock %}
 
 {% block content-inner %}
-{% if collections %}
 <div class="row">
   <div class="span10">
     {% if user.is_authenticated and editing %}
@@ -13,6 +12,11 @@
         </form>
     {% endif %}
       
+    <form method="get">
+        <input type="text" size="40" name="q" value="{{query}}" id="searchbar">
+        <input type="submit" class="btn" value="Search">
+    </form>
+{% if collections %}
     <table class="table table-bordered table-striped">
       <tbody>
         {% for collection in collections %}
@@ -28,6 +32,38 @@
         {% endfor %}
       </tbody>
     </table>
+    <div class="row">
+        <div class="span10">
+            <div class="pagination">
+                <ul>
+                {% if collections.has_previous %}
+                <li><a href="?{{first_page_qs}}" title="First Page">&laquo;&laquo;</a></li>
+                <li><a href="?{{previous_group_start}}" title="Previous Group">&laquo;</a></li>
+                {% else %}
+                <li class="disabled"><a href="?{{first_page_qs}}" title="First Page">&laquo;&laquo;</a></li>
+                <li class="disabled"><a href="?{{first_page_qs}}" title="Previous Group">&laquo;</a></li>
+                {% endif %}
+                {% for page_num, page_qs in previous_page_links %}
+                <li><a href="?{{page_qs}}"><span class="sr-only">{{page_num}}</span></a></li>
+                {% endfor %}
+                <li class="active"><a href="#"><span class="sr-only">{{ collections.number}}</span></a></li>
+                {% for page_num, page_qs in next_page_links %}
+                <li><a href="?{{page_qs}}"><span class="sr-only">{{page_num}}</span></a></li>
+                {% endfor %}
+                {% if collections.has_next %}
+                <li><a href="?{{ next_group_start }}" title="Next Group">&raquo;</a></li>
+                    <li><a href="?{{ last_page_qs }}" title="Last Page">&raquo;&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><a href="?{{ last_page_qs}}" title="Next Group">&raquo;</a></li>
+                    <li class="disabled"><a href="?{{ last_page_qs }}" title="Last Page">&raquo;&raquo;</a></li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
+    {%endif%}
   </div>
   <div class="span2">
     {% block navbar-campus %}
@@ -90,5 +126,4 @@
     {% endblock navbar-campus %}
   </div>
 </div>
-{% endif %}
 {% endblock content-inner %}

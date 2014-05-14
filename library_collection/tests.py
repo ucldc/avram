@@ -53,6 +53,14 @@ class CollectionTestCase(TestCase):
         pc.save()
         pc.repository
 
+    def testLongName(self):
+        '''In mysql, truncated strings cause saves to fail.
+        check that long names are truncated on save
+        '''
+        c = Collection(name=''.join('x' for i in range(300)))
+        c.save()
+        self.assertEqual(255, len(c.name))
+
     def test_linked_data(self):
         c = Collection.objects.all()[0]
         self.assertEqual(str(c.status), 'Completed')
@@ -189,6 +197,7 @@ class CollectionAdminHarvestTestCase(WebTest):
     '''Test the start harvest action on the collection list admin page
     '''
     fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
+
     def testStartHarvestActionAvailable(self):
         '''Test that the start harvest action appears on the collection
         admin list page
@@ -240,10 +249,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = form.submit('index', headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
-        self.assertContains(response, 'Not a harvestable collection', count=3)
+        self.assertContains(response, 'Not a harvestable collection', count=2)
         self.assertContains(response, 'Not a harvestable collection - UCSB Libraries Digital Collections')
         self.assertContains(response, 'Not a harvestable collection - Cholera Collection')
-        self.assertContains(response, 'Not a harvestable collection - Paul G. Pickowicz Collection of Chinese Cultural Revolution Posters')
+        self.assertContains(response, 'A is for atom, B is for bomb')
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
@@ -347,18 +356,23 @@ class TastyPieAPITest(TestCase):
         '''Test that the required data elements appear in the api'''
         url_collection = self.url_api + 'collection/?limit=200&format=json'
         response = self.client.get(url_collection)
-        self.assertContains(response, '"collection_type":', count=188)
-        self.assertContains(response, '"campus":', count=203)
-        self.assertContains(response, '"repository":', count=188)
-        self.assertContains(response, '"slug":', count=399)
-        self.assertContains(response, '"url_oai":', count=188)
-        self.assertContains(response, 'appendix":', count=188)
+        self.assertContains(response, '"collection_type":', count=189)
+        self.assertContains(response, '"campus":', count=204)
+        self.assertContains(response, '"repository":', count=189)
+        self.assertContains(response, '"slug":', count=400)
+        self.assertContains(response, '"url_oai":', count=189)
+        self.assertContains(response, 'appendix":', count=189)
         #now check some specific instance data?
-        self.assertContains(response, '"name":', count=399)
+        self.assertContains(response, '"name":', count=400)
         self.assertContains(response, 'UCD')
         self.assertContains(response, 'eScholarship')
         self.assertContains(response, 'Internet Archive')
         self.assertContains(response, 'Bulletin of Calif. division of Mines and Geology')
+
+class CollectionsViewTestCase(TestCase):
+    '''Test the view function "collections" directly'''
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+
 
 class PublicViewTestCase(TestCase):
     '''Test the view for the public'''
@@ -370,8 +384,38 @@ class PublicViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'UC Berkeley')
         self.assertContains(response, 'collections')
-        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, '/12/bulleting-of-calif-dept-of-water-resources-the-bul/')
+        self.assertContains(response, '<form')
+        self.assertContains(response, 'value="Search"')
+        self.assertContains(response, '<input type="text"')
      
+    def testSearchView(self):
+        '''Test what happens when you search.
+        Need to find good way to test paging with search
+        '''
+        response = self.client.get('/?q=halb')
+        self.assertContains(response, '<tr>', count=1)
+        response = self.client.get('/?q=born+digital')
+        self.assertContains(response, '<tr>', count=5)
+        self.assertContains(response, 'Watson')
+        response = self.client.get('/?q=^born+digital')
+        #no results
+        self.assertNotContains(response, '<tr>')
+        self.assertContains(response, "No collections found for query: ^born dig")
+        response = self.client.get('/?q=^bulletin')
+        self.assertContains(response, '<tr>', count=3)
+        response = self.client.get('/?q=ark%3A%2F13030%2Fkt5h4nf5dx')
+        self.assertContains(response, '<tr>', count=1)
+        self.assertContains(response, 'University Archives')
+        response = self.client.get('/?q==Bulletin')
+        self.assertNotContains(response, '<tr>')
+        response = self.client.get('/?q==Bulletin of Calif. division of Mines and Geology')
+        self.assertContains(response, '<tr>', count=1)
+        response = self.client.get('/?q=^Calif')
+        self.assertContains(response, '<tr>', count=3)
+        response = self.client.get('/?q=Calif')
+        self.assertContains(response, '<tr>', count=16)
+
     def testUCBCollectionView(self):
         response = self.client.get('/UCB/')
         self.assertTemplateUsed(response, 'base.html')
@@ -392,6 +436,11 @@ class PublicViewTestCase(TestCase):
         self.assertNotContains(response, 'Mandeville')
         self.assertContains(response, 'Bancroft Library')
 
+    def testNOTUCCollectionView(self):
+        response = self.client.get('/UC-/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<tr>', count=1)
+
     def testCollectionPublicView(self):
         '''Test view of one collection'''
         response = self.client.get('/2/halberstadt-collection-selections-of-photographs-p/')
@@ -399,6 +448,37 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
         self.assertNotContains(response, 'Metadata')
+
+    def testCollectionListViewPagination(self):
+        '''Check the pagination of the collections view. 
+        This view is the "Root" view as well.
+        Adding the OAC collections makes some sort of pagination needed 
+        here.'''
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'library_collection/collection_list.html')
+        self.assertContains(response, '<tr>', count=25)
+        self.assertContains(response, 'class="pagination"')
+        self.assertContains(response, '<li class="disabled"><a href="?page=1" title="First Page">&laquo;&laquo;</a></li>')
+        self.assertContains(response, '<li><a href="?page=8" title="Next Group">&raquo;</a></li>')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">1</span></a></li>')
+        self.assertContains(response, 'page=8')
+        response = self.client.get('/?page=8')
+        self.assertContains(response, '<li><a href="?page=1" title="Previous Group">&laquo;</a></li>')
+        self.assertContains(response, '<li class="disabled"><a href="?page=8" title="Next Group">&raquo;</a></li>')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">8</span></a></li>')
+        response = self.client.get('/?page=3')
+        self.assertContains(response, '<li><a href="?page=1" title="Previous Group">&laquo;</a></li>')
+        self.assertContains(response, '<li><a href="?page=8" title="Next Group">&raquo;</a></li>')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">3</span></a></li>')
+        self.assertContains(response, '?page=5')
+        self.assertContains(response, '?page=6')
+        self.assertContains(response, '?page=1')
+        response = self.client.get('/?page=3000')
+        self.assertContains(response, '<li><a href="?page=1" title="Previous Group">&laquo;</a></li>')
+        self.assertContains(response, '<li class="disabled"><a href="?page=8" title="Next Group">&raquo;</a></li>')
+        self.assertContains(response, '<li class="active"><a href="#"><span class="sr-only">8</span></a></li>')
+
 
 class CampusTestCase(TestCase):
     fixtures = ('initial_data.json',)
@@ -467,7 +547,7 @@ class PublicViewNewCampusTestCase(TestCase):
         self.assertContains(response, 'UC Berkeley')
         #self.assertContains(response, 'New Test Campus')
         self.assertContains(response, 'collections')
-        self.assertContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, '/169/advertising-artwork-of-dr-seuss-sketches-and-drawi/')
 
 
 class EditViewTestCase(TestCase):
@@ -484,7 +564,7 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'collections')
-        self.assertContains(response, EditViewTestCase.current_app+'/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
+        self.assertContains(response, EditViewTestCase.current_app+'/13/california-agricultural-experiment-station-publica/">California Agricultural Experiment Station Publications')
      
     def testUCBCollectionView(self):
         url = reverse('edit_collections',
@@ -493,7 +573,6 @@ class EditViewTestCase(TestCase):
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertContains(response, 'Collections')
-        self.assertNotContains(response, '/21/w-gearhardt-photographs-photographs-of-newport-bea/">W. Gearhardt photographs')
         self.assertContains(response, EditViewTestCase.current_app+'/150/wieslander-vegetation-type-maps-photographs-in-192/')
 
     def testRepositoriesView(self):
@@ -653,25 +732,39 @@ class SyncWithOACTestCase(TestCase):
         repos = Repository.objects.all()
         self.assertEqual(130, len(repos))
 
-
     def testSyncCollections(self):
         '''See that the data updates. Use local test file in fixtures dir
         TODO: edge cases?
         '''
         colls = Collection.objects.all()
-        self.assertEqual(188, len(colls))
+        self.assertEqual(189, len(colls))
+        c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/')
+        self.assertEqual('X', c.harvest_type)
+        self.assertEqual('', c.url_harvest)
         n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
         self.assertEqual(25, n)
-        self.assertEqual(0, n_up)
-        self.assertEqual(25, n_new)
+        self.assertEqual(2, n_up)
+        self.assertEqual(23, n_new)
+        c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/')
+        self.assertEqual('OAC', c.harvest_type)
+        self.assertEqual('http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/kt5h4nf5dx', c.url_harvest)
+        self.assertIn('/select-id,\n/oai-to-dpla', c.enrichments_item)
         colls = Collection.objects.all()
-        self.assertEqual(213, len(colls))
+        self.assertEqual(212, len(colls))
         n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
         self.assertEqual(25, n)
         self.assertEqual(25, n_up)
         self.assertEqual(0, n_new)
         colls = Collection.objects.all()
-        self.assertEqual(213, len(colls))
+        self.assertEqual(212, len(colls))
+        c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5199r1g0')
+        self.assertEqual(1, c.campus.count())
+        self.assertEqual(1, c.campus.all()[0].id)
+        self.assertEqual('X', c.harvest_type)
+        c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/c8q52r3z')
+        self.assertEqual(0, c.campus.count())
+        self.assertEqual('OAC', c.harvest_type)
+        self.assertEqual('http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/c8q52r3z', c.url_harvest)
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.

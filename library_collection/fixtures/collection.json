@@ -176,7 +176,7 @@
   "model": "library_collection.collection", 
   "fields": {
     "status": 2, 
-    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
+    "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
     "need_for_dams": 1, 
     "description": "The collection contains photographic prints and negatives, and depicts buildings and grounds, faculty and staff, annual events such as Picnic Day, campus events, classes and classrooms, student clubs and activities, departments, and sporting events.", 
     "url_was": "", 
@@ -195,7 +195,8 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "university-archives-photos-the-collection-contains", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
+    "need_for_dams": 1, 
     "name": "University Archives Photos"
   }
 },
@@ -204,7 +205,7 @@
   "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
-    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
+    "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
     "need_for_dams": 1, 
     "description": "", 
     "url_was": "", 
@@ -223,7 +224,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "eastman-originals", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
     "name": "Eastman Originals"
   }
 },
@@ -232,7 +233,7 @@
   "model": "library_collection.collection", 
   "fields": {
     "status": 1, 
-    "url_local": "http://oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
+    "url_local": "http://www.oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
     "need_for_dams": 1, 
     "description": "In 1942, Higgins took photographs of Mexican workers entering the United States \"brought in for the [sugar] beet harvest\" for California Fields Crops, Inc. and as Higgins explains in a letter that he tried \"to catch a lot of the social side in pictures.\" The photographs were taken mainly in the agricultural areas of the California communities of Woodland, Pleasanton, Manteca, and Salinas.", 
     "url_was": "", 
@@ -251,7 +252,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "higgins-images-of-mexican-beet-workers-in-1942-hig", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
     "name": "Higgins Images of Mexican Beet Workers"
   }
 },
@@ -1240,7 +1241,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "bonner-mitchell-i-photographs-and-ephemera", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt996nd0d0/", 
     "name": "Bonner (Mitchell I.) Photographs and Ephemera"
   }
 },
@@ -1268,7 +1269,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "fort-chaffee-photographs-of-vietnamese-and-cambodi", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2f59q35j/", 
     "name": "Fort Chaffee Photographs of Vietnamese and Cambodian Refugees"
   }
 },
@@ -1352,7 +1353,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "frank-anne-photographs-of-southeast-asian-american", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt4p3021fr/", 
     "name": "Frank (Anne) Photographs of Southeast Asian American Communities"
   }
 },
@@ -1380,7 +1381,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "ly-kien-truc-photographs-of-the-hi-tek-demonstrati", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt85801594/", 
     "name": "Ly Kien Truc Photographs of the Hi-Tek Demonstrations"
   }
 },
@@ -1408,7 +1409,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "marshall-brigitte-files-on-southeast-asian-refugee", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6dt/", 
     "name": "Marshall (Brigitte) Files on Southeast Asian Refugees."
   }
 },
@@ -1436,7 +1437,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "morrison-gayle-files-on-southeast-asian-refugees", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6s2013d1/", 
     "name": "Morrison (Gayle) Files on Southeast Asian Refugees"
   }
 },
@@ -1464,7 +1465,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "project-ngoc-records", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt8z09p8pd/", 
     "name": "Project Ngoc Records"
   }
 },
@@ -1492,7 +1493,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "refugee-forums-collection-on", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5s2013bp/", 
     "name": "Refugee Forums, Collection on"
   }
 },
@@ -1520,7 +1521,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "southeast-asia-resource-action-center-records", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt467nc6pc/", 
     "name": "Southeast Asia Resource Action Center Records"
   }
 },
@@ -1548,7 +1549,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "southeast-asian-archive-vertical-file-collection", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7j49q6qg/", 
     "name": "Southeast Asian Archive Vertical File Collection"
   }
 },
@@ -1576,7 +1577,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "southeast-asian-genetics-program-records", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6fb/", 
     "name": "Southeast Asian Genetics Program records"
   }
 },
@@ -1604,7 +1605,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "tran-paul-files-on-southeast-asian-refugees", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf8f59p1tg/", 
     "name": "Tran (Paul) Files on Southeast Asian Refugees"
   }
 },
@@ -1632,7 +1633,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "walsh-robert-files-on-southeast-asian-refugee-rese", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19p6sq/", 
     "name": "Walsh (Robert) Files on Southeast Asian Refugee Resettlement and Education"
   }
 },
@@ -1660,7 +1661,7 @@
     "harvest_extra_data": "", 
     "url_oai": "", 
     "slug": "egan-richard-manuscript-maps-of-orange-county", 
-    "url_oac": "", 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf9k4009f8/", 
     "name": "Egan (Richard) Manuscript Maps of Orange County"
   }
 },
@@ -5304,6 +5305,35 @@
     "slug": "ucsb-libraries-digital-collections-librarys-digita", 
     "url_oac": "", 
     "name": "UCSB Libraries Digital Collections"
+  }
+},
+{
+  "pk": 189, 
+  "model": "library_collection.collection", 
+  "fields": {
+    "enrichments_item": "", 
+    "collection_type": "", 
+    "hosted": "", 
+    "campus": [], 
+    "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt3v19r7v6", 
+    "repository": [], 
+    "url_harvest": "http://http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/kt3v19r7v6", 
+    "metadata_standard": "", 
+    "status": null, 
+    "access_restrictions": null, 
+    "description": "", 
+    "url_was": "", 
+    "metadata_level": "", 
+    "need_for_dams": null, 
+    "harvest_type": "X", 
+    "phase_one": false, 
+    "appendix": "", 
+    "extent": null, 
+    "slug": "a-is-for-atom-b-is-for-bomb-video-tape", 
+    "name": "\"A is for atom, B is for bomb\" video tape", 
+    "url_local": "", 
+    "harvest_extra_data": "", 
+    "url_oai": ""
   }
 }
 ]

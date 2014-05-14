@@ -1,5 +1,6 @@
 # views.py
 
+import operator
 from django.shortcuts import render
 from library_collection.models import Collection, Campus, Repository
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect
@@ -9,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from library_collection.decorators import verification_required
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from django.http import QueryDict
 
 campuses = Campus.objects.all().order_by('position')
 
@@ -88,26 +92,106 @@ def edit_collections(request, campus_slug=None, error=None):
             
     return collections(request, campus_slug)
 
+def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displayed=6):
+    '''Return the ranges for the "before" and "after" direct page links.
+    Also, return the previous/next group start links.
+    Preserve any other information in the GET querydict as well.
+    want to build a list of 5-7 pages around the current page, 3 each side?
+    num_links indicates total number of additional links to create, if possible
+    '''
+    half = total_displayed / 2
+    if page_number - half <= 0: #lower boundary
+        lowest_page_number = 1
+        num_high = total_displayed - page_number
+        hnum = page_number + num_high + 2
+        highest_page_number = hnum if hnum < num_pages else num_pages
+    elif page_number + half > num_pages: # upper boundary
+        highest_page_number = num_pages
+        num_low = page_number + total_displayed - num_pages
+        lnum = page_number - num_low
+        lowest_page_number = lnum if lnum > 0 else 1
+    else: #ok just halve them
+        lowest_page_number = page_number - half
+        highest_page_number = page_number + half + 1
+    previous_page_qs = []
+    next_page_qs = []
+    for x in range(lowest_page_number, page_number):
+        get_qd['page'] = x
+        previous_page_qs.append((x, get_qd.urlencode()))
+    #previous_page_numbers = [get_qd.update('page') = x for x in range(lowest_page_number, page_number)]
+    previous_group_start_num = lowest_page_number -1 if (lowest_page_number -1) > 1 else 1
+    get_qd['page'] = previous_group_start_num
+    previous_group_start = get_qd.urlencode()
+    for x in range(page_number+1, highest_page_number):
+        get_qd['page'] = x
+        next_page_qs.append((x, get_qd.urlencode()))
+
+    next_group_start_num = highest_page_number  if highest_page_number  < num_pages else num_pages
+    get_qd['page'] = next_group_start_num 
+    next_group_start = get_qd.urlencode()
+    return previous_page_qs, next_page_qs, previous_group_start, next_group_start
+
 # view of collections in list. Currently home page
 def collections(request, campus_slug=None):
     campus = None
+    query = request.GET.get('q', '')
+    search = None
+    if query:
+        if query.startswith('^'):
+            search = (Q(name__istartswith=query[1:]), Q(url_oac__startswith=query[1:]))
+        elif query.startswith('='):
+            search = (Q(name__exact=query[1:]), Q(url_oac__exact=query[1:]))
+        elif query.startswith('@'):
+            search = (Q(name__search=query[1:]), Q(url_oac__search=query[1:]))
+        else:
+            search = (Q(name__icontains=query), Q(url_oac__icontains=query))
     if campus_slug:
-        campus = get_object_or_404(Campus, slug=campus_slug)
-        extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
-        collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
+        if campus_slug == 'UC-':
+            campus = None
+            collections = Collection.objects.filter(campus=None).order_by('name')
+        else:
+            campus = get_object_or_404(Campus, slug=campus_slug)
+        #extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
+            collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
     else:
         collections = Collection.objects.all().order_by('name')
-        extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
+        #extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
+    if search:
+        collections = collections.filter(reduce(operator.or_, search))
+    paginator = Paginator(collections, 25) #get from url param?
+    page = request.GET.get('page')
+    try:
+        collections_for_page = paginator.page(page)
+    except PageNotAnInteger:
+        collections_for_page = paginator.page(1)
+    except EmptyPage:
+        collections_for_page = paginator.page(paginator.num_pages)
+    page_number = collections_for_page.number
+    qd = request.GET.copy()
+    qd['page'] = page_number
+    num_pages = paginator.num_pages
+    previous_page_links, next_page_links, previous_group_start, next_group_start = _get_direct_navigate_page_links(qd, page_number, num_pages, 6)
+    qd['page'] = 1
+    first_page_qs = qd.urlencode()
+    qd['page'] = num_pages
+    last_page_qs = qd.urlencode()
     return render(request,
         template_name='library_collection/collection_list.html',
         dictionary = { 
-            'collections': collections, 
-            'extent': extent, 
+            'collections': collections_for_page, 
+            #'extent': extent, 
             'campus': campus,
             'campuses': campuses, 
             'active_tab': active_tab(request),
             'current_path': request.path,
             'editing': editing(request.path),
+            'previous_page_links': previous_page_links,
+            'previous_group_start': previous_group_start,
+            'next_page_links': next_page_links,
+            'next_group_start': next_group_start,
+            'first_page_qs': first_page_qs,
+            'last_page_qs': last_page_qs,
+            'query': query,
         },
     )
 

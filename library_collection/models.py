@@ -69,7 +69,7 @@ class Collection(models.Model):
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
     collection_type = models.CharField(max_length=1, blank=True, choices=(('A', 'Archival'), ('C', 'Curated')))
-    campus = models.ManyToManyField(Campus)	# why not a multi-campus collection?
+    campus = models.ManyToManyField(Campus, blank=True)	# why not a multi-campus collection?
     repository = models.ManyToManyField('Repository', null=True, blank=True)
     description = models.TextField(blank=True)
     url_local = models.URLField(max_length=255,blank=True)
@@ -87,8 +87,8 @@ class Collection(models.Model):
     HARVEST_TYPE_CHOICES = ( ('X', 'None'), ('OAC', 'OAC xml collection search'), ('OAJ', 'OAC json api'), ('OAI', 'OAI-PMH'))
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
-    APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'))
-    appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES)
+    APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'), ('?', 'TBD'))
+    appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES, default='?')
     phase_one = models.BooleanField()
     enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
 
@@ -125,6 +125,16 @@ class Collection(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('library_collection.views.details', [self.id, str(self.slug)])
+
+    def save(self, *args, **kwargs):
+        ''' When running in mysql, names that are too long (there is one at
+        http://www.oac.cdlib.org/findaid/ark:/13030/c8th8nj6) causes the 
+        save to bomb. Going to truncate to 255 chars and throw out rest -
+        MER 20140507
+        '''
+        if len(self.name) > 255:
+            self.name = self.name[:255]
+        return super(Collection, self).save(*args, **kwargs)
 
     def start_harvest(self, user):
         '''Kick off the harvest.

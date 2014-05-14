@@ -11,6 +11,12 @@ source bin/activate
 pip install -r requirements.txt --use-mirrors
 ```
 
+Using msyql? add:
+
+```
+pip install MySQL-python==1.2.4
+```
+
 ## load
 
 via `fixtures/initial_data.json` and loading individual fixtures
