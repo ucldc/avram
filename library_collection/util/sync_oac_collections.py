@@ -18,6 +18,31 @@ FILE_SUFFIX = '_titles.tsv'
 TITLE_PREFIXES = [ alpha for alpha in string.lowercase]
 TITLE_PREFIXES.append('0-9')
 
+DEFAULT_ITEM_ENRICHMENT = '''/select-id,
+/oai-to-dpla,
+/cleanup_value,
+/move_date_values?prop=sourceResource%2Fsubject,
+/move_date_values?prop=sourceResource%2Fspatial,
+/shred?prop=sourceResource%2Fspatial&delim=--,
+/enrich-subject,
+/enrich_date,
+/enrich-type,
+/enrich-format,
+/enrich_location,
+/scdl_enrich_location,
+/geocode,
+/scdl_geocode_regions,
+/copy_prop?prop=sourceResource%2Fpublisher&to_prop=dataProvider&create=True,
+/cleanup_language,
+/enrich_language,
+/lookup?prop=sourceResource%2Flanguage%2Fname&target=sourceResource%2Flanguage%2Fname&substitution=iso639_3,
+/lookup?prop=sourceResource%2Flanguage%2Fname&target=sourceResource%2Flanguage%2Fiso639_3&substitution=iso639_3&inverse=True,
+/copy_prop?prop=provider%2Fname&to_prop=dataProvider&create=True&no_overwrite=True,
+/lookup?prop=sourceResource%2Fformat&target=sourceResource%2Fformat&substitution=scdl_fix_format,
+/set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
+/enrich_location?prop=sourceResource%2FstateLocatedIn
+'''
+
 def parse_ark(url):
     '''parse the ark out & return'''
     return ''.join(('ark:', url.split('ark:')[1].strip()))
@@ -53,7 +78,7 @@ def sync_collections_for_url(url_file):
             c = c[0]
             n_up += 1
             c.name = name
-            if online_items and not c.url_harvest:
+            if online_items:# and not c.url_harvest:
                 c.url_harvest = url_harvest(url_oac)
                 c.harvest_type = 'OAC'
                 c.enrichments_item = DEFAULT_ITEM_ENRICHMENT
@@ -104,29 +129,3 @@ if __name__=='__main__':
     print "OAC COLLECTIONS TOTAL:{0}, UPDATED:{1}, NEW:{2}".format(n_total, n_updated, n_new)
     print "BY PREFIX: [<prefix>, <num OAC>, <num updated>, <num new>]"
     print prefix_totals
-    
-
-DEFAULT_ITEM_ENRICHMENT = '''/select-id,
-/oai-to-dpla,
-/cleanup_value,
-/move_date_values?prop=sourceResource%2Fsubject,
-/move_date_values?prop=sourceResource%2Fspatial,
-/shred?prop=sourceResource%2Fspatial&delim=--,
-/enrich-subject,
-/enrich_date,
-/enrich-type,
-/enrich-format,
-/enrich_location,
-/scdl_enrich_location,
-/geocode,
-/scdl_geocode_regions,
-/copy_prop?prop=sourceResource%2Fpublisher&to_prop=dataProvider&create=True,
-/cleanup_language,
-/enrich_language,
-/lookup?prop=sourceResource%2Flanguage%2Fname&target=sourceResource%2Flanguage%2Fname&substitution=iso639_3,
-/lookup?prop=sourceResource%2Flanguage%2Fname&target=sourceResource%2Flanguage%2Fiso639_3&substitution=iso639_3&inverse=True,
-/copy_prop?prop=provider%2Fname&to_prop=dataProvider&create=True&no_overwrite=True,
-/lookup?prop=sourceResource%2Fformat&target=sourceResource%2Fformat&substitution=scdl_fix_format,
-/set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
-/enrich_location?prop=sourceResource%2FstateLocatedIn
-'''
