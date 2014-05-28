@@ -9,3 +9,4 @@ lib64
 local_settings.py
 .coverage
 htmlcov
+workspace
