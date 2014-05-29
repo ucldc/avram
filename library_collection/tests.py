@@ -378,6 +378,15 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, '"next": null')
         self.assertContains(response, '"url_harvest": "http://archive.org/services/oai2.php"')
         
+    def testFilterOnSLUG(self):
+        '''Test that we can filter'''
+        url_collection = self.url_api + 'collection/?limit=200&slug=halberstadt-collection-selections-of-photographs-p'
+        response = self.client.get(url_collection)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"total_count": 1}')
+        self.assertContains(response, '"next": null')
+        self.assertContains(response, '"slug": "halberstadt-collection-selections-of-photographs-p"')
+
 class CollectionsViewTestCase(TestCase):
     '''Test the view function "collections" directly'''
     fixtures = ('collection.json', 'initial_data.json', 'repository.json')

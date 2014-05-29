@@ -4,7 +4,7 @@ from tastypie.serializers import Serializer
 from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
-#from tastypie.constants import ALL, ALL_WITH_RELATIONS
+from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 class CampusResource(ModelResource):
     class Meta:
@@ -34,6 +34,5 @@ class CollectionResource(ModelResource):
         serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'html', 'plist'])
         filtering = {
                 "url_harvest": ('exact', 'startswith'),
+                "slug": ALL,
         }
-        #        "slug": ALL,
-        #}
