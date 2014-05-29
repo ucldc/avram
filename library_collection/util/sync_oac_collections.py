@@ -40,7 +40,8 @@ DEFAULT_ITEM_ENRICHMENT = '''/select-id,
 /copy_prop?prop=provider%2Fname&to_prop=dataProvider&create=True&no_overwrite=True,
 /lookup?prop=sourceResource%2Fformat&target=sourceResource%2Fformat&substitution=scdl_fix_format,
 /set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
-/enrich_location?prop=sourceResource%2FstateLocatedIn
+/enrich_location?prop=sourceResource%2FstateLocatedIn,
+/oac-thumbnail
 '''
 
 def parse_ark(url):
