@@ -86,7 +86,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
-                'https://'+socket.gethostname()+'/api/v1/collection/1/']
+                'https://'+socket.getfqdn()+'/api/v1/collection/1/']
                 )
 
 
@@ -111,7 +111,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
-                'https://'+socket.gethostname()+'/api/v1/collection/1/']
+                'https://'+socket.getfqdn()+'/api/v1/collection/1/']
                 )
 
 

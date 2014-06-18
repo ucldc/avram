@@ -100,7 +100,7 @@ class Collection(models.Model):
     @property
     def url_api(self):
         '''Return url for the tastypie api endpoint for this collection'''
-        return ''.join(('https://', socket.gethostname(), reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id})))
+        return ''.join(('https://', socket.getfqdn(), reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id})))
 
     # This is a temporary property for the case of just 
     # giving some reference to actual content.
