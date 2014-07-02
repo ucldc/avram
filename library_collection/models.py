@@ -3,6 +3,7 @@
 import subprocess
 import shlex
 import os
+import socket
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django.core.urlresolvers import reverse
@@ -64,7 +65,7 @@ class Collection(models.Model):
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
-    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/ucldc_harvester/start_harvest.bash')
+    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/harvester/start_harvest.bash')
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
@@ -99,7 +100,7 @@ class Collection(models.Model):
     @property
     def url_api(self):
         '''Return url for the tastypie api endpoint for this collection'''
-        return reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id}) 
+        return ''.join(('https://', socket.getfqdn(), reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id})))
 
     # This is a temporary property for the case of just 
     # giving some reference to actual content.
