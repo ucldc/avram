@@ -1,6 +1,7 @@
 import os
 from urllib import quote
 import unittest
+import socket
 from django.conf import settings
 from django.test import TestCase
 from django_webtest import WebTest
@@ -68,7 +69,8 @@ class CollectionTestCase(TestCase):
         self.assertEqual(str(c.need_for_dams), 'High')
         self.assertTrue(hasattr(c, 'url_api'))
         self.assertIsNotNone(c.url_api)
-        self.assertEqual(c.url_api, '/api/v1/collection/1/')
+        self.assertIn('/api/v1/collection/1/', c.url_api) 
+        self.assertIn('https://', c.url_api)
 
     @skipUnlessIntegrationTest()
     def test_start_harvest_integration(self):
@@ -84,7 +86,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
-                '/api/v1/collection/1/']
+                'https://'+socket.getfqdn()+'/api/v1/collection/1/']
                 )
 
 
@@ -109,7 +111,7 @@ class CollectionTestCase(TestCase):
             retVal = pc.start_harvest(u)
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
-                '/api/v1/collection/1/']
+                'https://'+socket.getfqdn()+'/api/v1/collection/1/']
                 )
 
 
