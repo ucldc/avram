@@ -98,9 +98,15 @@ class Collection(models.Model):
         return self.url_local;
     
     @property
+    def _hostname(self):
+        '''Because of the aliasing, hard to get actual external hostname in
+        production environment. Works correctly in stage & dev.'''
+        return 'registry.cdlib.org' if 'cdl-registry' in socket.gethostname() else socket.getfqdn()
+
+    @property
     def url_api(self):
         '''Return url for the tastypie api endpoint for this collection'''
-        return ''.join(('https://', socket.getfqdn(), reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id})))
+        return ''.join(('https://', self._hostname, reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id})))
 
     # This is a temporary property for the case of just 
     # giving some reference to actual content.
