@@ -154,8 +154,10 @@ class Collection(models.Model):
         '''
         #call is going to need : collection name, campus, repo, type of harvest, harvest url, harvest_extra_data (set spec, etc), request.user
         #TODO: support other harvests, rationalize the data
+        if self.harvest_type == 'X':
+            raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No harvest type specified.'.format(self.name, self.id))
         if not self.url_harvest:
-            raise TypeError('Not a harvestable collection - ' + self.name)
+            raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No URL for harvest.'.format(self.name, self.id))
         cmd_line = ' '.join((self.harvest_script, user.email, self.url_api))
         p = subprocess.Popen(shlex.split(cmd_line))
         return p.pid

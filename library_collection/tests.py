@@ -103,6 +103,8 @@ class CollectionTestCase(TestCase):
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
+        self.assertRaises(TypeError, pc.start_harvest, u)
+        pc.harvest_type = 'OAC'
         self.assertRaises(OSError, pc.start_harvest, u)
         pc.harvest_script = 'true'
         retVal = pc.start_harvest(u)
@@ -252,8 +254,8 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertContains(response, 'Not a harvestable collection', count=2)
-        self.assertContains(response, 'Not a harvestable collection - UCSB Libraries Digital Collections')
-        self.assertContains(response, 'Not a harvestable collection - Cholera Collection')
+        self.assertContains(response, 'Not a harvestable collection - &quot;UCSB Libraries Digital Collections')
+        self.assertContains(response, 'Not a harvestable collection - &quot;Cholera Collection')
         self.assertContains(response, 'A is for atom, B is for bomb')
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})

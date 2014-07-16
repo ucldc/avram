@@ -84,7 +84,7 @@ class CollectionAdmin(admin.ModelAdmin):
 
     list_display = ( 'name', campuses, repositories, 'human_extent', 'appendix', 'phase_one',)
     list_editable = ('appendix', 'phase_one')
-    list_filter = [ 'campus', 'need_for_dams', 'appendix', URLFieldsListFilter]
+    list_filter = [ 'campus', 'need_for_dams', 'appendix', 'harvest_type', URLFieldsListFilter]
     search_fields = ['name','description']
     actions = [ start_harvest, ]
 
