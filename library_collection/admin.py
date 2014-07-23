@@ -1,7 +1,5 @@
 # admin.py
 
-import sys
-
 from django.contrib import admin
 from library_collection.models import *
 from django.contrib.sites.models import Site
