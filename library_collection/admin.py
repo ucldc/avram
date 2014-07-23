@@ -7,6 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.admin import SimpleListFilter
+from django.http import HttpResponseRedirect
 import django.contrib.messages as messages
 
 
@@ -73,7 +74,30 @@ def start_harvest(modeladmin, request, queryset):
             modeladmin.message_user(request, msg, level=messages.ERROR)
 start_harvest.short_description = 'Start harvest for selected collections'
 
-class CollectionAdmin(admin.ModelAdmin):
+#from: http://stackoverflow.com/questions/2805701/
+class ActionInChangeFormMixin(object):
+    def response_action(self, request, queryset):
+        """
+        Prefer http referer for redirect
+        """
+        response = super(ActionInChangeFormMixin, self).response_action(request,
+                queryset)
+        if isinstance(response, HttpResponseRedirect):
+            response['Location'] = request.META.get('HTTP_REFERER', request.path)
+        return response  
+
+    def change_view(self, request, object_id, extra_context=None):
+        actions = self.get_actions(request)
+        if actions:
+            action_form = self.action_form(auto_id=None)
+            action_form.fields['action'].choices = self.get_action_choices(request)
+        else: 
+            action_form = None
+        return super(ActionInChangeFormMixin, self).change_view(request, object_id, extra_context={
+            'action_form': action_form,
+        })
+
+class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     def campuses(self):
         return ", " . join([x.__str__() for x in self.campus.all()])
