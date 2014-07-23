@@ -257,7 +257,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertContains(response, 'Not a harvestable collection - &quot;UCSB Libraries Digital Collections')
         self.assertContains(response, 'Not a harvestable collection - &quot;Cholera Collection')
         self.assertContains(response, 'A is for atom, B is for bomb')
-        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
+        url_admin = '/admin/library_collection/collection/?harvest_type__exact=OAC'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         form =  response.forms['changelist-form']
@@ -274,6 +274,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         self.assertContains(response, 'Cannot find executable xxxx', count=3)
         Collection.harvest_script = 'true'
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
         select_action.value = 'start_harvest'
@@ -287,8 +288,8 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find executable')
         self.assertContains(response, 'Started harvest for Harold Scheffler Papers (Melanesian Archive) (PID= ')
-        self.assertContains(response, 'Started harvest for AIDS Poster collection (PID= ')
         self.assertContains(response, 'Started harvest for Los Angeles Times Photographic Archive (PID= ')
+        self.assertContains(response, 'Started harvest for &quot;A is for atom, B is for bomb&quot; video tape (PID=')
 
 
 class RepositoryTestCase(TestCase):
