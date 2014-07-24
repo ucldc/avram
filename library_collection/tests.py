@@ -283,6 +283,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
+        print response #for travis debug
         self.assertContains(response, 'Started harvest for 3 collections: &quot;A is for atom, B is for bomb&quot; video tape  |  Harold Scheffler Papers (Melanesian Archive)  |  Los Angeles Times Photographic Archive CMD: true mark.redar@ucop.edu https://hedlok-deskbox/api/v1/collection/189/;https://hedlok-deskbox/api/v1/collection/172/;https://hedlok-deskbox/api/v1/collection/153/')
 
 
