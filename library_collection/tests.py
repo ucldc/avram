@@ -236,6 +236,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''Test that the start harvest action creates reasonable error
         messages when it fails
         '''
+        c = Collection()
         url_admin = '/admin/library_collection/collection/'
         http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
@@ -283,8 +284,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
-        print response #for travis debug
-        self.assertContains(response, 'Started harvest for 3 collections: &quot;A is for atom, B is for bomb&quot; video tape  |  Harold Scheffler Papers (Melanesian Archive)  |  Los Angeles Times Photographic Archive CMD: true mark.redar@ucop.edu https://hedlok-deskbox/api/v1/collection/189/;https://hedlok-deskbox/api/v1/collection/172/;https://hedlok-deskbox/api/v1/collection/153/')
+        self.assertContains(response, 'Started harvest for 3 collections: &quot;A is for atom, B is for bomb&quot; video tape  |  Harold Scheffler Papers (Melanesian Archive)  |  Los Angeles Times Photographic Archive CMD: true mark.redar@ucop.edu https://{}/api/v1/collection/189/;https://{}/api/v1/collection/172/;https://{}/api/v1/collection/153/'.format(c._hostname, c._hostname, c._hostname))
 
 
 class RepositoryTestCase(TestCase):
