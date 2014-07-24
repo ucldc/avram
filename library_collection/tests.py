@@ -212,8 +212,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'start_harvest')
 
-    @patch.object(Collection, 'start_harvest')
-    def testStartHarvestOnCollections(self, mock):
+    def testStartHarvestOnCollections(self):
         '''Test that the user can select & start the harvest for a number of
         collections
         '''
@@ -232,8 +231,6 @@ class CollectionAdminHarvestTestCase(WebTest):
         #TODO: Unclear how to test that function is actually run....
         resp = form.submit('index', headers={'AUTHORIZATION':http_auth})
         self.assertEqual(resp.status_int, 302)
-        self.assertTrue(mock.called)
-        self.assertTrue(mock.call_count == 3)
 
     def testStartHarvestOnCollectionErrorMessages(self):
         '''Test that the start harvest action creates reasonable error
@@ -253,9 +250,8 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = form.submit('index', headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
-        self.assertContains(response, 'Not a harvestable collection', count=2)
-        self.assertContains(response, 'Not a harvestable collection - &quot;UCSB Libraries Digital Collections')
-        self.assertContains(response, 'Not a harvestable collection - &quot;Cholera Collection')
+
+        self.assertContains(response, '2 collections not harvestable : UCSB Libraries Digital Collections  |  Cholera Collection')
         self.assertContains(response, 'A is for atom, B is for bomb')
         url_admin = '/admin/library_collection/collection/?harvest_type__exact=OAC'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
@@ -272,7 +268,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
-        self.assertContains(response, 'Cannot find executable xxxx', count=3)
+        self.assertContains(response, 'Cannot find xxxx for harvesting 3 collections')
         Collection.harvest_script = 'true'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         form =  response.forms['changelist-form']
@@ -286,10 +282,8 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
-        self.assertNotContains(response, 'Cannot find executable')
-        self.assertContains(response, 'Started harvest for Harold Scheffler Papers (Melanesian Archive) (PID= ')
-        self.assertContains(response, 'Started harvest for Los Angeles Times Photographic Archive (PID= ')
-        self.assertContains(response, 'Started harvest for &quot;A is for atom, B is for bomb&quot; video tape (PID=')
+        self.assertNotContains(response, 'Cannot find ')
+        self.assertContains(response, 'Started harvest for 3 collections: &quot;A is for atom, B is for bomb&quot; video tape  |  Harold Scheffler Papers (Melanesian Archive)  |  Los Angeles Times Photographic Archive CMD: true mark.redar@ucop.edu https://hedlok-deskbox/api/v1/collection/189/;https://hedlok-deskbox/api/v1/collection/172/;https://hedlok-deskbox/api/v1/collection/153/')
 
 
 class RepositoryTestCase(TestCase):
