@@ -58,20 +58,34 @@ class URLFieldsListFilter(SimpleListFilter):
 
 
 def start_harvest(modeladmin, request, queryset):
+    collections_to_harvest = [] 
+    collections_invalid = []
     for collection in queryset:
-        try:
-            pid = collection.start_harvest(request.user)
-            msg = ' '.join(('Started harvest for', collection.name, '(PID=', str(pid), ')')) #'. You should receive an email shortly with status of the harvest. (PID=', str(pid), ')'))
-            modeladmin.message_user(request, msg, level=messages.SUCCESS)
-        except OSError, e:
-            if e.errno == 2:
-                msg = 'Cannot find executable ' + collection.harvest_script + ' for harvesting collection: ' + collection.name
-            else:
-                msg = str(e)
-            modeladmin.message_user(request, msg, level=messages.ERROR)
-        except TypeError, e:
-            msg = str(e)
-            modeladmin.message_user(request, msg, level=messages.ERROR)
+        if collection.harvest_type == 'X' or not collection.url_harvest:
+            collections_invalid.append(collection)
+        else:
+            collections_to_harvest.append(collection)
+    cmd_line = ' '.join((collection.harvest_script, request.user.email))
+    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
+    cmd_line = ' '.join((cmd_line, arg_coll_uri))
+    if collections_invalid:
+        msg_invalid = '{} collections not harvestable : {}'.format(len(collections_invalid), '  |  '.join([c.name.encode('utf-8') for c in collections_invalid]))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    try:
+        p = subprocess.Popen(shlex.split(cmd_line))
+        msg = 'Started harvest for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    except OSError, e:
+        if e.errno == 2:
+            msg = 'Cannot find {} for harvesting {} collections {}'.format(
+                    collection.harvest_script, len(collections_to_harvest),
+                    '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
+                    )
+        else:
+            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
+                    str(e)
+                    )
+        modeladmin.message_user(request, msg, level=messages.ERROR)
 start_harvest.short_description = 'Start harvest for selected collections'
 
 #from: http://stackoverflow.com/questions/2805701/
