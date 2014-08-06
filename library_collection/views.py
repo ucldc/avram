@@ -154,7 +154,7 @@ def collections(request, campus_slug=None):
         #extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
             collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
     else:
-        collections = Collection.objects.all().order_by('name')
+        collections = Collection.objects.filter(appendix__in=['A','B']).order_by('name')
         #extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
     if search:
         collections = collections.filter(reduce(operator.or_, search))
