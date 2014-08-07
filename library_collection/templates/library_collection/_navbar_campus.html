@@ -51,6 +51,26 @@
                 {% endif %}
               </li>
               {% endfor %}
+              {% comment %}
+              Non UC
+              {% endcomment %}
+              <li class="{% if 'UC-' in current_path %}active{% endif %}" style="width: 100%">
+                  {% if 'UC-' in current_path %}
+                    <a href="{% url this %}">
+                      <div class="row-fluid">
+                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
+                        <div style="overflow: hidden; ">Not a UC Campus</div>
+                      </div>
+                    </a>
+                  {% else %}
+                    <a href="{% url this campus_slug='UC-' %}">
+                      <div class="row-fluid">
+                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
+                        <div style="overflow: hidden;">Not a UC Campus</div>
+                      </div>
+                    </a>
+                  {% endif %}
+              </li>
             </ul>
           </div>
         </div>

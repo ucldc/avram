@@ -341,8 +341,12 @@ def repositories(request, campus_slug=None):
     '''View of repositories, for whole collection or just single campus'''
     campus = None
     if campus_slug:
-        campus = get_object_or_404(Campus, slug=campus_slug)
-        repositories = Repository.objects.filter(campus=campus).order_by('name')
+        if campus_slug == 'UC-':
+            campus = None
+            repositories = Repository.objects.filter(campus=None).order_by('name')
+        else:
+            campus = get_object_or_404(Campus, slug=campus_slug)
+            repositories = Repository.objects.filter(campus=campus).order_by('name')
     else:
         repositories = Repository.objects.all().order_by('name')
     return render(request,
