@@ -151,11 +151,9 @@ def collections(request, campus_slug=None):
             collections = Collection.objects.filter(campus=None).order_by('name')
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-        #extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
             collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
     else:
         collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name')
-        #extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
     if search:
         collections = collections.filter(reduce(operator.or_, search))
     paginator = Paginator(collections, 25) #get from url param?
@@ -179,7 +177,6 @@ def collections(request, campus_slug=None):
         template_name='library_collection/collection_list.html',
         dictionary = { 
             'collections': collections_for_page, 
-            #'extent': extent, 
             'campus': campus,
             'campuses': campuses, 
             'active_tab': active_tab(request),
