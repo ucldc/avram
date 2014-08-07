@@ -45,66 +45,7 @@
       </tbody>
     </table>
   </div>
-  <div class="span2">
-    {% block navbar-campus %}
-    <h4>Limit by campus</h4>
-    <div class="navbar">
-      <div class="navbar-inner" style="padding-right: 0px; padding-left: 0px">
-        <div class="container">
-          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <!-- Everything you want hidden at 940px or less, place within here -->
-          <div class="nav-collapse">
-            <!-- .nav, .navbar-search, .navbar-form, etc -->
-            <ul class="nav nav-stacked" style="margin: 0px">
-              {% for campus_iter in campuses %}
-              <li class="{% if campus_iter == campus %}active{% endif %}" style="width: 100%">
-                {% if user.is_authenticated and editing %}
-                  {% if campus_iter == campus %}
-                    <a href="{% url "edit_repositories" %}">
-                      <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
-                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% else %}
-                    <a href="{% url "edit_repositories" campus_slug=campus_iter.slug %}">
-                      <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
-                        <div style="overflow: hidden;">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% endif %}
-                {% else %}
-                  {% if campus_iter == campus %}
-                    <a href="{% url "repositories" %}">
-                      <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
-                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% else %}
-                    <a href="{% url "repositories" campus_slug=campus_iter.slug %}">
-                      <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
-                        <div style="overflow: hidden;">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% endif %}
-                {% endif %}
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endblock %}
-  </div>
+  {% include "library_collection/_navbar_campus.html" with edit_this="edit_repositories" this="repositories"%}
 </div>
 {% endblock content-inner %}
 
