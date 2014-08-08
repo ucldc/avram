@@ -39,6 +39,11 @@
         <tr>
           <td>
             {{ repository.name }}
+            <small class="muted">
+              {% for name in repository.campus.all %}
+                {{ name }}
+              {% endfor %}
+            </small>
           </td>
         </tr>
         {% endfor %}

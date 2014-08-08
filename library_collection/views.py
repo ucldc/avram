@@ -151,11 +151,11 @@ def collections(request, campus_slug=None):
             collections = Collection.objects.filter(~Q(harvest_type='X'), campus=None).order_by('name')
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-            collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name')
+            collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
     else:
-        collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name')
+        collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
     if search:
-        collections = collections.filter(reduce(operator.or_, search))
+        collections = collections.filter(reduce(operator.or_, search)).prefetch_related('campus')
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
     try:
@@ -343,12 +343,12 @@ def repositories(request, campus_slug=None):
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
-            repositories = Repository.objects.filter(campus=None).order_by('name')
+            repositories = Repository.objects.filter(campus=None).order_by('name').prefetch_related('campus')
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-            repositories = Repository.objects.filter(campus=campus).order_by('name')
+            repositories = Repository.objects.filter(campus=campus).order_by('name').prefetch_related('campus')
     else:
-        repositories = Repository.objects.all().order_by('name')
+        repositories = Repository.objects.all().order_by('name').prefetch_related('campus')
     return render(request,
             template_name='library_collection/repository_list.html',
             dictionary={
