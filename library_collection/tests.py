@@ -476,7 +476,7 @@ class PublicViewTestCase(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
-        self.assertContains(response, '<tr>', count=4)
+        self.assertContains(response, '<tr>', count=5)
         self.assertContains(response, 'class="pagination"')
         self.assertContains(response, '<li class="disabled"><a href="?page=1" title="First Page">&laquo;&laquo;</a></li>')
         return
