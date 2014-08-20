@@ -85,7 +85,13 @@ class Collection(models.Model):
     metadata_level = models.CharField(max_length=255,blank=True)
     metadata_standard = models.CharField(max_length=255,blank=True)
     need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
-    HARVEST_TYPE_CHOICES = ( ('X', 'None'), ('OAC', 'OAC xml collection search'), ('OAJ', 'OAC json api'), ('OAI', 'OAI-PMH'))
+    HARVEST_TYPE_CHOICES = (
+            ('X', 'None'),
+            ('OAC', 'OAC xml collection search'),
+            ('OAJ', 'OAC json api'),
+            ('OAI', 'OAI-PMH'),
+            ('SLR', 'Solr Index')
+            )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
     APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'), ('?', 'TBD'))
