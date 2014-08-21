@@ -11,7 +11,6 @@ import shutil
 FILE_DIR = abspath(split(__file__)[0])
 AVRAM_DIR = abspath(join(FILE_DIR, '../..'))
 
-sys.path.append(FILE_DIR)
 sys.path.insert(0, AVRAM_DIR)
 
 os.environ['DJANGO_SETTINGS_MODULE'] = os.environ.get('DJANGO_SETTINGS_MODULE', 'collection_registry.settings')

@@ -41,7 +41,8 @@ DEFAULT_ITEM_ENRICHMENT = '''/select-id,
 /lookup?prop=sourceResource%2Fformat&target=sourceResource%2Fformat&substitution=scdl_fix_format,
 /set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
-/oac-thumbnail
+/oac-thumbnail,
+/oac-to-sourceResource
 '''
 
 def parse_ark(url):
@@ -53,6 +54,15 @@ def url_harvest(url_findingaid):
     '''
     ark = parse_ark(url_findingaid) 
     return ''.join((URL_HARVEST_BASE, ark))
+
+def print_progress(c, status):
+    try:
+        print("{}: {} {}".format(status, c.id, c.name.encode('utf-8')))
+    except UnicodeDecodeError, e:
+        try:
+            print("{}: {} {}".format(status, c.id, c.name.encode('latin-1')))
+        except UnicodeDecodeError, e:
+            print("{}: {}".format(status, c.id))
 
 def sync_collections_for_url(url_file):
     new_input = []
@@ -80,6 +90,7 @@ def sync_collections_for_url(url_file):
             n_up += 1
             c.name = name
             if online_items:# and not c.url_harvest:
+                print_progress(c, "UPDATE")
                 c.url_harvest = url_harvest(url_oac)
                 c.harvest_type = 'OAC'
                 c.enrichments_item = DEFAULT_ITEM_ENRICHMENT
@@ -87,6 +98,7 @@ def sync_collections_for_url(url_file):
             #create new collection
             c = Collection(name=name, url_oac=url_oac)
             if online_items:
+                print_progress(c, "NEW")
                 c.url_harvest = url_harvest(url_oac)
                 c.harvest_type = 'OAC'
                 c.enrichments_item = DEFAULT_ITEM_ENRICHMENT
