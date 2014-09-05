@@ -36,7 +36,7 @@ class CollectionTestCase(TestCase):
         c.need_for_dams  = Need.objects.get(id=1)
         c.save()
 
-    def test_basic_addition(self):
+    def test_basic_add_obj(self):
         """
         Sanity check on Collection model
         """

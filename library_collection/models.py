@@ -90,7 +90,8 @@ class Collection(models.Model):
             ('OAC', 'OAC xml collection search'),
             ('OAJ', 'OAC json api'),
             ('OAI', 'OAI-PMH'),
-            ('SLR', 'Solr Index')
+            ('SLR', 'Solr Index'),
+            ('MRC', 'MARC URL (url to a MARC file)'),
             )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
