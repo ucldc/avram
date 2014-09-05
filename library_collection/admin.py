@@ -72,7 +72,7 @@ def start_harvest(modeladmin, request, queryset):
         msg_invalid = '{} collections not harvestable : {}'.format(len(collections_invalid), '  |  '.join([c.name.encode('utf-8') for c in collections_invalid]))
         modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
     try:
-        p = subprocess.Popen(shlex.split(cmd_line))
+        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         msg = 'Started harvest for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
     except OSError, e:

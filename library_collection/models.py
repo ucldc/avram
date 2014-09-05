@@ -167,7 +167,7 @@ class Collection(models.Model):
         if not self.url_harvest:
             raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No URL for harvest.'.format(self.name, self.id))
         cmd_line = ' '.join((self.harvest_script, user.email, self.url_api))
-        p = subprocess.Popen(shlex.split(cmd_line))
+        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         return p.pid
 
 
