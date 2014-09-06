@@ -40,7 +40,7 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
                 repo.save()
                 n_up += 1
         except Repository.DoesNotExist:
-            repo = Repository(name=name, ark=ark)
+            repo = Repository(name=full_name, ark=ark)
             repo.save()
             n_new += 1
             repo = Repository.objects.get(ark=ark)
@@ -55,7 +55,7 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
                 pass
 
         n += 1
-    # why does main return?
+    # return for unit tests
     return n, n_up, n_new
 
 
