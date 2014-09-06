@@ -31,6 +31,11 @@ python manage.py collectstatic
 
 ```
 
+```
+export DJANGO_SETTINGS_MODULE=collection_registry.test_settings
+python library_collection/util/sync_oac_repositories.py
+```
+
 ## Test:
 The remoteuser shibboleth login won't work when testing. Use the collection_registry.test_settings module for testing, it adds the typical Django authentication module to the AUTHENTICATION_BACKENDS list.
 
@@ -42,7 +47,7 @@ python manage.py test --settings=collection_registry.test_settings  library_coll
 License
 -------
 
-Copyright © 2013, Regents of the University of California
+Copyright © 2014, Regents of the University of California
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without 
