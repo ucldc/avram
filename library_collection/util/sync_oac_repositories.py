@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 '''Sync the OAC respositories to the collection registry.
 We will match on ark. Should we automatically update the names? We will for now.
 Create new registry repositories if the ark is not in the system.
@@ -15,15 +16,27 @@ URL_OAC_REPO_LIST = 'https://voro.cdlib.org/a/djsite/institution/registry-view/'
 
 def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
     '''Synchronize the OAC institutions and the registry repositories'''
-    repo_list = json.loads(urllib.urlopen(url_oac_repo_list).read())
     n = n_up = n_new = 0 
-    for name, ark, parent_ark in repo_list:
-        n += 1
+
+    # read the JSON from an API URL
+    repo_list = json.loads(urllib.urlopen(url_oac_repo_list).read())
+
+    for name, ark, parent_ark, parent_name in repo_list:
+
+        # try/except idomatic python; but maybe refactor to use .exists()
+        non_uc = not(Campus.objects.filter(ark=parent_ark).exists())
+
+        if non_uc and parent_name:
+            full_name = u', '.join([parent_name, name])
+        else:
+            full_name = name
+
+        # see if repo exists, if not create it
         try:
             repo = Repository.objects.get(ark=ark)
             # udpate name?, only report update when this is true
-            if repo.name != name:
-                repo.name = name
+            if repo.name != full_name:
+                repo.name = full_name
                 repo.save()
                 n_up += 1
         except Repository.DoesNotExist:
@@ -31,6 +44,8 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
             repo.save()
             n_new += 1
             repo = Repository.objects.get(ark=ark)
+
+        # add campus link (UC's)
         if parent_ark:
             try:
                 campus = Campus.objects.get(ark=parent_ark)
@@ -38,6 +53,9 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
                 repo.save()
             except Campus.DoesNotExist:
                 pass
+
+        n += 1
+    # why does main return?
     return n, n_up, n_new
 
 
