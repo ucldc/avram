@@ -103,7 +103,17 @@ class Collection(models.Model):
 
     @property
     def url(self):
-        return self.url_local;
+        return self.url_local
+
+    @property
+    def courtesy(self):
+        out = []
+        for campus in self.campus.all():
+            out.append(campus.name)
+        if len(out) == 0:
+            for repository in self.repository.all():
+                out.append(repository.name)
+        return out
     
     @property
     def _hostname(self):

@@ -28,9 +28,9 @@
             <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
             {% endif %}
             <small class="muted">
-              {% for name in collection.campus.all %}
-                {{ name }}
-              {% endfor %}
+                {% for name in collection.courtesy %}
+                    {{ name }}
+                {% endfor %}
             </small>
           </td>
         </tr>
