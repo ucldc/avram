@@ -210,6 +210,7 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                 context['campuses'] = campuses
                 context['repositories'] = Repository.objects.all().order_by('name')
                 context['appendixChoices'] = Collection.APPENDIX_CHOICES
+                context['harvestTypeChoices'] = Collection.HARVEST_TYPE_CHOICES
                 context['edit'] = 'true'
                 
                 if error:
