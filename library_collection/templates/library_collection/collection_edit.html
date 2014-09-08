@@ -55,11 +55,11 @@
         <div class="well">
           <div class="row">
             <div class="span1" style="text-align: left">
-              <label for="appendix" style="color: #0088CC">Data Source</label>
+              <label for="appendix" style="color: #0088CC">Harvest type</label>
             </div>
             <div class="span10">
-              {% for choice in appendixChoices %}
-              <input type="radio" id="appendix" name="appendix" value="{{ choice.0 }}" {% if collection and choice.0 == collection.appendix %}checked{% endif %}>
+              {% for choice in harvestTypeChoices %}
+              <input type="radio" id="appendix" name="appendix" value="{{ choice.0 }}" {% if collection and choice.0 == collection.harvest_type %}checked{% endif %}>
                 {{ choice.1 }}
               </input>
               {% endfor %}

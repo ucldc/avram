@@ -92,6 +92,8 @@ class Collection(models.Model):
             ('OAI', 'OAI-PMH'),
             ('SLR', 'Solr Index'),
             ('MRC', 'MARC URL (url to a MARC file)'),
+            ('NUX', 'Nuxeo Project Folder'),
+            ('TBD', 'Harvest type TBD'),
             )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
@@ -102,7 +104,17 @@ class Collection(models.Model):
 
     @property
     def url(self):
-        return self.url_local;
+        return self.url_local
+
+    @property
+    def courtesy(self):
+        out = []
+        for campus in self.campus.all():
+            out.append(campus.name)
+        if len(out) == 0:
+            for repository in self.repository.all():
+                out.append(repository.name)
+        return out
     
     @property
     def _hostname(self):
@@ -166,7 +178,7 @@ class Collection(models.Model):
         if not self.url_harvest:
             raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No URL for harvest.'.format(self.name, self.id))
         cmd_line = ' '.join((self.harvest_script, user.email, self.url_api))
-        p = subprocess.Popen(shlex.split(cmd_line))
+        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         return p.pid
 
 

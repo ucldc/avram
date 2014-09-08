@@ -148,16 +148,14 @@ def collections(request, campus_slug=None):
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
-            collections = Collection.objects.filter(campus=None).order_by('name')
+            collections = Collection.objects.filter(~Q(harvest_type='X'), campus=None).order_by('name')
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-        #extent = bytes2human( Collection.objects.filter(campus__slug__exact=campus.slug).aggregate(Sum('extent'))['extent__sum'] or 0)
-            collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name')
+            collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
     else:
-        collections = Collection.objects.all().order_by('name')
-        #extent = bytes2human(Collection.objects.all().aggregate(Sum('extent'))['extent__sum'])
+        collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
     if search:
-        collections = collections.filter(reduce(operator.or_, search))
+        collections = collections.filter(reduce(operator.or_, search)).prefetch_related('campus')
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
     try:
@@ -179,7 +177,6 @@ def collections(request, campus_slug=None):
         template_name='library_collection/collection_list.html',
         dictionary = { 
             'collections': collections_for_page, 
-            #'extent': extent, 
             'campus': campus,
             'campuses': campuses, 
             'active_tab': active_tab(request),
@@ -213,6 +210,7 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                 context['campuses'] = campuses
                 context['repositories'] = Repository.objects.all().order_by('name')
                 context['appendixChoices'] = Collection.APPENDIX_CHOICES
+                context['harvestTypeChoices'] = Collection.HARVEST_TYPE_CHOICES
                 context['edit'] = 'true'
                 
                 if error:
@@ -344,10 +342,14 @@ def repositories(request, campus_slug=None):
     '''View of repositories, for whole collection or just single campus'''
     campus = None
     if campus_slug:
-        campus = get_object_or_404(Campus, slug=campus_slug)
-        repositories = Repository.objects.filter(campus=campus).order_by('name')
+        if campus_slug == 'UC-':
+            campus = None
+            repositories = Repository.objects.filter(campus=None).order_by('name').prefetch_related('campus')
+        else:
+            campus = get_object_or_404(Campus, slug=campus_slug)
+            repositories = Repository.objects.filter(campus=campus).order_by('name').prefetch_related('campus')
     else:
-        repositories = Repository.objects.all().order_by('name')
+        repositories = Repository.objects.all().order_by('name').prefetch_related('campus')
     return render(request,
             template_name='library_collection/repository_list.html',
             dictionary={
