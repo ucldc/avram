@@ -88,7 +88,7 @@ def start_harvest_for_queryset(user, queryset):
 
 def start_harvest(modeladmin, request, queryset):
     msg, success, collections_invalid, collections_harvested = \
-            start_harvest_for_queryset(user, queryset)
+            start_harvest_for_queryset(request.user, queryset)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable : {}'.format(
                 len(collections_invalid), 
