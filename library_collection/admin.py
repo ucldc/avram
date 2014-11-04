@@ -57,7 +57,9 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
-def start_harvest(modeladmin, request, queryset):
+def start_harvest_for_queryset(user, queryset):
+    '''Start harvest for valid collections in the queryset'''
+    success = False
     collections_to_harvest = [] 
     collections_invalid = []
     for collection in queryset:
@@ -65,16 +67,13 @@ def start_harvest(modeladmin, request, queryset):
             collections_invalid.append(collection)
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.harvest_script, request.user.email))
+    cmd_line = ' '.join((collection.harvest_script, user.email))
     arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    if collections_invalid:
-        msg_invalid = '{} collections not harvestable : {}'.format(len(collections_invalid), '  |  '.join([c.name.encode('utf-8') for c in collections_invalid]))
-        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
     try:
         p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+        success = True
         msg = 'Started harvest for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
-        modeladmin.message_user(request, msg, level=messages.SUCCESS)
     except OSError, e:
         if e.errno == 2:
             msg = 'Cannot find {} for harvesting {} collections {}'.format(
@@ -85,6 +84,19 @@ def start_harvest(modeladmin, request, queryset):
             msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
                     str(e)
                     )
+    return msg, success, collections_invalid, collections_to_harvest
+
+def start_harvest(modeladmin, request, queryset):
+    msg, success, collections_invalid, collections_harvested = \
+            start_harvest_for_queryset(request.user, queryset)
+    if collections_invalid:
+        msg_invalid = '{} collections not harvestable : {}'.format(
+                len(collections_invalid), 
+                '  |  '.join([c.name.encode('utf-8') for c in collections_invalid]))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
 start_harvest.short_description = 'Start harvest for selected collections'
 

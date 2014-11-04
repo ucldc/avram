@@ -126,6 +126,7 @@ class CollectionModelAdminTestCase(unittest.TestCase):
         '''
         from library_collection.admin import start_harvest
         from library_collection.admin import CollectionAdmin
+        from library_collection.admin import start_harvest_for_queryset
         self.assertTrue(start_harvest in CollectionAdmin.actions)
 
 
