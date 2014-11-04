@@ -57,7 +57,7 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
-def start_harvest_for_queryset(queryset):
+def start_harvest_for_queryset(user, queryset):
     '''Start harvest for valid collections in the queryset'''
     success = False
     collections_to_harvest = [] 
@@ -67,7 +67,7 @@ def start_harvest_for_queryset(queryset):
             collections_invalid.append(collection)
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.harvest_script, request.user.email))
+    cmd_line = ' '.join((collection.harvest_script, user.email))
     arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
     try:
@@ -88,7 +88,7 @@ def start_harvest_for_queryset(queryset):
 
 def start_harvest(modeladmin, request, queryset):
     msg, success, collections_invalid, collections_harvested = \
-            start_harvest_for_queryset(queryset)
+            start_harvest_for_queryset(user, queryset)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable : {}'.format(
                 len(collections_invalid), 
