@@ -769,7 +769,7 @@ class SyncWithOACTestCase(TestCase):
         c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/')
         self.assertEqual('OAC', c.harvest_type)
         self.assertEqual('http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/kt5h4nf5dx', c.url_harvest)
-        self.assertIn('/select-id,\n/oai-to-dpla', c.enrichments_item)
+        self.assertIn('/select-oac-id,\n/dpla_mapper?mapper_type=oac_dc', c.enrichments_item)
         colls = Collection.objects.all()
         self.assertEqual(212, len(colls))
         n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
