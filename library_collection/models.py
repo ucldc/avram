@@ -59,6 +59,11 @@ class Need(models.Model):
     def __unicode__(self):
         return self.name
 
+class Format(models.Model):
+    '''File formats of data for input to DAMS.'''
+    name = models.CharField(max_length=255)
+    def __unicode__(self):
+        return self.name
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -101,6 +106,23 @@ class Collection(models.Model):
     appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES, default='?')
     phase_one = models.BooleanField()
     enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
+    formats = models.ManyToManyField(Format, null=True, blank=True,
+            help_text='File formats for DAMS ingest')
+    staging_notes = models.TextField(blank=True, default='',
+            help_text='Possible support needed by contributor')
+    files_in_hand = models.BooleanField()
+    files_in_dams = models.BooleanField()
+    metadata_in_dams = models.BooleanField()
+    qa_completed = models.BooleanField()
+    ready_for_publication = models.BooleanField()
+    RIGHTS_CHOICES = (
+            ('CR', 'copyrighted'),
+            ('PD', 'public domain'),
+            ('UN', 'copyright unknown')
+            )
+    rights_status = models.CharField(max_length=3, choices=RIGHTS_CHOICES,
+            default='UN')
+    rights_statement = models.TextField(blank=True)
 
     @property
     def url(self):
