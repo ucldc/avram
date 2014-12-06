@@ -48,15 +48,12 @@ def edit_collections(request, campus_slug=None, error=None):
                 'current_path': request.path,
                 'editing': editing(request.path),
                 'repositories': Repository.objects.all().order_by('name'),
-                'appendixChoices': Collection.APPENDIX_CHOICES,
                 'new': 'true',
             }
             if error:
                 context['error'] = error
                 
                 collection = {'name': requestObj['name']}
-                if 'appendix' in requestObj:
-                    collection['appendix'] = requestObj['appendix']
                 if 'campuses' in requestObj:
                     campus = []
                     for campus_id in requestObj.getlist('campuses'):
@@ -75,7 +72,7 @@ def edit_collections(request, campus_slug=None, error=None):
             )
         else: 
             try:
-                new_collection = Collection(name=requestObj['name'], appendix=requestObj['appendix'])
+                new_collection = Collection(name=requestObj['name'], )
                 new_collection.full_clean()
             except ValidationError as e:
                 return edit_collections(request, error='Please enter a collection title')
@@ -209,7 +206,6 @@ def edit_details(request, colid=None, col_slug=None, error=None):
             if ('edit' in requestObj) or error:
                 context['campuses'] = campuses
                 context['repositories'] = Repository.objects.all().order_by('name')
-                context['appendixChoices'] = Collection.APPENDIX_CHOICES
                 context['harvestTypeChoices'] = Collection.HARVEST_TYPE_CHOICES
                 context['edit'] = 'true'
                 
@@ -221,10 +217,6 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                     
                     if requestObj['name'] == '':
                         context['error'] = "Please enter a collection title"
-                    if 'appendix' in requestObj:
-                        collection.appendix = requestObj['appendix']
-                    else: 
-                        context['error'] = "Please enter a data source"
                     
                     context['collection'] = collection
                 
@@ -234,7 +226,6 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                 )
             else: 
                 collection.name = requestObj.get("name")
-                collection.appendix = requestObj.get('appendix')
                 collection.repository = requestObj.getlist('repositories')
                 collection.campus = requestObj.getlist("campuses")
                 

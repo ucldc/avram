@@ -40,25 +40,6 @@ class Campus(models.Model):
                 pass
         return super(Campus, self).save(*args, **kwargs)
 
-
-class Status(models.Model):
-    name = models.CharField(max_length=255)
-    class Meta:
-        verbose_name_plural = "statuses"
-    def __unicode__(self):
-        return self.name
-
-
-class Restriction(models.Model):
-    name = models.CharField(max_length=255)
-    def __unicode__(self):
-        return self.name
-
-class Need(models.Model):
-    name = models.CharField(max_length=255)
-    def __unicode__(self):
-        return self.name
-
 class Format(models.Model):
     '''File formats of data for input to DAMS.'''
     name = models.CharField(max_length=255)
@@ -74,22 +55,14 @@ class Collection(models.Model):
     name = models.CharField(max_length=255)
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
-    collection_type = models.CharField(max_length=1, blank=True, choices=(('A', 'Archival'), ('C', 'Curated')))
     campus = models.ManyToManyField(Campus, blank=True)	# why not a multi-campus collection?
     repository = models.ManyToManyField('Repository', null=True, blank=True)
     description = models.TextField(blank=True)
     url_local = models.URLField(max_length=255,blank=True)
     url_oac = models.URLField(max_length=255,blank=True)
-    url_was = models.URLField(max_length=255,blank=True)
-    url_oai = models.URLField(max_length=255,blank=True)
     url_harvest = models.URLField(max_length=255,blank=True)
     hosted = models.CharField(max_length=255,blank=True)
-    status = models.ForeignKey(Status, null=True, blank=True, default = None)
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
-    access_restrictions = models.ForeignKey(Restriction, null=True, blank=True, default = None)
-    metadata_level = models.CharField(max_length=255,blank=True)
-    metadata_standard = models.CharField(max_length=255,blank=True)
-    need_for_dams = models.ForeignKey(Need, null=True, blank=True, default = None)
     HARVEST_TYPE_CHOICES = (
             ('X', 'None'),
             ('OAC', 'OAC xml collection search'),
@@ -102,9 +75,6 @@ class Collection(models.Model):
             )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
-    APPENDIX_CHOICES = ( ('A', 'Nuxeo DAMS'), ('B', 'Harvest/Crawl'), ('?', 'TBD'))
-    appendix = models.CharField(max_length=1, choices=APPENDIX_CHOICES, default='?')
-    phase_one = models.BooleanField()
     enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
     formats = models.ManyToManyField(Format, null=True, blank=True,
             help_text='File formats for DAMS ingest')
@@ -158,8 +128,6 @@ class Collection(models.Model):
             return self.url_local
         elif self.url_oac != '':
             return self.url_oac
-        elif self.url_was != '':
-            return self.url_was
         else:
             return False
 
