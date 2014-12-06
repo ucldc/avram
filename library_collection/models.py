@@ -52,16 +52,21 @@ class Collection(models.Model):
     CRAWL = 'C'
     PENDING = 'P'
     harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/harvester/start_harvest.bash')
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='Collection Title')
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
     campus = models.ManyToManyField(Campus, blank=True)	# why not a multi-campus collection?
-    repository = models.ManyToManyField('Repository', null=True, blank=True)
+    repository = models.ManyToManyField('Repository', null=True, blank=True,
+            verbose_name='Unit')
     description = models.TextField(blank=True)
-    url_local = models.URLField(max_length=255,blank=True)
-    url_oac = models.URLField(max_length=255,blank=True)
+    url_local = models.URLField(max_length=255,blank=True,
+            help_text='Collection homepage URL')
+    url_oac = models.URLField(max_length=255,blank=True,
+            help_text='OAC finding aid URL')
     url_harvest = models.URLField(max_length=255,blank=True)
-    hosted = models.CharField(max_length=255,blank=True)
+    hosted = models.CharField(max_length=255,blank=True,
+            verbose_name='Existing metadata (Format/Output)',
+            help_text='Indicate format and output')
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
     HARVEST_TYPE_CHOICES = (
             ('X', 'None'),

@@ -132,6 +132,25 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter]
     search_fields = ['name','description']
     actions = [ start_harvest, ]
+    fieldsets = (
+            ('Descriptive Information', {
+                'fields': ('name', 'campus', 'repository', 'description',
+                    'url_local', 'url_oac', 'rights_status',
+                    'rights_statement', 'ready_for_publication',)
+                },
+                ),
+            ('For Nuxeo Collections', {
+                #'classes': ('collapse',),
+                'fields': ('extent', 'formats', 'hosted', 'staging_notes',
+                        'files_in_hand', 'files_in_dams',
+                        'metadata_in_dams', 'qa_completed',)
+                }
+                ),
+            ('For Harvest Collections', {
+                'fields': ('harvest_type', 'url_harvest', 'harvest_extra_data' ),
+                }
+                )
+            )
 
     def human_extent(self, obj):
         return obj.human_extent
