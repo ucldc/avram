@@ -55,7 +55,7 @@ class Collection(models.Model):
     name = models.CharField(max_length=255, verbose_name='Collection Title')
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
-    campus = models.ManyToManyField(Campus, blank=True)	# why not a multi-campus collection?
+    campus = models.ManyToManyField(Campus, blank=True)
     repository = models.ManyToManyField('Repository', null=True, blank=True,
             verbose_name='Unit')
     description = models.TextField(blank=True)
@@ -93,10 +93,11 @@ class Collection(models.Model):
     RIGHTS_CHOICES = (
             ('CR', 'copyrighted'),
             ('PD', 'public domain'),
-            ('UN', 'copyright unknown')
+            ('UN', 'copyright unknown'),
+            ('X', 'not set')
             )
     rights_status = models.CharField(max_length=3, choices=RIGHTS_CHOICES,
-            default='UN')
+            default='X')
     rights_statement = models.TextField(blank=True)
 
     @property
