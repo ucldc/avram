@@ -94,7 +94,7 @@ class Collection(models.Model):
             ('CR', 'copyrighted'),
             ('PD', 'public domain'),
             ('UN', 'copyright unknown'),
-            ('X', 'not set')
+            ('X', '-----')
             )
     rights_status = models.CharField(max_length=3, choices=RIGHTS_CHOICES,
             default='X')
