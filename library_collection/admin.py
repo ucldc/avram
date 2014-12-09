@@ -24,10 +24,6 @@ class URLFieldsListFilter(SimpleListFilter):
             'LOCALNOT': ('missing local URL', lambda x: x.filter(url_local__exact='')),
             'OAC': ('has OAC URL', lambda x: x.exclude(url_oac__exact='')),
             'OACNOT': ('missing OAC URL', lambda x: x.filter(url_oac__exact='')),
-            'OAI': ('has OAI URL', lambda x: x.exclude(url_oai__exact='')),
-            'OAINOT': ('missing OAI URL', lambda x: x.filter(url_oai__exact='')),
-            'WAS': ('has WAS URL', lambda x: x.exclude(url_was__exact='')),
-            'WASNOT': ('missing WAS URL', lambda x: x.filter(url_was__exact='')),
             'HARVEST': ('has HARVEST URL', lambda x: x.exclude(url_harvest__exact='')),
             'HARVESTNOT': ('missing HARVEST URL', lambda x: x.filter(url_harvest__exact='')),
             }
@@ -132,11 +128,29 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return ", " . join([x.__str__() for x in self.repository.all()])
     repositories.short_description = "Repository"
 
-    list_display = ( 'name', campuses, repositories, 'human_extent', 'appendix', 'phase_one',)
-    list_editable = ('appendix', 'phase_one')
-    list_filter = [ 'campus', 'need_for_dams', 'appendix', 'harvest_type', URLFieldsListFilter]
+    list_display = ( 'name', campuses, repositories, 'human_extent', )
+    list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter]
     search_fields = ['name','description']
     actions = [ start_harvest, ]
+    fieldsets = (
+            ('Descriptive Information', {
+                'fields': ('name', 'campus', 'repository', 'description',
+                    'url_local', 'url_oac', 'rights_status',
+                    'rights_statement', 'ready_for_publication',)
+                },
+                ),
+            ('For Nuxeo Collections', {
+                #'classes': ('collapse',),
+                'fields': ('extent', 'formats', 'hosted', 'staging_notes',
+                        'files_in_hand', 'files_in_dams',
+                        'metadata_in_dams', 'qa_completed',)
+                }
+                ),
+            ('For Harvest Collections', {
+                'fields': ('harvest_type', 'url_harvest', 'harvest_extra_data' ),
+                }
+                )
+            )
 
     def human_extent(self, obj):
         return obj.human_extent
@@ -148,9 +162,6 @@ class CampusAdmin(admin.ModelAdmin):
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
 admin.site.register(Repository)
-admin.site.register(Status)
-admin.site.register(Restriction)
-#admin.site.register(Need)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
 try:
     admin.site.unregister(Site)

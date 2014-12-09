@@ -24,7 +24,6 @@ class RepositoryResource(ModelResource):
 class CollectionResource(ModelResource):
     campus = fields.ToManyField(CampusResource, 'campus', full=True)
     repository = fields.ToManyField(RepositoryResource, 'repository', full=True)
-    appendix = fields.CharField(attribute='get_appendix_display')
 
     class Meta:
         queryset = Collection.objects.all()

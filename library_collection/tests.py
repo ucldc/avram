@@ -13,9 +13,6 @@ from mock import patch
 from library_collection.models import Collection
 from library_collection.models import Campus
 from library_collection.models import Repository
-from library_collection.models import Status
-from library_collection.models import Restriction
-from library_collection.models import Need
 from util import sync_oac_collections, sync_oac_repositories
 
 FILE_DIR = os.path.abspath(os.path.split(__file__)[0])
@@ -31,9 +28,6 @@ class CollectionTestCase(TestCase):
     fixtures = ('collection.json', 'initial_data.json', 'repository.json')
     def setUp(self):
         c = Collection.objects.all()[0]
-        c.status = Status.objects.get(id=1)
-        c.access_restrictions = Restriction.objects.get(id=1)
-        c.need_for_dams  = Need.objects.get(id=1)
         c.save()
 
     def test_basic_add_obj(self):
@@ -51,6 +45,25 @@ class CollectionTestCase(TestCase):
         self.assertTrue(hasattr(pc, 'harvest_type'))
         self.assertTrue(hasattr(pc, 'harvest_extra_data'))
         self.assertTrue(hasattr(pc, 'enrichments_item'))
+        # needs values before valid self.assertTrue(hasattr(pc, 'formats'))
+        self.assertTrue(hasattr(pc, 'staging_notes'))
+        self.assertTrue(hasattr(pc, 'files_in_hand'))
+        self.assertTrue(hasattr(pc, 'files_in_dams'))
+        self.assertTrue(hasattr(pc, 'metadata_in_dams'))
+        self.assertTrue(hasattr(pc, 'qa_completed'))
+        self.assertTrue(hasattr(pc, 'ready_for_publication'))
+        self.assertTrue(hasattr(pc, 'rights_status'))
+        self.assertTrue(hasattr(pc, 'rights_statement'))
+        self.assertFalse(hasattr(pc, 'collection_type'))
+        self.assertFalse(hasattr(pc, 'url_was'))
+        self.assertFalse(hasattr(pc, 'url_oai'))
+        self.assertFalse(hasattr(pc, 'status'))
+        self.assertFalse(hasattr(pc, 'access_restrictions'))
+        self.assertFalse(hasattr(pc, 'metadata_level'))
+        self.assertFalse(hasattr(pc, 'metadata_standard'))
+        self.assertFalse(hasattr(pc, 'need_for_dams'))
+        self.assertFalse(hasattr(pc, 'appendix'))
+        self.assertFalse(hasattr(pc, 'phase_one'))
         pc.save()
         pc.repository
 
@@ -64,9 +77,6 @@ class CollectionTestCase(TestCase):
 
     def test_linked_data(self):
         c = Collection.objects.all()[0]
-        self.assertEqual(str(c.status), 'Completed')
-        self.assertEqual(str(c.access_restrictions), 'No')
-        self.assertEqual(str(c.need_for_dams), 'High')
         self.assertTrue(hasattr(c, 'url_api'))
         self.assertIsNotNone(c.url_api)
         self.assertIn('/api/v1/collection/1/', c.url_api) 
@@ -76,7 +86,6 @@ class CollectionTestCase(TestCase):
     def test_start_harvest_integration(self):
         pc = Collection.objects.all()[0]
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
-        pc.url_oai = 'http://example.com/oai'
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
@@ -99,7 +108,6 @@ class CollectionTestCase(TestCase):
         self.assertTrue(hasattr(pc, 'start_harvest'))
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         pc.harvest_script = 'xxxxx'
-        pc.url_oai = 'http://example.com/oai'
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
@@ -149,7 +157,6 @@ class CollectionAdminTestCase(TestCase):
         pc.save()
         pc = Collection()
         pc.name = 'PC-4'
-        pc.url_oai = 'http://oai'
         pc.save()
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         u.is_superuser = True
@@ -357,12 +364,10 @@ class TastyPieAPITest(TestCase):
         '''Test that the required data elements appear in the api'''
         url_collection = self.url_api + 'collection/?limit=200&format=json'
         response = self.client.get(url_collection)
-        self.assertContains(response, '"collection_type":', count=189)
         self.assertContains(response, '"campus":', count=204)
         self.assertContains(response, '"repository":', count=189)
         self.assertContains(response, '"slug":', count=400)
-        self.assertContains(response, '"url_oai":', count=189)
-        self.assertContains(response, 'appendix":', count=189)
+        self.assertContains(response, '"url_harvest":', count=189)
         #now check some specific instance data?
         self.assertContains(response, '"name":', count=400)
         self.assertContains(response, 'UCD')
@@ -769,7 +774,7 @@ class SyncWithOACTestCase(TestCase):
         c = Collection.objects.get(url_oac='http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/')
         self.assertEqual('OAC', c.harvest_type)
         self.assertEqual('http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/kt5h4nf5dx', c.url_harvest)
-        self.assertIn('/select-id,\n/oai-to-dpla', c.enrichments_item)
+        self.assertIn('/select-oac-id,\n/dpla_mapper?mapper_type=oac_dc', c.enrichments_item)
         colls = Collection.objects.all()
         self.assertEqual(212, len(colls))
         n, n_up, n_new, prefix_totals = sync_oac_collections.main(title_prefixes=['a',], url_github_raw_base=self.url_fixtures)
