@@ -190,6 +190,17 @@ class CollectionAdminTestCase(TestCase):
         self.assertNotContains(response, 'PC-2')
         self.assertContains(response, 'class="row1"', count=2)
 
+    def testHarvestDataInAdmin(self):
+        '''Make sure the required harvest data is in the admin interface'''
+        url_admin = '/admin/library_collection/collection/1/'
+        http_auth = 'basic '+'test:fake'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'harvest_type')
+        self.assertContains(response, 'url_harvest')
+        self.assertContains(response, 'harvest_extra_data')
+        self.assertContains(response, 'enrichments_item')
+
     def testUserListHasRequiredColumns(self):
         '''Test that the "active" column is present in the admin user list
         view.
