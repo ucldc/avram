@@ -3,6 +3,7 @@
 We will match on oac_url and update titles.
 Create new registry collections if the oac_url is not in the system.
 '''
+import os
 import set_avram_lib_path
 import string
 import urllib
@@ -18,7 +19,6 @@ FILE_SUFFIX = '_titles.tsv'
 TITLE_PREFIXES = [ alpha for alpha in string.lowercase]
 TITLE_PREFIXES.append('0-9')
 
-DEFAULT_ITEM_ENRICHMENT = open('enrichments_item_oac.txt').read()
 
 def parse_ark(url):
     '''parse the ark out & return'''
@@ -40,6 +40,7 @@ def print_progress(c, status):
             print("{}: {}".format(status, c.id))
 
 def sync_collections_for_url(url_file):
+    DEFAULT_ITEM_ENRICHMENT = open(os.path.join(set_avram_lib_path.FILE_DIR, 'enrichments_item_oac.txt')).read()
     new_input = []
     for l in urllib.urlopen(url_file).readlines():
         if len(l) > 10: #hokey blank line check, also drops first line
