@@ -18,7 +18,17 @@ HARVEST_TYPES = []
 for t in Collection.HARVEST_TYPE_CHOICES:
     HARVEST_TYPES.append(t[0])
 
-def overwrite_enrichments_for_harvest_type(harvest_type, enrichment_file):
+def overwrite_enrichments_for_collection(collection, enrichment):
+    collection.enrichments_item = enrichment
+    collection.save()
+
+def overwrite_enrichments_for_queryset(qs, enrichment):
+    '''Overwrite the enrichments for a queryset
+    '''
+    for collection in qs:
+        overwrite_enrichments_for_collection(collection, enrichment)
+
+def overwrite_enrichments_for_harvest_type(harvest_type, enrichment):
     '''Overwrite the enrichmets_item field for the collections with a 
     given harvest_type
     
@@ -37,13 +47,7 @@ def overwrite_enrichments_for_harvest_type(harvest_type, enrichment_file):
     '''
     if harvest_type not in HARVEST_TYPES:
         raise ValueError('{} is not a valid harvest type'.format(harvest_type))
-    with open(enrichment_file) as infoo:
-        enrichments_string = infoo.read().strip()
-    print enrichments_string
-    for c in Collection.objects.filter(harvest_type=harvest_type):
-        c.enrichments_item = enrichments_string
-        c.save()
-    return enrichments_string
+    overwrite_enrichments_for_queryset(qs, enrichment)
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(
@@ -55,4 +59,6 @@ if __name__=='__main__':
             help='Text file of comma-separated enrichements list')
                   
     args = parser.parse_args()
-    overwrite_enrichments_for_harvest_type(args.harvest_type, args.enrichment_file)
+    with open(args.enrichment_file) as infoo:
+        enrichments_string = infoo.read().strip()
+    overwrite_enrichments_for_harvest_type(args.harvest_type, enrichment_string)
