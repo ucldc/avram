@@ -99,6 +99,20 @@ class Collection(models.Model):
     rights_status = models.CharField(max_length=3, choices=RIGHTS_CHOICES,
             default='X')
     rights_statement = models.TextField(blank=True)
+    DCMI_TYPES = (
+            ('C', 'Collection'),
+            ('D', 'Dataset'),
+            ('E', 'Event'),
+            ('I', 'Image'),
+            ('R', 'Interactive Resource'),
+            ('V', 'Service'),
+            ('S', 'Software'),
+            ('A', 'Sound'), # A for audio
+            ('T', 'Text'),
+            ('X', '-----') # default, not set
+            )
+    dcmi_type = models.CharField(max_length=1, choices=DCMI_TYPES,
+            default='X', help_text="DCMI Type for objects in this collection")
 
     @property
     def url(self):
