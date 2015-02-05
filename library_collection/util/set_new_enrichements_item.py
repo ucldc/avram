@@ -47,6 +47,7 @@ def overwrite_enrichments_for_harvest_type(harvest_type, enrichment):
     '''
     if harvest_type not in HARVEST_TYPES:
         raise ValueError('{} is not a valid harvest type'.format(harvest_type))
+    qs = Collection.objects.filter(harvest_type=harvest_type)
     overwrite_enrichments_for_queryset(qs, enrichment)
 
 if __name__=='__main__':
@@ -61,4 +62,4 @@ if __name__=='__main__':
     args = parser.parse_args()
     with open(args.enrichment_file) as infoo:
         enrichments_string = infoo.read().strip()
-    overwrite_enrichments_for_harvest_type(args.harvest_type, enrichment_string)
+    overwrite_enrichments_for_harvest_type(args.harvest_type, enrichments_string)
