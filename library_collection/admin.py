@@ -147,8 +147,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                 }
                 ),
             ('For Harvest Collections', {
-                'fields': ('harvest_type', 'url_harvest', 'harvest_extra_data',
-                    'enrichments_item'),
+                'fields': ('harvest_type', 'dcmi_type', 'url_harvest',
+                    'harvest_extra_data', 'enrichments_item'),
                 }
                 )
             )

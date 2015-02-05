@@ -802,6 +802,7 @@ class SyncWithOACTestCase(TestCase):
         self.assertEqual(0, c.campus.count())
         self.assertEqual('OAC', c.harvest_type)
         self.assertEqual('http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/c8q52r3z', c.url_harvest)
+        self.assertEqual('X', c.dcmi_type)
 
 class NewUserTestCase(TestCase):
     '''Test the response chain when a new user enters the system.
