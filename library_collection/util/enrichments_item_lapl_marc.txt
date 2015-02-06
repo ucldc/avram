@@ -22,5 +22,6 @@
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
 /required-values-from-collection-registry?field=rights&mode=fill,
 /required-values-from-collection-registry?field=type&mode=fill,
+/set-ucldc-dataprovider,
 /dedupe-sourceresource,
 /validate_mapv3
