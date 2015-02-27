@@ -129,7 +129,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     repositories.short_description = "Repository"
 
     list_display = ( 'name', campuses, repositories, 'human_extent', )
-    list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter]
+    list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
     actions = [ start_harvest, ]
     fieldsets = (
