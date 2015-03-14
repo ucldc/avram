@@ -17,7 +17,7 @@
         <input type="submit" class="btn" value="Search">
     </form>
 {% if collections %}
-    {{ collections|length }} Collections
+    {{ collections.paginator.count }} Collections
     <table class="table table-bordered table-striped">
       <tbody>
         {% for collection in collections %}
