@@ -1,6 +1,6 @@
   <div class="span2">
     {% block navbar-campus %}
-    <h4>Limit by harvest type</h4>
+    <h4>Limit by harvest&nbsp;type</h4>
     <div class="navbar">
       <div class="navbar-inner" style="padding-right: 0px; padding-left: 0px">
         <div class="container">
@@ -15,38 +15,25 @@
           <div class="nav-collapse">
             <!-- .nav, .navbar-search, .navbar-form, etc -->
             <ul class="nav nav-stacked" style="margin: 0px">
-              {% for campus_iter in harvest_types %}
-              <li class="{% if campus_iter == campus %}active{% endif %}" style="width: 100%">
-                {% if user.is_authenticated and editing %}
-                  {% if campus_iter == campus %}
-                    <a href="{% url edit_this %}">
+              {% for type in harvest_types %}
+              {% if type %}
+              <li class="{% if type == harvest_type %}active{% endif %}" style="width: 100%">
+                  {% if type == harvest_type %}
+                    <a>
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
-                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
+                        <div style="overflow: hidden; ">{{ type|default:'none' }}</div>
                       </div>
                     </a>
                   {% else %}
+                    <a href="{% url this %}?harvest_type={{ type }}">
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
-                        <div style="overflow: hidden;">{{ campus_iter.name }} HEY </div>
-                      </div>
-                  {% endif %}
-                {% else %}
-                  {% if campus_iter == campus %}
-                    <a href="{% url this %}">
-                      <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
-                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% else %}<a>
-                      <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
-                        <div style="overflow: hidden;">{{ campus_iter }}</div>
+                        <div style="overflow: hidden;">{{ type|default:'none' }}</div>
                       </div></a>
                   {% endif %}
-                {% endif %}
               </li>
+              {% endif %}
               {% endfor %}
             </ul>
           </div>

@@ -2,6 +2,7 @@
 
 import operator
 from django.shortcuts import render
+from django.http import Http404
 from library_collection.models import Collection, Campus, Repository
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
@@ -133,27 +134,12 @@ def collections(request, campus_slug=None):
     campus = None
     query = request.GET.get('q', '')
     search = None
-    harvest_types= [
-        'Legacy Calisphere',
-        'Shared DAMS',
-        'Other',
-        'None',
-    ]
+    harvest_type = request.GET.get('harvest_type', '')
+    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
+    if not harvest_type in harvest_types:
+        raise Http404
 
-    """
- 73             ('OAC', 'OAC xml collection search'),
- 78             ('NUX', 'Nuxeo Project Folder'),
-
-other
- 74             ('OAJ', 'OAC json api'),
- 75             ('OAI', 'OAI-PMH'),
- 76             ('SLR', 'Solr Index'),
- 77             ('MRC', 'MARC URL (url to a MARC file)'),
- 79             ('TBD', 'Harvest type TBD'),
-
-    """
-
-
+    # turn input query into search for later filtering
     if query:
         if query.startswith('^'):
             search = (Q(name__istartswith=query[1:]), Q(url_oac__startswith=query[1:]))
@@ -163,6 +149,8 @@ other
             search = (Q(name__search=query[1:]), Q(url_oac__search=query[1:]))
         else:
             search = (Q(name__icontains=query), Q(url_oac__icontains=query))
+
+    # apply campus limits, by default excluding unknow harvest type 'X' (~Q is negative query)
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
@@ -172,8 +160,14 @@ other
             collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
     else:
         collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
+
+    if harvest_type:
+        collections = collections.filter(Q(harvest_type=harvest_type))
+
+    # if query yielded a search, filter
     if search:
         collections = collections.filter(reduce(operator.or_, search)).prefetch_related('campus')
+
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
     try:
@@ -208,6 +202,7 @@ other
             'last_page_qs': last_page_qs,
             'query': query,
             'harvest_types': harvest_types,
+            'harvest_type': harvest_type,
         },
     )
 
