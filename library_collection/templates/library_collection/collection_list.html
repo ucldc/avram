@@ -17,6 +17,7 @@
         <input type="submit" class="btn" value="Search">
     </form>
 {% if collections %}
+    {{ collections|length }} Collections
     <table class="table table-bordered table-striped">
       <tbody>
         {% for collection in collections %}
@@ -71,5 +72,6 @@
     {%endif%}
   </div>
   {% include "library_collection/_navbar_campus.html" with edit_this='edit_collections' this='collections' %}
+  {% include "library_collection/_navbar_harvest_type.html" with edit_this='edit_collections' this='collections' %}
 </div>
 {% endblock content-inner %}

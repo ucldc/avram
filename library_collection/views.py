@@ -133,6 +133,27 @@ def collections(request, campus_slug=None):
     campus = None
     query = request.GET.get('q', '')
     search = None
+    harvest_types= [
+        'Legacy Calisphere',
+        'Shared DAMS',
+        'Other',
+        'None',
+    ]
+
+    """
+ 73             ('OAC', 'OAC xml collection search'),
+ 78             ('NUX', 'Nuxeo Project Folder'),
+
+other
+ 74             ('OAJ', 'OAC json api'),
+ 75             ('OAI', 'OAI-PMH'),
+ 76             ('SLR', 'Solr Index'),
+ 77             ('MRC', 'MARC URL (url to a MARC file)'),
+ 79             ('TBD', 'Harvest type TBD'),
+
+    """
+
+
     if query:
         if query.startswith('^'):
             search = (Q(name__istartswith=query[1:]), Q(url_oac__startswith=query[1:]))
@@ -186,6 +207,7 @@ def collections(request, campus_slug=None):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             'query': query,
+            'harvest_types': harvest_types,
         },
     )
 
