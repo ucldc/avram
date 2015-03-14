@@ -2,59 +2,97 @@
 
 {% block title %}{% if collection.name %} | {{ collection.name }}{% endif %}{% endblock %}
 
+{% block inline-style %}
+<style>
+  .span1 { text-align: left; color: #0088CC; }
+   dd { padding-bottom: 1em; }
+   .well { padding-top: 0; padding-bottom: 0;}
+   h2 { font-size: 180%; margin-bottom: 0; }
+   h3 { font-size: 140%; }
+</style>
+{% endblock %}
+
 {% block content %}
 {% if collection %}
 <div class="container-fluid">
-  <div class="row span12 well">
-    <h3>
-      {% if collection.first_url %}
-      <a href="{{ collection.first_url }}">
-        {{ collection.name }}
-      </a>
-      {% else %}
+
+<div class="row">
+<div class="span12 well">
+  <h1>
+    {% if collection.first_url %}
+    <a href="{{ collection.first_url }}">
       {{ collection.name }}
-      {% endif %}
-    </h3>
+    </a>
+    {% else %}
+    {{ collection.name }}
+    {% endif %}
+  </h1>
+
+  <h2>Affiliation</h2>
+  <div class="well">
+  <dl>
+    <dt>Campus:</dt>
+    <dd>
+      {% for campus in collection.campus.all %}
+      <span>{{ campus.name }}</span><br>
+      {% endfor %}
+    </dd>
+    <dt>Unit:</dt>
+    <dd>
+      {% for repository in collection.repository.all %}
+      <span>{{ repository.name }}</span><br>
+      {% endfor %}
+    </dd>
+  </dl>
+  </div>
+
+  <h2>Descriptive Information</h2>
+  <div class="well">
+  <dl>
+    <dt>Description:</dt> <dd>{{ collection.description|default:"none" }}</dd>
+    <dt>Collection homepage URL:</dt> <dd>{{ collection.url_local }}</dd>
+    <dt>OAC finding aid URL:</dt> <dd>{{ collection.url_oac|default:"none" }}</dd>
+    <dt>Rights status:</dt> <dd> {{ collection.get_rights_status_display|default:"none"}} </dd>
+    <dt>Rights statement:</dt> <dd>{{ collection.rights_statement|default:"none" }}</dd>
+  </dl>
+  </div>
+
+  <h2>Harvesting Information</h2>
+  <div class="well">
+  <dl>
+    <dt>Ready for publication in Calisphere?</dt> <dd> {{ collection.ready_for_publication }}</dd>
+    <dt>Harvest Method:</dt> <dd>{{ collection.get_harvest_type_display }}</dd>
+    <dt>Object Type:</dt> <dd> ??? </dd>
+    <dt>Harvesting Endpoint:</dt> <dd>{{ collection.url_harvest }}</dd>
+  </dl>
+  </div>
+
+  <h2>Staging Information <small>for Collections to be Imported into Nuxeo</small></h2>
+  <div class="well">
+  <dl>
+    <dt>Extent:</dt> <dd>{{ collection.extent }} bytes</dd>
+    <dt>Formats:</dt>
+    <dd>
+      {% for format in collection.formats.all %}
+        <div>{{ format }}</div>
+      {% endfor %}
+    </dd>
+    <dt>Existing Metadata:</dt> <dd>{{ collection.hosted|default:"none" }}</dd>
+    <dt>Staging Notes:</dt> <dd>{{ collection.staging_notes|default:"none"}}</dd>
+  </dl>
+
+  <h3>Import Status</h3>
+  <dl>
+    <dt>Files sent to CDL?</dt> <dd>{{ collection.files_in_hand}}</dd>
+    <dt>Files Imported into Nuxeo?</dt> <dd>{{ collection.files_in_dams}}</dd>
+    <dt>Metadata Imported into Nuxeo?</dt> <dd>{{ collection.metadata_in_dams}}</dd>
+    <dt>Campus QA Completed?</dt> <dd>{{ collection.qa_completed }}</dd>
+  </dl>
+  </div>
+
+</div>
 
     <div>
-      <h4>Affiliation</h4>
-      <div class="well">
-        <div class="row">
-          <div class="span1" style="text-align: left">
-            <span style="color: #0088CC">Campus</span>
-          </div>
-          <div class="span10">
-            {% for campus in collection.campus.all %}
-            <span>{{ campus.name }}</span><br>
-            {% endfor %}
-          </div>
-        </div>
-        <hr class="collection-edit-hr" style="width: 100%; border-top: 0px; border-bottom: 1px solid #e3e3e3">
-        <div class="row">
-          <div class="span1" style="text-align: left">
-            <span style="color: #0088CC">Unit</span>
-          </div>
-          <div class="span10">
-            {% for repository in collection.repository.all %}
-            <span>{{ repository.name }}</span><br>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    
-      <h4>Source</h4>
-      <div class="well">
-        <div class="row">
-          <div class="span1" style="text-align: left">
-            <span style="color: #0088CC">Harvest Type</span>
-          </div>
-          <div class="span10">
-            <span>{{ collection.get_harvest_type_display }}</span>
-          </div>
-        </div>
-      </div>
-    
-    
       {% if user.is_authenticated %}
         {% if edit == "true" %}
           <br><button type="submit" name="submit" form="edit_collection_detail">Save</button>
@@ -66,7 +104,6 @@
         {% endif %}
       {% endif %}
     </div>
-  </div>
 </div>
 {% endif %}
 {% endblock %}
