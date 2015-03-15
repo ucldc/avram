@@ -32,6 +32,5 @@ urlpatterns = patterns('',
     url(r'^(?P<campus_slug>UC.*)/$', 'library_collection.views.collections', name='collections'),
     url(r'^(?P<colid>\d*)/(?P<col_slug>.*)/$', 'library_collection.views.details', name='detail'),
     url(r'^(?P<colid>\d*)/$', 'library_collection.views.details_by_id', name='detail'),
-    url(r'^repository/(?P<repoid>\d*)/(?P<repo_slug>.*)/$', 'library_collection.views.repository_collections', name='repository_collections'),
-    url(r'^repository/(?P<repoid>\d*)/$', 'library_collection.views.repository_by_id', name='repository_collections'),
+    url(r'^repository/(?P<repoark>.*)/$', 'library_collection.views.repository_by_ark', name='repository_collections'),
 )
