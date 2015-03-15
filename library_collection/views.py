@@ -136,11 +136,6 @@ def repository_by_ark(request, repoark=None):
     collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
-    if harvest_type:
-        collections = collections.filter(Q(harvest_type=harvest_type))
-
-    if not harvest_type in harvest_types:
-        raise Http404
 
     try:
         collections_for_page = paginator.page(page)
@@ -174,8 +169,8 @@ def repository_by_ark(request, repoark=None):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             #'query': query,
-            'harvest_types': harvest_types,
-            'harvest_type': harvest_type,
+            # 'harvest_types': harvest_types,
+            # 'harvest_type': harvest_type,
         },
     )
 
