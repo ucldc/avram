@@ -11,7 +11,6 @@
             <span class="icon-bar"></span>
           </a>
           <!-- Everything you want hidden at 940px or less, place within here -->
-
           <div class="nav-collapse">
             <!-- .nav, .navbar-search, .navbar-form, etc -->
             <ul class="nav nav-stacked" style="margin: 0px">
@@ -19,7 +18,7 @@
               {% if type %}
               <li class="{% if type == harvest_type %}active{% endif %}" style="width: 100%">
                   {% if type == harvest_type %}
-                    <a>
+                    <a href="{% url this  %}"> 
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
                         <div style="overflow: hidden; ">{{ type|default:'none' }}</div>

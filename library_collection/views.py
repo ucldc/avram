@@ -129,6 +129,57 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
     next_group_start = get_qd.urlencode()
     return previous_page_qs, next_page_qs, previous_group_start, next_group_start
 
+# collections in a repository
+def repository_collections(request, repoid=None, repo_slug=None):
+    repository = Repository.objects.get(id=repoid)
+    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repoid).order_by('name')
+    paginator = Paginator(collections, 25) #get from url param?
+    page = request.GET.get('page')
+    harvest_type = request.GET.get('harvest_type', '')
+    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
+    if harvest_type:
+        collections = collections.filter(Q(harvest_type=harvest_type))
+
+    if not harvest_type in harvest_types:
+        raise Http404
+
+    try:
+        collections_for_page = paginator.page(page)
+    except PageNotAnInteger:
+        collections_for_page = paginator.page(1)
+    except EmptyPage:
+        collections_for_page = paginator.page(paginator.num_pages)
+    page_number = collections_for_page.number
+    qd = request.GET.copy()
+    qd['page'] = page_number
+    num_pages = paginator.num_pages
+    previous_page_links, next_page_links, previous_group_start, next_group_start = _get_direct_navigate_page_links(qd, page_number, num_pages, 6)
+    qd['page'] = 1
+    first_page_qs = qd.urlencode()
+    qd['page'] = num_pages
+    last_page_qs = qd.urlencode()
+    return render(request,
+        template_name='library_collection/repository_collection_list.html',
+        dictionary = { 
+            'collections': collections_for_page, 
+            'repository': repository,
+            'repositories': repository,
+            'campuses': campuses, 
+            'active_tab': active_tab(request),
+            'current_path': request.path,
+            'editing': editing(request.path),
+            'previous_page_links': previous_page_links,
+            'previous_group_start': previous_group_start,
+            'next_page_links': next_page_links,
+            'next_group_start': next_group_start,
+            'first_page_qs': first_page_qs,
+            'last_page_qs': last_page_qs,
+            #'query': query,
+            'harvest_types': harvest_types,
+            'harvest_type': harvest_type,
+        },
+    )
+
 # view of collections in list. Currently home page
 def collections(request, campus_slug=None):
     campus = None
@@ -285,6 +336,10 @@ def edit_details_by_id(request, colid):
 def details_by_id(request, colid):
     collection = get_object_or_404(Collection, pk=colid)
     return redirect(collection, permanent=True)
+
+def repository_by_id(request, repoid):
+    repository = get_object_or_404(Repository, pk=repoid)
+    return redirect(repository, permanent=True)
 
 @login_required
 @verification_required

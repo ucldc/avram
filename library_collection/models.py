@@ -208,6 +208,10 @@ class Repository(models.Model):
         else:
             return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('library_collection.views.repository_collections', [self.id, str(self.slug)])
+
     def save(self, *args, **kwargs):
         '''Check no duplicate arks for repos that have them
         '''
