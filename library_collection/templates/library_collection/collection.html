@@ -61,7 +61,7 @@
   <div class="well">
   <dl>
     <dt>Ready for publication in Calisphere?</dt> <dd> {{ collection.ready_for_publication }}</dd>
-    <dt>Harvest Method:</dt> <dd>{{ collection.get_harvest_type_display }}</dd>
+    <dt>Harvest Method:</dt> <dd><a href="/?harvest_type={{ collection.harvest_type }}">{{ collection.get_harvest_type_display }}</a></dd>
     <dt>Object Type:</dt> <dd> ??? </dd>
     <dt>Harvesting Endpoint:</dt> <dd>{{ collection.url_harvest }}</dd>
   </dl>

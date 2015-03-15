@@ -18,7 +18,7 @@
               {% if type.0 != 'X' and type.0 != 'OAJ' %}
               <li class="{% if type.0 == harvest_type %}active{% endif %}" style="width: 100%">
                   {% if type.0 == harvest_type %}
-                    <a href="{% url this %}">
+                    <a href="{% url this repoark=repository.ark %}">
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
                         <div style="overflow: hidden; ">{{ type.1|default:'none' }}</div>
