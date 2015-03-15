@@ -136,8 +136,6 @@ def repository_by_ark(request, repoark=None):
     collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
-    harvest_type = request.GET.get('harvest_type', '')
-    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
 
@@ -187,9 +185,12 @@ def collections(request, campus_slug=None):
     query = request.GET.get('q', '')
     search = None
     harvest_type = request.GET.get('harvest_type', '')
+
     harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
     if not harvest_type in harvest_types:
         raise Http404
+
+    harvest_types = Collection.HARVEST_TYPE_CHOICES
 
     # turn input query into search for later filtering
     if query:
