@@ -62,7 +62,7 @@
   <dl>
     <dt>Ready for publication in Calisphere?</dt> <dd> {{ collection.ready_for_publication }}</dd>
     <dt>Harvest Method:</dt> <dd><a href="/?harvest_type={{ collection.harvest_type }}">{{ collection.get_harvest_type_display }}</a></dd>
-    <dt>Object Type:</dt> <dd> ??? </dd>
+    <dt>Object Type:</dt> <dd>{{ collection.get_dcmi_type_display }}</dd>
     <dt>Harvesting Endpoint:</dt> <dd>{{ collection.url_harvest }}</dd>
   </dl>
   </div>
