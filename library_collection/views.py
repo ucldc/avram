@@ -130,9 +130,9 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
     return previous_page_qs, next_page_qs, previous_group_start, next_group_start
 
 # collections in a repository
-def repository_by_ark(request, repoark=None):
-    # repository = get_object_or_404(Repository, ark=repoark)
-    repository = Repository.objects.get(ark=repoark)
+def repository_collections(request, repoid=None, repo_slug=None):
+    repository = get_object_or_404(Repository, pk=repoid)
+    # repository = Repository.objects.get(ark=repoark)
     collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
     page = request.GET.get('page')
 
@@ -345,6 +345,10 @@ def edit_details_by_id(request, colid):
 
 def details_by_id(request, colid):
     collection = get_object_or_404(Collection, pk=colid)
+    return redirect(collection, permanent=True)
+
+def repository_by_id(request, repoid):
+    collection = get_object_or_404(Collection, pk=repoid)
     return redirect(collection, permanent=True)
 
 @login_required

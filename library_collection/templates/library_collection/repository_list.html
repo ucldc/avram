@@ -39,7 +39,7 @@
         {% for repository in repositories %}
         <tr>
           <td>
-            <a href="{% url 'repository_collections' repoark=repository.ark  %}">{{ repository.name }}</a>
+            <a href="{% url 'repository_collections' repoid=repository.id repo_slug=repository.slug  %}">{{ repository.name }}</a>
             <small class="muted">
               {% for name in repository.campus.all %}
                 {{ name }}
