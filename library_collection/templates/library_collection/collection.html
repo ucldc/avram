@@ -40,7 +40,7 @@
     <dt>Unit:</dt>
     <dd>
       {% for repository in collection.repository.all %}
-      <span><a href="{% url "repository_collections" repoark=repository.ark  %}">{{ repository.name }}</a></span><br>
+      <span><a href="{% url "repository_collections" repoid=repository.id repo_slug=repository.slug  %}">{{ repository.name }}</a></span><br>
       {% endfor %}
     </dd>
   </dl>

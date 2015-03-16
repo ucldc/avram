@@ -348,8 +348,8 @@ def details_by_id(request, colid):
     return redirect(collection, permanent=True)
 
 def repository_by_id(request, repoid):
-    collection = get_object_or_404(Collection, pk=repoid)
-    return redirect(collection, permanent=True)
+    repository = get_object_or_404(Repository, pk=repoid)
+    return redirect(repository, permanent=True)
 
 @login_required
 @verification_required
