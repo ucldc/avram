@@ -71,7 +71,9 @@
     <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
     {%endif%}
   </div>
+  <div class="span2">
   {% include "library_collection/_navbar_campus.html" with edit_this='edit_collections' this='collections' %}
   {% include "library_collection/_navbar_harvest_type.html" with edit_this='edit_collections' this='collections' %}
+  </div>
 </div>
 {% endblock content-inner %}

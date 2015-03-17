@@ -1,5 +1,4 @@
-  <div class="span2">
-    {% block navbar-campus %}
+    {% block navbar-harvest %}
     <h4>Limit by harvest&nbsp;type</h4>
     <div class="navbar">
       <div class="navbar-inner" style="padding-right: 0px; padding-left: 0px">
@@ -18,7 +17,7 @@
               {% if type.0 != 'X' and type.0 != 'OAJ' %}
               <li class="{% if type.0 == harvest_type %}active{% endif %}" style="width: 100%">
                   {% if type.0 == harvest_type %}
-                    <a href="{% url this repoark=repository.ark %}">
+                    <a href="{% url this repoid=repository.id repo_slug=repository.slug %}">
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
                         <div style="overflow: hidden; ">{{ type.1|default:'none' }}</div>
@@ -41,4 +40,3 @@
       </div>
     </div>
     {% endblock %}
-  </div>
