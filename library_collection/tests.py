@@ -483,7 +483,6 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Halberstadt Collection')
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
-        self.assertNotContains(response, 'Metadata')
 
     def testCollectionListViewPagination(self):
         '''Check the pagination of the collections view. 
@@ -644,7 +643,6 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Halberstadt Collection')
         self.assertContains(response, 'Campus')
         self.assertContains(response, 'Davis')
-        self.assertNotContains(response, 'Metadata')
         self.assertNotContains(response, 'Bancroft Library')
 
     def testCollectionViewForm(self):

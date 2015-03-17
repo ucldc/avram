@@ -1,4 +1,3 @@
-  <div class="span2">
     {% block navbar-campus %}
     <h4>Limit by campus</h4>
     <div class="navbar">
@@ -59,14 +58,14 @@
                     <a href="{% url this %}">
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
-                        <div style="overflow: hidden; ">Not a UC Campus</div>
+                        <div style="overflow: hidden; ">Statewide partners</div>
                       </div>
                     </a>
                   {% else %}
                     <a href="{% url this campus_slug='UC-' %}">
                       <div class="row-fluid">
                         <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
-                        <div style="overflow: hidden;">Not a UC Campus</div>
+                        <div style="overflow: hidden;">Statewide partners</div>
                       </div>
                     </a>
                   {% endif %}
@@ -77,4 +76,3 @@
       </div>
     </div>
     {% endblock %}
-  </div>
