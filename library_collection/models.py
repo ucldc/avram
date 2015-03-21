@@ -76,6 +76,7 @@ class Collection(models.Model):
             ('SLR', 'Solr Index'),
             ('MRC', 'MARC'),
             ('NUX', 'Shared DAMS'),
+            ('ALX', 'Aleph MARC XML'),
             ('TBD', 'Harvest type TBD'),
     )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
