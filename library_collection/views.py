@@ -2,6 +2,7 @@
 
 import operator
 from django.shortcuts import render
+from django.http import Http404
 from library_collection.models import Collection, Campus, Repository
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
@@ -128,11 +129,78 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
     next_group_start = get_qd.urlencode()
     return previous_page_qs, next_page_qs, previous_group_start, next_group_start
 
+# collections in a repository
+def repository_collections(request, repoid=None, repo_slug=None):
+    repository = get_object_or_404(Repository, pk=repoid)
+    # repository = Repository.objects.get(ark=repoark)
+    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
+    page = request.GET.get('page')
+
+    harvest_type = request.GET.get('harvest_type', '')
+
+    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
+    if not harvest_type in harvest_types:
+        raise Http404
+
+    if harvest_type:
+        collections = collections.filter(Q(harvest_type=harvest_type))
+
+    paginator = Paginator(collections, 25) #get from url param?
+
+    harvest_types = Collection.HARVEST_TYPE_CHOICES
+
+    try:
+        collections_for_page = paginator.page(page)
+    except PageNotAnInteger:
+        collections_for_page = paginator.page(1)
+    except EmptyPage:
+        collections_for_page = paginator.page(paginator.num_pages)
+    page_number = collections_for_page.number
+    qd = request.GET.copy()
+    qd['page'] = page_number
+    num_pages = paginator.num_pages
+    previous_page_links, next_page_links, previous_group_start, next_group_start = _get_direct_navigate_page_links(qd, page_number, num_pages, 6)
+    qd['page'] = 1
+    first_page_qs = qd.urlencode()
+    qd['page'] = num_pages
+    last_page_qs = qd.urlencode()
+    return render(request,
+        template_name='library_collection/repository_collection_list.html',
+        dictionary = { 
+            'collections': collections_for_page, 
+            'repository': repository,
+            'repositories': repository,
+            'campuses': campuses, 
+            'active_tab': active_tab(request),
+            'current_path': request.path,
+            'editing': editing(request.path),
+            'previous_page_links': previous_page_links,
+            'previous_group_start': previous_group_start,
+            'next_page_links': next_page_links,
+            'next_group_start': next_group_start,
+            'first_page_qs': first_page_qs,
+            'last_page_qs': last_page_qs,
+            #'query': query,
+            'harvest_types': harvest_types,
+            'harvest_type': harvest_type,
+        },
+    )
+
 # view of collections in list. Currently home page
 def collections(request, campus_slug=None):
     campus = None
     query = request.GET.get('q', '')
     search = None
+    harvest_type = request.GET.get('harvest_type', '')
+
+    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
+    if not harvest_type in harvest_types:
+        raise Http404
+
+
+    harvest_types = Collection.HARVEST_TYPE_CHOICES
+
+    # turn input query into search for later filtering
     if query:
         if query.startswith('^'):
             search = (Q(name__istartswith=query[1:]), Q(url_oac__startswith=query[1:]))
@@ -142,6 +210,8 @@ def collections(request, campus_slug=None):
             search = (Q(name__search=query[1:]), Q(url_oac__search=query[1:]))
         else:
             search = (Q(name__icontains=query), Q(url_oac__icontains=query))
+
+    # apply campus limits, by default excluding unknow harvest type 'X' (~Q is negative query)
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
@@ -151,8 +221,14 @@ def collections(request, campus_slug=None):
             collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
     else:
         collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
+
+    if harvest_type:
+        collections = collections.filter(Q(harvest_type=harvest_type))
+
+    # if query yielded a search, filter
     if search:
         collections = collections.filter(reduce(operator.or_, search)).prefetch_related('campus')
+
     paginator = Paginator(collections, 25) #get from url param?
     page = request.GET.get('page')
     try:
@@ -186,6 +262,8 @@ def collections(request, campus_slug=None):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             'query': query,
+            'harvest_types': harvest_types,
+            'harvest_type': harvest_type,
         },
     )
 
@@ -268,6 +346,10 @@ def edit_details_by_id(request, colid):
 def details_by_id(request, colid):
     collection = get_object_or_404(Collection, pk=colid)
     return redirect(collection, permanent=True)
+
+def repository_by_id(request, repoid):
+    repository = get_object_or_404(Repository, pk=repoid)
+    return redirect(repository, permanent=True)
 
 @login_required
 @verification_required

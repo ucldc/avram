@@ -11,11 +11,17 @@
           <button type="submit" name="new" value="true" class="btn"><i class="icon-plus"></i> Add new Collection</button>
         </form>
     {% endif %}
+
+ <div class="well">
+   <h1>{{ repository.name }}
+     <small>
+       {% for name in repository.campus.all %}
+       {{ name }}
+       {% endfor %}
+     </small>
+   </h1>
+ </div>
       
-    <form method="get">
-        <input type="text" size="40" name="q" value="{{query}}" id="searchbar">
-        <input type="submit" class="btn" value="Search">
-    </form>
 {% if collections %}
     {{ collections.paginator.count }} Collections
     <table class="table table-bordered table-striped">
@@ -71,9 +77,8 @@
     <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
     {%endif%}
   </div>
-  <div class="span2">
-  {% include "library_collection/_navbar_campus.html" with edit_this='edit_collections' this='collections' %}
-  {% include "library_collection/_navbar_harvest_type.html" with edit_this='edit_collections' this='collections' %}
+  <div class="span2"
+  {% include "library_collection/_navbar_harvest_type2.html" with edit_this='edit_collections' this='repository_collections' %}
   </div>
 </div>
 {% endblock content-inner %}

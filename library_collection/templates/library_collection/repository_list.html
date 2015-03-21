@@ -11,7 +11,8 @@
           <button type="submit" name="edit" value="true" class="btn"><i class="icon-plus"></i> Add new Unit</button>
         </form>
     {% endif %}
-    
+
+    {{ repositories.count }} Units
     <table class="table table-bordered table-striped">
       <tbody>
         {% if edit %}
@@ -38,7 +39,7 @@
         {% for repository in repositories %}
         <tr>
           <td>
-            {{ repository.name }}
+            <a href="{% url 'repository_collections' repoid=repository.id repo_slug=repository.slug  %}">{{ repository.name }}</a>
             <small class="muted">
               {% for name in repository.campus.all %}
                 {{ name }}
@@ -50,7 +51,9 @@
       </tbody>
     </table>
   </div>
+  <div class="span2">
   {% include "library_collection/_navbar_campus.html" with edit_this="edit_repositories" this="repositories"%}
+  </div>
 </div>
 {% endblock content-inner %}
 

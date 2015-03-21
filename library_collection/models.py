@@ -70,14 +70,14 @@ class Collection(models.Model):
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
     HARVEST_TYPE_CHOICES = (
             ('X', 'None'),
-            ('OAC', 'OAC xml collection search'),
+            ('OAC', 'Legacy OAC'),
             ('OAJ', 'OAC json api'),
             ('OAI', 'OAI-PMH'),
             ('SLR', 'Solr Index'),
-            ('MRC', 'MARC URL (url to a MARC file)'),
-            ('NUX', 'Nuxeo Project Folder'),
+            ('MRC', 'MARC'),
+            ('NUX', 'Shared DAMS'),
             ('TBD', 'Harvest type TBD'),
-            )
+    )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
     enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
@@ -207,6 +207,10 @@ class Repository(models.Model):
             return u'{0} {1}'.format(campuses[0].slug, self.name)
         else:
             return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('library_collection.views.repository_collections', [self.id, str(self.slug)])
 
     def save(self, *args, **kwargs):
         '''Check no duplicate arks for repos that have them
