@@ -138,16 +138,13 @@ def repository_collections(request, repoid=None, repo_slug=None):
 
     harvest_type = request.GET.get('harvest_type', '')
 
-    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
-    if not harvest_type in harvest_types:
+    if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
         raise Http404
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
 
     paginator = Paginator(collections, 25) #get from url param?
-
-    harvest_types = Collection.HARVEST_TYPE_CHOICES
 
     try:
         collections_for_page = paginator.page(page)
@@ -181,7 +178,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             #'query': query,
-            'harvest_types': harvest_types,
+            'harvest_types': Collection.HARVEST_TYPE_CHOICES,
             'harvest_type': harvest_type,
         },
     )
@@ -193,12 +190,8 @@ def collections(request, campus_slug=None):
     search = None
     harvest_type = request.GET.get('harvest_type', '')
 
-    harvest_types = ['OAC', 'NUX', 'OAI', 'SLR', 'MRC', 'TBD', '' ]
-    if not harvest_type in harvest_types:
+    if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
         raise Http404
-
-
-    harvest_types = Collection.HARVEST_TYPE_CHOICES
 
     # turn input query into search for later filtering
     if query:
@@ -262,7 +255,7 @@ def collections(request, campus_slug=None):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             'query': query,
-            'harvest_types': harvest_types,
+            'harvest_types': Collection.HARVEST_TYPE_CHOICES,
             'harvest_type': harvest_type,
         },
     )
