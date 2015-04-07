@@ -74,7 +74,7 @@ class Collection(models.Model):
             ('OAJ', 'OAC json api'),
             ('OAI', 'OAI-PMH'),
             ('SLR', 'Solr Index'),
-            ('MRC', 'MARC'),
+            ('MRC', 'MARC21'),
             ('NUX', 'Shared DAMS'),
             ('ALX', 'Aleph MARC XML'),
             ('TBD', 'Harvest type TBD'),
