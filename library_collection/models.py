@@ -91,7 +91,9 @@ class Collection(models.Model):
     files_in_dams = models.BooleanField()
     metadata_in_dams = models.BooleanField()
     qa_completed = models.BooleanField()
-    ready_for_publication = models.BooleanField()
+    ready_for_publication = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False,
+            help_text='Collection featured on repository home page')
     RIGHTS_CHOICES = (
             ('CR', 'copyrighted'),
             ('PD', 'public domain'),
