@@ -63,7 +63,8 @@ class Collection(models.Model):
             help_text='Collection homepage URL')
     url_oac = models.URLField(max_length=255,blank=True,
             help_text='OAC finding aid URL')
-    url_harvest = models.URLField(max_length=255,blank=True)
+    url_harvest = models.URLField(max_length=255,blank=True,
+                   verbose_name='Harvest Endpoint')
     hosted = models.CharField(max_length=255,blank=True,
             verbose_name='Existing metadata (Format/Output)',
             help_text='Indicate format and output')
