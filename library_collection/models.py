@@ -63,7 +63,8 @@ class Collection(models.Model):
             help_text='Collection homepage URL')
     url_oac = models.URLField(max_length=255,blank=True,
             help_text='OAC finding aid URL')
-    url_harvest = models.URLField(max_length=255,blank=True)
+    url_harvest = models.URLField(max_length=255,blank=True,
+                   verbose_name='Harvest Endpoint')
     hosted = models.CharField(max_length=255,blank=True,
             verbose_name='Existing metadata (Format/Output)',
             help_text='Indicate format and output')
@@ -91,7 +92,9 @@ class Collection(models.Model):
     files_in_dams = models.BooleanField()
     metadata_in_dams = models.BooleanField()
     qa_completed = models.BooleanField()
-    ready_for_publication = models.BooleanField()
+    ready_for_publication = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False,
+            help_text='Collection featured on repository home page')
     RIGHTS_CHOICES = (
             ('CR', 'copyrighted'),
             ('PD', 'public domain'),

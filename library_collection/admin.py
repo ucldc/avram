@@ -128,7 +128,12 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return ", " . join([x.__str__() for x in self.repository.all()])
     repositories.short_description = "Repository"
 
-    list_display = ( 'name', campuses, repositories, 'human_extent', )
+    def numeric_key(self):
+        return self.pk
+    numeric_key.short_description = "Numeric key"
+
+    list_display = ( 'name', campuses, repositories, 'human_extent', 
+                     numeric_key )
     list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
     actions = [ start_harvest, ]
@@ -136,7 +141,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
             ('Descriptive Information', {
                 'fields': ('name', 'campus', 'repository', 'description',
                     'url_local', 'url_oac', 'rights_status',
-                    'rights_statement', 'ready_for_publication',)
+                    'rights_statement', 'ready_for_publication',
+                    'featured')
                 },
                 ),
             ('For Nuxeo Collections', {
