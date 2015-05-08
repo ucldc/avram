@@ -131,15 +131,13 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
 
 # collections in a repository
 def repository_collections(request, repoid=None, repo_slug=None):
-    repository = get_object_or_404(Repository, pk=repoid)
-    # repository = Repository.objects.get(ark=repoark)
-    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
     page = request.GET.get('page')
-
     harvest_type = request.GET.get('harvest_type', '')
-
     if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
         raise Http404
+
+    repository = get_object_or_404(Repository, pk=repoid)
+    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
