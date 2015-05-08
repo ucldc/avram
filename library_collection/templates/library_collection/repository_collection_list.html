@@ -20,6 +20,14 @@
        {% endfor %}
      </small>
    </h1>
+   <!-- {{ info }} -->
+   <div>
+     <div><span class="label">City:</span> {{ info.city }}, CA {{ info.zip4 }}</div>
+     <div><span class="label">Phone:</span> {{ info.phone }}</div>
+     <div><span class="label">email:</span> {{ info.email }}</div>
+     <div><span class="label">Description:</span> {{ info.description }}</div>
+     <div><span class="label">Url:</span> {{ info.url }}</div>
+   </div>
  </div>
       
 {% if collections %}

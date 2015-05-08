@@ -1,6 +1,8 @@
 # views.py
 
 import operator
+import json
+import urllib
 from django.shortcuts import render
 from django.http import Http404
 from library_collection.models import Collection, Campus, Repository
@@ -159,6 +161,12 @@ def repository_collections(request, repoid=None, repo_slug=None):
     first_page_qs = qd.urlencode()
     qd['page'] = num_pages
     last_page_qs = qd.urlencode()
+
+    try:
+        info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(repository.ark)).read())
+    except e:
+        info = {'error': e }
+
     return render(request,
         template_name='library_collection/repository_collection_list.html',
         dictionary = { 
@@ -178,6 +186,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
             #'query': query,
             'harvest_types': Collection.HARVEST_TYPE_CHOICES,
             'harvest_type': harvest_type,
+            'info': info,
         },
     )
 

@@ -33,6 +33,9 @@
                     {{ name }}
                 {% endfor %}
             </small>
+            {% if collection.featured %}
+               <span class="label">Featured</span>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
