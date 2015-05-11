@@ -47,6 +47,10 @@
                     {{ name }}
                 {% endfor %}
             </small>
+            {% if collection.featured %}
+               <span class="label">Featured</span>
+            {% endif %}
+            <span class="pull-right"><small>[Harvest: {{ collection.get_harvest_type_display }}]</small><span>
           </td>
         </tr>
         {% endfor %}
@@ -85,7 +89,7 @@
     <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
     {%endif%}
   </div>
-  <div class="span2"
+  <div class="span2">
   {% include "library_collection/_navbar_harvest_type2.html" with edit_this='edit_collections' this='repository_collections' %}
   </div>
 </div>

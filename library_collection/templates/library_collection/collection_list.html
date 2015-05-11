@@ -36,6 +36,7 @@
             {% if collection.featured %}
                <span class="label">Featured</span>
             {% endif %}
+            <span class="pull-right"><small>[Harvest: {{ collection.get_harvest_type_display }}]</small></span>
           </td>
         </tr>
         {% endfor %}
