@@ -12,7 +12,7 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
 
-virtualenv --no-site-packages .
+virtualenv --python=python2.7 --no-site-packages .
 set +u
 source bin/activate
 set -u

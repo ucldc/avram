@@ -20,6 +20,14 @@
        {% endfor %}
      </small>
    </h1>
+   <!-- {{ info }} -->
+   <div>
+     <div><span class="label">City:</span> {{ info.city }}, CA {{ info.zip4 }}</div>
+     <div><span class="label">Phone:</span> {{ info.phone }}</div>
+     <div><span class="label">email:</span> {{ info.email }}</div>
+     <div><span class="label">Description:</span> {{ info.description }}</div>
+     <div><span class="label">Url:</span> {{ info.url }}</div>
+   </div>
  </div>
       
 {% if collections %}
@@ -39,6 +47,10 @@
                     {{ name }}
                 {% endfor %}
             </small>
+            {% if collection.featured %}
+               <span class="label">Featured</span>
+            {% endif %}
+            <span class="pull-right"><small>[Harvest: {{ collection.get_harvest_type_display }}]</small><span>
           </td>
         </tr>
         {% endfor %}
@@ -77,7 +89,7 @@
     <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
     {%endif%}
   </div>
-  <div class="span2"
+  <div class="span2">
   {% include "library_collection/_navbar_harvest_type2.html" with edit_this='edit_collections' this='repository_collections' %}
   </div>
 </div>

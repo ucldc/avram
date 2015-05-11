@@ -1,6 +1,8 @@
 # views.py
 
 import operator
+import json
+import urllib
 from django.shortcuts import render
 from django.http import Http404
 from library_collection.models import Collection, Campus, Repository
@@ -131,15 +133,13 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
 
 # collections in a repository
 def repository_collections(request, repoid=None, repo_slug=None):
-    repository = get_object_or_404(Repository, pk=repoid)
-    # repository = Repository.objects.get(ark=repoark)
-    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
     page = request.GET.get('page')
-
     harvest_type = request.GET.get('harvest_type', '')
-
     if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
         raise Http404
+
+    repository = get_object_or_404(Repository, pk=repoid)
+    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
@@ -161,6 +161,12 @@ def repository_collections(request, repoid=None, repo_slug=None):
     first_page_qs = qd.urlencode()
     qd['page'] = num_pages
     last_page_qs = qd.urlencode()
+
+    try:
+        info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(repository.ark)).read())
+    except e:
+        info = {'error': e }
+
     return render(request,
         template_name='library_collection/repository_collection_list.html',
         dictionary = { 
@@ -180,6 +186,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
             #'query': query,
             'harvest_types': Collection.HARVEST_TYPE_CHOICES,
             'harvest_type': harvest_type,
+            'info': info,
         },
     )
 
