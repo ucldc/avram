@@ -17,6 +17,9 @@ class Campus(models.Model):
     slug = models.CharField(max_length=4)
     position = models.IntegerField(default=0)
     ark = models.CharField(max_length=255, blank=True) 
+    google_analytics_tracking_code = models.CharField(max_length=64,
+            blank=True,
+            help_text="Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.")
     class Meta:
         verbose_name_plural = "campuses"
     def __unicode__(self):
@@ -59,13 +62,14 @@ class Collection(models.Model):
     repository = models.ManyToManyField('Repository', null=True, blank=True,
             verbose_name='Unit')
     description = models.TextField(blank=True)
-    url_local = models.URLField(max_length=255,blank=True,
+    local_id = models.CharField(max_length=1028, blank=True)
+    url_local = models.URLField(max_length=255, blank=True,
             help_text='Collection homepage URL')
-    url_oac = models.URLField(max_length=255,blank=True,
+    url_oac = models.URLField(max_length=255, blank=True,
             help_text='OAC finding aid URL')
-    url_harvest = models.URLField(max_length=255,blank=True,
+    url_harvest = models.URLField(max_length=255, blank=True,
                    verbose_name='Harvest Endpoint')
-    hosted = models.CharField(max_length=255,blank=True,
+    hosted = models.CharField(max_length=255, blank=True,
             verbose_name='Existing metadata (Format/Output)',
             help_text='Indicate format and output')
     extent = models.BigIntegerField(blank=True, null=True, help_text="must be entered in bytes, will take abbreviations later")
@@ -203,6 +207,9 @@ class Repository(models.Model):
     campus = models.ManyToManyField(Campus, null=True, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
     ark = models.CharField(max_length=255, blank=True) 
+    google_analytics_tracking_code = models.CharField(max_length=64,
+            blank=True,
+            help_text="Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.")
 
     class Meta:
         verbose_name_plural = "repositories"

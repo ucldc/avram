@@ -140,7 +140,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     fieldsets = (
             ('Descriptive Information', {
                 'fields': ('name', 'campus', 'repository', 'description',
-                    'url_local', 'url_oac', 'rights_status',
+                    'local_id', 'url_local', 'url_oac', 'rights_status',
                     'rights_statement', 'ready_for_publication',
                     'featured')
                 },
