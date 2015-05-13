@@ -64,6 +64,7 @@ class CollectionTestCase(TestCase):
         self.assertFalse(hasattr(pc, 'need_for_dams'))
         self.assertFalse(hasattr(pc, 'appendix'))
         self.assertFalse(hasattr(pc, 'phase_one'))
+        self.assertTrue(hasattr(pc, 'local_id'))
         pc.save()
         pc.repository
 
@@ -136,7 +137,6 @@ class CollectionModelAdminTestCase(unittest.TestCase):
         from library_collection.admin import CollectionAdmin
         from library_collection.admin import start_harvest_for_queryset
         self.assertTrue(start_harvest in CollectionAdmin.actions)
-
 
 class CollectionAdminTestCase(TestCase):
     '''Check that the list filter is defined correctly. Will need test
@@ -315,6 +315,7 @@ class RepositoryTestCase(TestCase):
         r.save()
         self.assertTrue(hasattr(r, 'slug'))
         self.assertTrue(hasattr(r, 'ark'))
+        self.assertTrue(hasattr(r, 'google_analytics_tracking_code'))
 
     def testRepositoryNoDupArks(self):
         '''Check that the Repostiories can't have duplicate arks.
@@ -526,6 +527,7 @@ class CampusTestCase(TestCase):
         c.slug = 'UCtest'
         c.save()
         self.assertTrue(hasattr(c, 'ark'))
+        self.assertTrue(hasattr(c, 'google_analytics_tracking_code'))
 
     def testCampusARKCorrect(self):
         c = Campus.objects.get(pk=1)
