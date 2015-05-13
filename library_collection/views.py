@@ -164,7 +164,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
 
     try:
         info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(repository.ark)).read())
-    except e:
+    except Exception as e:
         info = {'error': e }
 
     return render(request,
