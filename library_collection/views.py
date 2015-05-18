@@ -212,6 +212,7 @@ def collections(request, campus_slug=None):
             search = (Q(name__icontains=query), Q(url_oac__icontains=query))
 
     # apply campus limits, by default excluding unknow harvest type 'X' (~Q is negative query)
+    info = {}
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
@@ -219,6 +220,11 @@ def collections(request, campus_slug=None):
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
             collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
+            try:
+                info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
+            except Exception as e:
+                info = {'error': e }
+
     else:
         collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
 
@@ -264,6 +270,7 @@ def collections(request, campus_slug=None):
             'query': query,
             'harvest_types': Collection.HARVEST_TYPE_CHOICES,
             'harvest_type': harvest_type,
+            'info': info,
         },
     )
 
@@ -414,6 +421,7 @@ def edit_repositories(request, campus_slug=None, error=None):
 def repositories(request, campus_slug=None):
     '''View of repositories, for whole collection or just single campus'''
     campus = None
+    info = {}
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
@@ -421,6 +429,10 @@ def repositories(request, campus_slug=None):
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
             repositories = Repository.objects.filter(campus=campus).order_by('name').prefetch_related('campus')
+            try:
+                info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
+            except Exception as e:
+                info = {'error': e }
     else:
         repositories = Repository.objects.all().order_by('name').prefetch_related('campus')
     return render(request,
@@ -432,6 +444,7 @@ def repositories(request, campus_slug=None):
                 'active_tab': active_tab(request),
                 'current_path': request.path,
                 'editing': editing(request.path),
+                'info': info,
             },
     )
 
