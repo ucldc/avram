@@ -2,6 +2,25 @@
 
 {% block title %} | {% if campus %}{{ campus.name }}{% endif %} Units{% endblock %}
 
+{% block hero %}
+  {% if campus %}
+  <div class="well row">
+   <h1 class="span4">{{ campus.name }}</h1>
+   <!-- {{ info }} -->
+   <div class="span4">
+     <div><span class="label">City:</span> {{ info.city }}, CA {{ info.zip4 }}</div>
+     <div><span class="label">Phone:</span> {{ info.phone }}</div>
+     <div><span class="label">email:</span> {{ info.email }}</div>
+     <div><span class="label">Description:</span> {{ info.description }}</div>
+     <div><span class="label">Url:</span> {{ info.url }}</div>
+   </div>
+   <div class="span4">
+     <div><span class="label">Google Analytics code:</span> {{ campus.google_analytics_tracking_code }}</div>
+   </div>
+ </div>
+  {% endif %}
+{% endblock %}
+
 {% block content-inner %}
 <div class="row">
   <div class="span10">

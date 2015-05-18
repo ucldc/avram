@@ -43,6 +43,10 @@
       <span><a href="{% url "repository_collections" repoid=repository.id repo_slug=repository.slug  %}">{{ repository.name }}</a></span><br>
       {% endfor %}
     </dd>
+    <dt>Collection ID code for stats:</dt>
+    <dd>
+        {{ repository.local_id }}
+    </dd>
   </dl>
   </div>
 
