@@ -53,7 +53,7 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
-def start_harvest_for_queryset(user, queryset):
+def start_harvest_for_queryset(user, queryset, rq_queue):
     '''Start harvest for valid collections in the queryset'''
     success = False
     collections_to_harvest = [] 
@@ -63,7 +63,7 @@ def start_harvest_for_queryset(user, queryset):
             collections_invalid.append(collection)
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.harvest_script, user.email))
+    cmd_line = ' '.join((collection.harvest_script, user.email, rq_queue))
     arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
     try:
@@ -82,9 +82,9 @@ def start_harvest_for_queryset(user, queryset):
                     )
     return msg, success, collections_invalid, collections_to_harvest
 
-def start_harvest(modeladmin, request, queryset):
+def start_harvest(modeladmin, request, queryset, rq_queue):
     msg, success, collections_invalid, collections_harvested = \
-            start_harvest_for_queryset(request.user, queryset)
+            start_harvest_for_queryset(request.user, queryset, rq_queue)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable : {}'.format(
                 len(collections_invalid), 
@@ -94,7 +94,42 @@ def start_harvest(modeladmin, request, queryset):
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
     else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
-start_harvest.short_description = 'Start harvest for selected collections'
+
+def start_harvest_normal_stage(modeladmin, request, queryset):
+    return start_harvest(modeladmin, request, queryset, 'normal-stage')
+    msg, success, collections_invalid, collections_harvested = \
+start_harvest_normal_stage.short_description = ''.join(('Queue harvest for ',
+                'selected collections on normal priority stage queue'))
+
+def start_harvest_high_stage(modeladmin, request, queryset):
+    return start_harvest(modeladmin, request, queryset, 'high-stage')
+    msg, success, collections_invalid, collections_harvested = \
+start_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
+                'selected collections on high priority stage queue'))
+
+def start_harvest_low_stage(modeladmin, request, queryset):
+    return start_harvest(modeladmin, request, queryset, 'low-stage')
+    msg, success, collections_invalid, collections_harvested = \
+start_harvest_low_stage.short_description = ''.join(('Queue harvest for ',
+                'selected collections on low priority stage queue'))
+
+def start_harvest_normal_prod(modeladmin, request, queryset):
+    return start_harvest(modeladmin, request, queryset, 'normal-prod')
+    msg, success, collections_invalid, collections_harvested = \
+start_harvest_normal_prod.short_description = ''.join(('Queue harvest for ',
+                'selected collections on normal priority production queue'))
+
+def start_harvest_high_prod(modeladmin, request, queryset):
+    return start_harvest(modeladmin, request, queryset, 'high-prod')
+    msg, success, collections_invalid, collections_harvested = \
+start_harvest_high_prod.short_description = ''.join(('Queue harvest for ',
+                'selected collections on high priority production queue'))
+
+def start_harvest_low_prod(modeladmin, request, queryset):
+    return start_harvest(modeladmin, request, queryset, 'low-prod')
+    msg, success, collections_invalid, collections_harvested = \
+start_harvest_low_prod.short_description = ''.join(('Queue harvest for ',
+                'selected collections on low priority production queue'))
 
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
@@ -136,7 +171,11 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                      numeric_key )
     list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
-    actions = [ start_harvest, ]
+    actions = [ start_harvest_normal_stage, start_harvest_high_stage,
+                start_harvest_low_stage,
+                start_harvest_normal_prod, start_harvest_high_prod,
+                start_harvest_low_prod,
+                ]
     fieldsets = (
             ('Descriptive Information', {
                 'fields': ('name', 'campus', 'repository', 'description',
