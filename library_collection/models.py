@@ -181,7 +181,7 @@ class Collection(models.Model):
             self.name = self.name[:255]
         return super(Collection, self).save(*args, **kwargs)
 
-    def start_harvest(self, user):
+    def start_harvest(self, user, rq_queue):
         '''Kick off the harvest.
 
         Harvest is asyncronous. Email is sent to site admin? annoucing the 
@@ -196,7 +196,7 @@ class Collection(models.Model):
             raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No harvest type specified.'.format(self.name, self.id))
         if not self.url_harvest:
             raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No URL for harvest.'.format(self.name, self.id))
-        cmd_line = ' '.join((self.harvest_script, user.email, self.url_api))
+        cmd_line = ' '.join((self.harvest_script, user.email, rq_queue, self.url_api))
         p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         return p.pid
 

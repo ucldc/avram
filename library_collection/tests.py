@@ -90,10 +90,10 @@ class CollectionTestCase(TestCase):
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
-        retVal = pc.start_harvest(u)
+        retVal = pc.start_harvest(u, 'test-queue')
         self.assertTrue(isinstance(retVal, int))
         with patch('subprocess.Popen') as mock_subprocess:
-            retVal = pc.start_harvest(u)
+            retVal = pc.start_harvest(u, 'test-queue')
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([pc.harvest_script, 'mark.redar@ucop.edu',
                 'https://'+socket.getfqdn()+'/api/v1/collection/1/']
@@ -112,16 +112,17 @@ class CollectionTestCase(TestCase):
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
-        self.assertRaises(TypeError, pc.start_harvest, u)
+        self.assertRaises(TypeError, pc.start_harvest, u, 'test-q')
         pc.harvest_type = 'OAC'
-        self.assertRaises(OSError, pc.start_harvest, u)
+        self.assertRaises(OSError, pc.start_harvest, u, 'test-q')
         pc.harvest_script = 'true'
-        retVal = pc.start_harvest(u)
+        retVal = pc.start_harvest(u, 'test-q')
         self.assertTrue(isinstance(retVal, int))
         with patch('subprocess.Popen') as mock_subprocess:
-            retVal = pc.start_harvest(u)
+            retVal = pc.start_harvest(u, 'test-q')
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with(['true', 'mark.redar@ucop.edu',
+                'test-q',
                 'https://'+pc._hostname+'/api/v1/collection/1/']
                 )
 
@@ -133,10 +134,10 @@ class CollectionModelAdminTestCase(unittest.TestCase):
     def testAdminHasStartHarvestAction(self):
         '''Test that the admin interface has a start harvest action
         '''
-        from library_collection.admin import start_harvest
+        from library_collection.admin import start_harvest_normal_stage
         from library_collection.admin import CollectionAdmin
         from library_collection.admin import start_harvest_for_queryset
-        self.assertTrue(start_harvest in CollectionAdmin.actions)
+        self.assertTrue(start_harvest_normal_stage in CollectionAdmin.actions)
 
 class CollectionAdminTestCase(TestCase):
     '''Check that the list filter is defined correctly. Will need test
@@ -242,7 +243,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         form =  response.forms['changelist-form']
         form.action = '.' #set to "" in html, need to point to . for WebTest
         select_action = form.fields['action'][0]
-        select_action.value = 'start_harvest'
+        select_action.value = 'start_harvest_normal_stage'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -262,7 +263,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'start_harvest'
+        select_action.value = 'start_harvest_high_stage'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -278,7 +279,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'start_harvest'
+        select_action.value = 'start_harvest_low_stage'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -293,7 +294,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'start_harvest'
+        select_action.value = 'start_harvest_high_prod'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -303,7 +304,32 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
-        self.assertContains(response, 'Started harvest for 3 collections: &quot;A is for atom, B is for bomb&quot; video tape  |  Harold Scheffler Papers (Melanesian Archive)  |  Los Angeles Times Photographic Archive CMD: true mark.redar@ucop.edu https://{}/api/v1/collection/189/;https://{}/api/v1/collection/172/;https://{}/api/v1/collection/153/'.format(c._hostname, c._hostname, c._hostname))
+        self.assertContains(response, ''.join(('Started harvest for 3 collections: ',
+        '&quot;A is for atom, B is for bomb&quot; video tape  ',
+        '|  Harold Scheffler Papers (Melanesian Archive)  ',
+        '|  Los Angeles Times Photographic Archive ',
+        'CMD: true mark.redar@ucop.edu high-prod ',
+        'https://{}/api/v1/collection/189/;',
+        'https://{}/api/v1/collection/172/;',
+        'https://{}/api/v1/collection/153/')).format(c._hostname,
+                                                    c._hostname,
+                                                    c._hostname)
+        )
+
+    def testStartHarvestDifferentQueuesActionAvailable(self):
+        '''test that there are a number of known queues to add
+        harvest to.
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'start_harvest_normal_stage')
+        self.assertContains(response, 'start_harvest_high_stage')
+        self.assertContains(response, 'start_harvest_low_stage')
+        self.assertContains(response, 'start_harvest_normal_prod')
+        self.assertContains(response, 'start_harvest_high_prod')
+        self.assertContains(response, 'start_harvest_low_prod')
 
 
 class RepositoryTestCase(TestCase):
