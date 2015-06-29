@@ -62,7 +62,7 @@ class Collection(models.Model):
     repository = models.ManyToManyField('Repository', null=True, blank=True,
             verbose_name='Unit')
     description = models.TextField(blank=True)
-    local_id = models.CharField(max_length=1028, blank=True)
+    local_id = models.CharField(max_length=1028, blank=True, help_text="used for google analytics subsetting")
     url_local = models.URLField(max_length=255, blank=True,
             help_text='Collection homepage URL')
     url_oac = models.URLField(max_length=255, blank=True,
