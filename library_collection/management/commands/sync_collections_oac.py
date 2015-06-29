@@ -32,10 +32,10 @@ def process_collection(collection):
     print(description)
 
     if (not collection.description) and description:
-        collection.description = description[0]
+        collection.description = unicode(description[0])
 
     if local_id:
-        collection.local_id = local_id[0]
+        collection.local_id = unicode(local_id[0])
 
     if local_id or ((not collection.description) and description):
         collection.save()
