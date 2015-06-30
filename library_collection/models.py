@@ -141,7 +141,7 @@ class Collection(models.Model):
     def _hostname(self):
         '''Because of the aliasing, hard to get actual external hostname in
         production environment. Works correctly in stage & dev.'''
-        return 'registry.cdlib.org' if 'cdl-registry' in socket.gethostname() else socket.getfqdn()
+        return 'registry.cdlib.org' #if 'cdl-registry' in socket.gethostname() else socket.getfqdn()
 
     @property
     def url_api(self):
