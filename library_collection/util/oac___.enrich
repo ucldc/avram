@@ -1,5 +1,5 @@
-/lapl-marc-id,
-/dpla_mapper?mapper_type=lapl_marc,
+/select-oac-id,
+/dpla_mapper?mapper_type=oac_dc,
 /strip_html,
 /set_context,
 /cleanup_value,
@@ -22,6 +22,7 @@
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
 /required-values-from-collection-registry?field=rights&mode=fill,
 /required-values-from-collection-registry?field=type&mode=fill,
+/required-values-from-collection-registry?field=title&mode=fill,
 /set-ucldc-dataprovider,
 /dedupe-sourceresource,
 /validate_mapv3

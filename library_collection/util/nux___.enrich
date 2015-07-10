@@ -1,0 +1,8 @@
+/select-id?prop=uid,
+/dpla_mapper?mapper_type=ucldc_nuxeo,
+/required-values-from-collection-registry?field=rights&mode=fill,
+/required-values-from-collection-registry?field=type&mode=fill,
+/required-values-from-collection-registry?field=title&mode=fill,
+/set-ucldc-dataprovider,
+/dedupe-sourceresource,
+/validate_mapv3

@@ -1,6 +1,4 @@
-/select-id?prop=id,
-/jsonfy-prop,
-/dpla_mapper?mapper_type=ucsd_blacklight_dc,
+/dpla_mapper?mapper_type=ucsf_xml,
 /strip_html,
 /set_context,
 /cleanup_value,
@@ -13,7 +11,8 @@
 /enrich_date,
 /enrich-type,
 /enrich-format,
-/copy_prop?prop=sourceResource%4Fpublisher&to_prop=dataProvider,
+/enrich_location,
+/copy_prop?prop=sourceResource%2Fpublisher&to_prop=dataProvider,
 /enrich_language,
 /lookup?prop=sourceResource%2Flanguage%2Fname&target=sourceResource%2Flanguage%2Fname&substitution=iso639_3,
 /lookup?prop=sourceResource%2Flanguage%2Fname&target=sourceResource%2Flanguage%2Fiso639_3&substitution=iso639_3&inverse=True,
@@ -22,5 +21,7 @@
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
 /required-values-from-collection-registry?field=rights&mode=fill,
 /required-values-from-collection-registry?field=type&mode=fill,
+/required-values-from-collection-registry?field=title&mode=fill,
 /set-ucldc-dataprovider,
-/dedupe-sourceresource
+/dedupe-sourceresource,
+/validate_mapv3

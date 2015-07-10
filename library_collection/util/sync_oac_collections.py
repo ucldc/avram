@@ -40,7 +40,8 @@ def print_progress(c, status):
             print("{}: {}".format(status, c.id))
 
 def sync_collections_for_url(url_file):
-    DEFAULT_ITEM_ENRICHMENT = open(os.path.join(set_avram_lib_path.FILE_DIR, 'enrichments_item_oac.txt')).read()
+    DEFAULT_ITEM_ENRICHMENT = open(os.path.join(set_avram_lib_path.FILE_DIR,
+                                    'oac___.enrich')).read()
     new_input = []
     for l in urllib.urlopen(url_file).readlines():
         if len(l) > 10: #hokey blank line check, also drops first line

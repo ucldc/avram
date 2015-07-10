@@ -76,7 +76,7 @@ class Collection(models.Model):
     HARVEST_TYPE_CHOICES = (
             ('X', 'None'),
             ('OAC', 'Legacy OAC'),
-            ('OAJ', 'OAC json api'),
+            #('OAJ', 'OAC json api'),
             ('OAI', 'OAI-PMH'),
             ('SLR', 'Solr Index'),
             ('MRC', 'MARC21'),
