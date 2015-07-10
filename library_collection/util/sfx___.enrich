@@ -1,5 +1,4 @@
-/select-oac-id,
-/dpla_mapper?mapper_type=oac_dc,
+/dpla_mapper?mapper_type=ucsf_xml,
 /strip_html,
 /set_context,
 /cleanup_value,

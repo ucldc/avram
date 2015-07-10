@@ -1,5 +1,5 @@
-/select-oac-id,
-/dpla_mapper?mapper_type=oac_dc,
+/ucsb-aleph-marc-id,
+/dpla_mapper?mapper_type=ucsb_aleph_marc,
 /strip_html,
 /set_context,
 /cleanup_value,

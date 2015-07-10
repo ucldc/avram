@@ -1,5 +1,5 @@
-/select-oac-id,
-/dpla_mapper?mapper_type=oac_dc,
+/lapl-marc-id,
+/dpla_mapper?mapper_type=lapl_marc,
 /strip_html,
 /set_context,
 /cleanup_value,
