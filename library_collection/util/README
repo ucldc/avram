@@ -1,0 +1,10 @@
+the script can automatically assign enrichments to the various avram
+collections. Uses scheme of harvest_type (3 letter code), campus slug, repo
+slug, collection id for the filename.
+
+the filename can be split on _ and components matched. Would be good to create
+a Django app to handle this but want to work with Adrian, Brian, Amy et. al. for
+that.
+
+function should look for descending file names, first fully spec'd and then 
+down to a minimum of harvest_type

@@ -9,6 +9,7 @@
 /enrich-subject,
 /enrich_earliest_date,
 /enrich_date,
+/enrich_date?prop=sourceResource%2Fdate,
 /enrich-type,
 /enrich-format,
 /enrich_location,

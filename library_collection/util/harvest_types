@@ -1,0 +1,11 @@
+
+            ('X', 'None'),
+            ('OAC', 'Legacy OAC'),
+            #('OAJ', 'OAC json api'),
+            ('OAI', 'OAI-PMH'),
+            ('SLR', 'Solr Index'),
+            ('MRC', 'MARC21'),
+            ('NUX', 'Shared DAMS'),
+            ('ALX', 'Aleph MARC XML'),
+            ('SFX', 'UCSF XML Search Results (tobacco)'),
+            ('TBD', 'Harvest type TBD'),
