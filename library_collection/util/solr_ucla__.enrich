@@ -13,6 +13,7 @@
 /lookup?prop=sourceResource%2Fformat&target=sourceResource%2Fformat&substitution=scdl_fix_format,
 /set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
+/filter_fields?keys=sourceResource,
 /required-values-from-collection-registry?field=rights&mode=fill,
 /required-values-from-collection-registry?field=type&mode=fill,
 /required-values-from-collection-registry?field=title&mode=fill,

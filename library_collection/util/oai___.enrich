@@ -18,6 +18,7 @@
 /copy_prop?prop=provider%2Fname&to_prop=dataProvider&no_overwrite=True,
 /set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
+/filter_fields?keys=sourceResource,
 /required-values-from-collection-registry?field=rights&mode=fill,
 /required-values-from-collection-registry?field=type&mode=fill,
 /required-values-from-collection-registry?field=title&mode=fill,
