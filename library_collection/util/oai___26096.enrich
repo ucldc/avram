@@ -12,7 +12,6 @@
 /enrich-format,
 /enrich_location,
 /copy_prop?prop=originalRecord%2Fcollection&to_prop=dataProvider,
-/copy_prop?prop=provider%2Fname&to_prop=dataProvider&no_overwrite=True,
 /set_prop?prop=sourceResource%2FstateLocatedIn&value=California,
 /enrich_location?prop=sourceResource%2FstateLocatedIn,
 /filter_fields?keys=sourceResource,
