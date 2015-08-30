@@ -6,12 +6,13 @@ from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
+
 class CampusResource(ModelResource):
     class Meta:
         queryset = Campus.objects.all()
         authentication = Authentication()
         authorization = ReadOnlyAuthorization()
-        excludes = ['id']
+
 
 class RepositoryResource(ModelResource):
     campus = fields.ToManyField(CampusResource, 'campus', full=True)
@@ -19,11 +20,12 @@ class RepositoryResource(ModelResource):
         queryset = Repository.objects.all()
         authentication = Authentication()
         authorization = ReadOnlyAuthorization()
-        excludes = ['id']
+
 
 class CollectionResource(ModelResource):
     campus = fields.ToManyField(CampusResource, 'campus', full=True)
     repository = fields.ToManyField(RepositoryResource, 'repository', full=True)
+
 
     class Meta:
         queryset = Collection.objects.all()
