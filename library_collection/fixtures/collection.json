@@ -3446,7 +3446,8 @@
     "slug": "a-is-for-atom-b-is-for-bomb-video-tape", 
     "name": "\"A is for atom, B is for bomb\" video tape", 
     "url_local": "", 
-    "harvest_extra_data": ""
+    "harvest_extra_data": "",
+    "ready_for_publication": true
   }
 }
 ]

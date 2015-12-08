@@ -59,8 +59,13 @@ def start_harvest_for_queryset(user, queryset, rq_queue):
     collections_to_harvest = [] 
     collections_invalid = []
     for collection in queryset:
-        if collection.harvest_type == 'X' or not collection.url_harvest:
-            collections_invalid.append(collection)
+        if collection.harvest_type == 'X':
+            collections_invalid.append((collection, 'Invalid harvest type'))
+        elif not collection.url_harvest:
+            collections_invalid.append((collection, 'No harvest URL'))
+        elif 'prod' in rq_queue and not collection.ready_for_publication:
+            collections_invalid.append((collection,
+             'Not ready for production. Check "ready for publication" to harvest to production'))
         else:
             collections_to_harvest.append(collection)
     cmd_line = ' '.join((collection.harvest_script, user.email, rq_queue))
@@ -86,9 +91,11 @@ def start_harvest(modeladmin, request, queryset, rq_queue):
     msg, success, collections_invalid, collections_harvested = \
             start_harvest_for_queryset(request.user, queryset, rq_queue)
     if collections_invalid:
-        msg_invalid = '{} collections not harvestable : {}'.format(
-                len(collections_invalid), 
-                '  |  '.join([c.name.encode('utf-8') for c in collections_invalid]))
+        msg_invalid = '{} collections not harvestable. '.format(
+                len(collections_invalid)) 
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid,
+                '#{} {} - {}; '.format(coll.id, coll.name, reason)))
         modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
     if success:
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
@@ -169,7 +176,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     list_display = ( 'name', campuses, repositories, 'human_extent', 
                      numeric_key )
-    list_filter = [ 'campus', 'harvest_type', URLFieldsListFilter, 'repository']
+    list_filter = [ 'campus', 'ready_for_publication', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
     actions = [ start_harvest_normal_stage, start_harvest_high_stage,
                 start_harvest_low_stage,

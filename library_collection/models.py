@@ -196,6 +196,12 @@ class Collection(models.Model):
             raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No harvest type specified.'.format(self.name, self.id))
         if not self.url_harvest:
             raise TypeError('Not a harvestable collection - "{0}" ID:{1}. No URL for harvest.'.format(self.name, self.id))
+        # Guard against running not ready for production in that env
+        if 'prod' in rq_queue:
+            if not self.ready_for_publication:
+                raise ValueError(''.join(['Collection #{0} - {1} not ready',
+                    'for harvest to production. Please check "ready for ',
+                    'publication" to harvest to production environment.']))
         cmd_line = ' '.join((self.harvest_script, user.email, rq_queue, self.url_api))
         p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         return p.pid

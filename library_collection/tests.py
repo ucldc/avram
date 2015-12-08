@@ -272,7 +272,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION':http_auth})
 
-        self.assertContains(response, '2 collections not harvestable : UCSB Libraries Digital Collections  |  Cholera Collection')
+        self.assertContains(response, ''.join(('2 collections not harvestable.',
+            ' #188 UCSB Libraries Digital Collections - Invalid harvest type;',
+            ' #187 Cholera Collection - Invalid harvest type; ')))
         self.assertContains(response, 'A is for atom, B is for bomb')
         url_admin = '/admin/library_collection/collection/?harvest_type__exact=OAC'
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
@@ -304,16 +306,17 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
-        self.assertContains(response, ''.join(('Started harvest for 3 collections: ',
-        '&quot;A is for atom, B is for bomb&quot; video tape  ',
-        '|  Harold Scheffler Papers (Melanesian Archive)  ',
-        '|  Los Angeles Times Photographic Archive ',
-        'CMD: true mark.redar@ucop.edu high-prod ',
-        'https://{}/api/v1/collection/189/;',
-        'https://{}/api/v1/collection/172/;',
-        'https://{}/api/v1/collection/153/')).format(c._hostname,
-                                                    c._hostname,
-                                                    c._hostname)
+        #print str(response)[1000:5000]
+        self.assertContains(response, ''.join(('2 collections not ',
+            'harvestable. #172 Harold Scheffler Papers (Melanesian Archive)',
+            ' - Not ready for production. Check &quot;ready for ',
+            'publication&quot; to harvest to production; #153 Los Angeles'
+            ' Times Photographic Archive - Not ready for production. ')))
+
+        self.assertContains(response, ''.join(('Started harvest for 1 ',
+            'collections: &quot;A is for atom, B is for bomb&quot; video tape',
+            ' CMD: true mark.redar@ucop.edu high-prod ',
+            'https://{}/api/v1/collection/189/')).format(c._hostname,)
         )
 
     def testStartHarvestDifferentQueuesActionAvailable(self):
