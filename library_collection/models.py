@@ -114,6 +114,7 @@ class Collection(models.Model):
             ('E', 'Event'),
             ('I', 'Image'),
             ('R', 'Interactive Resource'),
+            ('F', 'Moving Image'),
             ('V', 'Service'),
             ('S', 'Software'),
             ('A', 'Sound'), # A for audio
