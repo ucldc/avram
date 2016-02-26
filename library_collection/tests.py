@@ -296,7 +296,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'start_harvest_high_prod'
+        select_action.value = 'start_harvest_high_stage'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -306,17 +306,14 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION':http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
-        #print str(response)[1000:5000]
-        self.assertContains(response, ''.join(('2 collections not ',
-            'harvestable. #172 Harold Scheffler Papers (Melanesian Archive)',
-            ' - Not ready for production. Check &quot;ready for ',
-            'publication&quot; to harvest to production; #153 Los Angeles'
-            ' Times Photographic Archive - Not ready for production. ')))
-
-        self.assertContains(response, ''.join(('Started harvest for 1 ',
-            'collections: &quot;A is for atom, B is for bomb&quot; video tape',
-            ' CMD: true mark.redar@ucop.edu high-prod ',
-            'https://{}/api/v1/collection/189/')).format(c._hostname,)
+        self.assertContains(response, ''.join(( 'Started harvest for 3 ',
+            'collections: &quot;A is for atom, B is for bomb&quot; video',
+            ' tape  |  Harold Scheffler Papers (Melanesian Archive)  |  ',
+            'Los Angeles Times Photographic Archive CMD: true ',
+            'mark.redar@ucop.edu high-stage ',
+            'https://{0}/api/v1/collection/189/;',
+            'https://{0}/api/v1/collection/172/;',
+            'https://{0}/api/v1/collection/153/')).format(c._hostname)
         )
 
     def testStartHarvestDifferentQueuesActionAvailable(self):
@@ -330,9 +327,6 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertContains(response, 'start_harvest_normal_stage')
         self.assertContains(response, 'start_harvest_high_stage')
         self.assertContains(response, 'start_harvest_low_stage')
-        self.assertContains(response, 'start_harvest_normal_prod')
-        self.assertContains(response, 'start_harvest_high_prod')
-        self.assertContains(response, 'start_harvest_low_prod')
 
 
 class RepositoryTestCase(TestCase):

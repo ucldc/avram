@@ -120,24 +120,6 @@ def start_harvest_low_stage(modeladmin, request, queryset):
 start_harvest_low_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on low priority stage queue'))
 
-def start_harvest_normal_prod(modeladmin, request, queryset):
-    return start_harvest(modeladmin, request, queryset, 'normal-prod')
-    msg, success, collections_invalid, collections_harvested = \
-start_harvest_normal_prod.short_description = ''.join(('Queue harvest for ',
-                'selected collections on normal priority production queue'))
-
-def start_harvest_high_prod(modeladmin, request, queryset):
-    return start_harvest(modeladmin, request, queryset, 'high-prod')
-    msg, success, collections_invalid, collections_harvested = \
-start_harvest_high_prod.short_description = ''.join(('Queue harvest for ',
-                'selected collections on high priority production queue'))
-
-def start_harvest_low_prod(modeladmin, request, queryset):
-    return start_harvest(modeladmin, request, queryset, 'low-prod')
-    msg, success, collections_invalid, collections_harvested = \
-start_harvest_low_prod.short_description = ''.join(('Queue harvest for ',
-                'selected collections on low priority production queue'))
-
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
     def response_action(self, request, queryset):
@@ -180,8 +162,6 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     search_fields = ['name','description']
     actions = [ start_harvest_normal_stage, start_harvest_high_stage,
                 start_harvest_low_stage,
-                start_harvest_normal_prod, start_harvest_high_prod,
-                start_harvest_low_prod,
                 ]
     fieldsets = (
             ('Descriptive Information', {
