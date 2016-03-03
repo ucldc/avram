@@ -105,12 +105,12 @@ def queue_harvest(modeladmin, request, queryset, rq_queue):
 def queue_harvest_normal_stage(modeladmin, request, queryset):
     return queue_harvest(modeladmin, request, queryset, 'normal-stage')
 queue_harvest_normal_stage.short_description = ''.join(('Queue harvest for ',
-                'selected collections on normal priority stage queue'))
+                'collection(s) on normal queue'))
 
 def queue_harvest_high_stage(modeladmin, request, queryset):
     return queue_harvest(modeladmin, request, queryset, 'high-stage')
 queue_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
-                'selected collections on high priority stage queue'))
+                'collection(s) on high queue'))
 
 def queue_image_harvest_for_queryset(user, queryset, rq_queue):
     '''Start harvest for valid collections in the queryset'''
@@ -160,19 +160,59 @@ def queue_image_harvest(modeladmin, request, queryset, rq_queue):
 def queue_image_harvest_normal_stage(modeladmin, request, queryset):
     return queue_image_harvest(modeladmin, request, queryset, 'normal-stage')
 queue_image_harvest_normal_stage.short_description = ''.join(('Queue image ',
-                'harvest for ',
-                'selected collections on normal priority stage queue'))
+                'harvest for collection(s) on normal queue'))
 
 def queue_image_harvest_high_stage(modeladmin, request, queryset):
     return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
 queue_image_harvest_high_stage.short_description = ''.join(('Queue image ',
-                'harvest for ',
-                'selected collections on high priority stage queue'))
+                'harvest for collection(s) on high queue'))
+
+def queue_sync_couchdb_for_queryset(user, queryset):
+    '''Sync couchdb to production for valid collections in the queryset'''
+    success = False
+    collections_to_harvest = [] 
+    collections_invalid = []
+    for collection in queryset:
+        if not collection.ready_for_publication:
+            collections_invalid.append((collection,
+             'Not ready for production. Check "ready for publication" to sync to production'))
+        else:
+            collections_to_harvest.append(collection)
+    cmd_line = collection.sync_couchdb_script
+    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
+    cmd_line = ' '.join((cmd_line, arg_coll_uri))
+    try:
+        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+        success = True
+        msg = 'Queued sync couchdb for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
+    except OSError, e:
+        if e.errno == 2:
+            msg = 'Cannot find {} for syncing {} collections {}'.format(
+                    collection.sync_couchdb_script, len(collections_to_harvest),
+                    '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
+                    )
+        else:
+            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
+                    str(e)
+                    )
+    return msg, success, collections_invalid, collections_to_harvest
 
 def queue_sync_couchdb(modeladmin, request, queryset):
-    return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
+    msg, success, collections_invalid, collections_harvested = \
+            queue_sync_couchdb_for_queryset(request.user, queryset)
+    if collections_invalid:
+        msg_invalid = '{} collections not syncable. '.format(
+                len(collections_invalid)) 
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid,
+                '#{} {} - {}; '.format(coll.id, coll.name, reason)))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
 queue_sync_couchdb.short_description = ''.join(('Queue sync to production ',
-                'couchdb for collection'))
+                'couchdb for collection(s)'))
 
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
