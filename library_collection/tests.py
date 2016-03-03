@@ -281,7 +281,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'queue_harvest_low_stage'
+        select_action.value = 'queue_harvest_normal_stage'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -326,7 +326,6 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_harvest_normal_stage')
         self.assertContains(response, 'queue_harvest_high_stage')
-        self.assertContains(response, 'queue_harvest_low_stage')
 
     def testQueueImageHarvestOnCollections(self):
         '''Test that the user can select & start the harvest for a number of
@@ -373,7 +372,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         form =  response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'queue_image_harvest_low_stage'
+        select_action.value = 'queue_image_harvest_normal_stage'
         #check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -418,7 +417,6 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_image_harvest_normal_stage')
         self.assertContains(response, 'queue_image_harvest_high_stage')
-        self.assertContains(response, 'queue_image_harvest_low_stage')
 
 
 class RepositoryTestCase(TestCase):

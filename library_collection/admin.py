@@ -114,12 +114,6 @@ def queue_harvest_high_stage(modeladmin, request, queryset):
 queue_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on high priority stage queue'))
 
-def queue_harvest_low_stage(modeladmin, request, queryset):
-    return queue_harvest(modeladmin, request, queryset, 'low-stage')
-    msg, success, collections_invalid, collections_harvested = \
-queue_harvest_low_stage.short_description = ''.join(('Queue harvest for ',
-                'selected collections on low priority stage queue'))
-
 def queue_image_harvest_for_queryset(user, queryset, rq_queue):
     '''Start harvest for valid collections in the queryset'''
     success = False
@@ -179,14 +173,6 @@ queue_image_harvest_high_stage.short_description = ''.join(('Queue image ',
                 'harvest for ',
                 'selected collections on high priority stage queue'))
 
-def queue_image_harvest_low_stage(modeladmin, request, queryset):
-    return queue_image_harvest(modeladmin, request, queryset, 'low-stage')
-    msg, success, collections_invalid, collections_harvested = \
-queue_image_harvest_low_stage.short_description = ''.join(('Queue image ',
-                'harvest for ',
-                'selected collections on low priority stage queue'))
-
-
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
     def response_action(self, request, queryset):
@@ -228,10 +214,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     list_filter = [ 'campus', 'ready_for_publication', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
     actions = [ queue_harvest_normal_stage, queue_harvest_high_stage,
-                queue_harvest_low_stage,
                 queue_image_harvest_normal_stage,
                 queue_image_harvest_high_stage,
-                queue_image_harvest_low_stage,
                 ]
     fieldsets = (
             ('Descriptive Information', {
