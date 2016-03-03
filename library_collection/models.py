@@ -54,7 +54,11 @@ class Collection(models.Model):
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
-    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/harvester/start_harvest.bash')
+    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/harvester/queue_harvest.bash')
+    image_harvest_script = os.environ.get('IMAGE_HARVEST_SCRIPT',
+            os.environ['HOME'] + '/code/harvester/queue_image_harvest.bash')
+    sync_couchdb_script = os.environ.get('SYNC_COUCHDB_SCRIPT',
+            os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.bash')
     name = models.CharField(max_length=255, verbose_name='Collection Title')
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
@@ -114,10 +118,12 @@ class Collection(models.Model):
             ('E', 'Event'),
             ('I', 'Image'),
             ('R', 'Interactive Resource'),
+            ('F', 'Moving Image'),
             ('V', 'Service'),
             ('S', 'Software'),
             ('A', 'Sound'), # A for audio
             ('T', 'Text'),
+            ('P', 'Physical Object'),
             ('X', '-----') # default, not set
             )
     dcmi_type = models.CharField(max_length=1, choices=DCMI_TYPES,
@@ -181,7 +187,7 @@ class Collection(models.Model):
             self.name = self.name[:255]
         return super(Collection, self).save(*args, **kwargs)
 
-    def start_harvest(self, user, rq_queue):
+    def queue_harvest(self, user, rq_queue):
         '''Kick off the harvest.
 
         Harvest is asyncronous. Email is sent to site admin? annoucing the 
