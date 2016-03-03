@@ -57,6 +57,8 @@ class Collection(models.Model):
     harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/harvester/queue_harvest.bash')
     image_harvest_script = os.environ.get('IMAGE_HARVEST_SCRIPT',
             os.environ['HOME'] + '/code/harvester/queue_image_harvest.bash')
+    sync_couchdb_script = os.environ.get('SYNC_COUCHDB_SCRIPT',
+            os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.bash')
     name = models.CharField(max_length=255, verbose_name='Collection Title')
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)

@@ -104,13 +104,11 @@ def queue_harvest(modeladmin, request, queryset, rq_queue):
 
 def queue_harvest_normal_stage(modeladmin, request, queryset):
     return queue_harvest(modeladmin, request, queryset, 'normal-stage')
-    msg, success, collections_invalid, collections_harvested = \
 queue_harvest_normal_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on normal priority stage queue'))
 
 def queue_harvest_high_stage(modeladmin, request, queryset):
     return queue_harvest(modeladmin, request, queryset, 'high-stage')
-    msg, success, collections_invalid, collections_harvested = \
 queue_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on high priority stage queue'))
 
@@ -161,17 +159,20 @@ def queue_image_harvest(modeladmin, request, queryset, rq_queue):
 
 def queue_image_harvest_normal_stage(modeladmin, request, queryset):
     return queue_image_harvest(modeladmin, request, queryset, 'normal-stage')
-    msg, success, collections_invalid, collections_harvested = \
 queue_image_harvest_normal_stage.short_description = ''.join(('Queue image ',
                 'harvest for ',
                 'selected collections on normal priority stage queue'))
 
 def queue_image_harvest_high_stage(modeladmin, request, queryset):
     return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
-    msg, success, collections_invalid, collections_harvested = \
 queue_image_harvest_high_stage.short_description = ''.join(('Queue image ',
                 'harvest for ',
                 'selected collections on high priority stage queue'))
+
+def queue_sync_couchdb(modeladmin, request, queryset):
+    return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
+queue_sync_couchdb.short_description = ''.join(('Queue sync to production ',
+                'couchdb for collection'))
 
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
@@ -216,6 +217,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     actions = [ queue_harvest_normal_stage, queue_harvest_high_stage,
                 queue_image_harvest_normal_stage,
                 queue_image_harvest_high_stage,
+                queue_sync_couchdb
                 ]
     fieldsets = (
             ('Descriptive Information', {
