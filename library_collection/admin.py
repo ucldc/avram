@@ -53,7 +53,7 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
-def start_harvest_for_queryset(user, queryset, rq_queue):
+def queue_harvest_for_queryset(user, queryset, rq_queue):
     '''Start harvest for valid collections in the queryset'''
     success = False
     collections_to_harvest = [] 
@@ -74,7 +74,7 @@ def start_harvest_for_queryset(user, queryset, rq_queue):
     try:
         p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         success = True
-        msg = 'Started harvest for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
+        msg = 'Queued harvest for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
     except OSError, e:
         if e.errno == 2:
             msg = 'Cannot find {} for harvesting {} collections {}'.format(
@@ -87,9 +87,9 @@ def start_harvest_for_queryset(user, queryset, rq_queue):
                     )
     return msg, success, collections_invalid, collections_to_harvest
 
-def start_harvest(modeladmin, request, queryset, rq_queue):
+def queue_harvest(modeladmin, request, queryset, rq_queue):
     msg, success, collections_invalid, collections_harvested = \
-            start_harvest_for_queryset(request.user, queryset, rq_queue)
+            queue_harvest_for_queryset(request.user, queryset, rq_queue)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable. '.format(
                 len(collections_invalid)) 
@@ -102,22 +102,22 @@ def start_harvest(modeladmin, request, queryset, rq_queue):
     else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
 
-def start_harvest_normal_stage(modeladmin, request, queryset):
-    return start_harvest(modeladmin, request, queryset, 'normal-stage')
+def queue_harvest_normal_stage(modeladmin, request, queryset):
+    return queue_harvest(modeladmin, request, queryset, 'normal-stage')
     msg, success, collections_invalid, collections_harvested = \
-start_harvest_normal_stage.short_description = ''.join(('Queue harvest for ',
+queue_harvest_normal_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on normal priority stage queue'))
 
-def start_harvest_high_stage(modeladmin, request, queryset):
-    return start_harvest(modeladmin, request, queryset, 'high-stage')
+def queue_harvest_high_stage(modeladmin, request, queryset):
+    return queue_harvest(modeladmin, request, queryset, 'high-stage')
     msg, success, collections_invalid, collections_harvested = \
-start_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
+queue_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on high priority stage queue'))
 
-def start_harvest_low_stage(modeladmin, request, queryset):
-    return start_harvest(modeladmin, request, queryset, 'low-stage')
+def queue_harvest_low_stage(modeladmin, request, queryset):
+    return queue_harvest(modeladmin, request, queryset, 'low-stage')
     msg, success, collections_invalid, collections_harvested = \
-start_harvest_low_stage.short_description = ''.join(('Queue harvest for ',
+queue_harvest_low_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on low priority stage queue'))
 
 #from: http://stackoverflow.com/questions/2805701/
@@ -160,8 +160,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                      numeric_key )
     list_filter = [ 'campus', 'ready_for_publication', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
-    actions = [ start_harvest_normal_stage, start_harvest_high_stage,
-                start_harvest_low_stage,
+    actions = [ queue_harvest_normal_stage, queue_harvest_high_stage,
+                queue_harvest_low_stage,
                 ]
     fieldsets = (
             ('Descriptive Information', {
