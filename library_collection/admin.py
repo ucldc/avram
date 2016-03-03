@@ -120,6 +120,73 @@ def queue_harvest_low_stage(modeladmin, request, queryset):
 queue_harvest_low_stage.short_description = ''.join(('Queue harvest for ',
                 'selected collections on low priority stage queue'))
 
+def queue_image_harvest_for_queryset(user, queryset, rq_queue):
+    '''Start harvest for valid collections in the queryset'''
+    success = False
+    collections_to_harvest = [] 
+    collections_invalid = []
+    for collection in queryset:
+        if 'prod' in rq_queue and not collection.ready_for_publication:
+            collections_invalid.append((collection,
+             'Not ready for production. Check "ready for publication" to harvest to production'))
+        else:
+            collections_to_harvest.append(collection)
+    cmd_line = ' '.join((collection.image_harvest_script, user.email, rq_queue))
+    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
+    cmd_line = ' '.join((cmd_line, arg_coll_uri))
+    try:
+        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+        success = True
+        msg = 'Queued image harvest for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
+    except OSError, e:
+        if e.errno == 2:
+            msg = 'Cannot find {} for image harvesting {} collections {}'.format(
+                    collection.image_harvest_script, len(collections_to_harvest),
+                    '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
+                    )
+        else:
+            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
+                    str(e)
+                    )
+    return msg, success, collections_invalid, collections_to_harvest
+
+def queue_image_harvest(modeladmin, request, queryset, rq_queue):
+    msg, success, collections_invalid, collections_harvested = \
+            queue_image_harvest_for_queryset(request.user, queryset, rq_queue)
+    if collections_invalid:
+        msg_invalid = '{} collections not harvestable. '.format(
+                len(collections_invalid)) 
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid,
+                '#{} {} - {}; '.format(coll.id, coll.name, reason)))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
+
+def queue_image_harvest_normal_stage(modeladmin, request, queryset):
+    return queue_image_harvest(modeladmin, request, queryset, 'normal-stage')
+    msg, success, collections_invalid, collections_harvested = \
+queue_image_harvest_normal_stage.short_description = ''.join(('Queue image ',
+                'harvest for ',
+                'selected collections on normal priority stage queue'))
+
+def queue_image_harvest_high_stage(modeladmin, request, queryset):
+    return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
+    msg, success, collections_invalid, collections_harvested = \
+queue_image_harvest_high_stage.short_description = ''.join(('Queue image ',
+                'harvest for ',
+                'selected collections on high priority stage queue'))
+
+def queue_image_harvest_low_stage(modeladmin, request, queryset):
+    return queue_image_harvest(modeladmin, request, queryset, 'low-stage')
+    msg, success, collections_invalid, collections_harvested = \
+queue_image_harvest_low_stage.short_description = ''.join(('Queue image ',
+                'harvest for ',
+                'selected collections on low priority stage queue'))
+
+
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
     def response_action(self, request, queryset):
@@ -162,6 +229,9 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     search_fields = ['name','description']
     actions = [ queue_harvest_normal_stage, queue_harvest_high_stage,
                 queue_harvest_low_stage,
+                queue_image_harvest_normal_stage,
+                queue_image_harvest_high_stage,
+                queue_image_harvest_low_stage,
                 ]
     fieldsets = (
             ('Descriptive Information', {

@@ -55,6 +55,8 @@ class Collection(models.Model):
     CRAWL = 'C'
     PENDING = 'P'
     harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] + '/code/harvester/queue_harvest.bash')
+    image_harvest_script = os.environ.get('IMAGE_HARVEST_SCRIPT',
+            os.environ['HOME'] + '/code/harvester/queue_image_harvest.bash')
     name = models.CharField(max_length=255, verbose_name='Collection Title')
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)

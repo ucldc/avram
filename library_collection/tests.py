@@ -328,6 +328,98 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertContains(response, 'queue_harvest_high_stage')
         self.assertContains(response, 'queue_harvest_low_stage')
 
+    def testQueueImageHarvestOnCollections(self):
+        '''Test that the user can select & start the harvest for a number of
+        collections
+        '''
+        url_admin = '/admin/library_collection/collection/?urlfields=OAI'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        #response = self.app.get(url_admin, user='test_user_super', HTTP_AUTHORIZATION=http_auth)
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        form =  response.forms['changelist-form']
+        form.action = '.' #set to "" in html, need to point to . for WebTest
+        select_action = form.fields['action'][0]
+        select_action.value = 'queue_image_harvest_normal_stage'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        #TODO: Unclear how to test that function is actually run....
+        resp = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(resp.status_int, 302)
+
+    def testQueueImageHarvestOnCollectionErrorMessages(self):
+        '''Test that the start harvest action creates reasonable error
+        messages when it fails
+        '''
+        c = Collection()
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'queue_image_harvest_high_stage'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertContains(response, 'A is for atom, B is for bomb')
+        url_admin = '/admin/library_collection/collection/?harvest_type__exact=OAC'
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'queue_image_harvest_low_stage'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        Collection.image_harvest_script = 'xxxx'
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        self.assertContains(response, 'Cannot find xxxx for image harvesting 3 collections')
+        Collection.image_harvest_script = 'true'
+        response = self.app.get(url_admin, headers={'AUTHORIZATION':http_auth})
+        form =  response.forms['changelist-form']
+        select_action = form.fields['action'][0]
+        select_action.value = 'queue_image_harvest_high_stage'
+        #check a few of harvestable collections
+        form.fields['_selected_action'][0].checked = True
+        form.fields['_selected_action'][1].checked = True
+        form.fields['_selected_action'][2].checked = True
+        response = form.submit('index', headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 302)
+        response = response.follow(headers={'AUTHORIZATION':http_auth})
+        self.assertEqual(response.status_int, 200)
+        self.assertNotContains(response, 'Cannot find ')
+        self.assertContains(response, ''.join(( 'Queued image harvest for 3 ',
+            'collections: &quot;A is for atom, B is for bomb&quot; video',
+            ' tape  |  Harold Scheffler Papers (Melanesian Archive)  |  ',
+            'Los Angeles Times Photographic Archive CMD: true ',
+            'mark.redar@ucop.edu high-stage ',
+            'https://{0}/api/v1/collection/189/;',
+            'https://{0}/api/v1/collection/172/;',
+            'https://{0}/api/v1/collection/153/')).format(c._hostname)
+        )
+
+    def testQueueImageHarvestDifferentQueuesActionAvailable(self):
+        '''test that there are a number of known queues to add
+        harvest to.
+        '''
+        url_admin = '/admin/library_collection/collection/'
+        http_auth = 'basic '+'test_user_super:test_user_super'.encode('base64')
+        response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'queue_image_harvest_normal_stage')
+        self.assertContains(response, 'queue_image_harvest_high_stage')
+        self.assertContains(response, 'queue_image_harvest_low_stage')
+
 
 class RepositoryTestCase(TestCase):
     '''Test the base repository model'''
