@@ -183,21 +183,20 @@ def queue_sync_couchdb_for_queryset(user, queryset):
     for collection in collections_to_harvest:
         cmd_line = collection.sync_couchdb_script
         cmd_line = ' '.join((cmd_line, str(collection.id)))
-    try:
-        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        collections_success.append(collection)
-
-    except OSError, e:
-        if e.errno == 2:
-            msg += 'Cannot find {} for syncing {} collections {}'.format(
-                    collection.sync_couchdb_script, len(collections_to_harvest),
-                    '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
-                    )
-        else:
-            msg += 'Error: Trying to run {} error-> {}'.format(cmd_line,
-                    str(e)
-                    )
+        try:
+            p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+            success = True
+            collections_success.append(collection)
+        except OSError, e:
+            if e.errno == 2:
+                msg += 'Cannot find {} for syncing {} collections {}'.format(
+                        collection.sync_couchdb_script, len(collections_to_harvest),
+                        '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
+                        )
+            else:
+                msg += 'Error: Trying to run {} error-> {}'.format(cmd_line,
+                        str(e)
+                        )
     if len(collections_success):
         msg += 'Queued sync couchdb for {} collections: {} CMD: {}'.format( len(collections_success), '  |  '.join([ c.name.encode('utf-8') for c in collections_success]), cmd_line)
     return msg, success, collections_invalid, collections_success
