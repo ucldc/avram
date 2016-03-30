@@ -182,7 +182,7 @@ def queue_sync_couchdb_for_queryset(user, queryset):
             collections_to_harvest.append(collection)
     for collection in collections_to_harvest:
         cmd_line = collection.sync_couchdb_script
-        cmd_line = ' '.join((cmd_line, collection.id))
+        cmd_line = ' '.join((cmd_line, str(collection.id)))
     try:
         p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         success = True
@@ -195,7 +195,7 @@ def queue_sync_couchdb_for_queryset(user, queryset):
                     '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
                     )
         else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
+            msg += 'Error: Trying to run {} error-> {}'.format(cmd_line,
                     str(e)
                     )
     if len(collections_success):
