@@ -166,36 +166,38 @@ def queue_image_harvest_high_stage(modeladmin, request, queryset):
     return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
 queue_image_harvest_high_stage.short_description = ''.join(('Queue image ',
                 'harvest for collection(s) on high queue'))
-
 def queue_sync_couchdb_for_queryset(user, queryset):
     '''Sync couchdb to production for valid collections in the queryset'''
     success = False
-    collections_to_harvest = [] 
+    collections_success = []
     collections_invalid = []
+    msg = ''
     for collection in queryset:
         if not collection.ready_for_publication:
             collections_invalid.append((collection,
              'Not ready for production. Check "ready for publication" to sync to production'))
         else:
             collections_to_harvest.append(collection)
-    cmd_line = collection.sync_couchdb_script
-    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
-    cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    try:
-        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        msg = 'Queued sync couchdb for {} collections: {} CMD: {}'.format( len(collections_to_harvest), '  |  '.join([ c.name.encode('utf-8') for c in collections_to_harvest]), cmd_line)
-    except OSError, e:
-        if e.errno == 2:
-            msg = 'Cannot find {} for syncing {} collections {}'.format(
-                    collection.sync_couchdb_script, len(collections_to_harvest),
-                    '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
-                    )
-        else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
-                    str(e)
-                    )
-    return msg, success, collections_invalid, collections_to_harvest
+            cmd_line = collection.sync_couchdb_script
+            cmd_line = ' '.join((cmd_line, collection.id))
+        try:
+            p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+            success = True
+            collections_success.append(collection)
+
+        except OSError, e:
+            if e.errno == 2:
+                msg += 'Cannot find {} for syncing {} collections {}'.format(
+                        collection.sync_couchdb_script, len(collections_to_harvest),
+                        '; '.join([c.name.encode('utf-8') for c in collections_to_harvest])
+                        )
+            else:
+                msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
+                        str(e)
+                        )
+    if len(collections_success):
+        msg += 'Queued sync couchdb for {} collections: {} CMD: {}'.format( len(collections_success), '  |  '.join([ c.name.encode('utf-8') for c in collections_success]), cmd_line)
+    return msg, success, collections_invalid, collections_success
 
 def queue_sync_couchdb(modeladmin, request, queryset):
     msg, success, collections_invalid, collections_harvested = \
