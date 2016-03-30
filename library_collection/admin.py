@@ -198,7 +198,7 @@ def queue_sync_couchdb_for_queryset(user, queryset):
                         str(e)
                         )
     if len(collections_success):
-        msg += 'Queued sync couchdb for {} collections: {} CMD: {}'.format( len(collections_success), '  |  '.join([ c.name.encode('utf-8') for c in collections_success]), cmd_line)
+        msg += 'Queued sync couchdb for {} collections: {} '.format( len(collections_success), '  |  '.join([ c.name.encode('utf-8') for c in collections_success]))
     return msg, success, collections_invalid, collections_success
 
 def queue_sync_couchdb(modeladmin, request, queryset):
