@@ -218,6 +218,17 @@ def queue_sync_couchdb(modeladmin, request, queryset):
 queue_sync_couchdb.short_description = ''.join(('Queue sync to production ',
                 'couchdb for collection(s)'))
 
+def set_ready_for_publication(modeladmin, request, queryset):
+    '''Set the ready_for_publication to True for the queryset'''
+    c_success = []
+    for collection in queryset:
+        collection.ready_for_publication = True
+        collection.save()
+        c_success.append(collection)
+    msg = 'Set {} collections to "ready for publication"'.format(len(c_success))
+    modeladmin.message_user(request, msg, level=messages.SUCCESS)
+set_ready_for_publication.short_description = "Set ready for publication True"
+
 #from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
     def response_action(self, request, queryset):
@@ -261,7 +272,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     actions = [ queue_harvest_normal_stage, queue_harvest_high_stage,
                 queue_image_harvest_normal_stage,
                 queue_image_harvest_high_stage,
-                queue_sync_couchdb
+                queue_sync_couchdb,
+                set_ready_for_publication
                 ]
     fieldsets = (
             ('Descriptive Information', {
