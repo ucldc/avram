@@ -84,6 +84,8 @@ def edit_collections(request, campus_slug=None, error=None):
             
             if len(requestObj.getlist('campuses')) < 1:
                return edit_collections(request, error='Please enter at least one campus')
+            if len(requestObj.getlist('repositories')) < 1:
+               return edit_collections(request, error='Please enter at least one unit')
             
             new_collection.save()
             new_collection.repository = requestObj.getlist('repositories')

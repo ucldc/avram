@@ -821,6 +821,25 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'new collection')
         self.assertContains(response, 'Berkeley')
     
+    def testCollectionCreateViewFormSubmissionInvalid(self):
+        '''Test form submission to create a collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'appendix': 'B', 
+                'name': 'new collection 2'}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'at least one campus')
+        response = self.client.post(url, {'appendix': 'B', 
+                'name': 'new collection 2', 
+                'campuses': ['1', '3']}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'at least one unit')
+    
     def testCollectionCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty collection'''
         url = reverse('edit_collections')
