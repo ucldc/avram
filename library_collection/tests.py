@@ -729,7 +729,8 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'a-is-for')
-        self.assertContains(response, EditViewTestCase.current_app+'/172/harold-scheffler-papers-melanesian-archive-scheffl/')
+        self.assertContains(response,
+            EditViewTestCase.current_app+'/5/1937-yolo-county-aerial-photographs-this-collectio/')
      
     def testUCBCollectionView(self):
         url = reverse('edit_collections',

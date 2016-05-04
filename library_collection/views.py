@@ -92,7 +92,7 @@ def edit_collections(request, campus_slug=None, error=None):
             new_collection.campus = requestObj.getlist('campuses')
             return edit_details(request, new_collection.pk, new_collection.slug)
             
-    return collections(request, campus_slug)
+    return collections(request, campus_slug,show_harvest_type_tbd=True)
 
 def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displayed=6):
     '''Return the ranges for the "before" and "after" direct page links.
@@ -193,7 +193,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
     )
 
 # view of collections in list. Currently home page
-def collections(request, campus_slug=None):
+def collections(request, campus_slug=None, show_harvest_type_tbd=False):
     campus = None
     query = request.GET.get('q', '')
     search = None
@@ -218,17 +218,26 @@ def collections(request, campus_slug=None):
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
-            collections = Collection.objects.filter(~Q(harvest_type='X'), campus=None).order_by('name')
+            if show_harvest_type_tbd:
+                collections = Collection.objects.filter(campus=None).order_by('name')
+            else:
+                collections = Collection.objects.filter(~Q(harvest_type='X'), campus=None).order_by('name')
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-            collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
+            if show_harvest_type_tbd:
+                collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
+            else:
+                collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
             try:
                 info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
             except Exception as e:
                 info = {'error': e }
 
     else:
-        collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
+        if show_harvest_type_tbd:
+            collections = Collection.objects.all().order_by('name').prefetch_related('campus')
+        else:
+            collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
