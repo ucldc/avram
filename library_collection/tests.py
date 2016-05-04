@@ -65,6 +65,7 @@ class CollectionTestCase(TestCase):
         self.assertFalse(hasattr(pc, 'appendix'))
         self.assertFalse(hasattr(pc, 'phase_one'))
         self.assertTrue(hasattr(pc, 'local_id'))
+        self.assertTrue(hasattr(pc, 'collectioncustomfacet_set'))
         pc.save()
         pc.repository
 
@@ -477,7 +478,8 @@ class RepositoryAdminTestCase(TestCase):
 
 class TastyPieAPITest(TestCase):
     '''Verify the tastypie RESTful feed'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+            'collectioncustomfacet.json')
     url_api =  '/api/v1/' #how to get from django?
 
     def testAPIFeed(self):
@@ -517,6 +519,18 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, '"total_count": 1}')
         self.assertContains(response, '"next": null')
         self.assertContains(response, '"slug": "halberstadt-collection-selections-of-photographs-p"')
+
+    def testCustomFacetInCollectionAPI(self):
+        '''test that the custom facet shows up for a collection Resource'''
+        url_collection = self.url_api + 'collection/5/?format=json'
+        response = self.client.get(url_collection)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"custom_facet":')
+        self.assertContains(response, 'contributor_ss')
+        self.assertContains(response, 'collector')
+        self.assertContains(response, 'coverage_ss')
+        self.assertContains(response, 'Production')
+
 
 class CollectionsViewTestCase(TestCase):
     '''Test the view function "collections" directly'''
@@ -715,7 +729,8 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'a-is-for')
-        self.assertContains(response, EditViewTestCase.current_app+'/172/harold-scheffler-papers-melanesian-archive-scheffl/')
+        self.assertContains(response,
+            EditViewTestCase.current_app+'/5/1937-yolo-county-aerial-photographs-this-collectio/')
      
     def testUCBCollectionView(self):
         url = reverse('edit_collections',
@@ -820,6 +835,25 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Edit')
         self.assertContains(response, 'new collection')
         self.assertContains(response, 'Berkeley')
+    
+    def testCollectionCreateViewFormSubmissionInvalid(self):
+        '''Test form submission to create a collection'''
+        url = reverse('edit_collections')
+        response = self.client.post(url, {'appendix': 'B', 
+                'name': 'new collection 2'}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'at least one campus')
+        response = self.client.post(url, {'appendix': 'B', 
+                'name': 'new collection 2', 
+                'campuses': ['1', '3']}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
+        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'at least one unit')
     
     def testCollectionCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty collection'''
