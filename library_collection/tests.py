@@ -65,6 +65,7 @@ class CollectionTestCase(TestCase):
         self.assertFalse(hasattr(pc, 'appendix'))
         self.assertFalse(hasattr(pc, 'phase_one'))
         self.assertTrue(hasattr(pc, 'local_id'))
+        self.assertTrue(hasattr(pc, 'collectioncustomfacet_set'))
         pc.save()
         pc.repository
 
@@ -477,7 +478,8 @@ class RepositoryAdminTestCase(TestCase):
 
 class TastyPieAPITest(TestCase):
     '''Verify the tastypie RESTful feed'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+            'collectioncustomfacet.json')
     url_api =  '/api/v1/' #how to get from django?
 
     def testAPIFeed(self):
@@ -517,6 +519,18 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, '"total_count": 1}')
         self.assertContains(response, '"next": null')
         self.assertContains(response, '"slug": "halberstadt-collection-selections-of-photographs-p"')
+
+    def testCustomFacetInCollectionAPI(self):
+        '''test that the custom facet shows up for a collection Resource'''
+        url_collection = self.url_api + 'collection/5/?format=json'
+        response = self.client.get(url_collection)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"custom_facet":')
+        self.assertContains(response, 'contributor_ss')
+        self.assertContains(response, 'collector')
+        self.assertContains(response, 'coverage_ss')
+        self.assertContains(response, 'Production')
+
 
 class CollectionsViewTestCase(TestCase):
     '''Test the view function "collections" directly'''

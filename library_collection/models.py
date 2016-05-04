@@ -49,6 +49,40 @@ class Format(models.Model):
     def __unicode__(self):
         return self.name
 
+
+class CollectionCustomFacet(models.Model):
+    '''This model is designed to allow a collection owner to select one of
+    our Solr string values as a custom facet. Need to do as a separate model
+    to allow list of these with custom labels
+    To make serializing to TastyPie a lot easier, I'm using the full facet
+    field as the 'code' for the choice. A bit space inefficient, but this table
+    will never be huge.
+    '''
+    facet_choices = (
+        ('contributor_ss', 'contributor'),
+        ('coverage_ss', 'coverage'),
+        ('creator_ss', 'creator'),
+        ('date_ss', 'date'),
+        ('extent_ss', 'extent'),
+        ('format_ss', 'format'),
+        ('genre_ss', 'genre'),
+        ('language_ss', 'language'),
+        ('location_ss', 'location'),
+        ('publisher_ss', 'publisher'),
+        ('relation_ss', 'relation'),
+        ('rights_ss', 'rights'),
+        ('rights_holder_ss', 'rights_holder'),
+        ('rights_note_ss', 'rights_note'),
+        ('rights_date_ss', 'rights_date'),
+        ('source_ss', 'source'),
+        ('subject_ss', 'subject'),
+        ('temporal_ss', 'temporal')
+    )
+    collection = models.ForeignKey('Collection')
+    facet_field = models.CharField(max_length=20, choices=facet_choices)
+    label = models.CharField(max_length=255)
+
+
 class Collection(models.Model):
     DAMNS = 'D'
     OAI = 'O'

@@ -1,0 +1,20 @@
+[
+  {
+    "pk": 1,
+    "model": "library_collection.collectioncustomfacet",
+    "fields": {
+      "label": "collector",
+      "collection": 5,
+      "facet_field": "contributor_ss"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "library_collection.collectioncustomfacet",
+    "fields": {
+      "label": "Production",
+      "collection": 5,
+      "facet_field": "coverage_ss"
+    }
+  }
+]

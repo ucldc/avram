@@ -252,8 +252,16 @@ class ActionInChangeFormMixin(object):
             'action_form': action_form,
         })
 
+class CollectionCustomFacetInline(admin.StackedInline):
+    model = CollectionCustomFacet
+    fk_name = 'collection'
+
+
 class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
+    inlines = [ 
+            CollectionCustomFacetInline,
+    ]
     def campuses(self):
         return ", " . join([x.__str__() for x in self.campus.all()])
     campuses.short_description = "Campus"
