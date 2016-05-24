@@ -25,7 +25,10 @@
               <label for="campuses" style="color: #0088CC">Campus</label>
             </div>
             <div class="span10">
-              <select multiple id="campuses" name="campuses" class="chosen-select span3" data-placeholder="Select Campus Affiliation">
+              <select multiple id="campuses" name="campuses"
+                  class="chosen-select span3"
+                  data-placeholder="Select Campus Affiliation"
+                  {% if exists %}disabled{% endif %}>
                 {% for campus in campuses %}
                 <option value="{{ campus.id }}" {% if collection %}{% if campus in collection.campus.all or campus in collection.campus %}selected{% endif %}{% endif %}>
                   {{ campus.name }}
@@ -40,7 +43,9 @@
               <label for="repositories" style="color: #0088CC">Unit</label>
             </div>
             <div class="span10">
-              <select multiple id="repositories" name="repositories" class="chosen-select span3" data-placeholder="Select Unit">
+              <select multiple id="repositories" name="repositories"
+                  class="chosen-select span3" data-placeholder="Select Unit"
+                  {% if exists %}disabled{% endif %}>
                 {% for repo in repositories %}
                 <option value="{{ repo.id }}"  {% if collection %}{% if repo in collection.repository.all or repo in collection.repository %}selected{% endif %}{% endif %}>
                   {{ repo.name }}
@@ -51,21 +56,52 @@
           </div>
         </div>
 
-        <h4>Source</h4>
+        <h4>Descriptive Information</h4>
         <div class="well">
           <div class="row">
             <div class="span1" style="text-align: left">
-              <label for="appendix" style="color: #0088CC">Harvest type</label>
+              <label for="description" style="color: #0088CC">Description</label>
             </div>
             <div class="span10">
-              {% for choice in harvestTypeChoices %}
-              <input type="radio" id="appendix" name="appendix" value="{{ choice.0 }}" {% if collection and choice.0 == collection.harvest_type %}checked{% endif %}>
-                {{ choice.1 }}
+              <textarea type="text" id="description" name="description"
+              class="span9 form-control">{%if collection %}{{collection.description}}{% endif %}</textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2" style="text-align: left">
+              <label for="local_id" style="color: #0088CC">Local ID</label>
+            </div>
+            <div class="span9">
+              <input type="text" id="local_id" name="local_id"
+                value="{%if collection %}{{collection.local_id}}{% endif %}"
+              class="span5 form-control">
               </input>
-              {% endfor %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2" style="text-align: left">
+              <label for="url_local" style="color: #0088CC">Collection homepage URL</label>
+            </div>
+            <div class="span9">
+              <input type="text" id="url_local" name="url_local"
+                value="{%if collection %}{{collection.url_local}}{% endif %}"
+              class="span5 form-control">
+              </input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2" style="text-align: left">
+              <label for="url_oac" style="color: #0088CC">OAC finding aid URL</label>
+            </div>
+            <div class="span9">
+              <input type="text" id="url_oac" name="url_oac"
+                value="{%if collection %}{{collection.url_oac}}{% endif %}"
+              class="span5 form-control">
+              </input>
             </div>
           </div>
         </div>
+
         <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save</button>
         {% if edit %}
         <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" class="btn"><i class="icon-ban-circle"></i> Cancel</a>

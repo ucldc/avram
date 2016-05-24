@@ -729,6 +729,7 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'library_collection/collection_list.html')
         self.assertContains(response, 'a-is-for')
+        self.assertContains(response, '189 Collections')
         self.assertContains(response,
             EditViewTestCase.current_app+'/5/1937-yolo-county-aerial-photographs-this-collectio/')
      
@@ -799,8 +800,23 @@ class EditViewTestCase(TestCase):
             )
         self.assertTemplateUsed(response, 'library_collection/collection.html')
         self.assertContains(response, 'Edit')
-        self.assertContains(response, 'Berkeley')
-        self.assertContains(response, 'Bancroft Library')
+        self.assertContains(response, 'Davis')
+        #can't modify campus or repo anymore
+        self.assertNotContains(response, 'Bancroft')
+        self.assertNotContains(response, 'Berkeley')
+        response = self.client.post(url, {'appendix': 'A',
+                'repositories': '9',
+                'name': 'Halberstadt Collection',
+                'campuses': ['1', '2'],
+                'description': 'test description',
+                'local_id': 'test local id',
+                'url_local': 'http://example.edu'}, 
+                HTTP_AUTHORIZATION=self.http_auth
+            )
+        self.assertContains(response, 'test description')
+        self.assertContains(response, 'test local id')
+        self.assertContains(response, 'http://example.edu')
+
 
     def testCollectionViewFormSubmissionEmptyForm(self):
         '''Test form submission to modify a collection with an empty form'''
@@ -827,14 +843,23 @@ class EditViewTestCase(TestCase):
         url = reverse('edit_collections')
         response = self.client.post(url, {'appendix': 'B', 
                 'repositories': '3', 
-                'name': 'new collection', 
-                'campuses': ['1', '3']}, 
+                'name': 'new collection test', 
+                'campuses': ['1', '3'],
+                'description': 'test description',
+                'local_id': 'LOCID',
+                'url_local': 'http://LOCURL.edu',
+                'url_oac': 'http://OACURL.edu'}, 
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertTemplateUsed(response, 'library_collection/collection.html')
         self.assertContains(response, 'Edit')
-        self.assertContains(response, 'new collection')
+        self.assertContains(response, 'new collection test')
         self.assertContains(response, 'Berkeley')
+        self.assertContains(response, 'test description')
+        self.assertContains(response, 'LOCID')
+        self.assertContains(response, 'LOCURL')
+        self.assertContains(response, 'OACURL')
+
     
     def testCollectionCreateViewFormSubmissionInvalid(self):
         '''Test form submission to create a collection'''

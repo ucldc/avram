@@ -67,6 +67,10 @@ def edit_collections(request, campus_slug=None, error=None):
                     for repository_id in requestObj.getlist('repositories'):
                         repository.append(Repository.objects.get(pk=repository_id))
                     collection['repository'] = repository
+                collection['description'] = requestObj.get('description')
+                collection['local_id'] = requestObj.get('local_id')
+                collection['url_local'] = requestObj.get('url_local')
+                collection['url_oac'] = requestObj.get('url_oac')
                 context['collection'] = collection
                 
             return render(request,
@@ -75,12 +79,23 @@ def edit_collections(request, campus_slug=None, error=None):
             )
         else: 
             try:
-                new_collection = Collection(name=requestObj['name'], )
+                new_collection = Collection(name=requestObj['name'],
+                                    description=requestObj.get('description'),
+                                    local_id=requestObj.get('local_id'),
+                                    url_local=requestObj.get('url_local'),
+                                    url_oac=requestObj.get('url_oac'))
                 new_collection.full_clean()
             except ValidationError as e:
-                return edit_collections(request, error='Please enter a collection title')
-            except KeyError as e:
-                return edit_collections(request, error='Please enter a data source')
+                if 'name' in e.message_dict:
+                    return edit_collections(request,
+                            error='Please enter a collection title')
+                elif 'url_local' in e.message_dict:
+                    return edit_collections(request,
+                            error='Collection homepage URL must be a valid URL')
+                elif 'url_oac' in e.message_dict:
+                    return edit_collections(request,
+                            error='OAC finding aid URL must be a valid URL')
+                return edit_collections(request, error=e.messages)
             
             if len(requestObj.getlist('campuses')) < 1:
                return edit_collections(request, error='Please enter at least one campus')
@@ -296,20 +311,26 @@ def edit_details(request, colid=None, col_slug=None, error=None):
             'collection': collection,
             'current_path': request.path,
             'editing': editing(request.path),
+            'exists': True,
         }
         if (request.method == 'POST'):
             requestObj = request.POST
             if ('edit' in requestObj) or error:
                 context['campuses'] = campuses
                 context['repositories'] = Repository.objects.all().order_by('name')
-                context['harvestTypeChoices'] = Collection.HARVEST_TYPE_CHOICES
+                context['description'] = collection.description
+                context['local_id'] = collection.local_id
+                context['url_local'] = collection.url_local
+                context['url_oac'] = collection.url_oac
                 context['edit'] = 'true'
                 
                 if error:
                     context['error'] = error
                     collection.name = requestObj['name']
-                    collection.campus = requestObj.getlist('campuses')
-                    collection.repository = requestObj.getlist('repositories')
+                    collection.description = requestObj.get('description')
+                    collection.local_id = requestObj.get('local_id')
+                    collection.url_local = requestObj.get('url_local', '')
+                    collection.url_oac = requestObj.get('url_oac', '')
                     
                     if requestObj['name'] == '':
                         context['error'] = "Please enter a collection title"
@@ -322,11 +343,13 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                 )
             else: 
                 collection.name = requestObj.get("name")
-                collection.repository = requestObj.getlist('repositories')
-                collection.campus = requestObj.getlist("campuses")
+                collection.description = requestObj.get('description', '')
+                collection.local_id = requestObj.get('local_id', '')
+                collection.url_local = requestObj.get('url_local', '')
+                collection.url_oac = requestObj.get('url_oac', '')
                 
-                if len(requestObj.getlist("campuses")) < 1:
-                   return edit_details(request, colid, col_slug, error="Please enter at least one campus")
+                #if len(requestObj.getlist("campuses")) < 1:
+                #   return edit_details(request, colid, col_slug, error="Please enter at least one campus")
                 
                 try:
                     collection.full_clean()
