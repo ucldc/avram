@@ -48,7 +48,7 @@
                   {% if exists %}disabled{% endif %}>
                 {% for repo in repositories %}
                 <option value="{{ repo.id }}"  {% if collection %}{% if repo in collection.repository.all or repo in collection.repository %}selected{% endif %}{% endif %}>
-                  {{ repo.name }}
+                  {{ repo }}
                 </option>
                 {% endfor %}
               </select>
