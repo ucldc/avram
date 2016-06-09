@@ -121,6 +121,7 @@ class Collection(models.Model):
             ('NUX', 'Shared DAMS'),
             ('ALX', 'Aleph MARC XML'),
             ('SFX', 'UCSF XML Search Results (tobacco)'),
+            ('PRE', 'Preservica CMIS Atom Feed'),
             ('TBD', 'Harvest type TBD'),
     )
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
