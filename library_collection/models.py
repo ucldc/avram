@@ -16,7 +16,7 @@ class Campus(models.Model):
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=4)
     position = models.IntegerField(default=0)
-    ark = models.CharField(max_length=255, blank=True) 
+    ark = models.CharField(max_length=255, blank=True)
     google_analytics_tracking_code = models.CharField(max_length=64,
             blank=True,
             help_text="Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.")
@@ -29,7 +29,7 @@ class Campus(models.Model):
         return ('library_collection.views.UC', [str(self.slug)])
 
     def save(self, *args, **kwargs):
-        '''Make sure the campus slug starts with UC, has implications in the 
+        '''Make sure the campus slug starts with UC, has implications in the
         urls.py currently (2013-12-18)
         May want to change this in future
         '''
@@ -121,6 +121,7 @@ class Collection(models.Model):
             ('NUX', 'Shared DAMS'),
             ('ALX', 'Aleph MARC XML'),
             ('SFX', 'UCSF XML Search Results (tobacco)'),
+            ('UCB', 'UCB Blacklight Solr'),
             ('PRE', 'Preservica CMIS Atom Feed'),
             ('TBD', 'Harvest type TBD'),
     )
@@ -177,7 +178,7 @@ class Collection(models.Model):
             for repository in self.repository.all():
                 out.append(repository.name)
         return out
-    
+
     @property
     def _hostname(self):
         '''Because of the aliasing, hard to get actual external hostname in
@@ -189,9 +190,9 @@ class Collection(models.Model):
         '''Return url for the tastypie api endpoint for this collection'''
         return ''.join(('https://', self._hostname, reverse('api_dispatch_detail', kwargs={'resource_name':'collection', 'api_name':'v1', 'pk':self.id})))
 
-    # This is a temporary property for the case of just 
+    # This is a temporary property for the case of just
     # giving some reference to actual content.
-    # The url fields will get revisited next cycle.  
+    # The url fields will get revisited next cycle.
     @property
     def first_url(self):
         if self.url_local != '':
@@ -214,7 +215,7 @@ class Collection(models.Model):
 
     def save(self, *args, **kwargs):
         ''' When running in mysql, names that are too long (there is one at
-        http://www.oac.cdlib.org/findaid/ark:/13030/c8th8nj6) causes the 
+        http://www.oac.cdlib.org/findaid/ark:/13030/c8th8nj6) causes the
         save to bomb. Going to truncate to 255 chars and throw out rest -
         MER 20140507
         '''
@@ -225,7 +226,7 @@ class Collection(models.Model):
     def queue_harvest(self, user, rq_queue):
         '''Kick off the harvest.
 
-        Harvest is asyncronous. Email is sent to site admin? annoucing the 
+        Harvest is asyncronous. Email is sent to site admin? annoucing the
         start of a harvest for the collection.
 
         passes the user email and the uri for the tastypie data for the
@@ -253,7 +254,7 @@ class Repository(models.Model):
     name = models.CharField(max_length=255)
     campus = models.ManyToManyField(Campus, null=True, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
-    ark = models.CharField(max_length=255, blank=True) 
+    ark = models.CharField(max_length=255, blank=True)
     google_analytics_tracking_code = models.CharField(max_length=64,
             blank=True,
             help_text="Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.")

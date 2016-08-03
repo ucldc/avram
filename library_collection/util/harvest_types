@@ -8,4 +8,5 @@
             ('NUX', 'Shared DAMS'),
             ('ALX', 'Aleph MARC XML'),
             ('SFX', 'UCSF XML Search Results (tobacco)'),
+            ('UCB', 'UCB Blacklight Solr'),
             ('TBD', 'Harvest type TBD'),
