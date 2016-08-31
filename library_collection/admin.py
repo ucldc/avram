@@ -370,9 +370,13 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 class CampusAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
 
+
+class RepositoryAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
-admin.site.register(Repository)
+admin.site.register(Repository, RepositoryAdmin)
 # http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
 try:
     admin.site.unregister(Site)
