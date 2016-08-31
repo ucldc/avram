@@ -56,7 +56,7 @@ class URLFieldsListFilter(SimpleListFilter):
 def queue_harvest_for_queryset(user, queryset, rq_queue):
     '''Start harvest for valid collections in the queryset'''
     success = False
-    collections_to_harvest = [] 
+    collections_to_harvest = []
     collections_invalid = []
     for collection in queryset:
         if collection.harvest_type == 'X':
@@ -92,7 +92,7 @@ def queue_harvest(modeladmin, request, queryset, rq_queue):
             queue_harvest_for_queryset(request.user, queryset, rq_queue)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable. '.format(
-                len(collections_invalid)) 
+                len(collections_invalid))
         for coll, reason in collections_invalid:
             msg_invalid = ''.join((msg_invalid,
                 '#{} {} - {}; '.format(coll.id, coll.name, reason)))
@@ -115,7 +115,7 @@ queue_harvest_high_stage.short_description = ''.join(('Queue harvest for ',
 def queue_image_harvest_for_queryset(user, queryset, rq_queue):
     '''Start harvest for valid collections in the queryset'''
     success = False
-    collections_to_harvest = [] 
+    collections_to_harvest = []
     collections_invalid = []
     for collection in queryset:
         if 'prod' in rq_queue and not collection.ready_for_publication:
@@ -147,7 +147,7 @@ def queue_image_harvest(modeladmin, request, queryset, rq_queue):
             queue_image_harvest_for_queryset(request.user, queryset, rq_queue)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable. '.format(
-                len(collections_invalid)) 
+                len(collections_invalid))
         for coll, reason in collections_invalid:
             msg_invalid = ''.join((msg_invalid,
                 '#{} {} - {}; '.format(coll.id, coll.name, reason)))
@@ -206,7 +206,7 @@ def queue_sync_couchdb(modeladmin, request, queryset):
             queue_sync_couchdb_for_queryset(request.user, queryset)
     if collections_invalid:
         msg_invalid = '{} collections not syncable. '.format(
-                len(collections_invalid)) 
+                len(collections_invalid))
         for coll, reason in collections_invalid:
             msg_invalid = ''.join((msg_invalid,
                 '#{} {} - {}; '.format(coll.id, coll.name, reason)))
@@ -239,14 +239,14 @@ class ActionInChangeFormMixin(object):
                 queryset)
         if isinstance(response, HttpResponseRedirect):
             response['Location'] = request.META.get('HTTP_REFERER', request.path)
-        return response  
+        return response
 
     def change_view(self, request, object_id, extra_context=None):
         actions = self.get_actions(request)
         if actions:
             action_form = self.action_form(auto_id=None)
             action_form.fields['action'].choices = self.get_action_choices(request)
-        else: 
+        else:
             action_form = None
         return super(ActionInChangeFormMixin, self).change_view(request, object_id, extra_context={
             'action_form': action_form,
@@ -259,7 +259,7 @@ class CollectionCustomFacetInline(admin.StackedInline):
 
 class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
-    inlines = [ 
+    inlines = [
             CollectionCustomFacetInline,
     ]
     def campuses(self):
@@ -273,7 +273,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return self.pk
     numeric_key.short_description = "Numeric key"
 
-    list_display = ( 'name', campuses, repositories, 'human_extent', 
+    list_display = ( 'name', campuses, repositories, 'human_extent',
                      numeric_key )
     list_filter = [ 'campus', 'ready_for_publication', 'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name','description']
