@@ -18,6 +18,23 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
 
+class NotInCampus(SimpleListFilter):
+    title = 'Not on a Campus'
+    parameter_name = 'nocampus'
+
+    def lookups(self, request, model_admin):
+        return (
+                ('NOCAMPUS', 'Not on a campus'),
+                ('CAMPUS', 'on a campus')
+                )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'NOCAMPUS':
+            return queryset.filter(campus=None)
+        if self.value() == 'CAMPUS':
+            return queryset.exclude(campus=None)
+
+
 class URLFieldsListFilter(SimpleListFilter):
     '''Filter to find blank or filled URL fields'''
     title = 'URL Fields'
@@ -162,11 +179,12 @@ def queue_image_harvest_for_queryset(user, queryset, rq_queue):
                 cmd_line)
     except OSError, e:
         if e.errno == 2:
-            msg = 'Cannot find {} for image harvesting {} collections {}'.format(
-                    collection.image_harvest_script,
-                    len(collections_to_harvest),
-                    '; '.join(
-                        [c.name.encode('utf-8') for c in collections_to_harvest])
+            msg = 'Cannot find {} for image harvesting {} '\
+                  'collections {}'.format(
+                          collection.image_harvest_script,
+                          len(collections_to_harvest),
+                          '; '.join(
+                              [c.name.encode('utf-8') for c in collections_to_harvest])
                     )
         else:
             msg = 'Error: Trying to run {} error-> {}'.format(cmd_line,
@@ -331,8 +349,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key)
-    list_filter = ['campus', 'ready_for_publication', 'harvest_type',
-                   URLFieldsListFilter, 'repository']
+    list_filter = ['campus', 'ready_for_publication', NotInCampus,
+                   'harvest_type', URLFieldsListFilter, 'repository']
     search_fields = ['name', 'description']
     actions = [queue_harvest_normal_stage, queue_harvest_high_stage,
                queue_image_harvest_normal_stage,
