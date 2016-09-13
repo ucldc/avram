@@ -38,6 +38,7 @@ class CollectionResource(ModelResource):
         filtering = {
                 "url_harvest": ('exact', 'startswith'),
                 "slug": ALL,
+                "harvest_type": ('exact'),
         }
 
 

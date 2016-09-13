@@ -219,6 +219,7 @@ class Collection(models.Model):
         save to bomb. Going to truncate to 255 chars and throw out rest -
         MER 20140507
         '''
+        self.name = self.name.strip()
         if len(self.name) > 255:
             self.name = self.name[:255]
         return super(Collection, self).save(*args, **kwargs)
@@ -275,6 +276,7 @@ class Repository(models.Model):
     def save(self, *args, **kwargs):
         '''Check no duplicate arks for repos that have them
         '''
+        self.name = self.name.strip()
         if not self.id: #new repo
             if self.ark: #not blank
                 try:
