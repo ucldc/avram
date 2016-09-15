@@ -384,6 +384,12 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return obj.human_extent
     human_extent.short_description = 'extent'
 
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "repository":
+            kwargs["queryset"] = Repository.objects.order_by('name')
+        return super(CollectionAdmin, self).formfield_for_manytomany(db_field,
+                request, **kwargs)
+
 
 class CampusAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
