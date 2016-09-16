@@ -97,7 +97,7 @@ class Collection(models.Model):
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(max_length=50, populate_from=('name','description'), editable=True)
     campus = models.ManyToManyField(Campus, blank=True)
-    repository = models.ManyToManyField('Repository', null=True, blank=True,
+    repository = models.ManyToManyField('Repository', blank=True,
             verbose_name='Unit')
     description = models.TextField(blank=True)
     local_id = models.CharField(max_length=1028, blank=True, help_text="used for google analytics subsetting")
@@ -128,7 +128,7 @@ class Collection(models.Model):
     harvest_type = models.CharField(max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(max_length=511, blank=True, help_text="extra text data needed for the particular type of harvest.")
     enrichments_item = models.TextField(blank=True, help_text="Enhancement chain to run on individual harvested items.")
-    formats = models.ManyToManyField(Format, null=True, blank=True,
+    formats = models.ManyToManyField(Format, blank=True,
             help_text='File formats for DAMS ingest')
     staging_notes = models.TextField(blank=True, default='',
             help_text='Possible support needed by contributor')
@@ -253,7 +253,7 @@ class Collection(models.Model):
 class Repository(models.Model):
     '''Representation of a holding "repository" for UCLDC'''
     name = models.CharField(max_length=255)
-    campus = models.ManyToManyField(Campus, null=True, blank=True)
+    campus = models.ManyToManyField(Campus, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
     ark = models.CharField(max_length=255, blank=True)
     google_analytics_tracking_code = models.CharField(max_length=64,
