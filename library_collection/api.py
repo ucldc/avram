@@ -34,7 +34,7 @@ class CollectionResource(ModelResource):
         queryset = Collection.objects.all()
         authentication = Authentication()
         authorization = ReadOnlyAuthorization()
-        serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'html', 'plist'])
+        serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'plist'])
         filtering = {
                 "url_harvest": ('exact', 'startswith'),
                 "slug": ALL,

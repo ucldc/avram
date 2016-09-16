@@ -132,10 +132,10 @@ class Collection(models.Model):
             help_text='File formats for DAMS ingest')
     staging_notes = models.TextField(blank=True, default='',
             help_text='Possible support needed by contributor')
-    files_in_hand = models.BooleanField()
-    files_in_dams = models.BooleanField()
-    metadata_in_dams = models.BooleanField()
-    qa_completed = models.BooleanField()
+    files_in_hand = models.BooleanField(default=False)
+    files_in_dams = models.BooleanField(default=False)
+    metadata_in_dams = models.BooleanField(default=False)
+    qa_completed = models.BooleanField(default=False)
     ready_for_publication = models.BooleanField(default=False)
     featured = models.BooleanField(default=False,
             help_text='Collection featured on repository home page')

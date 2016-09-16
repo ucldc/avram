@@ -1,138 +1,97 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+import django_extensions.db.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Campus'
-        db.create_table(u'library_collection_campus', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django.db.models.fields.CharField')(max_length=4)),
-        ))
-        db.send_create_signal(u'library_collection', ['Campus'])
+    dependencies = [
+    ]
 
-        # Adding model 'Status'
-        db.create_table(u'library_collection_status', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal(u'library_collection', ['Status'])
-
-        # Adding model 'Restriction'
-        db.create_table(u'library_collection_restriction', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal(u'library_collection', ['Restriction'])
-
-        # Adding model 'Need'
-        db.create_table(u'library_collection_need', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal(u'library_collection', ['Need'])
-
-        # Adding model 'ProvenancialCollection'
-        db.create_table(u'library_collection_provenancialcollection', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django_extensions.db.fields.AutoSlugField')(allow_duplicates=False, max_length=50, separator=u'-', blank=True, populate_from=('name', 'description'), overwrite=False)),
-            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('url_local', self.gf('django.db.models.fields.URLField')(max_length=255, blank=True)),
-            ('url_oac', self.gf('django.db.models.fields.URLField')(max_length=255, blank=True)),
-            ('url_was', self.gf('django.db.models.fields.URLField')(max_length=255, blank=True)),
-            ('url_oai', self.gf('django.db.models.fields.URLField')(max_length=255, blank=True)),
-            ('hosted', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('status', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['library_collection.Status'], null=True, blank=True)),
-            ('extent', self.gf('django.db.models.fields.BigIntegerField')(null=True, blank=True)),
-            ('access_restrictions', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['library_collection.Restriction'], null=True, blank=True)),
-            ('metadata_level', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('metadata_standard', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('need_for_dams', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['library_collection.Need'], null=True, blank=True)),
-            ('oai_set_spec', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('appendix', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('phase_one', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'library_collection', ['ProvenancialCollection'])
-
-        # Adding M2M table for field campus on 'ProvenancialCollection'
-        db.create_table(u'library_collection_provenancialcollection_campus', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('provenancialcollection', models.ForeignKey(orm[u'library_collection.provenancialcollection'], null=False)),
-            ('campus', models.ForeignKey(orm[u'library_collection.campus'], null=False))
-        ))
-        db.create_unique(u'library_collection_provenancialcollection_campus', ['provenancialcollection_id', 'campus_id'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'Campus'
-        db.delete_table(u'library_collection_campus')
-
-        # Deleting model 'Status'
-        db.delete_table(u'library_collection_status')
-
-        # Deleting model 'Restriction'
-        db.delete_table(u'library_collection_restriction')
-
-        # Deleting model 'Need'
-        db.delete_table(u'library_collection_need')
-
-        # Deleting model 'ProvenancialCollection'
-        db.delete_table(u'library_collection_provenancialcollection')
-
-        # Removing M2M table for field campus on 'ProvenancialCollection'
-        db.delete_table('library_collection_provenancialcollection_campus')
-
-
-    models = {
-        u'library_collection.campus': {
-            'Meta': {'object_name': 'Campus'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '4'})
-        },
-        u'library_collection.need': {
-            'Meta': {'object_name': 'Need'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'library_collection.provenancialcollection': {
-            'Meta': {'object_name': 'ProvenancialCollection'},
-            'access_restrictions': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['library_collection.Restriction']", 'null': 'True', 'blank': 'True'}),
-            'appendix': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
-            'campus': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['library_collection.Campus']", 'symmetrical': 'False'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'extent': ('django.db.models.fields.BigIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'hosted': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'metadata_level': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'metadata_standard': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'need_for_dams': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['library_collection.Need']", 'null': 'True', 'blank': 'True'}),
-            'oai_set_spec': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'phase_one': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'slug': ('django_extensions.db.fields.AutoSlugField', [], {'allow_duplicates': 'False', 'max_length': '50', 'separator': "u'-'", 'blank': 'True', 'populate_from': "('name', 'description')", 'overwrite': 'False'}),
-            'status': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['library_collection.Status']", 'null': 'True', 'blank': 'True'}),
-            'url_local': ('django.db.models.fields.URLField', [], {'max_length': '255', 'blank': 'True'}),
-            'url_oac': ('django.db.models.fields.URLField', [], {'max_length': '255', 'blank': 'True'}),
-            'url_oai': ('django.db.models.fields.URLField', [], {'max_length': '255', 'blank': 'True'}),
-            'url_was': ('django.db.models.fields.URLField', [], {'max_length': '255', 'blank': 'True'})
-        },
-        u'library_collection.restriction': {
-            'Meta': {'object_name': 'Restriction'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'library_collection.status': {
-            'Meta': {'object_name': 'Status'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        }
-    }
-
-    complete_apps = ['library_collection']
+    operations = [
+        migrations.CreateModel(
+            name='Campus',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255)),
+                ('slug', models.CharField(max_length=4)),
+                ('position', models.IntegerField(default=0)),
+                ('ark', models.CharField(max_length=255, blank=True)),
+                ('google_analytics_tracking_code', models.CharField(help_text=b'Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.', max_length=64, blank=True)),
+            ],
+            options={
+                'verbose_name_plural': 'campuses',
+            },
+        ),
+        migrations.CreateModel(
+            name='Collection',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255, verbose_name=b'Collection Title')),
+                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=(b'name', b'description'), editable=False, blank=True)),
+                ('description', models.TextField(blank=True)),
+                ('local_id', models.CharField(help_text=b'used for google analytics subsetting', max_length=1028, blank=True)),
+                ('url_local', models.URLField(help_text=b'Collection homepage URL', max_length=255, blank=True)),
+                ('url_oac', models.URLField(help_text=b'OAC finding aid URL', max_length=255, blank=True)),
+                ('url_harvest', models.URLField(max_length=255, verbose_name=b'Harvest Endpoint', blank=True)),
+                ('hosted', models.CharField(help_text=b'Indicate format and output', max_length=255, verbose_name=b'Existing metadata (Format/Output)', blank=True)),
+                ('extent', models.BigIntegerField(help_text=b'must be entered in bytes, will take abbreviations later', null=True, blank=True)),
+                ('harvest_type', models.CharField(default=b'X', max_length=3, choices=[(b'X', b'None'), (b'OAC', b'Legacy OAC'), (b'OAI', b'OAI-PMH'), (b'SLR', b'Solr Index'), (b'MRC', b'MARC21'), (b'NUX', b'Shared DAMS'), (b'ALX', b'Aleph MARC XML'), (b'SFX', b'UCSF XML Search Results (tobacco)'), (b'UCB', b'UCB Blacklight Solr'), (b'PRE', b'Preservica CMIS Atom Feed'), (b'TBD', b'Harvest type TBD')])),
+                ('harvest_extra_data', models.CharField(help_text=b'extra text data needed for the particular type of harvest.', max_length=511, blank=True)),
+                ('enrichments_item', models.TextField(help_text=b'Enhancement chain to run on individual harvested items.', blank=True)),
+                ('staging_notes', models.TextField(default=b'', help_text=b'Possible support needed by contributor', blank=True)),
+                ('files_in_hand', models.BooleanField()),
+                ('files_in_dams', models.BooleanField()),
+                ('metadata_in_dams', models.BooleanField()),
+                ('qa_completed', models.BooleanField()),
+                ('ready_for_publication', models.BooleanField(default=False)),
+                ('featured', models.BooleanField(default=False, help_text=b'Collection featured on repository home page')),
+                ('rights_status', models.CharField(default=b'X', max_length=3, choices=[(b'CR', b'copyrighted'), (b'PD', b'public domain'), (b'UN', b'copyright unknown'), (b'X', b'-----')])),
+                ('rights_statement', models.TextField(blank=True)),
+                ('dcmi_type', models.CharField(default=b'X', help_text=b'DCMI Type for objects in this collection', max_length=1, choices=[(b'C', b'Collection'), (b'D', b'Dataset'), (b'E', b'Event'), (b'I', b'Image'), (b'R', b'Interactive Resource'), (b'F', b'Moving Image'), (b'V', b'Service'), (b'S', b'Software'), (b'A', b'Sound'), (b'T', b'Text'), (b'P', b'Physical Object'), (b'X', b'-----')])),
+                ('campus', models.ManyToManyField(to='library_collection.Campus', blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='CollectionCustomFacet',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('facet_field', models.CharField(max_length=20, choices=[(b'contributor_ss', b'contributor'), (b'coverage_ss', b'coverage'), (b'creator_ss', b'creator'), (b'date_ss', b'date'), (b'extent_ss', b'extent'), (b'format_ss', b'format'), (b'genre_ss', b'genre'), (b'language_ss', b'language'), (b'location_ss', b'location'), (b'publisher_ss', b'publisher'), (b'relation_ss', b'relation'), (b'rights_ss', b'rights'), (b'rights_holder_ss', b'rights_holder'), (b'rights_note_ss', b'rights_note'), (b'rights_date_ss', b'rights_date'), (b'source_ss', b'source'), (b'subject_ss', b'subject'), (b'temporal_ss', b'temporal')])),
+                ('label', models.CharField(max_length=255)),
+                ('collection', models.ForeignKey(to='library_collection.Collection')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Format',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Repository',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255)),
+                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=b'name', editable=False, blank=True)),
+                ('ark', models.CharField(max_length=255, blank=True)),
+                ('google_analytics_tracking_code', models.CharField(help_text=b'Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.', max_length=64, blank=True)),
+                ('campus', models.ManyToManyField(to='library_collection.Campus', null=True, blank=True)),
+            ],
+            options={
+                'verbose_name_plural': 'repositories',
+            },
+        ),
+        migrations.AddField(
+            model_name='collection',
+            name='formats',
+            field=models.ManyToManyField(help_text=b'File formats for DAMS ingest', to='library_collection.Format', null=True, blank=True),
+        ),
+        migrations.AddField(
+            model_name='collection',
+            name='repository',
+            field=models.ManyToManyField(to='library_collection.Repository', null=True, verbose_name=b'Unit', blank=True),
+        ),
+    ]

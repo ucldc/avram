@@ -43,6 +43,13 @@ The remoteuser shibboleth login won't work when testing. Use the collection_regi
 python manage.py test --settings=collection_registry.test_settings  library_collection
 ```
 
+This also works for local development.
+
+```
+python manage.py runserver --settings=collection_registry.test_settings
+```
+ 
+
 
 License
 -------

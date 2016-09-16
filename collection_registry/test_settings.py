@@ -2,7 +2,7 @@ from settings import *
 
 MIDDLEWARE_CLASSES = (
         #'collection_registry.middleware.RemoteUserMockMiddleware',
-'collection_registry.middleware.BasicAuthMockMiddleware',
+        'collection_registry.middleware.BasicAuthMockMiddleware',
 ) + MIDDLEWARE_CLASSES
 
 
