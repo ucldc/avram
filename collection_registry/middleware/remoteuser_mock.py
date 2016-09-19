@@ -23,7 +23,8 @@ from django.http import HttpResponse
 class BasicAuthMockMiddleware(object):
     def unauthed(self):
         response = HttpResponse("""<html><title>Auth required</title><body>
-                                <h1>Authorization Required</h1></body></html>""", mimetype="text/html")
+                                <h1>Authorization
+                                Required</h1></body></html>""")
         response['WWW-Authenticate'] = 'Basic realm="Development"'
         response.status_code = 401
         return response
@@ -42,7 +43,7 @@ class BasicAuthMockMiddleware(object):
                     username, password = auth.split(':',1)
                     ## let anything through and set REMOTE_USER
                     request.META['REMOTE_USER'] = username
-                    # The next bits are so this will pass the 
+                    # The next bits are so this will pass the
                     # RegistryUserBackend
                     request.META['mail'] = "mark.redar@ucop.edu" if not hasattr(settings, 'REMOTE_USER_MOCK_EMAIL') else settings.REMOTE_USER_MOCK_EMAIL
                     request.META['Shib-Identity-Provider'] = 'test'

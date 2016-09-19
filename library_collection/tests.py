@@ -66,6 +66,10 @@ class CollectionTestCase(TestCase):
         self.assertFalse(hasattr(pc, 'phase_one'))
         self.assertTrue(hasattr(pc, 'local_id'))
         self.assertTrue(hasattr(pc, 'collectioncustomfacet_set'))
+        pc.files_in_hand = False
+        pc.files_in_dams = False
+        pc.metadata_in_dams = False
+        pc.qa_completed = False
         pc.save()
         pc.repository
 
@@ -74,6 +78,10 @@ class CollectionTestCase(TestCase):
         check that long names are truncated on save
         '''
         c = Collection(name=''.join('x' for i in range(300)))
+        c.files_in_hand = False
+        c.files_in_dams = False
+        c.metadata_in_dams = False
+        c.qa_completed = False
         c.save()
         self.assertEqual(255, len(c.name))
 
@@ -81,7 +89,7 @@ class CollectionTestCase(TestCase):
         c = Collection.objects.all()[0]
         self.assertTrue(hasattr(c, 'url_api'))
         self.assertIsNotNone(c.url_api)
-        self.assertIn('/api/v1/collection/1/', c.url_api) 
+        self.assertIn('/api/v1/collection/1/', c.url_api)
         self.assertIn('https://', c.url_api)
 
     @skipUnlessIntegrationTest()
@@ -103,7 +111,7 @@ class CollectionTestCase(TestCase):
 
     def test_queue_harvest_function(self):
         '''
-        Test of harvest starting function. Kicks off a "harvest" for the 
+        Test of harvest starting function. Kicks off a "harvest" for the
         given collection.
         '''
         pc = Collection.objects.all()[0]
@@ -129,7 +137,7 @@ class CollectionTestCase(TestCase):
 
 
 class CollectionModelAdminTestCase(unittest.TestCase):
-    '''Use the basic unit test case to test some facts about the 
+    '''Use the basic unit test case to test some facts about the
     CollectionAdmin model.
     '''
     def testAdminHasQueueHarvestAction(self):
@@ -148,17 +156,33 @@ class CollectionAdminTestCase(TestCase):
         pc = Collection()
         pc.name = 'PC-1'
         pc.url_local = 'http://local'
+        pc.files_in_hand = False
+        pc.files_in_dams = False
+        pc.metadata_in_dams = False
+        pc.qa_completed = False
         pc.save()
         pc = Collection()
         pc.name = 'PC-2'
         pc.url_oac = 'http://oac'
+        pc.files_in_hand = False
+        pc.files_in_dams = False
+        pc.metadata_in_dams = False
+        pc.qa_completed = False
         pc.save()
         pc = Collection()
         pc.name = 'PC-3'
         pc.url_local = 'http://local'
+        pc.files_in_hand = False
+        pc.files_in_dams = False
+        pc.metadata_in_dams = False
+        pc.qa_completed = False
         pc.save()
         pc = Collection()
         pc.name = 'PC-4'
+        pc.files_in_hand = False
+        pc.files_in_dams = False
+        pc.metadata_in_dams = False
+        pc.qa_completed = False
         pc.save()
         u = User.objects.create_user('test', 'mark.redar@ucop.edu', password='fake')
         u.is_superuser = True
@@ -178,7 +202,6 @@ class CollectionAdminTestCase(TestCase):
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'PC-1')
-        self.assertNotContains(response, '&lt;function')
         response = self.client.get(url_admin+'?urlfields=LOCAL', HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'PC-1')
@@ -454,7 +477,7 @@ class RepositoryTestCase(TestCase):
         r3.ark = ''
         r3.save()
 
-    
+
 class RepositoryAdminTestCase(TestCase):
     '''Test the admin for repository'''
     def setUp(self):
@@ -510,7 +533,7 @@ class TastyPieAPITest(TestCase):
         self.assertContains(response, '"total_count": 14}')
         self.assertContains(response, '"next": null')
         self.assertContains(response, '"url_harvest": "http://archive.org/services/oai2.php"')
-        
+
     def testFilterOnSLUG(self):
         '''Test that we can filter'''
         url_collection = self.url_api + 'collection/?limit=200&slug=halberstadt-collection-selections-of-photographs-p'
@@ -551,7 +574,7 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, '<form')
         self.assertContains(response, 'value="Search"')
         self.assertContains(response, '<input type="text"')
-     
+
     def testSearchView(self):
         '''Test what happens when you search.
         Need to find good way to test paging with search
@@ -613,9 +636,9 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'Davis')
 
     def testCollectionListViewPagination(self):
-        '''Check the pagination of the collections view. 
+        '''Check the pagination of the collections view.
         This view is the "Root" view as well.
-        Adding the OAC collections makes some sort of pagination needed 
+        Adding the OAC collections makes some sort of pagination needed
         here.'''
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'base.html')
@@ -663,7 +686,7 @@ class CampusTestCase(TestCase):
 
     def testNoDupArks(self):
         '''Need to programatically check that the arks are unique.
-        Due to the need for blank arks (django weird char null), we can't 
+        Due to the need for blank arks (django weird char null), we can't
         use the DB unique property.
         '''
         c = Campus()
@@ -683,7 +706,7 @@ class CampusTestCase(TestCase):
         c2.ark = ''
         c2.save()
 
-        
+
 class PublicViewNewCampusTestCase(TestCase):
     '''Test the public view immediately after a new campus added. fails if
     no collections for a campus
@@ -732,7 +755,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, '189 Collections')
         self.assertContains(response,
             EditViewTestCase.current_app+'/5/1937-yolo-county-aerial-photographs-this-collectio/')
-     
+
     def testUCBCollectionView(self):
         url = reverse('edit_collections',
                 kwargs={ 'campus_slug':'UCB', }
@@ -778,8 +801,8 @@ class EditViewTestCase(TestCase):
 
     def testCollectionViewForm(self):
         '''Test form for modifying a collection'''
-        url = reverse('edit_detail', 
-                kwargs={ 'colid': 2, 
+        url = reverse('edit_detail',
+                kwargs={ 'colid': 2,
                 'col_slug':'halberstadt-collection-selections-of-photographs-p'},
             )
         response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
@@ -788,14 +811,14 @@ class EditViewTestCase(TestCase):
 
     def testCollectionViewFormSubmission(self):
         '''Test form submission to modify a collection'''
-        url = reverse('edit_detail', 
-                kwargs={ 'colid': 2, 
+        url = reverse('edit_detail',
+                kwargs={ 'colid': 2,
                 'col_slug':'halberstadt-collection-selections-of-photographs-p'},
             )
         response = self.client.post(url, {'appendix': 'A',
                 'repositories': '9',
                 'name': 'Halberstadt Collection',
-                'campuses': ['1', '2']}, 
+                'campuses': ['1', '2']},
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertTemplateUsed(response, 'library_collection/collection.html')
@@ -810,7 +833,7 @@ class EditViewTestCase(TestCase):
                 'campuses': ['1', '2'],
                 'description': 'test description',
                 'local_id': 'test local id',
-                'url_local': 'http://example.edu'}, 
+                'url_local': 'http://example.edu'},
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertContains(response, 'test description')
@@ -820,11 +843,11 @@ class EditViewTestCase(TestCase):
 
     def testCollectionViewFormSubmissionEmptyForm(self):
         '''Test form submission to modify a collection with an empty form'''
-        url = reverse('edit_detail', 
-                kwargs={ 'colid': 2, 
+        url = reverse('edit_detail',
+                kwargs={ 'colid': 2,
                 'col_slug':'halberstadt-collection-selections-of-photographs-p'},
             )
-        response = self.client.post(url, {'name': ''}, 
+        response = self.client.post(url, {'name': ''},
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
@@ -837,18 +860,22 @@ class EditViewTestCase(TestCase):
         response = self.client.post(url, {'new': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'Save')
-    
+
     def testCollectionCreateViewFormSubmission(self):
         '''Test form submission to create a collection'''
         url = reverse('edit_collections')
-        response = self.client.post(url, {'appendix': 'B', 
-                'repositories': '3', 
-                'name': 'new collection test', 
+        response = self.client.post(url, {'appendix': 'B',
+                'repositories': '3',
+                'name': 'new collection test',
                 'campuses': ['1', '3'],
                 'description': 'test description',
                 'local_id': 'LOCID',
                 'url_local': 'http://LOCURL.edu',
-                'url_oac': 'http://OACURL.edu'}, 
+                'url_oac': 'http://OACURL.edu',
+                'files_in_hand':  0,
+                'files_in_dams': 0,
+                'metadata_in_dams': 0,
+                'qa_completed': 0},
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertTemplateUsed(response, 'library_collection/collection.html')
@@ -860,40 +887,40 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'LOCURL')
         self.assertContains(response, 'OACURL')
 
-    
+
     def testCollectionCreateViewFormSubmissionInvalid(self):
         '''Test form submission to create a collection'''
         url = reverse('edit_collections')
-        response = self.client.post(url, {'appendix': 'B', 
-                'name': 'new collection 2'}, 
+        response = self.client.post(url, {'appendix': 'B',
+                'name': 'new collection 2'},
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'new collection')
         self.assertContains(response, 'at least one campus')
-        response = self.client.post(url, {'appendix': 'B', 
-                'name': 'new collection 2', 
-                'campuses': ['1', '3']}, 
+        response = self.client.post(url, {'appendix': 'B',
+                'name': 'new collection 2',
+                'campuses': ['1', '3']},
                 HTTP_AUTHORIZATION=self.http_auth
             )
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'new collection')
         self.assertContains(response, 'at least one unit')
-    
+
     def testCollectionCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty collection'''
         url = reverse('edit_collections')
         response = self.client.post(url, {'name': ''}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'library_collection/collection_edit.html')
         self.assertContains(response, 'Error:')
-    
+
     def testRepositoryCreateViewForm(self):
         '''Test form to create a new repository'''
         url = reverse('edit_repositories')
         response = self.client.post(url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertContains(response, 'Save')
-    
+
     def testRepositoryCreateViewFormSubmission(self):
         '''Test form submission to create a repository'''
         url = reverse('edit_repositories')
@@ -901,7 +928,7 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertContains(response, 'Add')
         self.assertContains(response, 'new repository')
-   
+
     def testRepositoryCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty repository'''
         url = reverse('edit_repositories')
@@ -909,12 +936,12 @@ class EditViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'library_collection/repository_list.html')
         self.assertContains(response, 'Error:')
         self.assertContains(response, 'Please enter a unit title')
-   
+
 class SyncWithOACTestCase(TestCase):
     '''Test sync with OAC repositories and EAD finding aid collections
     '''
     fixtures = ('collection.json', 'initial_data.json', 'repository.json', 'user.json', 'group.json')
-    
+
     def setUp(self):
         #need full path to fixtures dir to work with urllib file: schema
         self.dir_fixtures = os.path.join(FILE_DIR, 'fixtures')
