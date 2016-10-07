@@ -339,7 +339,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     numeric_key)
     list_filter = ['campus', 'ready_for_publication', NotInCampus,
                    'harvest_type', URLFieldsListFilter, 'repository']
-    search_fields = ['name', 'description']
+    search_fields = ['name', 'description', 'enrichments_item' ]
     actions = [queue_harvest_normal_stage, queue_harvest_high_stage,
                queue_image_harvest_normal_stage,
                queue_image_harvest_high_stage, queue_sync_couchdb,
