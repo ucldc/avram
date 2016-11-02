@@ -1,7 +1,17 @@
 # -*- coding: utf-8 -*-
+import os
 import subprocess
 import shlex
 import django.contrib.messages as messages
+
+HARVEST_SCRIPT = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] +
+                                '/code/harvester/queue_harvest.bash')
+IMAGE_HARVEST_SCRIPT = os.environ.get(
+        'IMAGE_HARVEST_SCRIPT',
+        os.environ['HOME'] + '/code/harvester/queue_image_harvest.bash')
+SYNC_COUCHDB_SCRIPT = os.environ.get(
+        'SYNC_COUCHDB_SCRIPT',
+        os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.bash')
 
 
 def queue_harvest_for_queryset(user, queryset, rq_queue):
@@ -21,7 +31,7 @@ def queue_harvest_for_queryset(user, queryset, rq_queue):
                                         'to production'))
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.harvest_script, user.email, rq_queue))
+    cmd_line = ' '.join((HARVEST_SCRIPT, user.email, rq_queue))
     arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
     try:
@@ -34,7 +44,7 @@ def queue_harvest_for_queryset(user, queryset, rq_queue):
     except OSError, e:
         if e.errno == 2:
             msg = 'Cannot find {} for harvesting {} collections {}'.format(
-                collection.harvest_script,
+                HARVEST_SCRIPT,
                 len(collections_to_harvest), '; '.join(
                     [c.name.encode('utf-8') for c in collections_to_harvest]))
         else:
@@ -87,7 +97,7 @@ def queue_image_harvest_for_queryset(user, queryset, rq_queue):
                  'to harvest to production'))
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.image_harvest_script, user.email,
+    cmd_line = ' '.join((IMAGE_HARVEST_SCRIPT, user.email,
                          rq_queue))
     arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
@@ -102,7 +112,7 @@ def queue_image_harvest_for_queryset(user, queryset, rq_queue):
         if e.errno == 2:
             msg = 'Cannot find {} for image harvesting {} '\
                   'collections {}'.format(
-                          collection.image_harvest_script,
+                          IMAGE_HARVEST_SCRIPT,
                           len(collections_to_harvest),
                           '; '.join(
                               [c.name.encode('utf-8') for c in
@@ -162,7 +172,7 @@ def queue_sync_couchdb_for_queryset(user, queryset):
         else:
             collections_to_harvest.append(collection)
     for collection in collections_to_harvest:
-        cmd_line = collection.sync_couchdb_script
+        cmd_line = SYNC_COUCHDB_SCRIPT
         cmd_line = ' '.join((cmd_line, str(collection.id)))
         try:
             subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
@@ -171,7 +181,7 @@ def queue_sync_couchdb_for_queryset(user, queryset):
         except OSError, e:
             if e.errno == 2:
                 msg += 'Cannot find {} for syncing {} collections {}'.format(
-                    collection.sync_couchdb_script,
+                    SYNC_COUCHDB_SCRIPT,
                     len(collections_to_harvest), '; '.join([
                         c.name.encode('utf-8') for c in collections_to_harvest
                     ]))
@@ -219,6 +229,41 @@ def set_ready_for_publication(modeladmin, request, queryset):
 
 set_ready_for_publication.short_description = "Set ready for publication True"
 
+
+def queue_sync_to_solr(user, queryset, rq_queue):
+    '''Queue a sync to solr job for the collection'''
+    success = False
+    collections_to_sync = []
+    collections_invalid = []
+    for collection in queryset:
+        if 'prod' in rq_queue and not collection.ready_for_publication:
+            collections_invalid.append((collection,
+                                        'Not ready for production. Check '
+                                        '"ready for publication" to harvest '
+                                        'to production'))
+        else:
+            collections_to_sync.append(collection)
+    cmd_line = ' '.join((HARVEST_SCRIPT, user.email, rq_queue))
+    arg_coll_uri = ';'.join([c.url_api for c in collections_to_sync])
+    cmd_line = ' '.join((cmd_line, arg_coll_uri))
+    try:
+        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+        success = True
+        msg = 'Queued harvest for {} collections: {} CMD: {}'.format(
+            len(collections_to_sync), '  |  '.join(
+                [c.name.encode('utf-8') for c in collections_to_sync]),
+            cmd_line)
+    except OSError, e:
+        if e.errno == 2:
+            msg = 'Cannot find {} for harvesting {} collections {}'.format(
+                HARVEST_SCRIPT,
+                len(collections_to_sync), '; '.join(
+                    [c.name.encode('utf-8') for c in collections_to_sync]))
+        else:
+            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
+    return msg, success, collections_invalid, collections_to_sync
+
+    pass
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.

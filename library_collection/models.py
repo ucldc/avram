@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import subprocess
-import shlex
-import os
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django.core.urlresolvers import reverse
@@ -88,14 +85,6 @@ class Collection(models.Model):
     OAI = 'O'
     CRAWL = 'C'
     PENDING = 'P'
-    harvest_script = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] +
-                                    '/code/harvester/queue_harvest.bash')
-    image_harvest_script = os.environ.get(
-        'IMAGE_HARVEST_SCRIPT',
-        os.environ['HOME'] + '/code/harvester/queue_image_harvest.bash')
-    sync_couchdb_script = os.environ.get(
-        'SYNC_COUCHDB_SCRIPT',
-        os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.bash')
     name = models.CharField(max_length=255, verbose_name='Collection Title')
     # uuid_field = UUIDField(primary_key=True)
     slug = AutoSlugField(
@@ -248,42 +237,6 @@ class Collection(models.Model):
         if len(self.name) > 255:
             self.name = self.name[:255]
         return super(Collection, self).save(*args, **kwargs)
-
-    def queue_harvest(self, user, rq_queue):
-        '''Kick off the harvest.
-
-        Harvest is asyncronous. Email is sent to site admin? annoucing the
-        start of a harvest for the collection.
-
-        passes the user email and the uri for the tastypie data for the
-        collection.
-        '''
-        # call is going to need : collection name, campus, repo, type of
-        # harvest, harvest url, harvest_extra_data (set spec, etc),
-        # request.user
-        # TODO: support other harvests, rationalize the data
-        if self.harvest_type == 'X':
-            raise TypeError(
-                'Not a harvestable collection - "{0}" ID:{1}. No harvest '
-                'type specified.'.
-                format(self.name, self.id))
-        if not self.url_harvest:
-            raise TypeError(
-                'Not a harvestable collection - "{0}" ID:{1}. No URL for '
-                'harvest.'.
-                format(self.name, self.id))
-        # Guard against running not ready for production in that env
-        if 'prod' in rq_queue:
-            if not self.ready_for_publication:
-                raise ValueError(''.join([
-                    'Collection #{0} - {1} not ready',
-                    'for harvest to production. Please check "ready for ',
-                    'publication" to harvest to production environment.'
-                ]))
-        cmd_line = ' '.join(
-            (self.harvest_script, user.email, rq_queue, self.url_api))
-        p = subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        return p.pid
 
 
 class Repository(models.Model):

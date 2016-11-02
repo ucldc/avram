@@ -11,6 +11,8 @@ from library_collection.models import Collection
 from library_collection.models import Campus
 from library_collection.models import Repository
 from util import sync_oac_collections, sync_oac_repositories
+import library_collection.admin_actions
+from library_collection.admin_actions import queue_harvest_for_queryset
 
 FILE_DIR = os.path.abspath(os.path.split(__file__)[0])
 
@@ -101,10 +103,12 @@ class CollectionTestCase(TestCase):
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
-        retVal = pc.queue_harvest(u, 'test-queue')
+        retVal = queue_harvest_for_queryset(u, pc, 'test-queue')
         self.assertTrue(isinstance(retVal, int))
         with patch('subprocess.Popen') as mock_subprocess:
-            retVal = pc.queue_harvest(u, 'test-queue')
+            retVal = queue_harvest_for_queryset(
+                    u,
+                    'test-queue')
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([
                 pc.harvest_script, 'mark.redar@ucop.edu',
@@ -117,24 +121,30 @@ class CollectionTestCase(TestCase):
         given collection.
         '''
         pc = Collection.objects.all()[0]
-        self.assertTrue(hasattr(pc, 'queue_harvest'))
         u = User.objects.create_user(
             'test', 'mark.redar@ucop.edu', password='fake')
-        pc.harvest_script = 'xxxxx'
+        library_collection.admin_actions.HARVEST_SCRIPT = 'xxxxx'
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
-        self.assertRaises(TypeError, pc.queue_harvest, u, 'test-q')
+        self.assertRaises(
+                TypeError,
+                queue_harvest_for_queryset,
+                u, pc, 'test-q')
         pc.harvest_type = 'OAC'
-        self.assertRaises(OSError, pc.queue_harvest, u, 'test-q')
-        pc.harvest_script = 'true'
-        retVal = pc.queue_harvest(u, 'test-q')
-        self.assertTrue(isinstance(retVal, int))
+        retVal = queue_harvest_for_queryset(u, [pc], 'test-q')
+        self.assertEqual(
+                retVal[0],
+                'Cannot find xxxxx for harvesting 1 collections On demand '
+                'patron requests')
+        self.assertEqual(
+                retVal[1],
+                False)
         with patch('subprocess.Popen') as mock_subprocess:
-            retVal = pc.queue_harvest(u, 'test-q')
+            retVal = queue_harvest_for_queryset(u, [pc], 'test-q')
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([
-                'true', 'mark.redar@ucop.edu', 'test-q',
+                'xxxxx', 'mark.redar@ucop.edu', 'test-q',
                 'https://' + pc._hostname + '/api/v1/collection/1/'
             ])
 
@@ -326,14 +336,14 @@ class CollectionAdminHarvestTestCase(WebTest):
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
         form.fields['_selected_action'][2].checked = True
-        Collection.harvest_script = 'xxxx'
+        library_collection.admin_actions.HARVEST_SCRIPT = 'xxxx'
         response = form.submit('index', headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertContains(response,
                             'Cannot find xxxx for harvesting 3 collections')
-        Collection.harvest_script = 'true'
+        library_collection.admin_actions.HARVEST_SCRIPT = 'true'
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
@@ -428,14 +438,14 @@ class CollectionAdminHarvestTestCase(WebTest):
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
         form.fields['_selected_action'][2].checked = True
-        Collection.image_harvest_script = 'xxxx'
+        library_collection.admin_actions.IMAGE_HARVEST_SCRIPT = 'xxxx'
         response = form.submit('index', headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertContains(
             response, 'Cannot find xxxx for image harvesting 3 collections')
-        Collection.image_harvest_script = 'true'
+        library_collection.admin_actions.IMAGE_HARVEST_SCRIPT = 'true'
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
