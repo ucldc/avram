@@ -291,7 +291,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''Test that the start harvest action creates reasonable error
         messages when it fails
         '''
-        c = Collection()
+        # c = Collection()
         url_admin = '/admin/library_collection/collection/'
         http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
             'base64')
@@ -309,11 +309,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 302)
         response = response.follow(headers={'AUTHORIZATION': http_auth})
 
-        self.assertContains(response, ''.join((
-            '2 collections not harvestable.',
-            ' # 188 UCSB Libraries Digital Collections - Invalid harvest '
-            'type;',
-            ' # 187 Cholera Collection - Invalid harvest type; ')))
+        self.assertContains(response, '2 collections not harvestable.')
+        self.assertContains(response, '188 UCSB Libraries Digital')
+        self.assertContains(response, 'Collections - Invalid harvest type')
+        self.assertContains(response, '187 Cholera Collection - Invalid')
         self.assertContains(response, 'A is for atom, B is for bomb')
         url_admin = '/admin/library_collection/collection/?' \
                     'harvest_type__exact=OAC'
@@ -349,15 +348,18 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
-        self.assertContains(response, ''.join(
-            ('Queued harvest for 3 ',
-             'collections: &quot;A is for atom, B is for bomb&quot; video',
-             ' tape  |  Harold Scheffler Papers (Melanesian Archive)  |  ',
-             'Los Angeles Times Photographic Archive CMD: true ',
-             'mark.redar@ucop.edu high-stage ',
-             'https://{0}/api/v1/collection/189/;',
-             'https://{0}/api/v1/collection/172/;',
-             'https://{0}/api/v1/collection/153/')).format(c._hostname))
+        self.assertContains(response, 'Queued harvest for 3 ')
+        self.assertContains(response, 'collections: &quot;A is for atom,')
+        self.assertContains(response, 'Harold Scheffler Papers')
+        self.assertContains(response, '(Melanesian Archive)  |  ')
+        self.assertContains(response, 'Los Angeles Times Photographic')
+        self.assertContains(response, 'mark.redar@ucop.edu high-stage')
+        self.assertContains(response, 'https://registry.cdlib.org/api/v1/'
+                                      'collection/189/;')
+        self.assertContains(response, 'https://registry.cdlib.org/api/v1/'
+                                      'collection/172/;')
+        self.assertContains(response, 'https://registry.cdlib.org/api/v1/'
+                                      'collection/153/')
 
     def testQueueHarvestDifferentQueuesActionAvailable(self):
         '''test that there are a number of known queues to add
