@@ -247,7 +247,7 @@ def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
         else:
             collections_to_sync.append(collection)
     cmd_line = ' '.join((SYNC_TO_SOLR_SCRIPT, rq_queue))
-    arg_coll_uri = ';'.join([c.id for c in collections_to_sync])
+    arg_coll_uri = ';'.join([str(c.id) for c in collections_to_sync])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
     try:
         subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
