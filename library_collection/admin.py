@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
-import subprocess
-import shlex
 from django.contrib import admin
 from library_collection.models import Campus
 from library_collection.models import Repository
 from library_collection.models import Collection
 from library_collection.models import CollectionCustomFacet
+from library_collection.admin_actions import queue_harvest_normal_stage
+from library_collection.admin_actions import queue_harvest_high_stage
+from library_collection.admin_actions import queue_image_harvest_normal_stage
+from library_collection.admin_actions import queue_image_harvest_high_stage
+from library_collection.admin_actions import queue_sync_couchdb
+from library_collection.admin_actions import set_ready_for_publication
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
-import django.contrib.messages as messages
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
@@ -73,222 +76,6 @@ class URLFieldsListFilter(SimpleListFilter):
             return URLFieldsListFilter.lookup_table[self.value()][1](queryset)
         except KeyError:
             pass
-
-
-def queue_harvest_for_queryset(user, queryset, rq_queue):
-    '''Start harvest for valid collections in the queryset'''
-    success = False
-    collections_to_harvest = []
-    collections_invalid = []
-    for collection in queryset:
-        if collection.harvest_type == 'X':
-            collections_invalid.append((collection, 'Invalid harvest type'))
-        elif not collection.url_harvest:
-            collections_invalid.append((collection, 'No harvest URL'))
-        elif 'prod' in rq_queue and not collection.ready_for_publication:
-            collections_invalid.append((collection,
-                                        'Not ready for production. Check '
-                                        '"ready for publication" to harvest '
-                                        'to production'))
-        else:
-            collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.harvest_script, user.email, rq_queue))
-    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
-    cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    try:
-        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        msg = 'Queued harvest for {} collections: {} CMD: {}'.format(
-            len(collections_to_harvest), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_to_harvest]),
-            cmd_line)
-    except OSError, e:
-        if e.errno == 2:
-            msg = 'Cannot find {} for harvesting {} collections {}'.format(
-                collection.harvest_script,
-                len(collections_to_harvest), '; '.join(
-                    [c.name.encode('utf-8') for c in collections_to_harvest]))
-        else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
-    return msg, success, collections_invalid, collections_to_harvest
-
-
-def queue_harvest(modeladmin, request, queryset, rq_queue):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_harvest_for_queryset(request.user, queryset, rq_queue)
-    if collections_invalid:
-        msg_invalid = '{} collections not harvestable. '.format(
-            len(collections_invalid))
-        for coll, reason in collections_invalid:
-            msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
-                coll.id, coll.name, reason)))
-        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
-    if success:
-        modeladmin.message_user(request, msg, level=messages.SUCCESS)
-    else:
-        modeladmin.message_user(request, msg, level=messages.ERROR)
-
-
-def queue_harvest_normal_stage(modeladmin, request, queryset):
-    return queue_harvest(modeladmin, request, queryset, 'normal-stage')
-
-
-queue_harvest_normal_stage.short_description = ''.join(
-    ('Queue harvest for ', 'collection(s) on ', 'normal queue'))
-
-
-def queue_harvest_high_stage(modeladmin, request, queryset):
-    return queue_harvest(modeladmin, request, queryset, 'high-stage')
-
-
-queue_harvest_high_stage.short_description = ''.join(
-    ('Queue harvest for ', 'collection(s) on high', ' queue'))
-
-
-def queue_image_harvest_for_queryset(user, queryset, rq_queue):
-    '''Start harvest for valid collections in the queryset'''
-    success = False
-    collections_to_harvest = []
-    collections_invalid = []
-    for collection in queryset:
-        if 'prod' in rq_queue and not collection.ready_for_publication:
-            collections_invalid.append(
-                (collection,
-                 'Not ready for production. Check "ready for publication" '
-                 'to harvest to production'))
-        else:
-            collections_to_harvest.append(collection)
-    cmd_line = ' '.join((collection.image_harvest_script, user.email,
-                         rq_queue))
-    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
-    cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    try:
-        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        msg = 'Queued image harvest for {} collections: {} CMD: {}'.format(
-            len(collections_to_harvest), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_to_harvest]),
-            cmd_line)
-    except OSError, e:
-        if e.errno == 2:
-            msg = 'Cannot find {} for image harvesting {} '\
-                  'collections {}'.format(
-                          collection.image_harvest_script,
-                          len(collections_to_harvest),
-                          '; '.join(
-                              [c.name.encode('utf-8') for c in
-                                  collections_to_harvest])
-                    )
-        else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
-    return msg, success, collections_invalid, collections_to_harvest
-
-
-def queue_image_harvest(modeladmin, request, queryset, rq_queue):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_image_harvest_for_queryset(request.user, queryset, rq_queue)
-    if collections_invalid:
-        msg_invalid = '{} collections not harvestable. '.format(
-            len(collections_invalid))
-        for coll, reason in collections_invalid:
-            msg_invalid = ''.join(
-                (msg_invalid,
-                 '#{} {} - {}; '.format(coll.id, coll.name, reason)))
-        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
-    if success:
-        modeladmin.message_user(request, msg, level=messages.SUCCESS)
-    else:
-        modeladmin.message_user(request, msg, level=messages.ERROR)
-
-
-def queue_image_harvest_normal_stage(modeladmin, request, queryset):
-    return queue_image_harvest(modeladmin, request, queryset, 'normal-stage')
-
-
-queue_image_harvest_normal_stage.short_description = ''.join(
-    ('Queue image ', 'harvest for collection(s) on normal queue'))
-
-
-def queue_image_harvest_high_stage(modeladmin, request, queryset):
-    return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
-
-
-queue_image_harvest_high_stage.short_description = ''.join(
-    ('Queue image ', 'harvest for collection(s) on high queue'))
-
-
-def queue_sync_couchdb_for_queryset(user, queryset):
-    '''Sync couchdb to production for valid collections in the queryset'''
-    success = False
-    collections_to_harvest = []
-    collections_success = []
-    collections_invalid = []
-    msg = ''
-    for collection in queryset:
-        if not collection.ready_for_publication:
-            collections_invalid.append(
-                (collection,
-                 'Not ready for production. Check "ready for publication" '
-                 'to sync to production'))
-        else:
-            collections_to_harvest.append(collection)
-    for collection in collections_to_harvest:
-        cmd_line = collection.sync_couchdb_script
-        cmd_line = ' '.join((cmd_line, str(collection.id)))
-        try:
-            subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-            success = True
-            collections_success.append(collection)
-        except OSError, e:
-            if e.errno == 2:
-                msg += 'Cannot find {} for syncing {} collections {}'.format(
-                    collection.sync_couchdb_script,
-                    len(collections_to_harvest), '; '.join([
-                        c.name.encode('utf-8') for c in collections_to_harvest
-                    ]))
-            else:
-                msg += 'Error: Trying to run {} error-> {}'.format(cmd_line,
-                                                                   str(e))
-    if len(collections_success):
-        msg += 'Queued sync couchdb for {} collections: {} '.format(
-            len(collections_success), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_success]))
-    return msg, success, collections_invalid, collections_success
-
-
-def queue_sync_couchdb(modeladmin, request, queryset):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_sync_couchdb_for_queryset(request.user, queryset)
-    if collections_invalid:
-        msg_invalid = '{} collections not syncable. '.format(
-            len(collections_invalid))
-        for coll, reason in collections_invalid:
-            msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
-                coll.id, coll.name, reason)))
-        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
-    if success:
-        modeladmin.message_user(request, msg, level=messages.SUCCESS)
-    else:
-        modeladmin.message_user(request, msg, level=messages.ERROR)
-
-
-queue_sync_couchdb.short_description = ''.join(('Queue sync to production ',
-                                                'couchdb for collection(s)'))
-
-
-def set_ready_for_publication(modeladmin, request, queryset):
-    '''Set the ready_for_publication to True for the queryset'''
-    c_success = []
-    for collection in queryset:
-        collection.ready_for_publication = True
-        collection.save()
-        c_success.append(collection)
-    msg = 'Set {} collections to "ready for publication"'.format(
-        len(c_success))
-    modeladmin.message_user(request, msg, level=messages.SUCCESS)
-
-
-set_ready_for_publication.short_description = "Set ready for publication True"
 
 
 # from: http://stackoverflow.com/questions/2805701/
