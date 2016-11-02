@@ -230,7 +230,7 @@ def set_ready_for_publication(modeladmin, request, queryset):
 set_ready_for_publication.short_description = "Set ready for publication True"
 
 
-def queue_sync_to_solr(user, queryset, rq_queue):
+def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
     '''Queue a sync to solr job for the collection'''
     success = False
     collections_to_sync = []
@@ -264,6 +264,22 @@ def queue_sync_to_solr(user, queryset, rq_queue):
     return msg, success, collections_invalid, collections_to_sync
 
 
+def queue_sync_to_solr(modeladmin, request, queryset, rq_queue):
+    msg, success, collections_invalid, collections_harvested = \
+            queue_sync_to_solr_for_queryset(request.user, queryset, rq_queue)
+    if collections_invalid:
+        msg_invalid = '{} collections not harvestable. '.format(
+            len(collections_invalid))
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
+                coll.id, coll.name, reason)))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
+
+
 def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
     return queue_sync_to_solr(
             modeladmin,
@@ -273,6 +289,7 @@ def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
 
 queue_sync_to_solr_normal_stage.short_description = ''.join(
     ('Queue sync solr index for ', 'collection(s) on ', 'normal-stage'))
+
 
 def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
     return queue_sync_to_solr(
