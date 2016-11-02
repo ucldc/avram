@@ -263,7 +263,27 @@ def queue_sync_to_solr(user, queryset, rq_queue):
             msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
     return msg, success, collections_invalid, collections_to_sync
 
-    pass
+
+def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
+    return queue_sync_to_solr(
+            modeladmin,
+            request,
+            queryset,
+            'normal-stage')
+
+queue_sync_to_solr_normal_stage.short_description = ''.join(
+    ('Queue sync solr index for ', 'collection(s) on ', 'normal-stage'))
+
+def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
+    return queue_sync_to_solr(
+        modeladmin,
+        request,
+        queryset,
+        'normal-production')
+
+queue_sync_to_solr_normal_production.short_description = ''.join(
+    ('Queue sync solr index for ', 'collection(s) on ', 'normal-production'))
+
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
