@@ -12,6 +12,9 @@ IMAGE_HARVEST_SCRIPT = os.environ.get(
 SYNC_COUCHDB_SCRIPT = os.environ.get(
         'SYNC_COUCHDB_SCRIPT',
         os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.bash')
+SYNC_TO_SOLR_SCRIPT = os.environ.get(
+        'SYNC_TO_SOLR_SCRIPT',
+        os.environ['HOME'] + '/code/harvester/queue_sync_to_solr.bash')
 
 
 def queue_harvest_for_queryset(user, queryset, rq_queue):
@@ -243,20 +246,20 @@ def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
                                         'to production'))
         else:
             collections_to_sync.append(collection)
-    cmd_line = ' '.join((HARVEST_SCRIPT, user.email, rq_queue))
+    cmd_line = ' '.join((SYNC_TO_SOLR_SCRIPT, user.email, rq_queue))
     arg_coll_uri = ';'.join([c.url_api for c in collections_to_sync])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
     try:
         subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
         success = True
-        msg = 'Queued harvest for {} collections: {} CMD: {}'.format(
+        msg = 'Queued sync to solr for {} collections: {} CMD: {}'.format(
             len(collections_to_sync), '  |  '.join(
                 [c.name.encode('utf-8') for c in collections_to_sync]),
             cmd_line)
     except OSError, e:
         if e.errno == 2:
             msg = 'Cannot find {} for harvesting {} collections {}'.format(
-                HARVEST_SCRIPT,
+                SYNC_TO_SOLR_SCRIPT,
                 len(collections_to_sync), '; '.join(
                     [c.name.encode('utf-8') for c in collections_to_sync]))
         else:
@@ -268,7 +271,7 @@ def queue_sync_to_solr(modeladmin, request, queryset, rq_queue):
     msg, success, collections_invalid, collections_harvested = \
             queue_sync_to_solr_for_queryset(request.user, queryset, rq_queue)
     if collections_invalid:
-        msg_invalid = '{} collections not harvestable. '.format(
+        msg_invalid = '{} collections not syncable. '.format(
             len(collections_invalid))
         for coll, reason in collections_invalid:
             msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
