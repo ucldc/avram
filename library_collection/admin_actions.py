@@ -246,7 +246,7 @@ def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
                                         'to production'))
         else:
             collections_to_sync.append(collection)
-    cmd_line = ' '.join((SYNC_TO_SOLR_SCRIPT, user.email, rq_queue))
+    cmd_line = ' '.join((SYNC_TO_SOLR_SCRIPT, rq_queue))
     arg_coll_uri = ';'.join([c.id for c in collections_to_sync])
     cmd_line = ' '.join((cmd_line, arg_coll_uri))
     try:
@@ -258,7 +258,7 @@ def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
             cmd_line)
     except OSError, e:
         if e.errno == 2:
-            msg = 'Cannot find {} for harvesting {} collections {}'.format(
+            msg = 'Cannot find {} for syncing solr {} collections {}'.format(
                 SYNC_TO_SOLR_SCRIPT,
                 len(collections_to_sync), '; '.join(
                     [c.name.encode('utf-8') for c in collections_to_sync]))
