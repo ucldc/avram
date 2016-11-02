@@ -1,7 +1,12 @@
 # admin.py
 
+import subprocess
+import shlex
 from django.contrib import admin
-from library_collection.models import *
+from library_collection.models import Campus
+from library_collection.models import Repository
+from library_collection.models import Collection
+from library_collection.models import CollectionCustomFacet
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -101,8 +106,8 @@ def queue_harvest_for_queryset(user, queryset, rq_queue):
     except OSError, e:
         if e.errno == 2:
             msg = 'Cannot find {} for harvesting {} collections {}'.format(
-                collection.harvest_script, len(collections_to_harvest),
-                '; '.join(
+                collection.harvest_script,
+                len(collections_to_harvest), '; '.join(
                     [c.name.encode('utf-8') for c in collections_to_harvest]))
         else:
             msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
@@ -239,8 +244,9 @@ def queue_sync_couchdb_for_queryset(user, queryset):
             if e.errno == 2:
                 msg += 'Cannot find {} for syncing {} collections {}'.format(
                     collection.sync_couchdb_script,
-                    len(collections_to_harvest), '; '.join([c.name.encode(
-                        'utf-8') for c in collections_to_harvest]))
+                    len(collections_to_harvest), '; '.join([
+                        c.name.encode('utf-8') for c in collections_to_harvest
+                    ]))
             else:
                 msg += 'Error: Trying to run {} error-> {}'.format(cmd_line,
                                                                    str(e))
@@ -337,36 +343,43 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key)
-    list_filter = ['campus', 'ready_for_publication', NotInCampus,
-                   'harvest_type', URLFieldsListFilter, 'repository']
-    search_fields = ['name', 'description', 'enrichments_item' ]
-    actions = [queue_harvest_normal_stage, queue_harvest_high_stage,
-               queue_image_harvest_normal_stage,
-               queue_image_harvest_high_stage, queue_sync_couchdb,
-               set_ready_for_publication]
-    fieldsets = (('Descriptive Information',
-                  {
-                      'fields':
-                      ('name', 'campus', 'repository', 'description',
-                       'local_id', 'url_local', 'url_oac', 'rights_status',
-                       'rights_statement', 'ready_for_publication', 'featured')
-                  }, ),
-                 ('For Nuxeo Collections',
-                  {
-                      # 'classes': ('collapse',),
-                      'fields': ('extent',
-                                 'formats',
-                                 'hosted',
-                                 'staging_notes',
-                                 'files_in_hand',
-                                 'files_in_dams',
-                                 'metadata_in_dams',
-                                 'qa_completed', )
-                  }),
-                 ('For Harvest Collections', {
-                     'fields': ('harvest_type', 'dcmi_type', 'url_harvest',
-                                'harvest_extra_data', 'enrichments_item'),
-                 }))
+    list_filter = [
+        'campus', 'ready_for_publication', NotInCampus, 'harvest_type',
+        URLFieldsListFilter, 'repository'
+    ]
+    search_fields = ['name', 'description', 'enrichments_item']
+    actions = [
+        queue_harvest_normal_stage, queue_harvest_high_stage,
+        queue_image_harvest_normal_stage, queue_image_harvest_high_stage,
+        queue_sync_couchdb, set_ready_for_publication
+    ]
+    fieldsets = (
+        (
+            'Descriptive Information',
+            {
+                'fields':
+                ('name', 'campus', 'repository', 'description', 'local_id',
+                 'url_local', 'url_oac', 'rights_status', 'rights_statement',
+                 'ready_for_publication', 'featured')
+            }, ),
+        (
+            'For Nuxeo Collections',
+            {
+                # 'classes': ('collapse',),
+                'fields': (
+                    'extent',
+                    'formats',
+                    'hosted',
+                    'staging_notes',
+                    'files_in_hand',
+                    'files_in_dams',
+                    'metadata_in_dams',
+                    'qa_completed', )
+            }),
+        ('For Harvest Collections', {
+            'fields': ('harvest_type', 'dcmi_type', 'url_harvest',
+                       'harvest_extra_data', 'enrichments_item'),
+        }))
 
     def human_extent(self, obj):
         return obj.human_extent
