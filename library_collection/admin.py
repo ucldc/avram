@@ -13,9 +13,9 @@ from library_collection.admin_actions import set_ready_for_publication
 from library_collection.admin_actions import queue_sync_to_solr_normal_stage
 from library_collection.admin_actions import \
         queue_sync_to_solr_normal_production
-from library_collection.admin_actions import queue_delete_to_solr_normal_stage
+from library_collection.admin_actions import queue_delete_from_solr_normal_stage
 from library_collection.admin_actions import \
-        queue_delete_to_solr_normal_production
+        queue_delete_from_solr_normal_production
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -146,8 +146,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         queue_sync_couchdb, set_ready_for_publication,
         queue_sync_to_solr_normal_stage,
         queue_sync_to_solr_normal_production,
-        queue_delete_to_solr_normal_stage,
-        queue_delete_to_solr_normal_production,
+        queue_delete_from_solr_normal_stage,
+        queue_delete_from_solr_normal_production,
     ]
     fieldsets = (
         (
