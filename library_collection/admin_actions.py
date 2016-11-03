@@ -28,7 +28,7 @@ def run_script_for_queryset(script,
                             user={'email': 'example@example.edu'}):
     success = False
     collection_args_list = ';'.join(
-            [getattr(c, collection_attr) for c in queryset])
+            [str(getattr(c, collection_attr)) for c in queryset])
     cmd_line = ' '.join((script, user.email, rq_queue))
     cmd_line = ' '.join((cmd_line, collection_args_list))
     try:
