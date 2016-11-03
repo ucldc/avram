@@ -15,11 +15,43 @@ SYNC_COUCHDB_SCRIPT = os.environ.get(
 SYNC_TO_SOLR_SCRIPT = os.environ.get(
         'SYNC_TO_SOLR_SCRIPT',
         os.environ['HOME'] + '/code/harvester/queue_sync_to_solr.bash')
+DELETE_FROM_SOLR_SCRIPT = os.environ.get(
+        'SYNC_TO_SOLR_SCRIPT',
+        os.environ['HOME'] +
+        '/code/harvester/queue_delete_solr_collection.bash')
 
 
-def queue_harvest_for_queryset(user, queryset, rq_queue):
-    '''Start harvest for valid collections in the queryset'''
+def run_script_for_queryset(script,
+                            queryset,
+                            rq_queue,
+                            collection_attr='id',
+                            user={'email': 'example@example.edu'}):
     success = False
+    collection_args_list = ';'.join(
+            [getattr(c, collection_attr) for c in queryset])
+    cmd_line = ' '.join((script, user.email, rq_queue))
+    cmd_line = ' '.join((cmd_line, collection_args_list))
+    try:
+        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+        success = True
+        msg = 'Queued {} for {} collections: {} CMD: {}'.format(
+                script,
+                len(queryset),
+                '  |  '.join(
+                    [c.name.encode('utf-8') for c in queryset]),
+                cmd_line)
+    except OSError, e:
+        if e.errno == 2:
+            msg = 'Cannot find {} for running {} collections {}'.format(
+                script,
+                len(queryset), '; '.join(
+                    [c.name.encode('utf-8') for c in queryset]))
+        else:
+            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
+    return msg, success
+
+
+def queue_harvest(modeladmin, request, queryset, rq_queue):
     collections_to_harvest = []
     collections_invalid = []
     for collection in queryset:
@@ -34,30 +66,12 @@ def queue_harvest_for_queryset(user, queryset, rq_queue):
                                         'to production'))
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((HARVEST_SCRIPT, user.email, rq_queue))
-    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
-    cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    try:
-        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        msg = 'Queued harvest for {} collections: {} CMD: {}'.format(
-            len(collections_to_harvest), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_to_harvest]),
-            cmd_line)
-    except OSError, e:
-        if e.errno == 2:
-            msg = 'Cannot find {} for harvesting {} collections {}'.format(
-                HARVEST_SCRIPT,
-                len(collections_to_harvest), '; '.join(
-                    [c.name.encode('utf-8') for c in collections_to_harvest]))
-        else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
-    return msg, success, collections_invalid, collections_to_harvest
-
-
-def queue_harvest(modeladmin, request, queryset, rq_queue):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_harvest_for_queryset(request.user, queryset, rq_queue)
+    msg, success = run_script_for_queryset(
+            HARVEST_SCRIPT,
+            collections_to_harvest,
+            rq_queue,
+            collection_attr='url_api',
+            user=request.user)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable. '.format(
             len(collections_invalid))
@@ -69,6 +83,7 @@ def queue_harvest(modeladmin, request, queryset, rq_queue):
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
     else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
 
 
 def queue_harvest_normal_stage(modeladmin, request, queryset):
@@ -87,8 +102,7 @@ queue_harvest_high_stage.short_description = ''.join(
     ('Queue harvest for ', 'collection(s) on high', ' queue'))
 
 
-def queue_image_harvest_for_queryset(user, queryset, rq_queue):
-    '''Start harvest for valid collections in the queryset'''
+def queue_image_harvest(modeladmin, request, queryset, rq_queue):
     success = False
     collections_to_harvest = []
     collections_invalid = []
@@ -100,35 +114,12 @@ def queue_image_harvest_for_queryset(user, queryset, rq_queue):
                  'to harvest to production'))
         else:
             collections_to_harvest.append(collection)
-    cmd_line = ' '.join((IMAGE_HARVEST_SCRIPT, user.email,
-                         rq_queue))
-    arg_coll_uri = ';'.join([c.url_api for c in collections_to_harvest])
-    cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    try:
-        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        msg = 'Queued image harvest for {} collections: {} CMD: {}'.format(
-            len(collections_to_harvest), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_to_harvest]),
-            cmd_line)
-    except OSError, e:
-        if e.errno == 2:
-            msg = 'Cannot find {} for image harvesting {} '\
-                  'collections {}'.format(
-                          IMAGE_HARVEST_SCRIPT,
-                          len(collections_to_harvest),
-                          '; '.join(
-                              [c.name.encode('utf-8') for c in
-                                  collections_to_harvest])
-                    )
-        else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
-    return msg, success, collections_invalid, collections_to_harvest
-
-
-def queue_image_harvest(modeladmin, request, queryset, rq_queue):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_image_harvest_for_queryset(request.user, queryset, rq_queue)
+    msg, success = run_script_for_queryset(
+            IMAGE_HARVEST_SCRIPT,
+            collections_to_harvest,
+            rq_queue,
+            collection_attr='url_api',
+            user=request.user)
     if collections_invalid:
         msg_invalid = '{} collections not harvestable. '.format(
             len(collections_invalid))
@@ -141,6 +132,7 @@ def queue_image_harvest(modeladmin, request, queryset, rq_queue):
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
     else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
 
 
 def queue_image_harvest_normal_stage(modeladmin, request, queryset):
@@ -159,11 +151,10 @@ queue_image_harvest_high_stage.short_description = ''.join(
     ('Queue image ', 'harvest for collection(s) on high queue'))
 
 
-def queue_sync_couchdb_for_queryset(user, queryset):
-    '''Sync couchdb to production for valid collections in the queryset'''
+def queue_sync_couchdb(modeladmin, request, queryset):
     success = False
+    rq_queue = 'normal-production'
     collections_to_harvest = []
-    collections_success = []
     collections_invalid = []
     msg = ''
     for collection in queryset:
@@ -174,33 +165,11 @@ def queue_sync_couchdb_for_queryset(user, queryset):
                  'to sync to production'))
         else:
             collections_to_harvest.append(collection)
-    for collection in collections_to_harvest:
-        cmd_line = SYNC_COUCHDB_SCRIPT
-        cmd_line = ' '.join((cmd_line, str(collection.id)))
-        try:
-            subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-            success = True
-            collections_success.append(collection)
-        except OSError, e:
-            if e.errno == 2:
-                msg += 'Cannot find {} for syncing {} collections {}'.format(
-                    SYNC_COUCHDB_SCRIPT,
-                    len(collections_to_harvest), '; '.join([
-                        c.name.encode('utf-8') for c in collections_to_harvest
-                    ]))
-            else:
-                msg += 'Error: Trying to run {} error-> {}'.format(cmd_line,
-                                                                   str(e))
-    if len(collections_success):
-        msg += 'Queued sync couchdb for {} collections: {} '.format(
-            len(collections_success), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_success]))
-    return msg, success, collections_invalid, collections_success
-
-
-def queue_sync_couchdb(modeladmin, request, queryset):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_sync_couchdb_for_queryset(request.user, queryset)
+    msg, success = run_script_for_queryset(
+            SYNC_COUCHDB_SCRIPT,
+            collections_to_harvest,
+            rq_queue,
+            user=request.user)
     if collections_invalid:
         msg_invalid = '{} collections not syncable. '.format(
             len(collections_invalid))
@@ -212,6 +181,7 @@ def queue_sync_couchdb(modeladmin, request, queryset):
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
     else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
 
 
 queue_sync_couchdb.short_description = ''.join(('Queue sync to production ',
@@ -233,8 +203,7 @@ def set_ready_for_publication(modeladmin, request, queryset):
 set_ready_for_publication.short_description = "Set ready for publication True"
 
 
-def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
-    '''Queue a sync to solr job for the collection'''
+def queue_sync_to_solr(modeladmin, request, queryset, rq_queue):
     success = False
     collections_to_sync = []
     collections_invalid = []
@@ -246,30 +215,11 @@ def queue_sync_to_solr_for_queryset(user, queryset, rq_queue):
                                         'to production'))
         else:
             collections_to_sync.append(collection)
-    cmd_line = ' '.join((SYNC_TO_SOLR_SCRIPT, rq_queue))
-    arg_coll_uri = ';'.join([str(c.id) for c in collections_to_sync])
-    cmd_line = ' '.join((cmd_line, arg_coll_uri))
-    try:
-        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
-        success = True
-        msg = 'Queued sync to solr for {} collections: {} CMD: {}'.format(
-            len(collections_to_sync), '  |  '.join(
-                [c.name.encode('utf-8') for c in collections_to_sync]),
-            cmd_line)
-    except OSError, e:
-        if e.errno == 2:
-            msg = 'Cannot find {} for syncing solr {} collections {}'.format(
-                SYNC_TO_SOLR_SCRIPT,
-                len(collections_to_sync), '; '.join(
-                    [c.name.encode('utf-8') for c in collections_to_sync]))
-        else:
-            msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
-    return msg, success, collections_invalid, collections_to_sync
-
-
-def queue_sync_to_solr(modeladmin, request, queryset, rq_queue):
-    msg, success, collections_invalid, collections_harvested = \
-            queue_sync_to_solr_for_queryset(request.user, queryset, rq_queue)
+    msg, success = run_script_for_queryset(
+            SYNC_TO_SOLR_SCRIPT,
+            collections_to_sync,
+            rq_queue,
+            user=request.user)
     if collections_invalid:
         msg_invalid = '{} collections not syncable. '.format(
             len(collections_invalid))
@@ -281,6 +231,7 @@ def queue_sync_to_solr(modeladmin, request, queryset, rq_queue):
         modeladmin.message_user(request, msg, level=messages.SUCCESS)
     else:
         modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
 
 
 def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
@@ -303,6 +254,59 @@ def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
 
 queue_sync_to_solr_normal_production.short_description = ''.join(
     ('Queue sync solr index for ', 'collection(s) on ', 'normal-production'))
+
+
+def queue_delete_to_solr(modeladmin, request, queryset, rq_queue):
+    success = False
+    collections_to_delete = []
+    collections_invalid = []
+    for collection in queryset:
+        if 'prod' in rq_queue and not collection.ready_for_publication:
+            collections_invalid.append((collection,
+                                        'Not ready for production. Check '
+                                        '"ready for publication" to harvest '
+                                        'to production'))
+        else:
+            collections_to_delete.append(collection)
+    msg, success = run_script_for_queryset(
+            DELETE_FROM_SOLR_SCRIPT,
+            collections_to_delete,
+            rq_queue,
+            user=request.user)
+    if collections_invalid:
+        msg_invalid = '{} collections not deletable. '.format(
+            len(collections_invalid))
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
+                coll.id, coll.name, reason)))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
+
+
+def queue_delete_to_solr_normal_stage(modeladmin, request, queryset):
+    return queue_delete_to_solr(
+            modeladmin,
+            request,
+            queryset,
+            'normal-stage')
+
+queue_delete_to_solr_normal_stage.short_description = ''.join(
+    ('Queue delete solr index for ', 'collection(s) on ', 'normal-stage'))
+
+
+def queue_delete_to_solr_normal_production(modeladmin, request, queryset):
+    return queue_delete_to_solr(
+        modeladmin,
+        request,
+        queryset,
+        'normal-production')
+
+queue_delete_to_solr_normal_production.short_description = ''.join(
+    ('Queue delete solr index for ', 'collection(s) on ', 'normal-production'))
 
 
 # Copyright © 2016, Regents of the University of California
