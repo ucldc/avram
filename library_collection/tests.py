@@ -12,7 +12,7 @@ from library_collection.models import Campus
 from library_collection.models import Repository
 from util import sync_oac_collections, sync_oac_repositories
 import library_collection.admin_actions
-from library_collection.admin_actions import queue_harvest_for_queryset
+from library_collection.admin_actions import queue_harvest
 
 FILE_DIR = os.path.abspath(os.path.split(__file__)[0])
 
@@ -103,10 +103,10 @@ class CollectionTestCase(TestCase):
         pc.url_harvest = 'http://example.com/oai'
         pc.harvest_extra_data = 'testset'
         pc.save()
-        retVal = queue_harvest_for_queryset(u, pc, 'test-queue')
+        retVal = queue_harvest(u, pc, 'test-queue')
         self.assertTrue(isinstance(retVal, int))
         with patch('subprocess.Popen') as mock_subprocess:
-            retVal = queue_harvest_for_queryset(
+            retVal = queue_harvest(
                     u,
                     'test-queue')
             self.assertTrue(mock_subprocess.called)
@@ -115,7 +115,8 @@ class CollectionTestCase(TestCase):
                 'https://' + socket.getfqdn() + '/api/v1/collection/1/'
             ])
 
-    def test_queue_harvest_function(self):
+    @patch('django.contrib.admin.ModelAdmin')
+    def test_queue_harvest_function(self, mock_modeladmin):
         '''
         Test of harvest starting function. Kicks off a "harvest" for the
         given collection.
@@ -129,22 +130,32 @@ class CollectionTestCase(TestCase):
         pc.save()
         self.assertRaises(
                 TypeError,
-                queue_harvest_for_queryset,
+                queue_harvest,
                 u, pc, 'test-q')
+
+        class Bunch(object):
+            def __init__(self, **kwargs):
+                self.__dict__.update(kwargs)
+
+        request = Bunch(user=Bunch(email='example@example.edu'))
         pc.harvest_type = 'OAC'
-        retVal = queue_harvest_for_queryset(u, [pc], 'test-q')
+        retVal = queue_harvest(
+                mock_modeladmin,
+                request,
+                [pc],
+                'test-q')
         self.assertEqual(
                 retVal[0],
-                'Cannot find xxxxx for harvesting 1 collections On demand '
+                'Cannot find xxxxx for running 1 collections On demand '
                 'patron requests')
         self.assertEqual(
                 retVal[1],
                 False)
         with patch('subprocess.Popen') as mock_subprocess:
-            retVal = queue_harvest_for_queryset(u, [pc], 'test-q')
+            retVal = queue_harvest(mock_modeladmin, request, [pc], 'test-q')
             self.assertTrue(mock_subprocess.called)
             mock_subprocess.assert_called_with([
-                'xxxxx', 'mark.redar@ucop.edu', 'test-q',
+                'xxxxx', 'example@example.edu', 'test-q',
                 'https://' + pc._hostname + '/api/v1/collection/1/'
             ])
 
@@ -342,7 +353,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertContains(response,
-                            'Cannot find xxxx for harvesting 3 collections')
+                            'Cannot find xxxx for running 3 collections')
         library_collection.admin_actions.HARVEST_SCRIPT = 'true'
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
@@ -358,7 +369,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
-        self.assertContains(response, 'Queued harvest for 3 ')
+        self.assertContains(response, 'Queued true for 3 ')
         self.assertContains(response, 'collections: &quot;A is for atom,')
         self.assertContains(response, 'Harold Scheffler Papers')
         self.assertContains(response, '(Melanesian Archive)  |  ')
@@ -444,7 +455,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = response.follow(headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
         self.assertContains(
-            response, 'Cannot find xxxx for image harvesting 3 collections')
+            response, 'Cannot find xxxx for running 3 collections')
         library_collection.admin_actions.IMAGE_HARVEST_SCRIPT = 'true'
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
@@ -461,7 +472,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         self.assertNotContains(response, 'Cannot find ')
         self.assertContains(response, ''.join(
-            ('Queued image harvest for 3 ',
+            ('Queued true for 3 ',
              'collections: &quot;A is for atom, B is for bomb&quot; video',
              ' tape  |  Harold Scheffler Papers (Melanesian Archive)  |  ',
              'Los Angeles Times Photographic Archive CMD: true ',
