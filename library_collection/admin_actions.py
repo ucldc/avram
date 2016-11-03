@@ -256,7 +256,7 @@ queue_sync_to_solr_normal_production.short_description = ''.join(
     ('Queue sync solr index for ', 'collection(s) on ', 'normal-production'))
 
 
-def queue_delete_to_solr(modeladmin, request, queryset, rq_queue):
+def queue_delete_from_solr(modeladmin, request, queryset, rq_queue):
     success = False
     collections_to_delete = []
     collections_invalid = []
@@ -287,25 +287,25 @@ def queue_delete_to_solr(modeladmin, request, queryset, rq_queue):
     return msg, success
 
 
-def queue_delete_to_solr_normal_stage(modeladmin, request, queryset):
-    return queue_delete_to_solr(
+def queue_delete_from_solr_normal_stage(modeladmin, request, queryset):
+    return queue_delete_from_solr(
             modeladmin,
             request,
             queryset,
             'normal-stage')
 
-queue_delete_to_solr_normal_stage.short_description = ''.join(
+queue_delete_from_solr_normal_stage.short_description = ''.join(
     ('Queue delete solr index for ', 'collection(s) on ', 'normal-stage'))
 
 
-def queue_delete_to_solr_normal_production(modeladmin, request, queryset):
-    return queue_delete_to_solr(
+def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
+    return queue_delete_from_solr(
         modeladmin,
         request,
         queryset,
         'normal-production')
 
-queue_delete_to_solr_normal_production.short_description = ''.join(
+queue_delete_from_solr_normal_production.short_description = ''.join(
     ('Queue delete solr index for ', 'collection(s) on ', 'normal-production'))
 
 
