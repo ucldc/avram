@@ -242,8 +242,8 @@ def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
             queryset,
             'normal-stage')
 
-queue_sync_to_solr_normal_stage.short_description = ''.join(
-    ('Queue sync solr index for ', 'collection(s) on ', 'normal-stage'))
+queue_sync_to_solr_normal_stage.short_description = 'Queue sync solr ' \
+        'documents for collection(s) on normal-stage'
 
 
 def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
@@ -253,8 +253,8 @@ def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
         queryset,
         'normal-production')
 
-queue_sync_to_solr_normal_production.short_description = ''.join(
-    ('Queue sync solr index for ', 'collection(s) on ', 'normal-production'))
+queue_sync_to_solr_normal_production.short_description = 'Queue sync solr ' \
+        'documents for collection(s) on normal-production'
 
 
 def queue_delete_from_solr(modeladmin, request, queryset, rq_queue):
@@ -295,8 +295,8 @@ def queue_delete_from_solr_normal_stage(modeladmin, request, queryset):
             queryset,
             'normal-stage')
 
-queue_delete_from_solr_normal_stage.short_description = ''.join(
-    ('Queue delete solr index for ', 'collection(s) on ', 'normal-stage'))
+queue_delete_from_solr_normal_stage.short_description = 'Queue delete solr ' \
+        'documents for collection(s) on normal-stage'
 
 
 def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
@@ -306,8 +306,8 @@ def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
         queryset,
         'normal-production')
 
-queue_delete_from_solr_normal_production.short_description = ''.join(
-    ('Queue delete solr index for ', 'collection(s) on ', 'normal-production'))
+queue_delete_from_solr_normal_production.short_description = 'Queue delete ' \
+        'solr documents for collection(s) on normal-production'
 
 
 # Copyright © 2016, Regents of the University of California
