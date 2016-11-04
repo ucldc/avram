@@ -169,6 +169,7 @@ def queue_sync_couchdb(modeladmin, request, queryset):
             SYNC_COUCHDB_SCRIPT,
             collections_to_harvest,
             rq_queue,
+            collection_attr='url_api',
             user=request.user)
     if collections_invalid:
         msg_invalid = '{} collections not syncable. '.format(
