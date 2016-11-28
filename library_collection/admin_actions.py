@@ -260,6 +260,7 @@ def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
 queue_sync_to_solr_normal_production.short_description = 'Queue sync solr ' \
         'documents for collection(s) on normal-production'
 
+
 def queue_delete_from_solr(modeladmin, request, queryset, rq_queue):
     success = False
     collections_to_delete = []
@@ -311,6 +312,7 @@ def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
 
 queue_delete_from_solr_normal_production.short_description = 'Queue delete ' \
         'solr documents for collection(s) on normal-production'
+
 
 def queue_deep_harvest(modeladmin, request, queryset, rq_queue):
     success = False
