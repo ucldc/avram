@@ -19,6 +19,10 @@ DELETE_FROM_SOLR_SCRIPT = os.environ.get(
         'SYNC_TO_SOLR_SCRIPT',
         os.environ['HOME'] +
         '/code/harvester/queue_delete_solr_collection.bash')
+DEEP_HARVEST_SCRIPT = os.environ.get(
+        'DEEP_HARVEST_SCRIPT',
+        os.environ['HOME'] +
+        '/code/harvester/queue_deep_harvest.bash')
 
 
 def run_script_for_queryset(script,
@@ -90,16 +94,7 @@ def queue_harvest_normal_stage(modeladmin, request, queryset):
     return queue_harvest(modeladmin, request, queryset, 'normal-stage')
 
 
-queue_harvest_normal_stage.short_description = ''.join(
-    ('Queue harvest for ', 'collection(s) on ', 'normal queue'))
-
-
-def queue_harvest_high_stage(modeladmin, request, queryset):
-    return queue_harvest(modeladmin, request, queryset, 'high-stage')
-
-
-queue_harvest_high_stage.short_description = ''.join(
-    ('Queue harvest for ', 'collection(s) on high', ' queue'))
+queue_harvest_normal_stage.short_description = 'Queue harvest to couchdb stage'
 
 
 def queue_image_harvest(modeladmin, request, queryset, rq_queue):
@@ -139,16 +134,8 @@ def queue_image_harvest_normal_stage(modeladmin, request, queryset):
     return queue_image_harvest(modeladmin, request, queryset, 'normal-stage')
 
 
-queue_image_harvest_normal_stage.short_description = ''.join(
-    ('Queue image ', 'harvest for collection(s) on normal queue'))
-
-
-def queue_image_harvest_high_stage(modeladmin, request, queryset):
-    return queue_image_harvest(modeladmin, request, queryset, 'high-stage')
-
-
-queue_image_harvest_high_stage.short_description = ''.join(
-    ('Queue image ', 'harvest for collection(s) on high queue'))
+queue_image_harvest_normal_stage.short_description = 'Queue image harvest to' \
+                                                     ' couchdb stage'
 
 
 def queue_sync_couchdb(modeladmin, request, queryset):
@@ -185,8 +172,8 @@ def queue_sync_couchdb(modeladmin, request, queryset):
     return msg, success
 
 
-queue_sync_couchdb.short_description = ''.join(('Queue sync to production ',
-                                                'couchdb for collection(s)'))
+queue_sync_couchdb.short_description = ''.join(
+        ('Queue sync from stage couchdb to production couchdb'))
 
 
 def set_ready_for_publication(modeladmin, request, queryset):
@@ -242,8 +229,8 @@ def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
             queryset,
             'normal-stage')
 
-queue_sync_to_solr_normal_stage.short_description = 'Queue sync solr ' \
-        'documents for collection(s) on normal-stage'
+queue_sync_to_solr_normal_stage.short_description = 'Queue sync from couchdb' \
+        ' stage to solr stage'
 
 
 def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
@@ -253,8 +240,8 @@ def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
         queryset,
         'normal-production')
 
-queue_sync_to_solr_normal_production.short_description = 'Queue sync solr ' \
-        'documents for collection(s) on normal-production'
+queue_sync_to_solr_normal_production.short_description = 'Queue sync from ' \
+        'couchdb production to solr production'
 
 
 def queue_delete_from_solr(modeladmin, request, queryset, rq_queue):
@@ -295,8 +282,8 @@ def queue_delete_from_solr_normal_stage(modeladmin, request, queryset):
             queryset,
             'normal-stage')
 
-queue_delete_from_solr_normal_stage.short_description = 'Queue delete solr ' \
-        'documents for collection(s) on normal-stage'
+queue_delete_from_solr_normal_stage.short_description = 'Queue deletion ' \
+        'of documents from solr stage'
 
 
 def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
@@ -306,9 +293,48 @@ def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
         queryset,
         'normal-production')
 
-queue_delete_from_solr_normal_production.short_description = 'Queue delete ' \
-        'solr documents for collection(s) on normal-production'
+queue_delete_from_solr_normal_production.short_description = 'Queue deletion' \
+        ' of documents from solr production'
 
+
+def queue_deep_harvest(modeladmin, request, queryset, rq_queue):
+    success = False
+    collections_to_deep_harvest = []
+    collections_invalid = []
+    for collection in queryset:
+        if collection.harvest_type != 'NUX':
+            collections_invalid.append((collection,
+                                        'Not a Nuxeo collection'))
+        else:
+            collections_to_deep_harvest.append(collection)
+    msg, success = run_script_for_queryset(
+            DEEP_HARVEST_SCRIPT,
+            collections_to_deep_harvest,
+            rq_queue,
+            user=request.user)
+    if collections_invalid:
+        msg_invalid = '{} collections not in Nuxeo. '.format(
+            len(collections_invalid))
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
+                coll.id, coll.name, reason)))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
+
+
+def queue_deep_harvest_normal_stage(modeladmin, request, queryset):
+    return queue_deep_harvest(
+            modeladmin,
+            request,
+            queryset,
+            'normal-stage')
+
+queue_deep_harvest_normal_stage.short_description = 'Queue Nuxeo deep ' \
+        'harvest for collection(s) to stage couchdb'
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
