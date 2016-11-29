@@ -321,7 +321,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         form = response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'queue_harvest_high_stage'
+        select_action.value = 'queue_harvest_normal_stage'
         # check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -359,7 +359,7 @@ class CollectionAdminHarvestTestCase(WebTest):
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'queue_harvest_high_stage'
+        select_action.value = 'queue_harvest_normal_stage'
         # check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -374,7 +374,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertContains(response, 'Harold Scheffler Papers')
         self.assertContains(response, '(Melanesian Archive)  |  ')
         self.assertContains(response, 'Los Angeles Times Photographic')
-        self.assertContains(response, 'mark.redar@ucop.edu high-stage')
+        self.assertContains(response, 'mark.redar@ucop.edu normal-stage')
         self.assertContains(response, 'https://registry.cdlib.org/api/v1/'
                                       'collection/189/;')
         self.assertContains(response, 'https://registry.cdlib.org/api/v1/'
@@ -392,7 +392,6 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_harvest_normal_stage')
-        self.assertContains(response, 'queue_harvest_high_stage')
 
     def testQueueImageHarvestOnCollections(self):
         '''Test that the user can select & start the harvest for a number of
@@ -428,7 +427,7 @@ class CollectionAdminHarvestTestCase(WebTest):
         self.assertEqual(response.status_int, 200)
         form = response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'queue_image_harvest_high_stage'
+        select_action.value = 'queue_image_harvest_normal_stage'
         # check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -461,7 +460,7 @@ class CollectionAdminHarvestTestCase(WebTest):
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
         select_action = form.fields['action'][0]
-        select_action.value = 'queue_image_harvest_high_stage'
+        select_action.value = 'queue_image_harvest_normal_stage'
         # check a few of harvestable collections
         form.fields['_selected_action'][0].checked = True
         form.fields['_selected_action'][1].checked = True
@@ -476,7 +475,7 @@ class CollectionAdminHarvestTestCase(WebTest):
              'collections: &quot;A is for atom, B is for bomb&quot; video',
              ' tape  |  Harold Scheffler Papers (Melanesian Archive)  |  ',
              'Los Angeles Times Photographic Archive CMD: true ',
-             'mark.redar@ucop.edu high-stage ',
+             'mark.redar@ucop.edu normal-stage ',
              'https://{0}/api/v1/collection/189/;',
              'https://{0}/api/v1/collection/172/;',
              'https://{0}/api/v1/collection/153/')).format(c._hostname))
@@ -491,7 +490,6 @@ class CollectionAdminHarvestTestCase(WebTest):
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_image_harvest_normal_stage')
-        self.assertContains(response, 'queue_image_harvest_high_stage')
 
 
 class RepositoryTestCase(TestCase):

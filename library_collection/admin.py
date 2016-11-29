@@ -5,9 +5,7 @@ from library_collection.models import Repository
 from library_collection.models import Collection
 from library_collection.models import CollectionCustomFacet
 from library_collection.admin_actions import queue_harvest_normal_stage
-from library_collection.admin_actions import queue_harvest_high_stage
 from library_collection.admin_actions import queue_image_harvest_normal_stage
-from library_collection.admin_actions import queue_image_harvest_high_stage
 from library_collection.admin_actions import queue_sync_couchdb
 from library_collection.admin_actions import set_ready_for_publication
 from library_collection.admin_actions import queue_sync_to_solr_normal_stage
@@ -144,14 +142,15 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
-        queue_harvest_normal_stage, queue_harvest_high_stage,
-        queue_image_harvest_normal_stage, queue_image_harvest_high_stage,
-        queue_sync_couchdb, set_ready_for_publication,
+        queue_harvest_normal_stage,
+        queue_image_harvest_normal_stage,
+        queue_deep_harvest_normal_stage,
+        queue_sync_couchdb,
         queue_sync_to_solr_normal_stage,
         queue_sync_to_solr_normal_production,
         queue_delete_from_solr_normal_stage,
         queue_delete_from_solr_normal_production,
-        queue_deep_harvest_normal_stage,
+        set_ready_for_publication,
     ]
     fieldsets = (
         (
