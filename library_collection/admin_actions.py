@@ -135,7 +135,7 @@ def queue_image_harvest_normal_stage(modeladmin, request, queryset):
 
 
 queue_image_harvest_normal_stage.short_description = 'Queue image harvest to' \
-                                                     'couchdb stage'
+                                                     ' couchdb stage'
 
 
 def queue_sync_couchdb(modeladmin, request, queryset):
