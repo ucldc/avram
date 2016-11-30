@@ -356,7 +356,7 @@ def queue_delete_couchdb_collection(modeladmin, request, queryset, rq_queue):
 
 
 def queue_delete_couchdb_collection_stage(modeladmin, request, queryset):
-    return queue_deep_harvest(
+    return queue_delete_couchdb_collection(
             modeladmin,
             request,
             queryset,
@@ -367,7 +367,7 @@ queue_delete_couchdb_collection_stage.short_description = 'Queue delete ' \
 
 
 def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
-    return queue_deep_harvest(
+    return queue_delete_couchdb_collection(
             modeladmin,
             request,
             queryset,
