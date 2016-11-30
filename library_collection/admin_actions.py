@@ -5,24 +5,28 @@ import shlex
 import django.contrib.messages as messages
 
 HARVEST_SCRIPT = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] +
-                                '/code/harvester/queue_harvest.bash')
+                                '/code/harvester/queue_harvest.sh')
 IMAGE_HARVEST_SCRIPT = os.environ.get(
         'IMAGE_HARVEST_SCRIPT',
-        os.environ['HOME'] + '/code/harvester/queue_image_harvest.bash')
+        os.environ['HOME'] + '/code/harvester/queue_image_harvest.sh')
 SYNC_COUCHDB_SCRIPT = os.environ.get(
         'SYNC_COUCHDB_SCRIPT',
-        os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.bash')
+        os.environ['HOME'] + '/code/harvester/queue_sync_couchdb.sh')
 SYNC_TO_SOLR_SCRIPT = os.environ.get(
         'SYNC_TO_SOLR_SCRIPT',
-        os.environ['HOME'] + '/code/harvester/queue_sync_to_solr.bash')
+        os.environ['HOME'] + '/code/harvester/queue_sync_to_solr.sh')
 DELETE_FROM_SOLR_SCRIPT = os.environ.get(
         'SYNC_TO_SOLR_SCRIPT',
         os.environ['HOME'] +
-        '/code/harvester/queue_delete_solr_collection.bash')
+        '/code/harvester/queue_delete_solr_collection.sh')
 DEEP_HARVEST_SCRIPT = os.environ.get(
         'DEEP_HARVEST_SCRIPT',
         os.environ['HOME'] +
-        '/code/harvester/queue_deep_harvest.bash')
+        '/code/harvester/queue_deep_harvest.sh')
+DELETE_COUCHDB_SCRIPT = os.environ.get(
+        'DELETE_COUCHDB_SCRIPT',
+        os.environ['HOME'] +
+        '/code/harvester/queue_delete_couchdb_collection.sh')
 
 
 def run_script_for_queryset(script,
@@ -335,6 +339,42 @@ def queue_deep_harvest_normal_stage(modeladmin, request, queryset):
 
 queue_deep_harvest_normal_stage.short_description = 'Queue Nuxeo deep ' \
         'harvest for collection(s) to stage couchdb'
+
+
+def queue_delete_couchdb_collection(modeladmin, request, queryset, rq_queue):
+    success = False
+    msg, success = run_script_for_queryset(
+            DELETE_COUCHDB_SCRIPT,
+            queryset,
+            rq_queue,
+            user=request.user)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
+
+
+def queue_delete_couchdb_collection_stage(modeladmin, request, queryset):
+    return queue_deep_harvest(
+            modeladmin,
+            request,
+            queryset,
+            'normal-stage')
+
+queue_delete_couchdb_collection_stage.short_description = 'Queue delete ' \
+        'collection(s) from stage couchdb'
+
+
+def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
+    return queue_deep_harvest(
+            modeladmin,
+            request,
+            queryset,
+            'normal-production')
+
+queue_delete_couchdb_collection_production.short_description = 'Queue delete' \
+        ' collection(s) from production couchdb'
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
