@@ -98,7 +98,7 @@ def queue_harvest_normal_stage(modeladmin, request, queryset):
     return queue_harvest(modeladmin, request, queryset, 'normal-stage')
 
 
-queue_harvest_normal_stage.short_description = 'Queue harvest to couchdb stage'
+queue_harvest_normal_stage.short_description = 'Queue harvest to CouchDB stage'
 
 
 def queue_image_harvest(modeladmin, request, queryset, rq_queue):
@@ -139,7 +139,7 @@ def queue_image_harvest_normal_stage(modeladmin, request, queryset):
 
 
 queue_image_harvest_normal_stage.short_description = 'Queue image harvest to' \
-                                                     ' couchdb stage'
+                                                     ' CouchDB stage'
 
 
 def queue_sync_couchdb(modeladmin, request, queryset):
@@ -177,7 +177,7 @@ def queue_sync_couchdb(modeladmin, request, queryset):
 
 
 queue_sync_couchdb.short_description = ''.join(
-        ('Queue sync from stage couchdb to production couchdb'))
+        ('Queue sync from CouchDB stage to CouchDB production'))
 
 
 def set_ready_for_publication(modeladmin, request, queryset):
@@ -233,8 +233,8 @@ def queue_sync_to_solr_normal_stage(modeladmin, request, queryset):
             queryset,
             'normal-stage')
 
-queue_sync_to_solr_normal_stage.short_description = 'Queue sync from couchdb' \
-        ' stage to solr stage'
+queue_sync_to_solr_normal_stage.short_description = 'Queue sync from CouchDB' \
+        ' stage to Solr stage'
 
 
 def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
@@ -245,7 +245,7 @@ def queue_sync_to_solr_normal_production(modeladmin, request, queryset):
         'normal-production')
 
 queue_sync_to_solr_normal_production.short_description = 'Queue sync from ' \
-        'couchdb production to solr production'
+        'CouchDB production to Solr production'
 
 
 def queue_delete_from_solr(modeladmin, request, queryset, rq_queue):
@@ -287,7 +287,7 @@ def queue_delete_from_solr_normal_stage(modeladmin, request, queryset):
             'normal-stage')
 
 queue_delete_from_solr_normal_stage.short_description = 'Queue deletion ' \
-        'of documents from solr stage'
+        'of documents from Solr stage'
 
 
 def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
@@ -298,7 +298,7 @@ def queue_delete_from_solr_normal_production(modeladmin, request, queryset):
         'normal-production')
 
 queue_delete_from_solr_normal_production.short_description = 'Queue deletion' \
-        ' of documents from solr production'
+        ' of documents from Solr production'
 
 
 def queue_deep_harvest(modeladmin, request, queryset, rq_queue):
@@ -338,7 +338,7 @@ def queue_deep_harvest_normal_stage(modeladmin, request, queryset):
             'normal-stage')
 
 queue_deep_harvest_normal_stage.short_description = 'Queue Nuxeo deep ' \
-        'harvest for collection(s) to stage couchdb'
+        'harvest'
 
 
 def queue_delete_couchdb_collection(modeladmin, request, queryset, rq_queue):
@@ -362,8 +362,8 @@ def queue_delete_couchdb_collection_stage(modeladmin, request, queryset):
             queryset,
             'normal-stage')
 
-queue_delete_couchdb_collection_stage.short_description = 'Queue delete ' \
-        'collection(s) from stage couchdb'
+queue_delete_couchdb_collection_stage.short_description = 'Queue deletion ' \
+        'of documents from stage CouchDB'
 
 
 def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
@@ -373,8 +373,8 @@ def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
             queryset,
             'normal-production')
 
-queue_delete_couchdb_collection_production.short_description = 'Queue delete' \
-        ' collection(s) from production couchdb'
+queue_delete_couchdb_collection_production.short_description = 'Queue ' \
+        'deletion of documents from production CouchDB'
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
