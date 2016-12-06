@@ -363,7 +363,7 @@ def queue_delete_couchdb_collection_stage(modeladmin, request, queryset):
             'normal-stage')
 
 queue_delete_couchdb_collection_stage.short_description = 'Queue deletion ' \
-        'of documents from stage CouchDB'
+        'of documents from CouchDB stage '
 
 
 def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
@@ -374,7 +374,7 @@ def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
             'normal-production')
 
 queue_delete_couchdb_collection_production.short_description = 'Queue ' \
-        'deletion of documents from production CouchDB'
+        'deletion of documents from CouchDB production'
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.

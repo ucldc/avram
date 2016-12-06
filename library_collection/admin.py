@@ -149,13 +149,13 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         queue_harvest_normal_stage,
         queue_image_harvest_normal_stage,
         queue_deep_harvest_normal_stage,
-        queue_sync_couchdb,
         queue_sync_to_solr_normal_stage,
+        queue_sync_couchdb,
         queue_sync_to_solr_normal_production,
-        queue_delete_from_solr_normal_stage,
-        queue_delete_from_solr_normal_production,
         queue_delete_couchdb_collection_stage,
+        queue_delete_from_solr_normal_stage,
         queue_delete_couchdb_collection_production,
+        queue_delete_from_solr_normal_production,
         set_ready_for_publication,
     ]
     fieldsets = (
