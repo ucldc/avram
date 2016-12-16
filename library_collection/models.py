@@ -171,6 +171,11 @@ class Collection(models.Model):
         choices=DCMI_TYPES,
         default='X',
         help_text='DCMI Type for objects in this collection')
+    date_last_harvested = models.DateField(null=True, blank=True)
+    harvest_frequency = models.DurationField(null=True, blank=True)
+    harvest_exception_notes = models.TextField(
+        blank=True,
+        help_text='Notes on processing quirks')
 
     @property
     def url(self):
