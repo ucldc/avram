@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django import forms
+from library_collection.duration_widget import  MultiValueDurationField
 from library_collection.models import Campus
 from library_collection.models import Repository
 from library_collection.models import Collection
@@ -27,12 +29,12 @@ from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
 
+
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
                           'is_active', 'date_joined', 'is_staff')
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-
 
 class NotInCampus(SimpleListFilter):
     title = 'Not on a Campus'
@@ -119,9 +121,22 @@ class CollectionCustomFacetInline(admin.StackedInline):
     fk_name = 'collection'
 
 
+class CollectionAdminForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CollectionAdminForm, self).__init__(*args, **kwargs)
+        self.fields['harvest_frequency'] = MultiValueDurationField(
+            label='Harvest Frequency',
+            help_text="In 30 day Months and Days")
+    
+    class Meta:
+        model = Collection
+        fields = '__all__'
+
+
 class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     inlines = [CollectionCustomFacetInline, ]
+    form = CollectionAdminForm
 
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
@@ -158,6 +173,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         queue_delete_from_solr_normal_production,
         set_ready_for_publication,
     ]
+
     fieldsets = (
         (
             'Descriptive Information',
@@ -183,7 +199,9 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
             }),
         ('For Harvest Collections', {
             'fields': ('harvest_type', 'dcmi_type', 'url_harvest',
-                       'harvest_extra_data', 'enrichments_item'),
+                       'harvest_extra_data', 'enrichments_item',
+                       'date_last_harvested', 'harvest_frequency',
+                       'harvest_exception_notes'),
         }))
 
     def human_extent(self, obj):
