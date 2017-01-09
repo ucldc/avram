@@ -154,7 +154,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     numeric_key.short_description = "Numeric key"
 
     list_display = ('name', campuses, repositories, 'human_extent',
-                    numeric_key)
+                    numeric_key, 'date_last_harvested')
     list_filter = [
         'campus', 'ready_for_publication', NotInCampus, 'harvest_type',
         URLFieldsListFilter, 'repository'
