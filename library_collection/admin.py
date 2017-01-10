@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.contrib import admin
 from django import forms
 from library_collection.duration_widget import  MultiValueDurationField
@@ -28,6 +29,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
+from django.db.models import F
 
 
 # Add is_active & date_joined to User admin list view
@@ -49,6 +51,30 @@ class NotInCampus(SimpleListFilter):
         if self.value() == 'CAMPUS':
             return queryset.exclude(campus=None)
 
+class HarvestOverdueFilter(SimpleListFilter):
+    '''Filter for collections where date_last_harvested + harvest_frequency
+    is in past.
+    '''
+    title = 'Overdue Harvest'
+    parameter_name = 'harvest_overdue'
+
+    def lookups(self, request, model_admin):
+        return (('Y', 'Harvest Overdue'),
+                ('N', 'Harvest Not Due'),
+                ('NP', 'Not periodic'),
+                ('P',  'Periodic'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'Y':
+            return queryset.filter(date_last_harvested__lt=(datetime.datetime.today()-F('harvest_frequency')))
+        if self.value() == 'N':
+            return queryset.filter(date_last_harvested__gt=(datetime.datetime.today()-F('harvest_frequency')))
+        if self.value() == 'NP':
+            return queryset.filter(harvest_frequency__isnull=True)
+        if self.value() == 'P':
+            return queryset.filter(harvest_frequency__isnull=False)
+        return queryset
 
 class URLFieldsListFilter(SimpleListFilter):
     '''Filter to find blank or filled URL fields'''
@@ -156,7 +182,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested')
     list_filter = [
-        'campus', 'ready_for_publication', NotInCampus, 'harvest_type',
+        'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus, 'harvest_type',
         URLFieldsListFilter, 'repository'
     ]
     search_fields = ['name', 'description', 'enrichments_item']
