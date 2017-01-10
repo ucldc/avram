@@ -32,7 +32,7 @@ class SplitDurationWidget(forms.MultiWidget):
                 months = d.days // 30
                 days = d.days % 30
                 return [int(months), int(days), ]#int(hours), int(minutes), int(seconds)]
-        return [3, 0, ] # 0, 0]
+        return [0, 0]
 
 class MultiValueDurationField(forms.MultiValueField):
     widget = SplitDurationWidget
@@ -53,10 +53,10 @@ class MultiValueDurationField(forms.MultiValueField):
             months = int(data_list[0])
             days = int(data_list[1]) 
             days_total = days + (months * 30)
-            return timedelta(
-                days=int(days_total)
-                )
-        else:
-            return timedelta(0)
+            if days_total:
+                return timedelta(
+                    days=int(days_total)
+                    )
+        return None
 
 
