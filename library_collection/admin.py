@@ -21,6 +21,8 @@ from library_collection.admin_actions import \
 from library_collection.admin_actions import \
         queue_deep_harvest_normal_stage
 from library_collection.admin_actions import \
+        queue_deep_harvest_replace_normal_stage
+from library_collection.admin_actions import \
         queue_delete_couchdb_collection_stage
 from library_collection.admin_actions import \
     queue_delete_couchdb_collection_production
@@ -190,6 +192,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         queue_harvest_normal_stage,
         queue_image_harvest_normal_stage,
         queue_deep_harvest_normal_stage,
+        queue_deep_harvest_replace_normal_stage,
         queue_sync_to_solr_normal_stage,
         queue_sync_couchdb,
         queue_sync_to_solr_normal_production,
