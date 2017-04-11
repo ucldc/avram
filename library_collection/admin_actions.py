@@ -23,6 +23,7 @@ DEEP_HARVEST_SCRIPT = os.environ.get(
         'DEEP_HARVEST_SCRIPT',
         os.environ['HOME'] +
         '/code/harvester/queue_deep_harvest.sh')
+DEEP_HARVEST_SCRIPT_REPLACE = '{} --replace '.format(DEEP_HARVEST_SCRIPT)
 DELETE_COUCHDB_SCRIPT = os.environ.get(
         'DELETE_COUCHDB_SCRIPT',
         os.environ['HOME'] +
@@ -338,7 +339,45 @@ def queue_deep_harvest_normal_stage(modeladmin, request, queryset):
             'normal-stage')
 
 queue_deep_harvest_normal_stage.short_description = 'Queue Nuxeo deep ' \
-        'harvest'
+        'harvest (only add new files)'
+
+def queue_deep_harvest_replace(modeladmin, request, queryset, rq_queue):
+    success = False
+    collections_to_deep_harvest = []
+    collections_invalid = []
+    for collection in queryset:
+        if collection.harvest_type != 'NUX':
+            collections_invalid.append((collection,
+                                        'Not a Nuxeo collection'))
+        else:
+            collections_to_deep_harvest.append(collection)
+    msg, success = run_script_for_queryset(
+            DEEP_HARVEST_SCRIPT_REPLACE,
+            collections_to_deep_harvest,
+            rq_queue,
+            user=request.user)
+    if collections_invalid:
+        msg_invalid = '{} collections not in Nuxeo. '.format(
+            len(collections_invalid))
+        for coll, reason in collections_invalid:
+            msg_invalid = ''.join((msg_invalid, '#{} {} - {}; '.format(
+                coll.id, coll.name, reason)))
+        modeladmin.message_user(request, msg_invalid, level=messages.ERROR)
+    if success:
+        modeladmin.message_user(request, msg, level=messages.SUCCESS)
+    else:
+        modeladmin.message_user(request, msg, level=messages.ERROR)
+    return msg, success
+
+def queue_deep_harvest_replace_normal_stage(modeladmin, request, queryset):
+    return queue_deep_harvest_replace(
+            modeladmin,
+            request,
+            queryset,
+            'normal-stage')
+
+queue_deep_harvest_replace_normal_stage.short_description = 'Queue Nuxeo deep' \
+        ' harvest (replace all files)'
 
 
 def queue_delete_couchdb_collection(modeladmin, request, queryset, rq_queue):
