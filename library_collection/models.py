@@ -124,6 +124,7 @@ class Collection(models.Model):
         ('SFX', 'UCSF XML Search Results (tobacco)'),
         ('UCB', 'UCB Blacklight Solr'),
         ('PRE', 'Preservica CMIS Atom Feed'),
+        ('FLK', 'Flickr Api All Public Photos'),
         ('TBD', 'Harvest type TBD'), )
     harvest_type = models.CharField(
         max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
