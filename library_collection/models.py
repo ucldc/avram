@@ -125,6 +125,7 @@ class Collection(models.Model):
         ('UCB', 'UCB Blacklight Solr'),
         ('PRE', 'Preservica CMIS Atom Feed'),
         ('FLK', 'Flickr Api All Public Photos'),
+        ('YTB', 'YouTube Api - Playlist Videos'),
         ('TBD', 'Harvest type TBD'), )
     harvest_type = models.CharField(
         max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
