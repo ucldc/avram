@@ -178,6 +178,10 @@ class Collection(models.Model):
     harvest_exception_notes = models.TextField(
         blank=True,
         help_text='Notes on processing quirks')
+    merritt_id = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Merritt Id (ARK)')
 
     @property
     def url(self):
