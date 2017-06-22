@@ -122,7 +122,7 @@ class Collection(models.Model):
         ('NUX', 'Shared DAMS'),
         ('ALX', 'Aleph MARC XML'),
         ('SFX', 'UCSF XML Search Results (tobacco)'),
-        ('UCB', 'UCB Blacklight Solr'),
+        ('UCB', 'Solr Generic - cursorMark'),
         ('PRE', 'Preservica CMIS Atom Feed'),
         ('FLK', 'Flickr Api All Public Photos'),
         ('YTB', 'YouTube Api - Playlist Videos'),
@@ -178,6 +178,10 @@ class Collection(models.Model):
     harvest_exception_notes = models.TextField(
         blank=True,
         help_text='Notes on processing quirks')
+    merritt_id = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Merritt Id (ARK)')
 
     @property
     def url(self):
