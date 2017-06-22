@@ -2,7 +2,7 @@
 import datetime
 from django.contrib import admin
 from django import forms
-from library_collection.duration_widget import  MultiValueDurationField
+from library_collection.duration_widget import MultiValueDurationField
 from library_collection.models import Campus
 from library_collection.models import Repository
 from library_collection.models import Collection
@@ -13,17 +13,17 @@ from library_collection.admin_actions import queue_sync_couchdb
 from library_collection.admin_actions import set_ready_for_publication
 from library_collection.admin_actions import queue_sync_to_solr_normal_stage
 from library_collection.admin_actions import \
-        queue_sync_to_solr_normal_production
+    queue_sync_to_solr_normal_production
 from library_collection.admin_actions import \
-        queue_delete_from_solr_normal_stage
+    queue_delete_from_solr_normal_stage
 from library_collection.admin_actions import \
-        queue_delete_from_solr_normal_production
+    queue_delete_from_solr_normal_production
 from library_collection.admin_actions import \
-        queue_deep_harvest_normal_stage
+    queue_deep_harvest_normal_stage
 from library_collection.admin_actions import \
-        queue_deep_harvest_replace_normal_stage
+    queue_deep_harvest_replace_normal_stage
 from library_collection.admin_actions import \
-        queue_delete_couchdb_collection_stage
+    queue_delete_couchdb_collection_stage
 from library_collection.admin_actions import \
     queue_delete_couchdb_collection_production
 from django.contrib.sites.models import Site
@@ -33,12 +33,12 @@ from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
 from django.db.models import F
 
-
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
                           'is_active', 'date_joined', 'is_staff')
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
 
 class NotInCampus(SimpleListFilter):
     title = 'Not on a Campus'
@@ -53,6 +53,7 @@ class NotInCampus(SimpleListFilter):
         if self.value() == 'CAMPUS':
             return queryset.exclude(campus=None)
 
+
 class HarvestOverdueFilter(SimpleListFilter):
     '''Filter for collections where date_last_harvested + harvest_frequency
     is in past.
@@ -61,22 +62,25 @@ class HarvestOverdueFilter(SimpleListFilter):
     parameter_name = 'harvest_overdue'
 
     def lookups(self, request, model_admin):
-        return (('Y', 'Harvest Overdue'),
-                ('N', 'Harvest Not Due'),
-                ('NP', 'Not periodic'),
-                ('P',  'Periodic'),
-        )
+        return (
+            ('Y', 'Harvest Overdue'),
+            ('N', 'Harvest Not Due'),
+            ('NP', 'Not periodic'),
+            ('P', 'Periodic'), )
 
     def queryset(self, request, queryset):
         if self.value() == 'Y':
-            return queryset.filter(date_last_harvested__lt=(datetime.datetime.today()-F('harvest_frequency')))
+            return queryset.filter(date_last_harvested__lt=(
+                datetime.datetime.today() - F('harvest_frequency')))
         if self.value() == 'N':
-            return queryset.filter(date_last_harvested__gt=(datetime.datetime.today()-F('harvest_frequency')))
+            return queryset.filter(date_last_harvested__gt=(
+                datetime.datetime.today() - F('harvest_frequency')))
         if self.value() == 'NP':
             return queryset.filter(harvest_frequency__isnull=True)
         if self.value() == 'P':
             return queryset.filter(harvest_frequency__isnull=False)
         return queryset
+
 
 class URLFieldsListFilter(SimpleListFilter):
     '''Filter to find blank or filled URL fields'''
@@ -153,9 +157,8 @@ class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CollectionAdminForm, self).__init__(*args, **kwargs)
         self.fields['harvest_frequency'] = MultiValueDurationField(
-            label='Harvest Frequency',
-            help_text="In 30 day Months and Days")
-    
+            label='Harvest Frequency', help_text="In 30 day Months and Days")
+
     class Meta:
         model = Collection
         fields = '__all__'
@@ -184,8 +187,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested')
     list_filter = [
-        'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus, 'harvest_type',
-        URLFieldsListFilter, 'repository'
+        'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
+        'harvest_type', URLFieldsListFilter, 'repository'
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
@@ -207,10 +210,18 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         (
             'Descriptive Information',
             {
-                'fields':
-                ('name', 'campus', 'repository', 'description', 'local_id',
-                 'url_local', 'url_oac', 'rights_status', 'rights_statement',
-                 'ready_for_publication', 'featured')
+                'fields': (
+                    'name',
+                    'campus',
+                    'repository',
+                    'description',
+                    'local_id',
+                    'url_local',
+                    'url_oac',
+                    'rights_status',
+                    'rights_statement',
+                    'ready_for_publication',
+                    'featured')
             }, ),
         (
             'For Nuxeo Collections',
@@ -220,18 +231,26 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'extent',
                     'formats',
                     'hosted',
+                    'merritt_id',
                     'staging_notes',
                     'files_in_hand',
                     'files_in_dams',
                     'metadata_in_dams',
                     'qa_completed', )
             }),
-        ('For Harvest Collections', {
-            'fields': ('harvest_type', 'dcmi_type', 'url_harvest',
-                       'harvest_extra_data', 'enrichments_item',
-                       'date_last_harvested', 'harvest_frequency',
-                       'harvest_exception_notes'),
-        }))
+        (
+            'For Harvest Collections',
+            {
+                'fields': (
+                    'harvest_type',
+                    'dcmi_type',
+                    'url_harvest',
+                    'harvest_extra_data',
+                    'enrichments_item',
+                    'date_last_harvested',
+                    'harvest_frequency',
+                    'harvest_exception_notes')
+            }))
 
     def human_extent(self, obj):
         return obj.human_extent
@@ -256,7 +275,8 @@ class RepositoryAdmin(admin.ModelAdmin):
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
 admin.site.register(Repository, RepositoryAdmin)
-# http://stackoverflow.com/questions/5742279/removing-sites-from-django-admin-page
+# http://stackoverflow.com/questions/5742279/
+# removing-sites-from-django-admin-page
 try:
     admin.site.unregister(Site)
 except admin.sites.NotRegistered:
