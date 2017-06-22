@@ -122,7 +122,7 @@ class Collection(models.Model):
         ('NUX', 'Shared DAMS'),
         ('ALX', 'Aleph MARC XML'),
         ('SFX', 'UCSF XML Search Results (tobacco)'),
-        ('UCB', 'UCB Blacklight Solr'),
+        ('UCB', 'Solr Generic - cursorMark'),
         ('PRE', 'Preservica CMIS Atom Feed'),
         ('FLK', 'Flickr Api All Public Photos'),
         ('YTB', 'YouTube Api - Playlist Videos'),
