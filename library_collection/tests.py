@@ -634,7 +634,7 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'collections')
         self.assertContains(
             response,
-            '153/los-angeles-times-photographic-archive-photonegati/')
+            '/189/a-is-for-atom-b-is-for-bomb-video-tape/')
         self.assertContains(response, '<form')
         self.assertContains(response, 'value="Search"')
         self.assertContains(response, '<input type="text"')
@@ -644,8 +644,7 @@ class PublicViewTestCase(TestCase):
         Need to find good way to test paging with search
         '''
         response = self.client.get('/?q=aids')
-        self.assertContains(response, '<tr>', count=1)
-        return
+        self.assertContains(response, '<tr>', count=2)
         response = self.client.get('/?q=born+digital')
         self.assertContains(response, '<tr>', count=5)
         self.assertContains(response, 'Watson')
@@ -719,14 +718,13 @@ class PublicViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response,
                                 'library_collection/collection_list.html')
-        self.assertContains(response, '<tr>', count=5)
+        self.assertContains(response, '<tr>', count=25)
         self.assertContains(response, 'class="pagination"')
         self.assertContains(
             response,
             '<li class="disabled"><a href="?page=1" title="First Page">&'
             'laquo;&laquo;</a></li>'
         )
-        return
         self.assertContains(
             response,
             '<li><a href="?page=8" title="Next Group">&raquo;</a></li>')
@@ -855,7 +853,7 @@ class PublicViewNewCampusTestCase(TestCase):
         self.assertContains(response, 'collections')
         self.assertContains(
             response,
-            '/172/harold-scheffler-papers-melanesian-archive-scheffl')
+            "/5/1937-yolo-county-aerial-photographs-this-collectio/")
 
 
 class EditViewTestCase(TestCase):
