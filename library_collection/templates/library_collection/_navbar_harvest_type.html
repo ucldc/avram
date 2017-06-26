@@ -14,7 +14,7 @@
             <!-- .nav, .navbar-search, .navbar-form, etc -->
             <ul class="nav nav-stacked" style="margin: 0px">
               {% for type in harvest_types %}
-              {% if type.0 != 'X' and type.0 != 'OAJ' %}
+              {% if type.0 != 'OAJ' %}
               <li class="{% if type.0 == harvest_type %}active{% endif %}" style="width: 100%">
                   {% if type.0 == harvest_type %}
                     <a href="{% url this %}">

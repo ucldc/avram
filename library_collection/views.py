@@ -156,7 +156,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
         raise Http404
 
     repository = get_object_or_404(Repository, pk=repoid)
-    collections = Collection.objects.filter(~Q(harvest_type='X'), repository=repository.id).order_by('name')
+    collections = Collection.objects.filter(repository=repository.id).order_by('name')
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
@@ -233,26 +233,17 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
-            if show_harvest_type_none:
-                collections = Collection.objects.filter(campus=None).order_by('name')
-            else:
-                collections = Collection.objects.filter(~Q(harvest_type='X'), campus=None).order_by('name')
+            collections = Collection.objects.filter(campus=None).order_by('name')
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-            if show_harvest_type_none:
-                collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
-            else:
-                collections = Collection.objects.filter(~Q(harvest_type='X'), campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
+            collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
             try:
                 info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
             except Exception as e:
                 info = {'error': e }
 
     else:
-        if show_harvest_type_none:
-            collections = Collection.objects.all().order_by('name').prefetch_related('campus')
-        else:
-            collections = Collection.objects.filter(~Q(harvest_type='X')).order_by('name').prefetch_related('campus')
+        collections = Collection.objects.all().order_by('name').prefetch_related('campus')
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
