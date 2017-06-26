@@ -9,4 +9,3 @@
             ('ALX', 'Aleph MARC XML'),
             ('SFX', 'UCSF XML Search Results (tobacco)'),
             ('UCB', 'Solr Generic - cursorMark'),
-            ('TBD', 'Harvest type TBD'),
