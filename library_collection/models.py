@@ -183,6 +183,11 @@ class Collection(models.Model):
         max_length=100,
         blank=True,
         help_text='Merritt Id (ARK)')
+    disqus_shortname = models.CharField(
+        max_length=64,
+        blank=True,
+        help_text='find in disqus admin')
+        
 
     @property
     def url(self):
