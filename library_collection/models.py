@@ -183,10 +183,14 @@ class Collection(models.Model):
         max_length=100,
         blank=True,
         help_text='Merritt Id (ARK)')
-    disqus_shortname = models.CharField(
+    disqus_shortname_prod = models.CharField(
         max_length=64,
         blank=True,
-        help_text='find in disqus admin')
+        help_text='put disqus on production with this shortcode (from disqus admin)')
+    disqus_shortname_test = models.CharField(
+        max_length=64,
+        blank=True,
+        help_text='put disqus on test with this shortcode')
         
 
     @property
