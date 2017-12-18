@@ -222,7 +222,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'rights_statement',
                     'ready_for_publication',
                     'featured',
-                    'disqus_shortname',)
+                    'disqus_shortname_prod',
+                    'disqus_shortname_test',)
             }, ),
         (
             'For Nuxeo Collections',
