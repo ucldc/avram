@@ -10,3 +10,4 @@
             ('SFX', 'UCSF XML Search Results (tobacco)'),
             ('UCB', 'Solr Generic - cursorMark'),
             ('XML', 'XML File'),
+            ('EMS', 'eMuseum API'),

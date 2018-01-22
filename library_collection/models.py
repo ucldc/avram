@@ -127,6 +127,7 @@ class Collection(models.Model):
         ('FLK', 'Flickr Api All Public Photos'),
         ('YTB', 'YouTube Api - Playlist Videos'),
         ('XML', 'XML File'),
+        ('EMS', 'eMuseum API'),
         )
     harvest_type = models.CharField(
         max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
@@ -191,7 +192,7 @@ class Collection(models.Model):
         max_length=64,
         blank=True,
         help_text='put disqus on test with this shortcode')
-        
+
 
     @property
     def url(self):
