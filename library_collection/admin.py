@@ -40,6 +40,19 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
 
+class MerrittSetup(SimpleListFilter):
+    title = 'Set up for Merritt'
+    parameter_name = 'merritt'
+
+    def lookups(self, request, model_admin):
+        return (('MERRITT', 'Set up for Merritt'),('NOTMERRITT', 'Not set up for Merritt'))
+
+    def queryset(self, request, queryset):
+        if self.value() == 'MERRITT':
+            return queryset.exclude(merritt_id='')
+        if self.value() == 'NOTMERRITT':
+            return queryset.filter(merritt_id='')
+
 class NotInCampus(SimpleListFilter):
     title = 'Not on a Campus'
     parameter_name = 'nocampus'
@@ -188,7 +201,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     numeric_key, 'date_last_harvested')
     list_filter = [
         'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
-        'harvest_type', URLFieldsListFilter, 'repository'
+        'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
@@ -234,6 +247,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'formats',
                     'hosted',
                     'merritt_id',
+                    'merritt_extra_data',
                     'staging_notes',
                     'files_in_hand',
                     'files_in_dams',

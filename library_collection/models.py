@@ -184,6 +184,10 @@ class Collection(models.Model):
         max_length=100,
         blank=True,
         help_text='Merritt Id (ARK)')
+    merritt_extra_data = models.CharField(
+        max_length=511,
+        blank=True,
+        help_text='nuxeo path for Merritt harvest (usually the same as Harvest extra data)')
     disqus_shortname_prod = models.CharField(
         max_length=64,
         blank=True,
