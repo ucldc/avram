@@ -128,6 +128,7 @@ class Collection(models.Model):
         ('YTB', 'YouTube Api - Playlist Videos'),
         ('XML', 'XML File'),
         ('EMS', 'eMuseum API'),
+        ('UCD', 'UC Davis JSON'),
         )
     harvest_type = models.CharField(
         max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
