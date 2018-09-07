@@ -11,3 +11,4 @@
             ('UCB', 'Solr Generic - cursorMark'),
             ('XML', 'XML File'),
             ('EMS', 'eMuseum API'),
+            ('UCD', 'UC Davis JSON'),
