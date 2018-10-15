@@ -8,6 +8,9 @@ import set_avram_lib_path
 import urllib
 import json
 
+import django
+django.setup()
+
 from library_collection.models import Repository, Campus
 
 from django.contrib.admin import actions

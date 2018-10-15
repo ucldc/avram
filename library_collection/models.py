@@ -272,6 +272,8 @@ class Repository(models.Model):
     campus = models.ManyToManyField(Campus, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
     ark = models.CharField(max_length=255, blank=True)
+    aeon_prod = models.CharField(max_length=255, blank=True)
+    aeon_test = models.CharField(max_length=255, blank=True)
     google_analytics_tracking_code = models.CharField(
         max_length=64,
         blank=True,
