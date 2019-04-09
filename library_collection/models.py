@@ -75,7 +75,7 @@ class CollectionCustomFacet(models.Model):
         ('rights_note_ss', 'rights_note'), ('rights_date_ss', 'rights_date'),
         ('source_ss', 'source'), ('subject_ss', 'subject'),
         ('temporal_ss', 'temporal'))
-    collection = models.ForeignKey('Collection')
+    collection = models.ForeignKey('Collection', on_delete=models.CASCADE)
     facet_field = models.CharField(max_length=20, choices=facet_choices)
     label = models.CharField(max_length=255)
 
