@@ -21,11 +21,10 @@ pip install MySQL-python==1.2.4
 
 ## load
 
-via `fixtures/initial_data.json` and loading individual fixtures
-
 ```
 python manage.py syncdb
 python manage.py migrate
+python manage.py loaddata library_collection/fixtures/campus.json
 python manage.py loaddata library_collection/fixtures/collection.json
 python manage.py collectstatic
 

@@ -1,92 +1,102 @@
 [
-{
-  "pk": 1, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Berkeley", 
-    "ark": "ark:/13030/tf0p3009mq",
-    "slug": "UCB"
+  {
+    "pk": 1, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 0,
+      "name": "UC Berkeley", 
+      "ark": "ark:/13030/tf0p3009mq",
+      "slug": "UCB"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 1,
+      "name": "UC Davis", 
+      "ark": "ark:/13030/tf6p3013t7",
+      "slug": "UCD"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 2,
+      "name": "UC Irvine", 
+      "ark": "ark:/13030/tf3f59p4sv",
+      "slug": "UCI"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 4,
+      "name": "UC Merced", 
+      "ark": "ark:/13030/c8668fhk",
+      "slug": "UCM"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 5,
+      "name": "UC Riverside", 
+      "ark": "ark:/13030/tf1n39p20p",
+      "slug": "UCR"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 6,
+      "name": "UC San Diego", 
+      "ark": "ark:/13030/tf5j49p47v",
+      "slug": "UCSD"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 7,
+      "name": "UC San Francisco", 
+      "ark": "ark:/13030/tf3x0nb742",
+      "slug": "UCSF"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 8,
+      "name": "UC Santa Barbara", 
+      "ark": "ark:/13030/tf7779p82v",
+      "slug": "UCSB"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 9,
+      "name": "UC Santa Cruz", 
+      "ark": "ark:/13030/kt3r29q08x",
+      "slug": "UCSC"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "library_collection.campus", 
+    "fields": {
+      "position": 3,
+      "name": "UCLA", 
+      "ark": "ark:/13030/tf8z09p95s",
+      "slug": "UCLA"
+    }
   }
-},
-{
-  "pk": 2, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Davis", 
-    "ark": "ark:/13030/tf6p3013t7",
-    "slug": "UCD"
-  }
-},
-{
-  "pk": 3, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Irvine", 
-    "ark": "ark:/13030/tf3f59p4sv",
-    "slug": "UCI"
-  }
-},
-{
-  "pk": 4, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Merced", 
-    "ark": "ark:/13030/c8668fhk",
-    "slug": "UCM"
-  }
-},
-{
-  "pk": 5, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Riverside", 
-    "ark": "ark:/13030/tf1n39p20p",
-    "slug": "UCR"
-  }
-},
-{
-  "pk": 6, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "San Diego", 
-    "ark": "ark:/13030/tf5j49p47v",
-    "slug": "UCSD"
-  }
-},
-{
-  "pk": 7, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "San Francisco", 
-    "ark": "ark:/13030/tf3x0nb742",
-    "slug": "UCSF"
-  }
-},
-{
-  "pk": 8, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Santa Barbara", 
-    "ark": "ark:/13030/tf7779p82v",
-    "slug": "UCSB"
-  }
-},
-{
-  "pk": 9, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "Santa Cruz", 
-    "ark": "ark:/13030/kt3r29q08x",
-    "slug": "UCSC"
-  }
-},
-{
-  "pk": 10, 
-  "model": "library_collection.campus", 
-  "fields": {
-    "name": "UCLA", 
-    "ark": "ark:/13030/tf8z09p95s",
-    "slug": "UCLA"
-  }
-}
 ]

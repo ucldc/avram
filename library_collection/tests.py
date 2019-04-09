@@ -27,7 +27,7 @@ def skipUnlessIntegrationTest(selfobj=None):
 
 
 class CollectionTestCase(TestCase):
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ['collection.json', 'campus.json', 'repository.json']
 
     def setUp(self):
         c = Collection.objects.all()[0]
@@ -273,7 +273,7 @@ class CollectionAdminTestCase(TestCase):
 class CollectionAdminHarvestTestCase(WebTest):
     '''Test the start harvest action on the collection list admin page
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def testQueueHarvestActionAvailable(self):
@@ -555,7 +555,7 @@ class RepositoryAdminTestCase(TestCase):
 
 class TastyPieAPITest(TestCase):
     '''Verify the tastypie RESTful feed'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'collectioncustomfacet.json')
     url_api = '/api/v1/'  # how to get from django?
 
@@ -618,12 +618,12 @@ class TastyPieAPITest(TestCase):
 
 class CollectionsViewTestCase(TestCase):
     '''Test the view function "collections" directly'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
 
 class PublicViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
     def testRootView(self):
         response = self.client.get('/')
@@ -780,7 +780,7 @@ class PublicViewTestCase(TestCase):
 
 
 class CampusTestCase(TestCase):
-    fixtures = ('initial_data.json', )
+    fixtures = ('campus.json', )
 
     def testCampusSlugStartsWithUC(self):
         c = Campus()
@@ -828,7 +828,7 @@ class PublicViewNewCampusTestCase(TestCase):
     the reverse lookup fail, otherwise it just doesn't find the NTC at all,
     don't know why...
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
     def setUp(self):
         c = Campus()
@@ -858,7 +858,7 @@ class PublicViewNewCampusTestCase(TestCase):
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json')
     current_app = 'edit'
 
@@ -1096,7 +1096,7 @@ class EditViewTestCase(TestCase):
 class SyncWithOACTestCase(TestCase):
     '''Test sync with OAC repositories and EAD finding aid collections
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def setUp(self):
@@ -1182,7 +1182,7 @@ class NewUserTestCase(TestCase):
     created in the DB and then redirected to the new user message page.
     '''
     # TODO: check workflow for post verification
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def testNewUserAuth(self):
