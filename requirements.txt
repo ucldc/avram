@@ -1,7 +1,7 @@
 # pip install https://github.com/aobo711/bootstrap-django-admin/zipball/master
 Django==1.9.13
 defusedxml==0.4.1
-django-tastypie==0.13.3
+django-tastypie==0.14.0
 django-extensions==1.7.4
 lxml==3.1.2
 six==1.10.0
