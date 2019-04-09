@@ -75,7 +75,7 @@ def edit_collections(request, campus_slug=None, error=None):
                 
             return render(request,
                 template_name='library_collection/collection_edit.html',
-                dictionary=context
+                context=context
             )
         else: 
             try:
@@ -186,7 +186,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
 
     return render(request,
         template_name='library_collection/repository_collection_list.html',
-        dictionary = { 
+        context = {
             'collections': collections_for_page, 
             'repository': repository,
             'repositories': repository,
@@ -271,7 +271,7 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     last_page_qs = qd.urlencode()
     return render(request,
         template_name='library_collection/collection_list.html',
-        dictionary = { 
+        context = {
             'collections': collections_for_page, 
             'campus': campus,
             'campuses': campuses, 
@@ -330,7 +330,7 @@ def edit_details(request, colid=None, col_slug=None, error=None):
                 
                 return render(request,
                     template_name='library_collection/collection_edit.html',
-                    dictionary=context
+                    context=context
                 )
             else: 
                 collection.name = requestObj.get("name")
@@ -351,7 +351,7 @@ def edit_details(request, colid=None, col_slug=None, error=None):
     
         return render(request,
             template_name='library_collection/collection.html',
-            dictionary=context
+            context=context
         )
 
 # view for collection details
@@ -363,7 +363,7 @@ def details(request, colid=None, col_slug=None):
     else:
         return render(request,
             template_name='library_collection/collection.html',
-            dictionary={ 
+            context={
                 'collection': collection,
                 'current_path': request.path,
                 'editing': editing(request.path),
@@ -415,7 +415,7 @@ def edit_repositories(request, campus_slug=None, error=None):
                 
             return render(request,
                 template_name='library_collection/repository_list.html',
-                dictionary=context
+                context=context
             )
         else: 
             try: 
@@ -431,7 +431,7 @@ def edit_repositories(request, campus_slug=None, error=None):
             new_repository.campus = requestObj.getlist('campuses')
             
             return render(request, template_name='library_collection/repository_list.html', 
-                dictionary={
+                context={
                     'campus': campus,
                     'repositories': repositoryObjs,
                     'campuses': campuses,
@@ -462,7 +462,7 @@ def repositories(request, campus_slug=None):
         repositories = Repository.objects.all().order_by('name').prefetch_related('campus')
     return render(request,
             template_name='library_collection/repository_list.html',
-            dictionary={
+            context={
                 'campus': campus,
                 'repositories': repositories,
                 'campuses': campuses, 
@@ -481,7 +481,7 @@ def edit_about(request):
 def about(request):
     return render(request, 
         template_name='library_collection/about.html',
-        dictionary={
+        context={
             'active_tab': active_tab(request),
             'current_path': request.path,
             'editing': editing(request.path),
