@@ -148,8 +148,6 @@ INSTALLED_APPS = (
     'dbdump',
 )
 
-INSTALLED_APPS = ("longerusername",) + INSTALLED_APPS
-
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
 # A sample logging configuration. The only tangible logging
