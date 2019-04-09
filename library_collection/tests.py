@@ -246,7 +246,7 @@ class CollectionAdminTestCase(TestCase):
 
     def testHarvestDataInAdmin(self):
         '''Make sure the required harvest data is in the admin interface'''
-        url_admin = '/admin/library_collection/collection/1/'
+        url_admin = '/admin/library_collection/collection/1/change/'
         http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
