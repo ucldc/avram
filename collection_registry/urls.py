@@ -1,5 +1,5 @@
 # urls.py
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from library_collection.models import Collection, Campus
 
 # Uncomment the next two lines to enable the admin:
@@ -10,7 +10,6 @@ from django.contrib.sitemaps import views as sitemaps_views
 from django.contrib.sitemaps import GenericSitemap
 # http://stackoverflow.com/questions/11428427/no-module-named-simple-error-in-django
 # from django.views.generic.simple import redirect_to
-from django.conf.urls import patterns, url, include
 #from some_app.views import AboutView
 
 
