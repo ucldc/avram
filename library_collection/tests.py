@@ -1025,6 +1025,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'new collection test')
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'test description')
+        self.assertContains(response, 'Internet Archive')
         self.assertContains(response, 'LOCID')
         self.assertContains(response, 'LOCURL')
         self.assertContains(response, 'OACURL')
@@ -1081,6 +1082,10 @@ class EditViewTestCase(TestCase):
                                 'library_collection/repository_list.html')
         self.assertContains(response, 'Add')
         self.assertContains(response, 'new repository')
+
+        needle = '''<td><a href="/repository/11/new-repository/">new repository</a>
+            <small class="muted">UC Berkeley UC Merced</small></td>'''
+        self.assertInHTML(needle, response.content)
 
     def testRepositoryCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty repository'''

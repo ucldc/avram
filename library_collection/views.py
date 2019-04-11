@@ -103,8 +103,8 @@ def edit_collections(request, campus_slug=None, error=None):
                return edit_collections(request, error='Please enter at least one unit')
             
             new_collection.save()
-            new_collection.repository = requestObj.getlist('repositories')
-            new_collection.campus = requestObj.getlist('campuses')
+            new_collection.repository.set(requestObj.getlist('repositories'))
+            new_collection.campus.set(requestObj.getlist('campuses'))
             return edit_details(request, new_collection.pk, new_collection.slug)
             
     return collections(request, campus_slug, show_harvest_type_none=True)
@@ -428,7 +428,7 @@ def edit_repositories(request, campus_slug=None, error=None):
                return edit_repositories(request, error='Please enter at least one campus')
             
             new_repository.save()
-            new_repository.campus = requestObj.getlist('campuses')
+            new_repository.campus.set(requestObj.getlist('campuses'))
             
             return render(request, template_name='library_collection/repository_list.html', 
                 context={
