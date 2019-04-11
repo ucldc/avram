@@ -1,10 +1,10 @@
-from django.contrib.auth.backends import RemoteUserBackend
+from django.contrib.auth.backends import AllowAllUsersRemoteUserBackend
 import os
 import collection_registry.middleware
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail, EmailMultiAlternatives
 
-class RegistryUserBackend(RemoteUserBackend):
+class RegistryUserBackend(AllowAllUsersRemoteUserBackend):
     def configure_user(self, user):
         """
         Registry user setup

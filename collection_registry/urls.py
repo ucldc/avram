@@ -30,7 +30,7 @@ sitemaps = {
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/', auth_views.login),
+    url(r'^accounts/login/', auth_views.login, name='login'),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     url(r'^', include('library_collection.urls'), name='registry'),
 ]
