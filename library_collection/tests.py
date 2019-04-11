@@ -5,7 +5,7 @@ import socket
 from django.test import TestCase
 from django_webtest import WebTest
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from mock import patch
 from library_collection.models import Collection
 from library_collection.models import Campus

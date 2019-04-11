@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect
 from human_to_bytes import bytes2human
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from library_collection.decorators import verification_required
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger

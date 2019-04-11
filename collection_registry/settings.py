@@ -99,7 +99,7 @@ AUTHENTICATION_BACKENDS = (
     'collection_registry.backends.RegistryUserBackend',
 )
 
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 #LOGIN_REDIRECT_URL = reverse_lazy('library_collection.views.home')
 LOGIN_REDIRECT_URL = "/"
