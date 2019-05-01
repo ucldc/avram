@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -75,7 +75,7 @@ class CollectionCustomFacet(models.Model):
         ('rights_note_ss', 'rights_note'), ('rights_date_ss', 'rights_date'),
         ('source_ss', 'source'), ('subject_ss', 'subject'),
         ('temporal_ss', 'temporal'))
-    collection = models.ForeignKey('Collection')
+    collection = models.ForeignKey('Collection', on_delete=models.CASCADE)
     facet_field = models.CharField(max_length=20, choices=facet_choices)
     label = models.CharField(max_length=255)
 

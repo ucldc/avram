@@ -5,7 +5,7 @@ import socket
 from django.test import TestCase
 from django_webtest import WebTest
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from mock import patch
 from library_collection.models import Collection
 from library_collection.models import Campus
@@ -27,7 +27,7 @@ def skipUnlessIntegrationTest(selfobj=None):
 
 
 class CollectionTestCase(TestCase):
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ['collection.json', 'campus.json', 'repository.json']
 
     def setUp(self):
         c = Collection.objects.all()[0]
@@ -246,7 +246,7 @@ class CollectionAdminTestCase(TestCase):
 
     def testHarvestDataInAdmin(self):
         '''Make sure the required harvest data is in the admin interface'''
-        url_admin = '/admin/library_collection/collection/1/'
+        url_admin = '/admin/library_collection/collection/1/change/'
         http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
@@ -273,7 +273,7 @@ class CollectionAdminTestCase(TestCase):
 class CollectionAdminHarvestTestCase(WebTest):
     '''Test the start harvest action on the collection list admin page
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def testQueueHarvestActionAvailable(self):
@@ -555,7 +555,7 @@ class RepositoryAdminTestCase(TestCase):
 
 class TastyPieAPITest(TestCase):
     '''Verify the tastypie RESTful feed'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'collectioncustomfacet.json')
     url_api = '/api/v1/'  # how to get from django?
 
@@ -618,12 +618,12 @@ class TastyPieAPITest(TestCase):
 
 class CollectionsViewTestCase(TestCase):
     '''Test the view function "collections" directly'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
 
 class PublicViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
     def testRootView(self):
         response = self.client.get('/')
@@ -780,7 +780,7 @@ class PublicViewTestCase(TestCase):
 
 
 class CampusTestCase(TestCase):
-    fixtures = ('initial_data.json', )
+    fixtures = ('campus.json', )
 
     def testCampusSlugStartsWithUC(self):
         c = Campus()
@@ -828,7 +828,7 @@ class PublicViewNewCampusTestCase(TestCase):
     the reverse lookup fail, otherwise it just doesn't find the NTC at all,
     don't know why...
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
     def setUp(self):
         c = Campus()
@@ -858,7 +858,7 @@ class PublicViewNewCampusTestCase(TestCase):
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json')
     current_app = 'edit'
 
@@ -1025,6 +1025,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'new collection test')
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'test description')
+        self.assertContains(response, 'Internet Archive')
         self.assertContains(response, 'LOCID')
         self.assertContains(response, 'LOCURL')
         self.assertContains(response, 'OACURL')
@@ -1082,6 +1083,10 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Add')
         self.assertContains(response, 'new repository')
 
+        needle = '''<td><a href="/repository/11/new-repository/">new repository</a>
+            <small class="muted">UC Berkeley UC Merced</small></td>'''
+        self.assertInHTML(needle, response.content)
+
     def testRepositoryCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty repository'''
         url = reverse('edit_repositories')
@@ -1096,7 +1101,7 @@ class EditViewTestCase(TestCase):
 class SyncWithOACTestCase(TestCase):
     '''Test sync with OAC repositories and EAD finding aid collections
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def setUp(self):
@@ -1182,7 +1187,7 @@ class NewUserTestCase(TestCase):
     created in the DB and then redirected to the new user message page.
     '''
     # TODO: check workflow for post verification
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def testNewUserAuth(self):

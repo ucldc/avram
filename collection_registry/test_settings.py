@@ -1,9 +1,9 @@
 from settings import *
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
         #'collection_registry.middleware.RemoteUserMockMiddleware',
         'collection_registry.middleware.BasicAuthMockMiddleware',
-) + MIDDLEWARE_CLASSES
+] + MIDDLEWARE
 
 
 DATABASES = {

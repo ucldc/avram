@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('facet_field', models.CharField(max_length=20, choices=[(b'contributor_ss', b'contributor'), (b'coverage_ss', b'coverage'), (b'creator_ss', b'creator'), (b'date_ss', b'date'), (b'extent_ss', b'extent'), (b'format_ss', b'format'), (b'genre_ss', b'genre'), (b'language_ss', b'language'), (b'location_ss', b'location'), (b'publisher_ss', b'publisher'), (b'relation_ss', b'relation'), (b'rights_ss', b'rights'), (b'rights_holder_ss', b'rights_holder'), (b'rights_note_ss', b'rights_note'), (b'rights_date_ss', b'rights_date'), (b'source_ss', b'source'), (b'subject_ss', b'subject'), (b'temporal_ss', b'temporal')])),
                 ('label', models.CharField(max_length=255)),
-                ('collection', models.ForeignKey(to='library_collection.Collection')),
+                ('collection', models.ForeignKey(to='library_collection.Collection', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
