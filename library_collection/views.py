@@ -2,12 +2,12 @@
 
 import operator
 import json
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from django.shortcuts import render
 from django.http import Http404
 from library_collection.models import Collection, Campus, Repository
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect
-from human_to_bytes import bytes2human
+from .human_to_bytes import bytes2human
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -16,6 +16,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import QueryDict
+from functools import reduce
 
 campuses = Campus.objects.all().order_by('position')
 
@@ -180,7 +181,7 @@ def repository_collections(request, repoid=None, repo_slug=None):
     last_page_qs = qd.urlencode()
 
     try:
-        info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(repository.ark)).read())
+        info = json.loads(urllib.request.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(repository.ark)).read())
     except Exception as e:
         info = {'error': e }
 
@@ -238,7 +239,7 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
             campus = get_object_or_404(Campus, slug=campus_slug)
             collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
             try:
-                info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
+                info = json.loads(urllib.request.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
             except Exception as e:
                 info = {'error': e }
 
@@ -455,7 +456,7 @@ def repositories(request, campus_slug=None):
             campus = get_object_or_404(Campus, slug=campus_slug)
             repositories = Repository.objects.filter(campus=campus).order_by('name').prefetch_related('campus')
             try:
-                info = json.loads(urllib.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
+                info = json.loads(urllib.request.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
             except Exception as e:
                 info = {'error': e }
     else:

@@ -7,9 +7,9 @@ with URL_to_api, URL_for_xtf_search.
 '''
 
 #strip the id from api URL and update
-import set_avram_lib_path
+from . import set_avram_lib_path
 import string
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import csv
 
 from library_collection.models import Collection
@@ -25,4 +25,4 @@ for row in csv.reader(open('xtf-no-results.csv')):
         cids.append(cid)
         c.save()
 
-print cids
+print(cids)

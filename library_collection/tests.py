@@ -10,7 +10,7 @@ from mock import patch
 from library_collection.models import Collection
 from library_collection.models import Campus
 from library_collection.models import Repository
-from util import sync_oac_collections, sync_oac_repositories
+from .util import sync_oac_collections, sync_oac_repositories
 import library_collection.admin_actions
 from library_collection.admin_actions import queue_harvest
 
@@ -42,8 +42,8 @@ class CollectionTestCase(TestCase):
         pc.extent = 1234567890
         pc.name = 'A test collection'
         self.assertEqual(pc.url, pc.url_local)
-        self.assertEqual(pc.human_extent, u'1.1\xa0G')
-        self.assertEqual(pc.name, unicode(pc))
+        self.assertEqual(pc.human_extent, '1.1\xa0G')
+        self.assertEqual(pc.name, str(pc))
         self.assertTrue(hasattr(pc, 'url_harvest'))
         self.assertTrue(hasattr(pc, 'harvest_type'))
         self.assertTrue(hasattr(pc, 'harvest_extra_data'))
@@ -518,7 +518,7 @@ class RepositoryTestCase(TestCase):
         self.assertRaises(ValueError, r2.save)
         try:
             r2.save()
-        except ValueError, e:
+        except ValueError as e:
             self.assertEqual(e.args,
                              ('Unit with ark fakeARK already exists', ))
         r2.ark = ''
@@ -809,7 +809,7 @@ class CampusTestCase(TestCase):
         self.assertRaises(ValueError, c.save)
         try:
             c.save()
-        except ValueError, e:
+        except ValueError as e:
             self.assertEqual(e.args, (
                 'Campus with ark ark:/13030/tf0p3009mq already exists', ))
         c.ark = ''

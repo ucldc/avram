@@ -4,9 +4,9 @@ We will match on oac_url and update titles.
 Create new registry collections if the oac_url is not in the system.
 '''
 import os
-import set_avram_lib_path
+from . import set_avram_lib_path
 import string
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import csv
 
 from library_collection.models import Collection, Repository
@@ -33,23 +33,23 @@ def url_harvest(url_findingaid):
 def print_progress(c, status):
     try:
         print("{}: {} {}".format(status, c.id, c.name.encode('utf-8')))
-    except UnicodeDecodeError, e:
+    except UnicodeDecodeError as e:
         try:
             print("{}: {} {}".format(status, c.id, c.name.encode('latin-1')))
-        except UnicodeDecodeError, e:
+        except UnicodeDecodeError as e:
             print("{}: {}".format(status, c.id))
 
 def sync_collections_for_url(url_file):
     DEFAULT_ITEM_ENRICHMENT = open(os.path.join(set_avram_lib_path.FILE_DIR,
                                     'oac___.enrich')).read()
     new_input = []
-    for l in urllib.urlopen(url_file).readlines():
+    for l in urllib.request.urlopen(url_file).readlines():
         if len(l) > 10: #hokey blank line check, also drops first line
             new_input.append(l)
-    #reader = csv.reader(urllib.urlopen(url_file), dialect='excel-tab')
+    #reader = csv.reader(urllib.request.urlopen(url_file), dialect='excel-tab')
     reader = csv.reader(new_input, dialect='excel-tab')
     #skip first row
-    reader.next()
+    next(reader)
     n = n_new = n_up = 0
     for url_oac, name, ark_repo, online_items in reader:
         online_items = True if online_items == 'true' else False
@@ -61,7 +61,7 @@ def sync_collections_for_url(url_file):
         if c:
             #update with OAC info
             if len(c) != 1:
-                print "DUPLICATE url_oac:", str([c])
+                print("DUPLICATE url_oac:", str([c]))
                 next
             c = c[0]
             n_up += 1
@@ -105,17 +105,17 @@ def main(title_prefixes=TITLE_PREFIXES, url_github_raw_base=URL_GITHUB_RAW_BASE)
         n_total += n
         n_updated += n_up
         n_new += n_nw
-        print "PREFIX {0} -> TOTAL OAC:{1} UPDATED:{2} NEW:{3}".format(prefix, n, n_up, n_new)
+        print("PREFIX {0} -> TOTAL OAC:{1} UPDATED:{2} NEW:{3}".format(prefix, n, n_up, n_new))
     return n_total, n_updated, n_new, prefix_totals 
 
 if __name__=='__main__':
     import datetime
     start = datetime.datetime.now()
-    print "STARTING AT", start
+    print("STARTING AT", start)
     n_total, n_updated, n_new, prefix_totals = main()
     end = datetime.datetime.now()
-    print "ENDED AT", end
-    print "ELAPSED", end-start
-    print "OAC COLLECTIONS TOTAL:{0}, UPDATED:{1}, NEW:{2}".format(n_total, n_updated, n_new)
-    print "BY PREFIX: [<prefix>, <num OAC>, <num updated>, <num new>]"
-    print prefix_totals
+    print("ENDED AT", end)
+    print("ELAPSED", end-start)
+    print("OAC COLLECTIONS TOTAL:{0}, UPDATED:{1}, NEW:{2}".format(n_total, n_updated, n_new))
+    print("BY PREFIX: [<prefix>, <num OAC>, <num updated>, <num new>]")
+    print(prefix_totals)

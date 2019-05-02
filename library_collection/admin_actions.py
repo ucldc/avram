@@ -49,7 +49,7 @@ def run_script_for_queryset(script,
                 '  |  '.join(
                     [c.name.encode('utf-8') for c in queryset]),
                 cmd_line)
-    except OSError, e:
+    except OSError as e:
         if e.errno == 2:
             msg = 'Cannot find {} for running {} collections {}'.format(
                 script,

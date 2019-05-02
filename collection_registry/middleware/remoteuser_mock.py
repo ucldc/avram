@@ -35,7 +35,7 @@ class BasicAuthMockMiddleware(MiddlewareMixin):
     def process_request(self,request):
         for path in paths_locked:
             if request.path.startswith(path):
-                if not request.META.has_key('HTTP_AUTHORIZATION'):
+                if 'HTTP_AUTHROIZATION' not in request.META:
                     return self.unauthed()
                 else:
                     authentication = request.META['HTTP_AUTHORIZATION']
