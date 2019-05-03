@@ -2,6 +2,7 @@
 import os
 import unittest
 import socket
+from base64 import b64encode
 from django.test import TestCase
 from django_webtest import WebTest
 from django.contrib.auth.models import User
@@ -225,7 +226,7 @@ class CollectionAdminTestCase(TestCase):
         # this doesn't work when using the BasicAuthMockMiddleware
         # need to add the http_auth to request to get logged in
         # ret = self.client.login(username='test', password='fake')
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'PC-1')
@@ -247,7 +248,8 @@ class CollectionAdminTestCase(TestCase):
     def testHarvestDataInAdmin(self):
         '''Make sure the required harvest data is in the admin interface'''
         url_admin = '/admin/library_collection/collection/1/change/'
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
+        # http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'harvest_type')
@@ -260,7 +262,8 @@ class CollectionAdminTestCase(TestCase):
         view.
         '''
         url_admin = '/admin/auth/user/'
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
+        # http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Username")
@@ -281,8 +284,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         admin list page
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+            # 'base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_harvest')
@@ -292,8 +296,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         collections
         '''
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+            # 'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
@@ -314,8 +319,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''
         # c = Collection()
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
@@ -387,8 +393,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         harvest to.
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_harvest_normal_stage')
@@ -398,8 +406,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         collections
         '''
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
@@ -420,8 +430,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''
         c = Collection()
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
@@ -485,8 +497,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         harvest to.
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_image_harvest_normal_stage')
@@ -547,7 +561,9 @@ class RepositoryAdminTestCase(TestCase):
         url_admin = '/admin/library_collection/repository/'
         response = self.client.get(url_admin)
         self.assertEqual(response.status_code, 401)
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'TEST REPO')
@@ -863,7 +879,10 @@ class EditViewTestCase(TestCase):
     current_app = 'edit'
 
     def setUp(self):
-        self.http_auth = 'basic ' + 'test_user:test_user'.encode('base64')
+        self.http_auth = 'basic ' + b64encode('test_user:test_user'.encode()).decode()
+
+        # self.http_auth = 'basic ' + 'test_user:test_user'.encode('base64')
+
 
     def testRootView(self):
         url = reverse('edit_collections')
@@ -1191,7 +1210,9 @@ class NewUserTestCase(TestCase):
                 'user.json', 'group.json')
 
     def testNewUserAuth(self):
-        http_auth = 'basic ' + 'bogus_new_user:bogus_new_user'.encode('base64')
+        # http_auth = 'basic ' + 'bogus_new_user:bogus_new_user'.encode('base64')
+        http_auth = 'basic ' + b64encode('bogus_new_user:bogus_new_user'.encode()).decode()
+
         url = reverse('edit_collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=http_auth)
         self.assertTemplateUsed(

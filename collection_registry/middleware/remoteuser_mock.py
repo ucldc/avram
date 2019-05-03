@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
+from base64 import b64decode
 
 try:
     username = settings.REMOTE_USER_MOCK_USERNAME
@@ -35,14 +36,14 @@ class BasicAuthMockMiddleware(MiddlewareMixin):
     def process_request(self,request):
         for path in paths_locked:
             if request.path.startswith(path):
-                if 'HTTP_AUTHROIZATION' not in request.META:
+                if 'HTTP_AUTHORIZATION' not in request.META:
                     return self.unauthed()
                 else:
                     authentication = request.META['HTTP_AUTHORIZATION']
                     (authmeth, auth) = authentication.split(' ',1)
                     if 'basic' != authmeth.lower():
                         return self.unauthed()
-                    auth = auth.strip().decode('base64')
+                    auth = b64decode(auth.strip().encode()).decode()
                     username, password = auth.split(':',1)
                     ## let anything through and set REMOTE_USER
                     request.META['REMOTE_USER'] = username
