@@ -1,13 +1,13 @@
 Django==1.11.20
 defusedxml==0.4.1
-django-tastypie==0.14.0
+django-tastypie==0.14.2
 django-extensions==1.7.4
-lxml==3.1.2
+#lxml==3.1.2
+lxml
 six==1.10.0
-wsgiref==0.1.2
 https://github.com/mredar/bootstrap-django-admin/archive/master.zip
 #MySQL-python==1.2.4
 WebTest>=2.0.10
 django-webtest>=1.7.5
 mock>=1.0.1
-mimeparse
+python-mimeparse
