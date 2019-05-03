@@ -16,7 +16,7 @@ from django.contrib.admin import actions
 URL_HARVEST_BASE = 'http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation='
 URL_GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/ucldc/oac_collections/master/az_titles/'
 FILE_SUFFIX = '_titles.tsv'
-TITLE_PREFIXES = [ alpha for alpha in string.lowercase]
+TITLE_PREFIXES = [ alpha for alpha in string.ascii_lowercase]
 TITLE_PREFIXES.append('0-9')
 
 
