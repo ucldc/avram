@@ -21,7 +21,7 @@ class Campus(models.Model):
     class Meta:
         verbose_name_plural = 'campuses'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -52,7 +52,7 @@ class Format(models.Model):
     '''File formats of data for input to DAMS.'''
     name = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -247,7 +247,7 @@ class Collection(models.Model):
     def human_extent(self):
         return bytes2human(self.extent, format='%(value).1f\xa0%(symbol)s')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -284,7 +284,7 @@ class Repository(models.Model):
     class Meta:
         verbose_name_plural = 'repositories'
 
-    def __unicode__(self):
+    def __str__(self):
         campuses = self.campus.all()
         if campuses:
             return '{0} {1}'.format(campuses[0].slug, self.name)
