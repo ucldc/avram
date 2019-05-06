@@ -1104,7 +1104,7 @@ class EditViewTestCase(TestCase):
 
         needle = '''<td><a href="/repository/11/new-repository/">new repository</a>
             <small class="muted">UC Berkeley UC Merced</small></td>'''
-        self.assertInHTML(needle, response.content)
+        self.assertInHTML(needle, response.content.decode('utf-8'))
 
     def testRepositoryCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty repository'''

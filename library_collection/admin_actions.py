@@ -41,20 +41,20 @@ def run_script_for_queryset(script,
     cmd_line = ' '.join((script, user.email, rq_queue))
     cmd_line = ' '.join((cmd_line, collection_args_list))
     try:
-        subprocess.Popen(shlex.split(cmd_line.encode('utf-8')))
+        subprocess.Popen(shlex.split(cmd_line))
         success = True
         msg = 'Queued {} for {} collections: {} CMD: {}'.format(
                 script,
                 len(queryset),
                 '  |  '.join(
-                    [c.name.encode('utf-8') for c in queryset]),
+                    [c.name for c in queryset]),
                 cmd_line)
     except OSError as e:
         if e.errno == 2:
             msg = 'Cannot find {} for running {} collections {}'.format(
                 script,
                 len(queryset), '; '.join(
-                    [c.name.encode('utf-8') for c in queryset]))
+                    [c.name for c in queryset]))
         else:
             msg = 'Error: Trying to run {} error-> {}'.format(cmd_line, str(e))
     return msg, success

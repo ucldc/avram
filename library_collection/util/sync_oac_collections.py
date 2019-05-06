@@ -45,7 +45,7 @@ def sync_collections_for_url(url_file):
     new_input = []
     for l in urllib.request.urlopen(url_file).readlines():
         if len(l) > 10: #hokey blank line check, also drops first line
-            new_input.append(l)
+            new_input.append(l.decode('utf-8'))
     #reader = csv.reader(urllib.request.urlopen(url_file), dialect='excel-tab')
     reader = csv.reader(new_input, dialect='excel-tab')
     #skip first row
