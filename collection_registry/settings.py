@@ -148,6 +148,8 @@ INSTALLED_APPS = (
     #'dbdump',
 )
 
+ALLOWED_HOSTS = ['dsc-registry2-dev.cdlib.org', 'localhost', '127.0.0.1']
+
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
 # A sample logging configuration. The only tangible logging
