@@ -184,6 +184,6 @@ LOGGING = {
 TASTYPIE_DEFAULT_FORMATS = ['json', 'xml']
 
 try:
-    from local_settings import *
+    from collection_registry.local_settings import *
 except ImportError:
     pass
