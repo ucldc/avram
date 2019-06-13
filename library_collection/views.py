@@ -117,7 +117,7 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
     want to build a list of 5-7 pages around the current page, 3 each side?
     num_links indicates total number of additional links to create, if possible
     '''
-    half = total_displayed / 2
+    half = total_displayed // 2
     if page_number - half <= 0: #lower boundary
         lowest_page_number = 1
         num_high = total_displayed - page_number
