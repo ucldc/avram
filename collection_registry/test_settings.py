@@ -1,4 +1,4 @@
-from settings import *
+from .settings import *
 
 MIDDLEWARE = [
         #'collection_registry.middleware.RemoteUserMockMiddleware',

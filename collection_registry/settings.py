@@ -145,8 +145,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'library_collection',
     # 'rest_framework',
-    'dbdump',
+    #'dbdump',
 )
+
+ALLOWED_HOSTS = ['dsc-registry2-dev.cdlib.org', 'localhost', '127.0.0.1']
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
@@ -182,6 +184,6 @@ LOGGING = {
 TASTYPIE_DEFAULT_FORMATS = ['json', 'xml']
 
 try:
-    from local_settings import *
+    from collection_registry.local_settings import *
 except ImportError:
     pass

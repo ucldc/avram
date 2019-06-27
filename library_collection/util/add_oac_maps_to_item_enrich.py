@@ -1,4 +1,4 @@
-import set_avram_lib_path
+from . import set_avram_lib_path
 from django.contrib.admin import actions
 
 from library_collection.models import Collection

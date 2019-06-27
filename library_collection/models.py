@@ -2,7 +2,7 @@
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django.urls import reverse
-from human_to_bytes import bytes2human
+from .human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -21,7 +21,7 @@ class Campus(models.Model):
     class Meta:
         verbose_name_plural = 'campuses'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -52,7 +52,7 @@ class Format(models.Model):
     '''File formats of data for input to DAMS.'''
     name = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -245,9 +245,9 @@ class Collection(models.Model):
 
     @property
     def human_extent(self):
-        return bytes2human(self.extent, format=u'%(value).1f\xa0%(symbol)s')
+        return bytes2human(self.extent, format='%(value).1f\xa0%(symbol)s')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -284,10 +284,10 @@ class Repository(models.Model):
     class Meta:
         verbose_name_plural = 'repositories'
 
-    def __unicode__(self):
+    def __str__(self):
         campuses = self.campus.all()
         if campuses:
-            return u'{0} {1}'.format(campuses[0].slug, self.name)
+            return '{0} {1}'.format(campuses[0].slug, self.name)
         else:
             return self.name
 
