@@ -78,6 +78,9 @@ class CollectionCustomFacet(models.Model):
     collection = models.ForeignKey('Collection', on_delete=models.CASCADE)
     facet_field = models.CharField(max_length=20, choices=facet_choices)
     label = models.CharField(max_length=255)
+    sort_by = models.CharField(max_length=20, choices=(
+        ('value', 'lexical sort'), 
+        ('count', 'facet count')), default='count')
 
 
 class Collection(models.Model):
