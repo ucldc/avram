@@ -16,4 +16,4 @@ DATE=`date +%Y-%m-%d-%H`
 set +u
 source bin/activate
 set -u
-python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json
+python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json —-natural-foreign —-natural-primary
