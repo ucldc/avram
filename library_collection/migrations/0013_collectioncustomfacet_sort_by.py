@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='collectioncustomfacet',
             name='sort_by',
-            field=models.CharField(choices=[('value', 'lexical sort'), ('count', 'facet count')], default='count', max_length=20),
+            field=models.CharField(choices=[('count', 'number of results'), ('value', 'alphanumeric order')], default='count', max_length=20),
         ),
     ]
