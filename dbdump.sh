@@ -14,6 +14,6 @@ cd $DIR
 DATE=`date +%Y-%m-%d-%H`
 
 set +u
-source bin/activate
+source $HOME/python/bin/activate
 set -u
-python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json
+python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json --natural-foreign --natural-primary
