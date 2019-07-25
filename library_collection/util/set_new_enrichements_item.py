@@ -8,7 +8,7 @@ filter on harvest_type which is passed in.
 point to a text file that has enrichment string in it.
 
 '''
-import set_avram_lib_path
+from . import set_avram_lib_path
 import argparse
 
 from library_collection.models import Collection
@@ -30,7 +30,7 @@ def overwrite_enrichments_for_queryset(qs, enrichment):
 
 def overwrite_enrichments_for_collection_id(cid, enrichment):
     qs = Collection.objects.filter(pk=cid)
-    print "RUNNING ON {}".format(qs)
+    print("RUNNING ON {}".format(qs))
     overwrite_enrichments_for_queryset(qs, enrichment)
 
 def overwrite_enrichments_for_harvest_type(harvest_type, enrichment,
@@ -58,7 +58,7 @@ def overwrite_enrichments_for_harvest_type(harvest_type, enrichment,
                 harvest_type=harvest_type).filter(campus__id=campus_id)
     else:
         qs = Collection.objects.filter(harvest_type=harvest_type)
-    print "RUNNING ON {}".format(qs)
+    print("RUNNING ON {}".format(qs))
     overwrite_enrichments_for_queryset(qs, enrichment)
 
 if __name__=='__main__':
@@ -88,6 +88,6 @@ if __name__=='__main__':
         overwrite_enrichments_for_collection_id(args.collection_id,
                 enrichments_string)
     else:
-        print ' '.join(("No collection criteria specified.",
+        print(' '.join(("No collection criteria specified.",
                        "Please specify --harvest_type or",
-                       "--collection_id."))
+                       "--collection_id.")))

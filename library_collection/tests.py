@@ -2,15 +2,16 @@
 import os
 import unittest
 import socket
+from base64 import b64encode
 from django.test import TestCase
 from django_webtest import WebTest
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from mock import patch
 from library_collection.models import Collection
 from library_collection.models import Campus
 from library_collection.models import Repository
-from util import sync_oac_collections, sync_oac_repositories
+from .util import sync_oac_collections, sync_oac_repositories
 import library_collection.admin_actions
 from library_collection.admin_actions import queue_harvest
 
@@ -27,7 +28,7 @@ def skipUnlessIntegrationTest(selfobj=None):
 
 
 class CollectionTestCase(TestCase):
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ['collection.json', 'campus.json', 'repository.json']
 
     def setUp(self):
         c = Collection.objects.all()[0]
@@ -42,8 +43,8 @@ class CollectionTestCase(TestCase):
         pc.extent = 1234567890
         pc.name = 'A test collection'
         self.assertEqual(pc.url, pc.url_local)
-        self.assertEqual(pc.human_extent, u'1.1\xa0G')
-        self.assertEqual(pc.name, unicode(pc))
+        self.assertEqual(pc.human_extent, '1.1\xa0G')
+        self.assertEqual(pc.name, str(pc))
         self.assertTrue(hasattr(pc, 'url_harvest'))
         self.assertTrue(hasattr(pc, 'harvest_type'))
         self.assertTrue(hasattr(pc, 'harvest_extra_data'))
@@ -225,7 +226,7 @@ class CollectionAdminTestCase(TestCase):
         # this doesn't work when using the BasicAuthMockMiddleware
         # need to add the http_auth to request to get logged in
         # ret = self.client.login(username='test', password='fake')
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'PC-1')
@@ -246,8 +247,9 @@ class CollectionAdminTestCase(TestCase):
 
     def testHarvestDataInAdmin(self):
         '''Make sure the required harvest data is in the admin interface'''
-        url_admin = '/admin/library_collection/collection/1/'
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        url_admin = '/admin/library_collection/collection/1/change/'
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
+        # http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'harvest_type')
@@ -260,7 +262,8 @@ class CollectionAdminTestCase(TestCase):
         view.
         '''
         url_admin = '/admin/auth/user/'
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
+        # http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Username")
@@ -273,7 +276,7 @@ class CollectionAdminTestCase(TestCase):
 class CollectionAdminHarvestTestCase(WebTest):
     '''Test the start harvest action on the collection list admin page
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def testQueueHarvestActionAvailable(self):
@@ -281,8 +284,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         admin list page
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+            # 'base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_harvest')
@@ -292,8 +296,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         collections
         '''
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+            # 'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
@@ -314,8 +319,9 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''
         # c = Collection()
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
@@ -387,8 +393,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         harvest to.
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_harvest_normal_stage')
@@ -398,8 +406,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         collections
         '''
         url_admin = '/admin/library_collection/collection/?urlfields=OAI'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         form = response.forms['changelist-form']
@@ -420,8 +430,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         '''
         c = Collection()
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.app.get(url_admin,
                                 headers={'AUTHORIZATION': http_auth})
         self.assertEqual(response.status_int, 200)
@@ -485,8 +497,10 @@ class CollectionAdminHarvestTestCase(WebTest):
         harvest to.
         '''
         url_admin = '/admin/library_collection/collection/'
-        http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
-            'base64')
+        http_auth = 'basic ' + b64encode('test_user_super:test_user_super'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test_user_super:test_user_super'.encode(
+        #     'base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'queue_image_harvest_normal_stage')
@@ -518,7 +532,7 @@ class RepositoryTestCase(TestCase):
         self.assertRaises(ValueError, r2.save)
         try:
             r2.save()
-        except ValueError, e:
+        except ValueError as e:
             self.assertEqual(e.args,
                              ('Unit with ark fakeARK already exists', ))
         r2.ark = ''
@@ -547,7 +561,9 @@ class RepositoryAdminTestCase(TestCase):
         url_admin = '/admin/library_collection/repository/'
         response = self.client.get(url_admin)
         self.assertEqual(response.status_code, 401)
-        http_auth = 'basic ' + 'test:fake'.encode('base64')
+        http_auth = 'basic ' + b64encode('test:fake'.encode()).decode()
+
+        # http_auth = 'basic ' + 'test:fake'.encode('base64')
         response = self.client.get(url_admin, HTTP_AUTHORIZATION=http_auth)
         self.assertNotContains(response, 'Password')
         self.assertContains(response, 'TEST REPO')
@@ -555,7 +571,7 @@ class RepositoryAdminTestCase(TestCase):
 
 class TastyPieAPITest(TestCase):
     '''Verify the tastypie RESTful feed'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'collectioncustomfacet.json')
     url_api = '/api/v1/'  # how to get from django?
 
@@ -618,12 +634,12 @@ class TastyPieAPITest(TestCase):
 
 class CollectionsViewTestCase(TestCase):
     '''Test the view function "collections" directly'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
 
 class PublicViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
     def testRootView(self):
         response = self.client.get('/')
@@ -780,7 +796,7 @@ class PublicViewTestCase(TestCase):
 
 
 class CampusTestCase(TestCase):
-    fixtures = ('initial_data.json', )
+    fixtures = ('campus.json', )
 
     def testCampusSlugStartsWithUC(self):
         c = Campus()
@@ -809,7 +825,7 @@ class CampusTestCase(TestCase):
         self.assertRaises(ValueError, c.save)
         try:
             c.save()
-        except ValueError, e:
+        except ValueError as e:
             self.assertEqual(e.args, (
                 'Campus with ark ark:/13030/tf0p3009mq already exists', ))
         c.ark = ''
@@ -828,7 +844,7 @@ class PublicViewNewCampusTestCase(TestCase):
     the reverse lookup fail, otherwise it just doesn't find the NTC at all,
     don't know why...
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json')
+    fixtures = ('collection.json', 'campus.json', 'repository.json')
 
     def setUp(self):
         c = Campus()
@@ -858,12 +874,15 @@ class PublicViewNewCampusTestCase(TestCase):
 
 class EditViewTestCase(TestCase):
     '''Test the view for the public'''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json')
     current_app = 'edit'
 
     def setUp(self):
-        self.http_auth = 'basic ' + 'test_user:test_user'.encode('base64')
+        self.http_auth = 'basic ' + b64encode('test_user:test_user'.encode()).decode()
+
+        # self.http_auth = 'basic ' + 'test_user:test_user'.encode('base64')
+
 
     def testRootView(self):
         url = reverse('edit_collections')
@@ -1025,6 +1044,7 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'new collection test')
         self.assertContains(response, 'Berkeley')
         self.assertContains(response, 'test description')
+        self.assertContains(response, 'Internet Archive')
         self.assertContains(response, 'LOCID')
         self.assertContains(response, 'LOCURL')
         self.assertContains(response, 'OACURL')
@@ -1082,6 +1102,10 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, 'Add')
         self.assertContains(response, 'new repository')
 
+        needle = '''<td><a href="/repository/11/new-repository/">new repository</a>
+            <small class="muted">UC Berkeley UC Merced</small></td>'''
+        self.assertInHTML(needle, response.content.decode('utf-8'))
+
     def testRepositoryCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty repository'''
         url = reverse('edit_repositories')
@@ -1096,7 +1120,7 @@ class EditViewTestCase(TestCase):
 class SyncWithOACTestCase(TestCase):
     '''Test sync with OAC repositories and EAD finding aid collections
     '''
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def setUp(self):
@@ -1182,11 +1206,13 @@ class NewUserTestCase(TestCase):
     created in the DB and then redirected to the new user message page.
     '''
     # TODO: check workflow for post verification
-    fixtures = ('collection.json', 'initial_data.json', 'repository.json',
+    fixtures = ('collection.json', 'campus.json', 'repository.json',
                 'user.json', 'group.json')
 
     def testNewUserAuth(self):
-        http_auth = 'basic ' + 'bogus_new_user:bogus_new_user'.encode('base64')
+        # http_auth = 'basic ' + 'bogus_new_user:bogus_new_user'.encode('base64')
+        http_auth = 'basic ' + b64encode('bogus_new_user:bogus_new_user'.encode()).decode()
+
         url = reverse('edit_collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=http_auth)
         self.assertTemplateUsed(

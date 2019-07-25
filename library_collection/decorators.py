@@ -19,7 +19,7 @@ def user_passes_verification(test_func):
                 return view_func(request, *args, **kwargs)
             return render(request, 
                 template_name='library_collection/verification_required.html', 
-                dictionary={
+                context={
                     'user': request.user
                 },
             )

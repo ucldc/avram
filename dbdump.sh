@@ -11,8 +11,9 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
+DATE=`date +%Y-%m-%d-%H`
 
 set +u
-source bin/activate
+source $HOME/python/bin/activate
 set -u
-python manage.py dbdump --destination=$HOME/dbdumps --compress=bzip2
+python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json --natural-foreign --natural-primary

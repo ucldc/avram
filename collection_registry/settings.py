@@ -82,7 +82,7 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '&amp;7xo6r-s5w_x6xmm+t8$r-c_-o-=kkc_9z$zgx7hgi%tw995#^'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,13 +92,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+
+]
 
 AUTHENTICATION_BACKENDS = (
     'collection_registry.backends.RegistryUserBackend',
 )
 
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 #LOGIN_REDIRECT_URL = reverse_lazy('library_collection.views.home')
 LOGIN_REDIRECT_URL = "/"
@@ -144,10 +145,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'library_collection',
     # 'rest_framework',
-    'dbdump',
+    #'dbdump',
 )
 
-INSTALLED_APPS = ("longerusername",) + INSTALLED_APPS
+ALLOWED_HOSTS = ['dsc-registry2-dev.cdlib.org', 'localhost', '127.0.0.1']
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
@@ -182,12 +183,7 @@ LOGGING = {
 
 TASTYPIE_DEFAULT_FORMATS = ['json', 'xml']
 
-ADMIN_REORDER = (
-    ("Library_Collection", ("Collections", "Campuses", "Statuses", "Restrictions", "Needs")),
-)
-
-
 try:
-    from local_settings import *
+    from collection_registry.local_settings import *
 except ImportError:
     pass

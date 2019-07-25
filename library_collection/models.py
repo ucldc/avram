@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
-from django.core.urlresolvers import reverse
-from human_to_bytes import bytes2human
+from django.urls import reverse
+from .human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -21,7 +21,7 @@ class Campus(models.Model):
     class Meta:
         verbose_name_plural = 'campuses'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -52,7 +52,7 @@ class Format(models.Model):
     '''File formats of data for input to DAMS.'''
     name = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -75,9 +75,12 @@ class CollectionCustomFacet(models.Model):
         ('rights_note_ss', 'rights_note'), ('rights_date_ss', 'rights_date'),
         ('source_ss', 'source'), ('subject_ss', 'subject'),
         ('temporal_ss', 'temporal'))
-    collection = models.ForeignKey('Collection')
+    collection = models.ForeignKey('Collection', on_delete=models.CASCADE)
     facet_field = models.CharField(max_length=20, choices=facet_choices)
     label = models.CharField(max_length=255)
+    sort_by = models.CharField(max_length=20, choices=(
+        ('count', 'number of results'),
+        ('value', 'alphanumeric order')), default='count')
 
 
 class Collection(models.Model):
@@ -185,6 +188,10 @@ class Collection(models.Model):
         max_length=100,
         blank=True,
         help_text='Merritt Id (ARK)')
+    merritt_extra_data = models.CharField(
+        max_length=511,
+        blank=True,
+        help_text='nuxeo path for Merritt harvest (usually the same as Harvest extra data)')
     disqus_shortname_prod = models.CharField(
         max_length=64,
         blank=True,
@@ -241,9 +248,9 @@ class Collection(models.Model):
 
     @property
     def human_extent(self):
-        return bytes2human(self.extent, format=u'%(value).1f\xa0%(symbol)s')
+        return bytes2human(self.extent, format='%(value).1f\xa0%(symbol)s')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -268,6 +275,8 @@ class Repository(models.Model):
     campus = models.ManyToManyField(Campus, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name'), editable=True)
     ark = models.CharField(max_length=255, blank=True)
+    aeon_prod = models.CharField(max_length=255, blank=True)
+    aeon_test = models.CharField(max_length=255, blank=True)
     google_analytics_tracking_code = models.CharField(
         max_length=64,
         blank=True,
@@ -278,10 +287,10 @@ class Repository(models.Model):
     class Meta:
         verbose_name_plural = 'repositories'
 
-    def __unicode__(self):
+    def __str__(self):
         campuses = self.campus.all()
         if campuses:
-            return u'{0} {1}'.format(campuses[0].slug, self.name)
+            return '{0} {1}'.format(campuses[0].slug, self.name)
         else:
             return self.name
 

@@ -1,4 +1,4 @@
-import set_avram_lib_path
+from . import set_avram_lib_path
 import argparse
 
 from library_collection.models import Collection
@@ -13,7 +13,7 @@ for c in colls:
     	new_enrich = new_enrich.replace('/filter_fields?keys=sourceResource,\n/filt', '/filt',)
     	new_enrich = new_enrich.replace('/filter_fields?keys=sourceResource,\n/req', '/req',)
     new_enrich = new_enrich.replace('required-val','filter_fields?keys=sourceResource,\n/required-val', 1)
-    print "OK? {}".format(new_enrich)
+    print("OK? {}".format(new_enrich))
     c.enrichments_item = new_enrich
-    print "CHANGING: {}".format(c.id)
+    print("CHANGING: {}".format(c.id))
     c.save()

@@ -60,7 +60,7 @@ def bytes2human(n, format='%(value).1f %(symbol)s', symbols='customary'):
       >>> bytes2human(10000, format="%(value).5f %(symbol)s")
       '9.76562 K'
     """
-    if not isinstance( n, ( int, long ) ):
+    if not isinstance( n, ( int ) ):
         return 
     if n < 0:
         raise ValueError("n < 0")

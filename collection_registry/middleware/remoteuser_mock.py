@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.utils.deprecation import MiddlewareMixin
+from base64 import b64decode
 
 try:
     username = settings.REMOTE_USER_MOCK_USERNAME
@@ -9,7 +11,8 @@ try:
 except AttributeError:
     paths_locked = ['/edit', '/admin']
 
-class RemoteUserMockMiddleware(object):
+# https://docs.djangoproject.com/en/2.2/topics/http/middleware/#upgrading-middleware
+class RemoteUserMockMiddleware(MiddlewareMixin):
     '''Mock a remote user, maybe want to prompt user.
     '''
     def process_request(self, request):
@@ -19,8 +22,9 @@ class RemoteUserMockMiddleware(object):
                 return None
 
 from django.http import HttpResponse
+# https://docs.djangoproject.com/en/2.2/topics/http/middleware/#upgrading-middleware
 #http://djangosnippets.org/snippets/2468/
-class BasicAuthMockMiddleware(object):
+class BasicAuthMockMiddleware(MiddlewareMixin):
     def unauthed(self):
         response = HttpResponse("""<html><title>Auth required</title><body>
                                 <h1>Authorization
@@ -32,14 +36,14 @@ class BasicAuthMockMiddleware(object):
     def process_request(self,request):
         for path in paths_locked:
             if request.path.startswith(path):
-                if not request.META.has_key('HTTP_AUTHORIZATION'):
+                if 'HTTP_AUTHORIZATION' not in request.META:
                     return self.unauthed()
                 else:
                     authentication = request.META['HTTP_AUTHORIZATION']
                     (authmeth, auth) = authentication.split(' ',1)
                     if 'basic' != authmeth.lower():
                         return self.unauthed()
-                    auth = auth.strip().decode('base64')
+                    auth = b64decode(auth.strip().encode()).decode()
                     username, password = auth.split(':',1)
                     ## let anything through and set REMOTE_USER
                     request.META['REMOTE_USER'] = username

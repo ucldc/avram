@@ -4,9 +4,12 @@
 We will match on ark. Should we automatically update the names? We will for now.
 Create new registry repositories if the ark is not in the system.
 '''
-import set_avram_lib_path
-import urllib
+from . import set_avram_lib_path
+import urllib.request, urllib.parse, urllib.error
 import json
+
+import django
+django.setup()
 
 from library_collection.models import Repository, Campus
 
@@ -19,7 +22,7 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
     n = n_up = n_new = 0 
 
     # read the JSON from an API URL
-    repo_list = json.loads(urllib.urlopen(url_oac_repo_list).read())
+    repo_list = json.loads(urllib.request.urlopen(url_oac_repo_list).read())
 
     for name, ark, parent_ark, parent_name in repo_list:
 
@@ -27,7 +30,7 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
         non_uc = not(Campus.objects.filter(ark=parent_ark).exists())
 
         if non_uc and parent_name:
-            full_name = u', '.join([parent_name, name])
+            full_name = ', '.join([parent_name, name])
         else:
             full_name = name
 
@@ -62,8 +65,8 @@ def main(url_oac_repo_list=URL_OAC_REPO_LIST ):
 if __name__=='__main__':
     import datetime
     start = datetime.datetime.now()
-    print "STARTING AT", start
+    print("STARTING AT", start)
     main()
     end = datetime.datetime.now()
-    print "ENDED AT", end
-    print "ELAPSED", end-start
+    print("ENDED AT", end)
+    print("ELAPSED", end-start)
