@@ -132,7 +132,7 @@ class Collection(models.Model):
         ('XML', 'XML File'),
         ('EMS', 'eMuseum API'),
         ('UCD', 'UC Davis JSON'),
-        ('IAA', 'Internet Archive API'),
+        ('IAR', 'Internet Archive API'),
         )
     harvest_type = models.CharField(
         max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
