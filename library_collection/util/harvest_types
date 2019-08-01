@@ -12,3 +12,4 @@
             ('XML', 'XML File'),
             ('EMS', 'eMuseum API'),
             ('UCD', 'UC Davis JSON'),
+            ('IAR', 'Internet Archive API'),
