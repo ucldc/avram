@@ -22,7 +22,7 @@ class RegistryUserBackend(AllowAllUsersRemoteUserBackend):
          At this time, accounts are limited to UCLDC Implementation Project collaborators (SAG2 and Product Stakeholder\
          Group members and their designees). If your request is approved, you will receive an email within 72 hours with\
          additional instructions on how to edit the Collection Registry and access the Nuxeo DAMS.\n\nFor\
-         more information about UCLDC Implementation, visit our project wiki at bit.ly/UCLDC or contact ucldc@ucop.edu.".format(user.email)
+         more information about UCLDC Implementation, visit our project wiki at bit.ly/UCLDC or contact oacops@cdlib.org.".format(user.email)
         
         html_content = "<p>Welcome {0}. You have requested an account for the UC Libraries Digital\
          Collection (UCLDC).</p><p>At this time, accounts are limited to UCLDC Implementation Project\
@@ -30,9 +30,9 @@ class RegistryUserBackend(AllowAllUsersRemoteUserBackend):
          is approved, you will receive an email within 72 hours with additional instructions on how to\
          edit the Collection Registry and access the Nuxeo DAMS.</p><p>For more information about UCLDC\
          Implementation, visit our <a href='https://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation'>\
-         project wiki</a> or contact <a href='mailto:ucldc@ucop.edu'>ucldc@ucop.edu</a>.</p>".format(user.email)
+         project wiki</a> or contact <a href='mailto:oacops@cdlib.org'>oacops@cdlib.org</a>.</p>".format(user.email)
         
-        email_to_user = EmailMultiAlternatives('UCLDC account request: {0}'.format(user.email), plaintext_content, 'ucldc@ucop.edu', [user.email], ['ucldc@ucop.edu'])
+        email_to_user = EmailMultiAlternatives('UCLDC account request: {0}'.format(user.email), plaintext_content, 'oacops@cdlib.org', [user.email], ['oacops@cdlib.org'])
         email_to_user.attach_alternative(html_content, "text/html")
         email_to_user.send()
         
