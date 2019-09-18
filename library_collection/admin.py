@@ -182,6 +182,9 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     inlines = [CollectionCustomFacetInline, ]
     form = CollectionAdminForm
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
 
