@@ -286,9 +286,15 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 class CampusAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class RepositoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 admin.site.register(Collection, CollectionAdmin)
