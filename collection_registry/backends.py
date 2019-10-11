@@ -37,7 +37,7 @@ class RegistryUserBackend(AllowAllUsersRemoteUserBackend):
         email_to_user.attach_alternative(html_content, "text/html")
         email_to_oacops.attach_alternative(html_content, "text/html")
         email_to_user.send()
-        eamil_to_oacops.send()
+        email_to_oacops.send()
         
         return user
 
