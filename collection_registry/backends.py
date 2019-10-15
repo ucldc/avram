@@ -32,9 +32,12 @@ class RegistryUserBackend(AllowAllUsersRemoteUserBackend):
          Implementation, visit our <a href='https://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation'>\
          project wiki</a> or contact <a href='mailto:oacops@cdlib.org'>oacops@cdlib.org</a>.</p>".format(user.email)
         
-        email_to_user = EmailMultiAlternatives('UCLDC account request: {0}'.format(user.email), plaintext_content, 'oacops@cdlib.org', [user.email], ['oacops@cdlib.org'])
+        email_to_user = EmailMultiAlternatives('UCLDC account request: {0}'.format(user.email), plaintext_content, 'oacops@cdlib.org', [user.email])
+        email_to_oacops = EmailMultiAlternatives('UCLDC account request: {0}'.format(user.email), plaintext_content, 'ucldc@ucop.edu', ['oacops@cdlib.org'])
         email_to_user.attach_alternative(html_content, "text/html")
+        email_to_oacops.attach_alternative(html_content, "text/html")
         email_to_user.send()
+        email_to_oacops.send()
         
         return user
 
