@@ -653,7 +653,8 @@ class PublicViewTestCase(TestCase):
             '/189/a-is-for-atom-b-is-for-bomb-video-tape/')
         self.assertContains(response, '<form')
         self.assertContains(response, 'value="Search"')
-        self.assertContains(response, '<input type="text"')
+        self.assertContains(response, '<input class="form-control mr-sm-2"'
+            ' type="text"')
 
     def testSearchView(self):
         '''Test what happens when you search.
@@ -738,43 +739,53 @@ class PublicViewTestCase(TestCase):
         self.assertContains(response, 'class="pagination"')
         self.assertContains(
             response,
-            '<li class="disabled"><a href="?page=1" title="First Page">&'
-            'laquo;&laquo;</a></li>'
+            '<li class="page-item disabled"><a class="page-link"' 
+            'href="?page=1" title="First Page">&laquo;&laquo;</a></li>', 
+            html=True
         )
         self.assertContains(
             response,
-            '<li><a href="?page=8" title="Next Group">&raquo;</a></li>')
+            '<li class="page-item"><a class="page-link" href="?page=8"' 
+            'title="Next Group">&raquo;</a></li>',
+            html=True)
         self.assertContains(
             response,
-            '<li class="active"><a href="#"><span class="sr-only">1</span>'
-            '</a></li>'
+            '<li class="page-item active"><a class="page-link" href="#">1</a></li>',
+            html=True
         )
         self.assertContains(response, 'page=8')
         response = self.client.get('/?page=8')
         self.assertContains(
             response,
-            '<li><a href="?page=1" title="Previous Group">&laquo;</a></li>')
+            '<li class="page-item"><a class="page-link" href="?page=1" '
+            'title="Previous Group">&laquo;</a></li>',
+            html=True)
         self.assertContains(
             response,
-            '<li class="disabled"><a href="?page=8" title="Next Group">&'
-            'raquo;</a></li>'
+            '<li class="page-item disabled"><a class="page-link" href="?page=8" '
+            'title="Next Group">&raquo;</a></li>',
+            html=True
         )
         self.assertContains(
             response,
-            '<li class="active"><a href="#"><span class="sr-only">8</span>'
-            '</a></li>'
+            '<li class="page-item active"><a class="page-link" href="#">8</a></li>',
+            html=True
         )
         response = self.client.get('/?page=3')
         self.assertContains(
             response,
-            '<li><a href="?page=1" title="Previous Group">&laquo;</a></li>')
+            '<li class="page-item"><a class="page-link" href="?page=1" '
+            'title="Previous Group">&laquo;</a></li>',
+            html=True)
         self.assertContains(
             response,
-            '<li><a href="?page=8" title="Next Group">&raquo;</a></li>')
+            '<li class="page-item"><a class="page-link" href="?page=8" '
+            'title="Next Group">&raquo;</a></li>',
+            html=True)
         self.assertContains(
             response,
-            '<li class="active"><a href="#"><span class="sr-only">3</span>'
-            '</a></li>'
+            '<li class="page-item active"><a class="page-link" href="#">3</a></li>',
+            html=True
         )
         self.assertContains(response, '?page=5')
         self.assertContains(response, '?page=6')
@@ -782,16 +793,19 @@ class PublicViewTestCase(TestCase):
         response = self.client.get('/?page=3000')
         self.assertContains(
             response,
-            '<li><a href="?page=1" title="Previous Group">&laquo;</a></li>')
+            '<li class="page-item"><a class="page-link" href="?page=1" '
+            'title="Previous Group">&laquo;</a></li>',
+            html=True)
         self.assertContains(
             response,
-            '<li class="disabled"><a href="?page=8" title="Next Group">'
-            '&raquo;</a></li>'
+            '<li class="page-item disabled"><a class="page-link" href="?page=8" '
+            'title="Next Group">&raquo;</a></li>',
+            html=True
         )
         self.assertContains(
             response,
-            '<li class="active"><a href="#"><span class="sr-only">8</span>'
-            '</a></li>'
+            '<li class="page-item active"><a class="page-link" href="#">8</a></li>',
+            html=True
         )
 
 
