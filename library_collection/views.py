@@ -52,6 +52,7 @@ def edit_collections(request, campus_slug=None, error=None):
                 'current_path': request.path,
                 'editing': editing(request.path),
                 'repositories': Repository.objects.all().order_by('name'),
+                'active_tab': active_tab(request),
                 'new': 'true',
             }
             if error:
@@ -303,6 +304,7 @@ def edit_details(request, colid=None, col_slug=None, error=None):
             'collection': collection,
             'current_path': request.path,
             'editing': editing(request.path),
+            'active_tab': active_tab(request),
             'exists': True,
         }
         if (request.method == 'POST'):
@@ -368,6 +370,7 @@ def details(request, colid=None, col_slug=None):
                 'collection': collection,
                 'current_path': request.path,
                 'editing': editing(request.path),
+                'active_tab': active_tab(request)
             },
         )
 

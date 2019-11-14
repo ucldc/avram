@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
-{% block content-inner %}
+{% block content %}
 <div class="row">
-  <div class="span10 well" style="line-height:25px">
+  <div class="col-10" style="line-height:25px">
+    <div class="card bg-light">
+      <div class="card-body">
     <p>
       Welcome to the Collection Registry for the UC Libraries Digital Collection (UCLDC)!
     </p>
@@ -35,4 +37,6 @@
     </p>
   </div>
 </div>
-{% endblock content-inner %}
+  </div>
+</div>
+{% endblock content %}

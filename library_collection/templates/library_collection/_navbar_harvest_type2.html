@@ -1,25 +1,22 @@
     {% block navbar-harvest %}
     <h4>Limit by harvest&nbsp;type</h4>
-    <div class="navbar">
-      <div class="navbar-inner" style="padding-right: 0px; padding-left: 0px">
-        <div class="container">
           <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<!--           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
+          </a> -->
           <!-- Everything you want hidden at 940px or less, place within here -->
-          <div class="nav-collapse">
+          <div class="nav-collapse mb-3">
             <!-- .nav, .navbar-search, .navbar-form, etc -->
-            <ul class="nav nav-stacked" style="margin: 0px">
+            <ul class="list-group" style="margin: 0px">
               {% for type in harvest_types %}
               {% if type.0 != 'X' and type.0 != 'OAJ' %}
-              <li class="{% if type.0 == harvest_type %}active{% endif %}" style="width: 100%">
+              <li class="list-group-item{% if type.0 == harvest_type %} list-group-item-secondary{% endif %}" style="width: 100%">
                   {% if type.0 == harvest_type %}
                     <a href="{% url this repoid=repository.id repo_slug=repository.slug %}">
                       <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="margin-right: .75em;"></i></div>
+                        <div class="float-left"><span class="icon-remove" style="margin-right: .75em;">X</span></div>
                         <div style="overflow: hidden; ">{{ type.1|default:'none' }}</div>
                       </div>
                     </a>
@@ -27,7 +24,7 @@
                     <!-- a href="{ % url this %}?harvest_type={{ type.0 }}" -->
                     <a href="?harvest_type={{ type.0 }}">
                       <div class="row-fluid">
-                        <div class="pull-left"><i class="icon-remove" style="visibility:hidden; margin-left: .75em"></i></div>
+                        <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
                         <div style="overflow: hidden;">{{ type.1|default:'none' }}</div>
                       </div></a>
                   {% endif %}
@@ -36,7 +33,4 @@
               {% endfor %}
             </ul>
           </div>
-        </div>
-      </div>
-    </div>
     {% endblock %}
