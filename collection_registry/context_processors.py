@@ -26,5 +26,5 @@ def settings(request):
         'thumbnailUrl': settings.THUMBNAIL_URL,
         'active_tab': active_tab(request),
         'exhibitBaseTemplate': 'exhibitBase.html', 
-        'calisphere': False
+        'calisphere': settings.CALISPHERE
     }

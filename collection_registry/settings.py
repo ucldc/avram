@@ -137,8 +137,9 @@ TEMPLATES = [
 # When EXHIBIT_PREVIEW = True, show ALL exhibits, themes, lesson plans, and essays
 EXHIBIT_PREVIEW = bool(os.environ.get('UCLDC_EXHIBIT_PREVIEW'))
 THUMBNAIL_URL = 'https://calisphere.org/'  # `python thumbnail.py`
-SOLR_URL = 'REDACTED'
-SOLR_API_KEY = 'REDACTED'
+SOLR_URL = os.environ.get('UCLDC_SOLR_URL')
+SOLR_API_KEY = os.environ.get('UCLDC_SOLR_API_KEY')
+CALISPHERE = False
 DJANGO_CACHE_TIMEOUT = int(os.environ.get('DJANGO_CACHE_TIMEOUT', 60 * 15))  # seconds
 
 
