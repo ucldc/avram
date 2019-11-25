@@ -1,9 +1,4 @@
 
-from future import standard_library
-standard_library.install_aliases()
-import urllib.parse
-
-
 def settings(request):
     """
     Put selected settings variables into the default template context
@@ -23,8 +18,8 @@ def settings(request):
         return tab
 
     return {
-        'thumbnailUrl': settings.THUMBNAIL_URL,
         'active_tab': active_tab(request),
-        'exhibitBaseTemplate': 'exhibitBase.html', 
+        'exhibitBaseTemplate': settings.EXHIBIT_TEMPLATE,
+        'thumbnailUrl': settings.THUMBNAIL_URL,
         'calisphere': settings.CALISPHERE
     }

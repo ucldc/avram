@@ -1,4 +1,13 @@
 import os
+import sys
+
+def getenv(variable, default):
+    ''' getenv wrapper that decodes the same as python 3 in python 2
+    '''
+    try:  # decode for python2
+        return os.getenv(variable, default).decode(sys.getfilesystemencoding())
+    except AttributeError:
+        return os.getenv(variable, default)
 
 
 DEBUG = True
@@ -135,12 +144,13 @@ TEMPLATES = [
 
 # When EXHIBIT_PREVIEW = False, show only exhibits, themes, lesson plans, and essays marked 'published'
 # When EXHIBIT_PREVIEW = True, show ALL exhibits, themes, lesson plans, and essays
-EXHIBIT_PREVIEW = bool(os.environ.get('UCLDC_EXHIBIT_PREVIEW'))
-THUMBNAIL_URL = 'https://calisphere.org/'  # `python thumbnail.py`
-SOLR_URL = os.environ.get('UCLDC_SOLR_URL')
-SOLR_API_KEY = os.environ.get('UCLDC_SOLR_API_KEY')
-CALISPHERE = False
-DJANGO_CACHE_TIMEOUT = int(os.environ.get('DJANGO_CACHE_TIMEOUT', 60 * 15))  # seconds
+EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW'))
+THUMBNAIL_URL = getenv('UCLDC_THUMBNAIL_URL',
+                          'http://localhost:8888/')  # `python thumbnail.py`
+CALISPHERE = getenv('UCLDC_CALISPHERE', True)
+EXHIBIT_TEMPLATE = gentenv('UCLDC_EXHIBIT_TEMPLATE', 'exhibitBase.html')
+SOLR_URL = getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
+SOLR_API_KEY = getenv('UCLDC_SOLR_API_KEY', '')
 
 
 INSTALLED_APPS = (
