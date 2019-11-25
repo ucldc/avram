@@ -30,7 +30,7 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
+SITE_ID = 2
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -121,17 +121,29 @@ TEMPLATES = [
             os.path.join(SITE_ROOT, '..', 'library_collection', 'templates')
         ),
         'OPTIONS': {
+            'builtins': ["exhibits.templatetags.exhibit_extras"],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'collection_registry.context_processors.settings'
             ],
         }
     },
 ]
 
+# When EXHIBIT_PREVIEW = False, show only exhibits, themes, lesson plans, and essays marked 'published'
+# When EXHIBIT_PREVIEW = True, show ALL exhibits, themes, lesson plans, and essays
+EXHIBIT_PREVIEW = bool(os.environ.get('UCLDC_EXHIBIT_PREVIEW'))
+THUMBNAIL_URL = 'https://calisphere.org/'  # `python thumbnail.py`
+SOLR_URL = 'REDACTED'
+SOLR_API_KEY = 'REDACTED'
+DJANGO_CACHE_TIMEOUT = int(os.environ.get('DJANGO_CACHE_TIMEOUT', 60 * 15))  # seconds
+
+
 INSTALLED_APPS = (
+    'exhibits.apps.ExhibitsConfig', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
