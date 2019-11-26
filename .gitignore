@@ -10,3 +10,5 @@ local_settings.py
 .coverage
 htmlcov
 workspace
+exhibits
+.DS_Store
