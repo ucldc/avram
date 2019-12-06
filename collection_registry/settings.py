@@ -144,7 +144,7 @@ TEMPLATES = [
 
 # When EXHIBIT_PREVIEW = False, show only exhibits, themes, lesson plans, and essays marked 'published'
 # When EXHIBIT_PREVIEW = True, show ALL exhibits, themes, lesson plans, and essays
-EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW'))
+EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW', False))
 THUMBNAIL_URL = getenv('UCLDC_THUMBNAIL_URL',
                           'http://localhost:8888/')  # `python thumbnail.py`
 CALISPHERE = False

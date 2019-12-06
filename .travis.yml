@@ -7,5 +7,8 @@ install:
   - "pip install -r requirements.txt"
   - "pip install -r test_requirements.txt"
 
+before_script:
+  - source env.local.in
+
 # command to run tests
 script: python manage.py test --settings=collection_registry.test_settings library_collection
