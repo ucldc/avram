@@ -9,6 +9,12 @@ install:
 
 before_script:
   - source env.local.in
+  - cd ..
+  - git clone https://github.com/ucldc/exhibitapp.git
+  - cd exhibitapp
+  - pip install -r requirements.txt
+  - cd ../avram
+  - ln -s ../exhibitapp/exhibits/
 
 # command to run tests
 script: python manage.py test --settings=collection_registry.test_settings library_collection
