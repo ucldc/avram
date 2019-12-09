@@ -12,3 +12,4 @@ htmlcov
 workspace
 exhibits
 .DS_Store
+env.local
