@@ -302,10 +302,10 @@ admin.site.register(Campus, CampusAdmin)
 admin.site.register(Repository, RepositoryAdmin)
 # http://stackoverflow.com/questions/5742279/
 # removing-sites-from-django-admin-page
-# try:
-#     admin.site.unregister(Site)
-# except admin.sites.NotRegistered:
-#     pass
+try:
+    admin.site.unregister(Site)
+except admin.sites.NotRegistered:
+    pass
 admin.site.disable_action('delete_selected')
 
 # Copyright © 2016, Regents of the University of California
