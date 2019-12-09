@@ -136,7 +136,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'collection_registry.context_processors.settings'
+                'library_collection.context_processors.active_tab',
+                'exhibits.context_processors.settings'
             ],
         }
     },
