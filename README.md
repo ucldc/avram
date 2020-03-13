@@ -8,9 +8,26 @@ Digital Collections.
 ## notes
 
 ```
-virtualenv --no-site-packages .
+virtualenv -p python3 --no-site-packages .
 source bin/activate
-pip install -r requirements.txt --use-mirrors
+pip install -r requirements.txt
+```
+
+Install exhibit application - the exhibit app code can be placed anywhere, as long as a link is established from `exhibitapp/exhibits/` to `avram/exhibits/`, here I've put the avram and exhibitapp folders next to each other. 
+
+```
+cd ..
+git clone https://github.com/ucldc/exhibitapp.git
+cd exhibitapp
+pip install -r requirements.txt
+cd ../avram
+ln -s ../exhibitapp/exhibits/
+cp env.local.in env.local
+```
+
+Modify env.local with solr connection details then:
+```
+source env.local
 ```
 
 Using msyql? add:
@@ -22,17 +39,17 @@ pip install MySQL-python==1.2.4
 ## load
 
 ```
-python manage.py syncdb
 python manage.py migrate
 python manage.py loaddata library_collection/fixtures/campus.json
 python manage.py loaddata library_collection/fixtures/collection.json
+python manage.py loaddata exhibits/fixtures/exhibits-2019-07-01-browseterm-retirement.json
 python manage.py collectstatic
 
 ```
 
 ```
 export DJANGO_SETTINGS_MODULE=collection_registry.test_settings
-python library_collection/util/sync_oac_repositories.py
+# python library_collection/util/sync_oac_repositories.py
 ```
 
 ## Test:

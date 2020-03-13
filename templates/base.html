@@ -7,15 +7,44 @@
 
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet"/>
     <link href="{% static 'chosen/css/chosen.css' %}" rel="stylesheet"/>
-    <link href="{% static 'bootstrap_overrides.css' %}" rel="stylesheet"/>
     <style>
-      h3.logo { background: transparent url("{% static 'images/ucldc-registry.png' %}") no-repeat scroll 0% 0%;
+      body { font-family: Arial, Helvetica, sans-serif;
+       color: #7C7E7F;
+      }
+      h3.logo { 
+        background: 
+          transparent 
+          url("{% static 'images/ucldc-registry.png' %}") 
+          no-repeat 
+          scroll 
+          0% 0%;
+        width: 366px;
+        height: 56px;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        border: 0;
+        margin: 20px 0;
+      }
+      h3.logo a {
+        display: block;
+        width: 370px;
+        height: 56px;
+        text-decoration: none;
+        border: 0;
+      }
     </style>
     {% block inline-style %}
     {% endblock %}
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if active_tab == "exhibitions" %}
+    <link rel="stylesheet" href="https://calisphere.org/static_root/styles/vendor.css">
+    <link rel="stylesheet" href="https://calisphere.org/static_root/styles/main.css">
+    {% else %}
+    <link href="{% static 'bootstrap_overrides.css' %}" rel="stylesheet"/>
+    {% endif %}
   </head>
   <body>
     
@@ -30,7 +59,7 @@
     
     {% block header_top %}
     <div class="container-fluid" style="padding: 0 20px;">
-      <div class="row" >
+      <div class="row no-gutters">
         <div class="col-8" >
           <h3 class="logo">
             {% if user.is_authenticated and editing %}
@@ -60,7 +89,7 @@
     
     <div class="container-fluid" style="padding: 0 20px;">
       {% block nav-tabs %}
-      <ul class="nav nav-tabs col-12 mb-3" style="margin-left: 0px;">
+      <ul class="nav nav-tabs col-12 mb-3 registry-nav" style="margin-left: 0px;">
         <li class="nav-item">
           {%if campus %}
             {% if user.is_authenticated and editing %}
@@ -98,10 +127,17 @@
           <a class="nav-link{% if active_tab == 'about' %} active{%endif%}" href="{%url 'about' %}">About</a>
           {% endif %}
         </li>
+        <li class="nav-item">
+          {% if active_tab == 'exhibitions' %}
+            <a class="nav-link active" href="{% url 'exhibits:randomExplore' %}">Exhibitions Preview</a>
+          {% else %}
+            <a class="nav-link" href="{% url 'exhibits:randomExplore' %}">Exhibitions Preview</a>
+          {% endif %}
+        </li>
       </ul>
       {% endblock nav-tabs %}
       
-      <div>
+      <div id="js-pageContent">
       {% block content %}
       {% endblock content %}
       </div>
