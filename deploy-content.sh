@@ -30,7 +30,7 @@ DUMP="exhibits-$1.json"
 
 python manage.py dumpdata exhibits -o $DUMP --all
 gzip $DUMP
-aws s3 cp $DUMP.gz s3://$BUCKET/$DIR/$DUMP.gz
+aws s3 cp $DUMP.gz s3://$BUCKET/$DIR/$DUMP.gz --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=id=
 
 # Copyright (c) 2016, Regents of the University of California
 #
