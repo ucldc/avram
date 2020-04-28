@@ -11,5 +11,6 @@ local_settings.py
 htmlcov
 workspace
 exhibits
+publishing_projects
 .DS_Store
 env.local
