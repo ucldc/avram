@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'library_collection',
+    'publishing_projects',
     # 'rest_framework',
     #'dbdump',
 )
