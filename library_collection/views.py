@@ -20,16 +20,6 @@ from functools import reduce
 
 campuses = Campus.objects.all().order_by('position')
 
-def active_tab(request):
-    '''Return a key for the active tab, by parsing the request.path
-    Currently one of "collection" or "repositories"'''
-    tab = 'collection'
-    if "repositor" in request.path:
-        tab = 'repositories'
-    if "about" in request.path:
-        tab = 'about'
-    return tab
-
 def editing(path):
     '''Return whether we are editing or not. In the real app, a user will only
     be logged in when at an editing URL. This helper function will enable
@@ -192,7 +182,6 @@ def repository_collections(request, repoid=None, repo_slug=None):
             'repository': repository,
             'repositories': repository,
             'campuses': campuses, 
-            'active_tab': active_tab(request),
             'current_path': request.path,
             'editing': editing(request.path),
             'previous_page_links': previous_page_links,
@@ -276,7 +265,6 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
             'collections': collections_for_page, 
             'campus': campus,
             'campuses': campuses, 
-            'active_tab': active_tab(request),
             'current_path': request.path,
             'editing': editing(request.path),
             'previous_page_links': previous_page_links,
@@ -436,7 +424,6 @@ def edit_repositories(request, campus_slug=None, error=None):
                     'campus': campus,
                     'repositories': repositoryObjs,
                     'campuses': campuses,
-                    'active_tab': active_tab(request),
                     'current_path': request.path,
                     'editing': editing(request.path),
                 },
@@ -467,7 +454,6 @@ def repositories(request, campus_slug=None):
                 'campus': campus,
                 'repositories': repositories,
                 'campuses': campuses, 
-                'active_tab': active_tab(request),
                 'current_path': request.path,
                 'editing': editing(request.path),
                 'info': info,
@@ -483,7 +469,6 @@ def about(request):
     return render(request, 
         template_name='library_collection/about.html',
         context={
-            'active_tab': active_tab(request),
             'current_path': request.path,
             'editing': editing(request.path),
         },

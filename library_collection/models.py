@@ -24,10 +24,6 @@ class Campus(models.Model):
     def __str__(self):
         return self.name
 
-    @models.permalink
-    def get_absolute_url(self):
-        return ('library_collection.views.UC', [str(self.slug)])
-
     def save(self, *args, **kwargs):
         '''Make sure the campus slug starts with UC, has implications in the
         urls.py currently (2013-12-18)
@@ -254,9 +250,9 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('library_collection.views.details', [self.id, str(self.slug)])
+        return reverse('detail',
+            kwargs={'colid': self.id, 'col_slug': str(self.slug)})
 
     def save(self, *args, **kwargs):
         ''' When running in mysql, names that are too long (there is one at
@@ -295,10 +291,9 @@ class Repository(models.Model):
         else:
             return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('library_collection.views.repository_collections',
-                [self.id, str(self.slug)])
+        return reverse('repository_collections',
+                kwargs = {'repoid': self.id, 'repo_slug': str(self.slug)})
 
     def save(self, *args, **kwargs):
         '''Check no duplicate arks for repos that have them

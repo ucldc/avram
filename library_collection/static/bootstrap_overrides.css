@@ -1,0 +1,19 @@
+body {
+	font-size: 14px;
+}
+a, a:hover, a:active, a:visited {
+	color: #0088cc;
+	font-family: Arial;
+}
+.nav-link.active {
+	color: #555555;
+}
+a.btn-secondary {
+	color: #fff;
+}
+.navbar-vertical {
+	flex-direction: column;
+}
+.navbar-vertical .navbar-nav {
+	flex-direction: column;
+}

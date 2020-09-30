@@ -10,3 +10,7 @@ local_settings.py
 .coverage
 htmlcov
 workspace
+exhibits
+publishing_projects
+.DS_Store
+env.local

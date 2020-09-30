@@ -2,96 +2,108 @@
 
 {% block title %} | {% if campus %}{{ campus.name }}{% endif %} Collections{% endblock %}
 
-{% block content-inner %}
+{% block content %}
 <div class="row">
-  <div class="span10">
+  <div class="col-8">
     {% if user.is_authenticated and editing %}
-        <form action="{% url 'edit_collections' %}" method="post">
-          {% csrf_token %}
-          <button type="submit" name="new" value="true" class="btn"><i class="icon-plus"></i> Add new Collection</button>
-        </form>
+      <form action="{% url 'edit_collections' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="new" value="true" class="btn btn-secondary"><i class="icon-plus"></i> Add new Collection</button>
+      </form>
     {% endif %}
 
- <div class="well">
-   <h1>{{ repository.name }}
-     <small>
-       {% for name in repository.campus.all %}
-       {{ name }}
-       {% endfor %}
-     </small>
-   </h1>
-   <!-- {{ info }} -->
-   <div>
-     <div><span class="label">City:</span> {{ info.city }}, CA {{ info.zip4 }}</div>
-     <div><span class="label">Phone:</span> {{ info.phone }}</div>
-     <div><span class="label">email:</span> {{ info.email }}</div>
-     <div><span class="label">Description:</span> {{ info.description }}</div>
-     <div><span class="label">Url:</span> {{ info.url }}</div>
-     <div><span class="label">Google Analytics code:</span> {{ repository.google_analytics_tracking_code }}</div>
-   </div>
- </div>
-      
-{% if collections %}
-    {{ collections.paginator.count }} Collections
-    <table class="table table-bordered table-striped">
-      <tbody>
-        {% for collection in collections %}
-        <tr>
-          <td>
-            {% if user.is_authenticated and editing %}
-            <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
-            {% else %}
-            <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
-            {% endif %}
-            <small class="muted">
-                {% for name in collection.courtesy %}
-                    {{ name }}
-                {% endfor %}
-            </small>
-            {% if collection.featured %}
-               <span class="label">Featured</span>
-            {% endif %}
-            <span class="pull-right"><small>[Harvest: {{ collection.get_harvest_type_display }}]</small><span>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <div class="row">
-        <div class="span10">
-            <div class="pagination">
-                <ul>
-                {% if collections.has_previous %}
-                <li><a href="?{{first_page_qs}}" title="First Page">&laquo;&laquo;</a></li>
-                <li><a href="?{{previous_group_start}}" title="Previous Group">&laquo;</a></li>
-                {% else %}
-                <li class="disabled"><a href="?{{first_page_qs}}" title="First Page">&laquo;&laquo;</a></li>
-                <li class="disabled"><a href="?{{first_page_qs}}" title="Previous Group">&laquo;</a></li>
-                {% endif %}
-                {% for page_num, page_qs in previous_page_links %}
-                <li><a href="?{{page_qs}}"><span class="sr-only">{{page_num}}</span></a></li>
-                {% endfor %}
-                <li class="active"><a href="#"><span class="sr-only">{{ collections.number}}</span></a></li>
-                {% for page_num, page_qs in next_page_links %}
-                <li><a href="?{{page_qs}}"><span class="sr-only">{{page_num}}</span></a></li>
-                {% endfor %}
-                {% if collections.has_next %}
-                <li><a href="?{{ next_group_start }}" title="Next Group">&raquo;</a></li>
-                    <li><a href="?{{ last_page_qs }}" title="Last Page">&raquo;&raquo;</a></li>
-                {% else %}
-                    <li class="disabled"><a href="?{{ last_page_qs}}" title="Next Group">&raquo;</a></li>
-                    <li class="disabled"><a href="?{{ last_page_qs }}" title="Last Page">&raquo;&raquo;</a></li>
-                {% endif %}
-                </ul>
-            </div>
+    <div class="card bg-light" style="margin-bottom: 20px">
+      <div class="card-body">
+        <h1>{{ repository.name }}
+          <small>
+           {% for name in repository.campus.all %}
+           {{ name }}
+           {% endfor %}
+          </small>
+        </h1>
+        <!-- {{ info }} -->
+        <div>
+          <div><span class="badge badge-secondary">City:</span> {{ info.city }}, CA {{ info.zip4 }}</div>
+          <div><span class="badge badge-secondary">Phone:</span> {{ info.phone }}</div>
+          <div><span class="badge badge-secondary">email:</span> {{ info.email }}</div>
+          <div><span class="badge badge-secondary">Description:</span> {{ info.description }}</div>
+          <div><span class="badge badge-secondary">Url:</span> {{ info.url }}</div>
+          <div><span class="badge badge-secondary">Google Analytics code:</span> {{ repository.google_analytics_tracking_code }}</div>
         </div>
+      </div>
     </div>
+
+    {% if collections %}
+      {{ collections.paginator.count }} Collections
+      <table class="table table-bordered table-striped">
+        <tbody>
+          {% for collection in collections %}
+          <tr>
+            <td>
+              {% if user.is_authenticated and editing %}
+              <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+              {% else %}
+              <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
+              {% endif %}
+              <small class="muted">
+                  {% for name in collection.courtesy %}
+                      {{ name }}
+                  {% endfor %}
+              </small>
+              {% if collection.featured %}
+              <span class="label">Featured</span>
+              {% endif %}
+              <span class="float-right"><small>[Harvest: {{ collection.get_harvest_type_display }}]</small><span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="col-10">
+            <ul class="pagination">
+              {% if collections.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{first_page_qs}}" title="First Page">&laquo;&laquo;</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="?{{previous_group_start}}" title="Previous Group">&laquo;</a></li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="?{{first_page_qs}}" title="First Page">&laquo;&laquo;</a></li>
+                <li class="page-item disabled">
+                  <a class="page-link" href="?{{first_page_qs}}" title="Previous Group">&laquo;</a></li>
+              {% endif %}
+              {% for page_num, page_qs in previous_page_links %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{page_qs}}">{{page_num}}</a></li>
+              {% endfor %}
+              <li class="page-item active">
+                <a class="page-link" href="#">{{ collections.number}}</a></li>
+              {% for page_num, page_qs in next_page_links %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{page_qs}}">{{page_num}}</a></li>
+              {% endfor %}
+              {% if collections.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{ next_group_start }}" title="Next Group">&raquo;</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="?{{ last_page_qs }}" title="Last Page">&raquo;&raquo;</a></li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="?{{ last_page_qs}}" title="Next Group">&raquo;</a></li>
+                <li class="page-item disabled">
+                  <a class="page-link" href="?{{ last_page_qs }}" title="Last Page">&raquo;&raquo;</a></li>
+              {% endif %}
+            </ul>
+        </div>
+      </div>
     {% else %}
-    <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
+      <h2>No collections found {% if query %}for query: {{query}}{%endif%}</h2>
     {%endif%}
   </div>
-  <div class="span2">
+  <div class="col-2">
   {% include "library_collection/_navbar_harvest_type2.html" with edit_this='edit_collections' this='repository_collections' %}
   </div>
 </div>
-{% endblock content-inner %}
+{% endblock content %}

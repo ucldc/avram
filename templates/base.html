@@ -5,40 +5,48 @@
     <title>UCLDC Collection Registry{% block title %}{% endblock %}</title>
     {% block styles %}{% endblock %}
 
-    <!-- Bootstrap -->
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet"/>
     <link href="{% static 'chosen/css/chosen.css' %}" rel="stylesheet"/>
     <style>
-    body { font-family: Arial, Helvetica, sans-serif;
-           color: #7C7E7F;
-    }
-    h3.logo { background: transparent url("{% static 'images/ucldc-registry.png' %}") no-repeat scroll 0% 0%;
-      width: 366px;
-      height: 56px;
-      text-indent: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      border: 0;
-      margin: 20px 0;
-    }
-    h3.logo a {
-      display: block;
-      width: 370px;
-      height: 56px;
-      text-decoration: none;
-      border: 0;
-    }
+      body { font-family: Arial, Helvetica, sans-serif;
+       color: #7C7E7F;
+      }
+      h3.logo { 
+        background: 
+          transparent 
+          url("{% static 'images/ucldc-registry.png' %}") 
+          no-repeat 
+          scroll 
+          0% 0%;
+        width: 366px;
+        height: 56px;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        border: 0;
+        margin: 20px 0;
+      }
+      h3.logo a {
+        display: block;
+        width: 370px;
+        height: 56px;
+        text-decoration: none;
+        border: 0;
+      }
     </style>
     {% block inline-style %}
     {% endblock %}
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="{% static 'bootstrap/css/bootstrap-responsive.css' %}" rel="stylesheet"/>
+    {% if active_tab == "exhibitions" %}
+    <link rel="stylesheet" href="https://calisphere.org/static_root/styles/vendor.css">
+    <link rel="stylesheet" href="https://calisphere.org/static_root/styles/main.css">
+    {% else %}
+    <link href="{% static 'bootstrap_overrides.css' %}" rel="stylesheet"/>
+    {% endif %}
   </head>
   <body>
-    <script src="{% static 'jquery/jquery-1.10.2.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'chosen/js/chosen.jquery.min.js' %}"></script>
     
     {% block error %}
     {% if error %}
@@ -50,9 +58,9 @@
     {% endblock %}
     
     {% block header_top %}
-    <div class="container-fluid">
-      <div class="row-fluid" >
-        <div class="span8" >
+    <div class="container-fluid" style="padding: 0 20px;">
+      <div class="row no-gutters">
+        <div class="col-8" >
           <h3 class="logo">
             {% if user.is_authenticated and editing %}
             <a href="{% url 'edit_collections' %}">
@@ -63,8 +71,8 @@
             </a>
           </h3>
         </div>
-        <div class="span4">
-          <span class="pull-right"> 
+        <div class="col-4">
+          <span class="float-right">
             {% if user.is_authenticated %}
             Welcome {{user}}
             {%else%}
@@ -79,81 +87,87 @@
     {% block hero %}
     {% endblock %}
     
-    {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding: 0 20px;">
       {% block nav-tabs %}
-      <ul class="nav nav-tabs span12" style="margin-left: 0px;">
-        <li {% if active_tab == 'collection' %}class="active"{%endif%}>
+      <ul class="nav nav-tabs col-12 mb-3 registry-nav" style="margin-left: 0px;">
+        <li class="nav-item">
           {%if campus %}
             {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_collections' campus_slug=campus.slug %}">Collections</a>
+            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'edit_collections' campus_slug=campus.slug %}">Collections</a>
             {% else %}
-            <a href="{%url 'collections' campus_slug=campus.slug %}">Collections</a>
+            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'collections' campus_slug=campus.slug %}">Collections</a>
             {% endif %}
           {% else %}
             {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_collections' %}">Collections</a>
+            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'edit_collections' %}">Collections</a>
             {% else %}
-            <a href="{%url 'collections' %}">Collections</a>
+            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'collections' %}">Collections</a>
             {% endif %}
           {% endif %}
         </li>
-        <li {% if active_tab == 'repositories' %}class="active"{%endif%}>
+        <li class="nav-item">
           {%if campus %}
             {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_repositories' campus_slug=campus.slug %}">Units</a>
+            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'edit_repositories' campus_slug=campus.slug %}">Units</a>
             {% else %}
-            <a href="{%url 'repositories' campus_slug=campus.slug %}">Units</a>
+            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'repositories' campus_slug=campus.slug %}">Units</a>
             {% endif %}
           {% else %}
             {% if user.is_authenticated and editing %}
-            <a href="{%url 'edit_repositories' %}">Units</a>
+            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'edit_repositories' %}">Units</a>
             {% else %}
-            <a href="{%url 'repositories' %}">Units</a>
+            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'repositories' %}">Units</a>
             {% endif %}
           {% endif %}
         </li>
-        <li {% if active_tab == 'about' %}class="active"{%endif%}>
+        <li class="nav-item">
           {% if user.is_authenticated and editing %}
-          <a href="{%url 'edit_about' %}">About</a>
+          <a class="nav-link{% if active_tab == 'about' %} active{%endif%}" href="{%url 'edit_about' %}">About</a>
           {% else %}
-          <a href="{%url 'about' %}">About</a>
+          <a class="nav-link{% if active_tab == 'about' %} active{%endif%}" href="{%url 'about' %}">About</a>
+          {% endif %}
+        </li>
+        <li class="nav-item">
+          {% if active_tab == 'exhibitions' %}
+            <a class="nav-link active" href="{% url 'exhibits:randomExplore' %}">Exhibitions Preview</a>
+          {% else %}
+            <a class="nav-link" href="{% url 'exhibits:randomExplore' %}">Exhibitions Preview</a>
           {% endif %}
         </li>
       </ul>
       {% endblock nav-tabs %}
       
-      {% block content-inner %}
-      {% endblock content-inner %}
+      <div id="js-pageContent">
+      {% block content %}
+      {% endblock content %}
+      </div>
     </div>
-    {% endblock %}
     
     <hr/>
-    <div class="row span12">
-      <!-- <div class="span3"><a href="/api">registry api</a></div> -->
-      <!-- <div class="span3 pull-right">
+    <div class="row col-12">
+      <!-- <div class="col-3"><a href="/api">registry api</a></div> -->
+      <!-- <div class="col-3 float-right">
         Copyright © 2013 UC Regents.<br/> All rights reserved.
       </div> -->
-      <div class="span5">Copyright © {% now "Y" %} The&#160;Regents of The University&#160;of&#160;California</div>
-      <div class="span1"><img src="{% static 'images/uc_seal.gif' %}" alt="University of California"></div>
-      <div class="span3">Powered by the <a href="http://www.cdlib.org" target="_blank">California&#160;Digital&#160;Library</a></div>
-      <div class="span1">
+      <div class="col-5">Copyright © {% now "Y" %} The&#160;Regents of The University&#160;of&#160;California</div>
+      <div class="col-1"><img src="{% static 'images/uc_seal.gif' %}" alt="University of California"></div>
+      <div class="col-3">Powered by the <a href="http://www.cdlib.org" target="_blank">California&#160;Digital&#160;Library</a></div>
+      <div class="col-1">
         {% if user.is_authenticated and editing %}
         <a href="{%url 'edit_about' %}">Terms</a>
         {% else %}
         <a href="{%url 'about' %}">Terms</a>
         {% endif %}
       </div>
-      <div class="span1">
+      <div class="col-1">
         <a href="http://www.cdlib.org/about/privacy.html" target="_blank">Privacy</a>
       </div>
     </div>
     
-    <script>
-      $(function () {
-        $('a[rel=tooltip]').tooltip({'title': this.title, 'placement':'right'});
-      })
-    </script>
+    <script src="https://calisphere.org/static_root/scripts/vendor.js"></script>
+    <script src="https://calisphere.org/static_root/scripts/vendor/modernizr.js"></script>
+    <script src="https://calisphere.org/static_root/scripts/calisphere.js"></script>
+    <script src="{% static 'chosen/js/chosen.jquery.min.js' %}"></script>
     {% block inlineScripts %}{% endblock %}
     
   </body>

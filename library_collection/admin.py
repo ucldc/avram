@@ -182,6 +182,9 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     inlines = [CollectionCustomFacetInline, ]
     form = CollectionAdminForm
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
 
@@ -283,9 +286,15 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 class CampusAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class RepositoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 admin.site.register(Collection, CollectionAdmin)
