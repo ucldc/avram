@@ -1,13 +1,6 @@
 .title-input {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 24px !important;
-    line-height: 30px !important;
     color: rgb(124, 126, 127) !important;
     
-    position:relative;
-    left:-6px;
-    background-color: #FFFFFF;
-    height: 30px !important;
-    margin-top: 10px;
 }

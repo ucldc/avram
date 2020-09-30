@@ -1,4 +1,13 @@
 import os
+import sys
+
+def getenv(variable, default):
+    ''' getenv wrapper that decodes the same as python 3 in python 2
+    '''
+    try:  # decode for python2
+        return os.getenv(variable, default).decode(sys.getfilesystemencoding())
+    except AttributeError:
+        return os.getenv(variable, default)
 
 
 DEBUG = True
@@ -121,17 +130,32 @@ TEMPLATES = [
             os.path.join(SITE_ROOT, '..', 'library_collection', 'templates')
         ),
         'OPTIONS': {
+            'builtins': ["exhibits.templatetags.exhibit_extras"],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'library_collection.context_processors.active_tab',
+                'exhibits.context_processors.settings'
             ],
         }
     },
 ]
 
+# When EXHIBIT_PREVIEW = False, show only exhibits, themes, lesson plans, and essays marked 'published'
+# When EXHIBIT_PREVIEW = True, show ALL exhibits, themes, lesson plans, and essays
+EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW', False))
+THUMBNAIL_URL = getenv('UCLDC_THUMBNAIL_URL',
+                          'http://localhost:8888/')  # `python thumbnail.py`
+CALISPHERE = False
+EXHIBIT_TEMPLATE = 'exhibitBase.html'
+SOLR_URL = getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
+SOLR_API_KEY = getenv('UCLDC_SOLR_API_KEY', '')
+
+
 INSTALLED_APPS = (
+    'exhibits.apps.ExhibitsConfig', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -144,6 +168,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'library_collection',
+    'publishing_projects',
     # 'rest_framework',
     #'dbdump',
 )

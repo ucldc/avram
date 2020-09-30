@@ -11,7 +11,7 @@ from django.contrib.sitemaps import GenericSitemap
 # http://stackoverflow.com/questions/11428427/no-module-named-simple-error-in-django
 # from django.views.generic.simple import redirect_to
 #from some_app.views import AboutView
-
+from exhibits.views import calCultures
 
 admin.autodiscover()
 
@@ -29,6 +29,9 @@ sitemaps = {
 }
 
 urlpatterns = [
+    url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
+    url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
+    url(r'^cal-cultures/', calCultures, name="cal-cultures"),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', auth_views.login, name='login'),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap, {'sitemaps': sitemaps}, name='sitemap'),

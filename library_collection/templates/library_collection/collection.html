@@ -4,110 +4,123 @@
 
 {% block inline-style %}
 <style>
-  .span1 { text-align: left; color: #0088CC; }
+  .col-1 { text-align: left; color: #0088CC; }
    dd { padding-bottom: 1em; }
-   .well { padding-top: 0; padding-bottom: 0;}
-   h2 { font-size: 180%; margin-bottom: 0; }
+   .card { padding-top: 0; margin-bottom: 20px;}
+   dl { margin-bottom: 0; }
+   h2 { font-size: 180%; }
    h3 { font-size: 140%; }
 </style>
 {% endblock %}
 
 {% block content %}
 {% if collection %}
-<div class="container-fluid">
+  <div class="row">
+    <div class="col-10">
+    <div class="card bg-light">
+    <div class="card-body">
 
-<div class="row">
-<div class="span12 well">
-  <h1>
-    {% if collection.first_url %}
-    <a href="{{ collection.first_url }}">
-      {{ collection.name }}
-    </a>
-    {% else %}
-    {{ collection.name }}
-    {% endif %}
-  </h1>
-
-  <h2>Affiliation</h2>
-  <div class="well">
-  <dl>
-    <dt>Campus:</dt>
-    <dd>
-      {% for campus in collection.campus.all %}
-      <span><a href="{% url "collections" campus_slug=campus.slug %}">{{ campus.name }}</a></span><br>
-      {% endfor %}
-    </dd>
-    <dt>Unit:</dt>
-    <dd>
-      {% for repository in collection.repository.all %}
-      <span><a href="{% url "repository_collections" repoid=repository.id repo_slug=repository.slug  %}">{{ repository.name }}</a></span><br>
-      {% endfor %}
-    </dd>
-    <dt>Collection ID code for stats:</dt>
-    <dd>
-        {{ collection.local_id }}
-    </dd>
-  </dl>
-  </div>
-
-  <h2>Descriptive Information</h2>
-  <div class="well">
-  <dl>
-    <dt>Description:</dt> <dd>{{ collection.description|default:"none" }}</dd>
-    <dt>Collection homepage URL:</dt> <dd>{{ collection.url_local }}</dd>
-    <dt>OAC finding aid URL:</dt> <dd>{{ collection.url_oac|default:"none" }}</dd>
-    <dt>Rights status:</dt> <dd> {{ collection.get_rights_status_display|default:"none"}} </dd>
-    <dt>Rights statement:</dt> <dd>{{ collection.rights_statement|default:"none" }}</dd>
-  </dl>
-  </div>
-
-  <h2>Harvesting Information</h2>
-  <div class="well">
-  <dl>
-    <dt>Ready for publication in Calisphere?</dt> <dd> {{ collection.ready_for_publication }}</dd>
-    <dt>Harvest Method:</dt> <dd><a href="/?harvest_type={{ collection.harvest_type }}">{{ collection.get_harvest_type_display }}</a></dd>
-    <dt>Object Type:</dt> <dd>{{ collection.get_dcmi_type_display }}</dd>
-    <dt>Harvesting Endpoint:</dt> <dd>{{ collection.url_harvest }}</dd>
-  </dl>
-  </div>
-
-  <h2>Staging Information <small>for Collections to be Imported into Nuxeo</small></h2>
-  <div class="well">
-  <dl>
-    <dt>Extent:</dt> <dd>{{ collection.extent }} bytes</dd>
-    <dt>Formats:</dt>
-    <dd>
-      {% for format in collection.formats.all %}
-        <div>{{ format }}</div>
-      {% endfor %}
-    </dd>
-    <dt>Existing Metadata:</dt> <dd>{{ collection.hosted|default:"none" }}</dd>
-    <dt>Staging Notes:</dt> <dd>{{ collection.staging_notes|default:"none"}}</dd>
-  </dl>
-
-  <h3>Import Status</h3>
-  <dl>
-    <dt>Files sent to CDL?</dt> <dd>{{ collection.files_in_hand}}</dd>
-    <dt>Files Imported into Nuxeo?</dt> <dd>{{ collection.files_in_dams}}</dd>
-    <dt>Metadata Imported into Nuxeo?</dt> <dd>{{ collection.metadata_in_dams}}</dd>
-    <dt>Campus QA Completed?</dt> <dd>{{ collection.qa_completed }}</dd>
-  </dl>
-  </div>
-
-</div>
-
-    <div>
-      {% if user.is_authenticated %}
-        {% if edit == "true" %}
-          <br><button type="submit" name="submit" form="edit_collection_detail">Save</button>
+      <h1>
+        {% if collection.first_url %}
+        <a href="{{ collection.first_url }}">
+          {{ collection.name }}
+        </a>
         {% else %}
-          <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post">
-            {% csrf_token %}
-            <button type="submit" name="edit" value="true" class="btn"><i class="icon-edit"></i> Edit this collection</button>
-          </form>
+        {{ collection.name }}
         {% endif %}
-      {% endif %}
+      </h1>
+
+      <h2>Affiliation</h2>
+      <div class="card bg-light">
+        <div class="card-body">
+          <dl>
+            <dt>Campus:</dt>
+            <dd>
+              {% for campus in collection.campus.all %}
+              <span><a href="{% url "collections" campus_slug=campus.slug %}">{{ campus.name }}</a></span><br>
+              {% endfor %}
+            </dd>
+            <dt>Unit:</dt>
+            <dd>
+              {% for repository in collection.repository.all %}
+              <span><a href="{% url "repository_collections" repoid=repository.id repo_slug=repository.slug  %}">{{ repository.name }}</a></span><br>
+              {% endfor %}
+            </dd>
+            <dt>Collection ID code for stats:</dt>
+            <dd>
+                {{ collection.local_id }}
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <h2>Descriptive Information</h2>
+      <div class="card bg-light">
+        <div class="card-body">
+          <dl>
+            <dt>Description:</dt> <dd>{{ collection.description|default:"none" }}</dd>
+            <dt>Collection homepage URL:</dt> <dd>{{ collection.url_local }}</dd>
+            <dt>OAC finding aid URL:</dt> <dd>{{ collection.url_oac|default:"none" }}</dd>
+            <dt>Rights status:</dt> <dd> {{ collection.get_rights_status_display|default:"none"}} </dd>
+            <dt>Rights statement:</dt> <dd>{{ collection.rights_statement|default:"none" }}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <h2>Harvesting Information</h2>
+      <div class="card bg-light">
+        <div class="card-body">
+          <dl>
+            <dt>Ready for publication in Calisphere?</dt> <dd> {{ collection.ready_for_publication }}</dd>
+            <dt>Harvest Method:</dt> <dd><a href="/?harvest_type={{ collection.harvest_type }}">{{ collection.get_harvest_type_display }}</a></dd>
+            <dt>Object Type:</dt> <dd>{{ collection.get_dcmi_type_display }}</dd>
+            <dt>Harvesting Endpoint:</dt> <dd>{{ collection.url_harvest }}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <h2>Staging Information <small>for Collections to be Imported into Nuxeo</small></h2>
+      <div class="card bg-light">
+        <div class="card-body">
+          <dl>
+            <dt>Extent:</dt> <dd>{{ collection.extent }} bytes</dd>
+            <dt>Formats:</dt>
+            <dd>
+              {% for format in collection.formats.all %}
+                <div>{{ format }}</div>
+              {% endfor %}
+            </dd>
+            <dt>Existing Metadata:</dt> <dd>{{ collection.hosted|default:"none" }}</dd>
+            <dt>Staging Notes:</dt> <dd>{{ collection.staging_notes|default:"none"}}</dd>
+          </dl>
+
+          <h3>Import Status</h3>
+          <dl>
+            <dt>Files sent to CDL?</dt> <dd>{{ collection.files_in_hand}}</dd>
+            <dt>Files Imported into Nuxeo?</dt> <dd>{{ collection.files_in_dams}}</dd>
+            <dt>Metadata Imported into Nuxeo?</dt> <dd>{{ collection.metadata_in_dams}}</dd>
+            <dt>Campus QA Completed?</dt> <dd>{{ collection.qa_completed }}</dd>
+          </dl>
+        </div>
+      </div>
+
     </div>
-</div>
+    </div>
+    </div>
+
+
+    <div class="col-12">
+    {% if user.is_authenticated %}
+      {% if edit == "true" %}
+        <br><button type="submit" name="submit" form="edit_collection_detail">Save</button>
+      {% else %}
+        <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="edit" value="true" class="btn btn-secondary"><i class="icon-edit"></i> Edit this collection</button>
+        </form>
+      {% endif %}
+    {% endif %}
+    </div>
+  </div>
 {% endif %}
-{% endblock %}
+{% endblock content %}
