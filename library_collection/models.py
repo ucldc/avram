@@ -90,7 +90,7 @@ class Collection(models.Model):
         max_length=50, populate_from=('name', 'description'), editable=True)
     campus = models.ManyToManyField(Campus, blank=True)
     repository = models.ManyToManyField(
-        'Repository', blank=True, verbose_name='Unit')
+        'Repository', verbose_name='Unit')
     description = models.TextField(blank=True)
     local_id = models.CharField(
         max_length=1028,
