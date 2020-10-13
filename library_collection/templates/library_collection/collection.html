@@ -75,31 +75,7 @@
             <dt>Harvest Method:</dt> <dd><a href="/?harvest_type={{ collection.harvest_type }}">{{ collection.get_harvest_type_display }}</a></dd>
             <dt>Object Type:</dt> <dd>{{ collection.get_dcmi_type_display }}</dd>
             <dt>Harvesting Endpoint:</dt> <dd>{{ collection.url_harvest }}</dd>
-          </dl>
-        </div>
-      </div>
-
-      <h2>Staging Information <small>for Collections to be Imported into Nuxeo</small></h2>
-      <div class="card bg-light">
-        <div class="card-body">
-          <dl>
-            <dt>Extent:</dt> <dd>{{ collection.extent }} bytes</dd>
-            <dt>Formats:</dt>
-            <dd>
-              {% for format in collection.formats.all %}
-                <div>{{ format }}</div>
-              {% endfor %}
-            </dd>
-            <dt>Existing Metadata:</dt> <dd>{{ collection.hosted|default:"none" }}</dd>
-            <dt>Staging Notes:</dt> <dd>{{ collection.staging_notes|default:"none"}}</dd>
-          </dl>
-
-          <h3>Import Status</h3>
-          <dl>
-            <dt>Files sent to CDL?</dt> <dd>{{ collection.files_in_hand}}</dd>
-            <dt>Files Imported into Nuxeo?</dt> <dd>{{ collection.files_in_dams}}</dd>
-            <dt>Metadata Imported into Nuxeo?</dt> <dd>{{ collection.metadata_in_dams}}</dd>
-            <dt>Campus QA Completed?</dt> <dd>{{ collection.qa_completed }}</dd>
+            <dt>Harvesting Extra Data:</dt> <dd>{{ collection.harvest_extra_data }}</dd>
           </dl>
         </div>
       </div>
