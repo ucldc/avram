@@ -18,3 +18,51 @@
   }
 </style>
 {% endblock %}
+
+{% block toolbar %}
+<div class="container-fluid" style="padding: 5px 20px; border-bottom: 2px solid black; margin-bottom: 5px;">
+  <ul class="nav nav-pills">
+  {% if solr_opts %}
+    <li class="nav-item">
+      <span class="nav-link">Change Solr: </span>
+    </li>
+  {% endif %}
+  {% for opt in solr_opts %}
+  {% if solr_version == opt.version %}
+    <li class="nav-item" style="padding: 0 5px;">
+      <a class="nav-link active js-solr-switch" data-version="{{ opt.version }}" href="#" style="border: 1px solid black">{{ opt.display_name }}</a>
+    </li>
+  {% else %}
+    <li class="nav-item" style="padding: 0 5px;">
+      <a class="nav-link js-solr-switch" data-version="{{ opt.version }}" href="#" style="border: 1px solid black; color: #007bff; background-color: white;">{{ opt.display_name }}</a>
+    </li>
+  {% endif %}
+  {% endfor %}
+  <li class="nav-item">
+    <span class="nav-link">Missing Items:</span>
+  </li>
+  <li class="nav-item" style="padding: 0 5px;">
+    <a class="nav-link" href="#" style="border: 1px solid black; color: #007bff; background-color: white;">Item Report</a>
+  </li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block inlineScripts %}
+{% if solr_opts %}
+<script>
+  function switchSolr(version) {
+    $.ajax(
+      '/exhibitions/switch-solr/?v=' + version)
+    .done(function() {
+      location.reload()
+    })
+  }
+
+  $('.js-solr-switch').click(function(e) {
+    e.preventDefault();
+    switchSolr($(e.currentTarget).data('version'));
+  });
+</script>
+{% endif %}
+{% endblock %}
