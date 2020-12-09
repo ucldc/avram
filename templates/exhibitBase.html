@@ -55,7 +55,8 @@
     $.ajax(
       '/exhibitions/switch-solr/?v=' + version)
     .done(function() {
-      location.reload()
+      history.go(0)
+      // location.reload()
     })
   }
 
