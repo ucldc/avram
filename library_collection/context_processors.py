@@ -1,3 +1,4 @@
+from django.conf import settings
 
 def active_tab(request):
     '''
@@ -14,3 +15,9 @@ def active_tab(request):
     return {
         'active_tab': tab
     }
+
+def google_verification_code(request):
+    if hasattr(settings, 'GOOGLE_VERIFICATION_CODE'):
+        return {'google_verification_code': settings.GOOGLE_VERIFICATION_CODE}
+    else:
+        return {'google_verification_code': ''}
