@@ -140,6 +140,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'library_collection.context_processors.active_tab',
+                'library_collection.context_processors.google_verification_code',
                 'exhibits.context_processors.settings'
             ],
         }
