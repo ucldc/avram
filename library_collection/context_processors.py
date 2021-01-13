@@ -17,4 +17,7 @@ def active_tab(request):
     }
 
 def google_verification_code(request):
-    return {'google_verification_code': settings.GOOGLE_VERIFICATION_CODE}
+    if hasattr(settings, 'GOOGLE_VERIFICATION_CODE'):
+        return {'google_verification_code': settings.GOOGLE_VERIFICATION_CODE}
+    else:
+        return {'google_verification_code': ''}
