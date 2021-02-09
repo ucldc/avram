@@ -11,6 +11,7 @@ from django.contrib.sitemaps import GenericSitemap
 # http://stackoverflow.com/questions/11428427/no-module-named-simple-error-in-django
 # from django.views.generic.simple import redirect_to
 #from some_app.views import AboutView
+from django.views.generic import TemplateView
 from exhibits.views import calCultures
 
 admin.autodiscover()
@@ -29,6 +30,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    url(r'^robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
     url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
     url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
     url(r'^cal-cultures/', calCultures, name="cal-cultures"),
