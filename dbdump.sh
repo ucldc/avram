@@ -17,3 +17,5 @@ set +u
 source $HOME/python/bin/activate
 set -u
 python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json --natural-foreign --natural-primary
+
+find $HOME/dbdumps/ -name "????-??-??-01.json" -mtime +32 -exec rm {} \;
