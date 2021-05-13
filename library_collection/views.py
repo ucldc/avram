@@ -203,6 +203,7 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     query = request.GET.get('q', '')
     search = None
     harvest_type = request.GET.get('harvest_type', '')
+    merritt = request.GET.get('merritt', '')
 
     if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
         raise Http404
@@ -237,6 +238,9 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
 
     if harvest_type:
         collections = collections.filter(Q(harvest_type=harvest_type))
+
+    if merritt:
+        collections = collections.exclude(merritt_id='')
 
     # if query yielded a search, filter
     if search:
