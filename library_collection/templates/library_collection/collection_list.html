@@ -127,6 +127,19 @@
   <div class="col-2">
   {% include "library_collection/_navbar_campus.html" with edit_this='edit_collections' this='collections' %}
   {% include "library_collection/_navbar_harvest_type.html" with edit_this='edit_collections' this='collections' %}
+      <h4>Limit by Merritt</h4>
+          <div class="nav-collapse mb-3">
+            <ul class="list-group" style="margin: 0px">
+              <li class="list-group-item" style="width: 100%">
+                    <a href="./?merritt=1">
+                      <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
+                      <div class="row-fluid">
+                        <div style="overflow: hidden;">Merritt</div>
+                      </div>
+                    </a>
+              </li>
+	    </ul>
+	  </div>
   </div>
 </div>
 {% endblock content %}
