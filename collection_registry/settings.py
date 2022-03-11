@@ -130,7 +130,8 @@ TEMPLATES = [
         'DIRS': (
             os.path.join(SITE_ROOT, '..', 'templates'),
             os.path.join(SITE_ROOT, 'templates'),
-            os.path.join(SITE_ROOT, '..', 'library_collection', 'templates')
+            os.path.join(SITE_ROOT, '..', 'library_collection', 'templates'),
+            os.path.join(SITE_ROOT, '..', 'oai', 'templates')
         ),
         'OPTIONS': {
             'builtins': ["exhibits.templatetags.exhibit_extras"],
@@ -157,6 +158,8 @@ EXHIBIT_TEMPLATE = 'exhibitBase.html'
 SOLR_URL = getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
 SOLR_API_KEY = getenv('UCLDC_SOLR_API_KEY', '')
 
+OAI_RESULTS_LIMIT = 100
+OAI_RESUMPTION_TOKEN_SALT = getenv('OAI_RESUMPTION_TOKEN_SALT', 'AAaaBBbbCCcc')
 
 INSTALLED_APPS = (
     'exhibits.apps.ExhibitsConfig', 
@@ -173,6 +176,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'library_collection',
     'publishing_projects',
+    'oai',
     # 'rest_framework',
     #'dbdump',
 )
