@@ -3,6 +3,8 @@ import os
 import subprocess
 import shlex
 import django.contrib.messages as messages
+from django.http import HttpResponse
+import csv
 
 HARVEST_SCRIPT = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] +
                                 '/code/harvester/queue_harvest.sh')
@@ -414,6 +416,29 @@ def queue_delete_couchdb_collection_production(modeladmin, request, queryset):
 
 queue_delete_couchdb_collection_production.short_description = 'Queue ' \
         'deletion of documents from CouchDB production'
+
+
+def export_as_csv(modeladmin, request, queryset):
+    queryset = queryset.filter(ready_for_publication=True)
+
+    field_names = ['id', 'name', 'url_local', 'url_oac',
+                   'description', 'url_harvest']
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=collections.csv'
+    writer = csv.writer(response)
+    writer.writerow(field_names + ['repositories'])
+
+    for obj in queryset:
+        row = [getattr(obj, field) for field in field_names]
+        repos = ' :: '.join([repo.__str__() for repo in obj.repository.all()])
+        row.append(repos)
+        writer.writerow(row)
+
+    return response
+
+
+export_as_csv.short_description = 'Export selected as CSV'
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.

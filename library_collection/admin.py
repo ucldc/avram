@@ -26,6 +26,7 @@ from library_collection.admin_actions import \
     queue_delete_couchdb_collection_stage
 from library_collection.admin_actions import \
     queue_delete_couchdb_collection_production
+from library_collection.admin_actions import export_as_csv
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -52,6 +53,7 @@ class MerrittSetup(SimpleListFilter):
             return queryset.exclude(merritt_id='')
         if self.value() == 'NOTMERRITT':
             return queryset.filter(merritt_id='')
+
 
 class NotInCampus(SimpleListFilter):
     title = 'Not on a Campus'
@@ -136,6 +138,23 @@ class URLFieldsListFilter(SimpleListFilter):
             pass
 
 
+class HasDescriptionFilter(SimpleListFilter):
+    title = 'Description'
+    parameter_name = 'description'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('true', 'Description provided'),
+            ('false', 'No description')
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'true':
+            return queryset.exclude(description='')
+        if self.value() == 'false':
+            return queryset.filter(description='')
+
+
 # from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
     def response_action(self, request, queryset):
@@ -198,16 +217,24 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     def numeric_key(self):
         return self.pk
 
+    def has_description(self):
+        if self.description != '':
+            return True
+        else:
+            return False
+
     numeric_key.short_description = "Numeric key"
 
     list_display = ('name', campuses, repositories, 'human_extent',
-                    numeric_key, 'date_last_harvested')
+                    numeric_key, 'date_last_harvested', has_description)
     list_filter = [
         'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
-        'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup
+        'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup,
+        HasDescriptionFilter
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
+        export_as_csv,
         queue_harvest_normal_stage,
         queue_image_harvest_normal_stage,
         queue_deep_harvest_normal_stage,
