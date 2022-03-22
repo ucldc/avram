@@ -32,6 +32,7 @@ sitemaps = {
 urlpatterns = [
     url(r'^robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
     url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
+    url(r'^oai/', include('oai.urls', namespace="oai")),
     url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
     url(r'^cal-cultures/', calCultures, name="cal-cultures"),
     url(r'^admin/', admin.site.urls),

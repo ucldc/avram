@@ -12,5 +12,6 @@ htmlcov
 workspace
 exhibits
 publishing_projects
+oai
 .DS_Store
 env.local
