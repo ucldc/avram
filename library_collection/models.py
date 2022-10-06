@@ -78,6 +78,10 @@ class CollectionCustomFacet(models.Model):
         ('count', 'number of results'),
         ('value', 'alphanumeric order')), default='count')
 
+class PublishedCollectionManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedCollectionManager, self).get_queryset().exclude(
+            ready_for_publication=False).exclude(enrichments_item__exact='')
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -199,6 +203,56 @@ class Collection(models.Model):
         blank=True,
         help_text='put disqus on test with this shortcode')
 
+    objects = models.Manager()
+    published = PublishedCollectionManager()
+
+    @property
+    def enrichment_array(self):
+        split_enrichments = self.enrichments_item.split(',\r\n')
+        if len(split_enrichments[0]) > 255:
+            split_enrichments = self.enrichments_item.split(',\n')
+        if len(split_enrichments[0]) > 255:
+            f"split failed: {self.id}"
+            return None
+        return split_enrichments
+
+    @property
+    def id_enrichment(self):
+        if not self.enrichment_array:
+            return None
+        first_enrichment = self.enrichment_array[0]
+        if first_enrichment.startswith('/dpla_mapper'):
+            return None
+        return first_enrichment
+
+    @property
+    def mapper_type(self):
+        if not self.enrichment_array:
+            return None
+        mapper_enrichment = None
+        for enrichment in self.enrichment_array:
+            if enrichment.startswith('/dpla_mapper'):
+                mapper_enrichment = enrichment
+                break
+        return mapper_enrichment
+
+    @property
+    def self_enrichments(self):
+        if not self.mapper_type:
+            print(f"no mapper type: {self.id}")
+            return None
+        mapper_index = self.enrichment_array.index(self.mapper_type)
+        if mapper_index not in [0,1]:
+            print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
+        return self.enrichment_array[mapper_index+1:]
+
+    def index_of_enrichment(self, enrichment):
+        if not self.enrichment_array:
+            return None
+        if enrichment in self.enrichment_array:
+            return self.enrichment_array.index(enrichment)
+        else:
+            return -1
 
     @property
     def url(self):

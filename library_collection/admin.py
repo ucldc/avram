@@ -3,30 +3,16 @@ import datetime
 from django.contrib import admin
 from django import forms
 from library_collection.duration_widget import MultiValueDurationField
-from library_collection.models import Campus
-from library_collection.models import Repository
-from library_collection.models import Collection
-from library_collection.models import CollectionCustomFacet
-from library_collection.admin_actions import queue_harvest_normal_stage
-from library_collection.admin_actions import queue_image_harvest_normal_stage
-from library_collection.admin_actions import queue_sync_couchdb
-from library_collection.admin_actions import set_ready_for_publication
-from library_collection.admin_actions import queue_sync_to_solr_normal_stage
-from library_collection.admin_actions import \
-    queue_sync_to_solr_normal_production
-from library_collection.admin_actions import \
-    queue_delete_from_solr_normal_stage
-from library_collection.admin_actions import \
-    queue_delete_from_solr_normal_production
-from library_collection.admin_actions import \
-    queue_deep_harvest_normal_stage
-from library_collection.admin_actions import \
-    queue_deep_harvest_replace_normal_stage
-from library_collection.admin_actions import \
-    queue_delete_couchdb_collection_stage
-from library_collection.admin_actions import \
-    queue_delete_couchdb_collection_production
-from library_collection.admin_actions import export_as_csv
+from library_collection.models import Campus, Repository, \
+    Collection, CollectionCustomFacet
+from library_collection.admin_actions import queue_harvest_normal_stage, \
+    queue_image_harvest_normal_stage, queue_sync_couchdb, \
+    set_ready_for_publication, queue_delete_from_solr_normal_production, \
+    queue_sync_to_solr_normal_production, queue_sync_to_solr_normal_stage, \
+    queue_deep_harvest_normal_stage, queue_delete_from_solr_normal_stage, \
+    queue_deep_harvest_replace_normal_stage, \
+    queue_delete_couchdb_collection_stage, \
+    queue_delete_couchdb_collection_production, export_as_csv
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -206,27 +192,29 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
-
     campuses.short_description = "Campus"
 
     def repositories(self):
         return ", ".join([x.__str__() for x in self.repository.all()])
-
     repositories.short_description = "Repository"
 
     def numeric_key(self):
         return self.pk
+    numeric_key.short_description = "Numeric key"
+    numeric_key.admin_order_field = 'pk'
 
     def has_description(self):
-        if self.description != '':
-            return True
-        else:
-            return False
+        return bool(self.description)
+    has_description.admin_order_field = 'description'
 
-    numeric_key.short_description = "Numeric key"
+    def human_extent(self, obj):
+        return obj.human_extent
+    human_extent.admin_order_field = 'extent'
+    human_extent.short_description = 'extent'
 
     list_display = ('name', campuses, repositories, 'human_extent',
-                    numeric_key, 'date_last_harvested', has_description)
+                    numeric_key, 'date_last_harvested', has_description,
+                    'id_enrichment', 'mapper_type')
     list_filter = [
         'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
         'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup,
@@ -297,11 +285,6 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'harvest_frequency',
                     'harvest_exception_notes')
             }))
-
-    def human_extent(self, obj):
-        return obj.human_extent
-
-    human_extent.short_description = 'extent'
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "repository":
