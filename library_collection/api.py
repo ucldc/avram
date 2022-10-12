@@ -42,6 +42,13 @@ class CollectionResource(ModelResource):
         }
 
 
+class RikoltiCollectionResource(CollectionResource):
+    # these API fields are used by rikolti's mapper component
+    rikolti__pre_mapping = fields.ListField(attribute='pre_mapper_enrichments', null=True)
+    rikolti__mapper_type = fields.CharField(attribute='mapper_type', null=True)
+    rikolti__enrichments = fields.ListField(attribute='self_enrichments', null=True)
+
+
 class CustomFacetResource(ModelResource):
     def __init__(self, *args, **kwargs):
         super(CustomFacetResource, self).__init__(*args, **kwargs)

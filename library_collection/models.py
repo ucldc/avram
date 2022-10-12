@@ -237,6 +237,14 @@ class Collection(models.Model):
         return mapper_enrichment
 
     @property
+    def pre_mapper_enrichments(self):
+        if not self.mapper_type:
+            print(f"no mapper type: {self.id}")
+            return None
+        mapper_index = self.enrichment_array.index(self.mapper_type)
+        return self.enrichment_array[:mapper_index]
+
+    @property
     def self_enrichments(self):
         if not self.mapper_type:
             print(f"no mapper type: {self.id}")
