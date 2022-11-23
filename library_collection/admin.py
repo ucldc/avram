@@ -215,11 +215,11 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested', has_description,
-                    'id_enrichment', 'mapper_type', 'solr_count', 'solr_last_updated')
+                    'mapper_type', 'solr_count', 'solr_last_updated')
     list_filter = [
         'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
         'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup,
-        HasDescriptionFilter
+        HasDescriptionFilter, 'mapper_type'
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [

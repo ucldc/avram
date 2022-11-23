@@ -22,7 +22,11 @@
                     </a>
                   {% else %}
                     <!-- a href="{ % url this %}?harvest_type={{ type.0 }}" -->
-                    <a href="?harvest_type={{ type.0 }}">
+                    {% if request.path != request.get_full_path %}
+                    <a href="{{ request.get_full_path }}&harvest_type={{ type.0 }}">
+                    {% else %}
+                    <a href="{{ request.path }}?harvest_type={{ type.0 }}">
+                    {% endif %}
                       <div class="row-fluid">
                         <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
                         <div style="overflow: hidden;">{{ type.1|default:'none' }}</div>
