@@ -1,0 +1,38 @@
+{% block navbar-harvest %}
+<h4>Limit by mapper type</h4>
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+<!--           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a> -->
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse mb-3">
+        <!-- .nav, .navbar-search, .navbar-form, etc -->
+        <ul class="list-group" style="margin: 0px">
+          {% for type in mapper_types %}
+          <li class="list-group-item{% if type == mapper_type %} list-group-item-secondary{% endif %}" style="width: 100%">
+              {% if type == mapper_type %}
+                <a href="{% url this %}">
+                  <div class="row-fluid">
+                    <div class="float-left"><span class="icon-remove" style="margin-right: .75em;">X</span></div>
+                    <div style="overflow: hidden; ">{{ type|default:'none' }}</div>
+                  </div>
+                </a>
+              {% else %}
+                <!-- a href="{ % url this %}?mapper_type={{ type }}" -->
+                {% if request.path != request.get_full_path %}
+                <a href="{{ request.get_full_path }}&mapper_type={{ type }}">
+                {% else %}
+                <a href="{{ request.path }}?mapper_type={{ type }}">
+                {% endif %}
+                  <div class="row-fluid">
+                    <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
+                    <div style="overflow: hidden;">{{ type|default:'none' }}</div>
+                  </div></a>
+              {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+{% endblock %}

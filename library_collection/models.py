@@ -78,10 +78,12 @@ class CollectionCustomFacet(models.Model):
         ('count', 'number of results'),
         ('value', 'alphanumeric order')), default='count')
 
+
 class PublishedCollectionManager(models.Manager):
     def get_queryset(self):
         return super(PublishedCollectionManager, self).get_queryset().exclude(
             ready_for_publication=False).exclude(enrichments_item__exact='')
+
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -202,6 +204,12 @@ class Collection(models.Model):
         max_length=64,
         blank=True,
         help_text='put disqus on test with this shortcode')
+    solr_count = models.IntegerField(
+        default=0, help_text='Number of items in Solr index')
+    solr_last_updated = models.DateTimeField(
+        null=True, blank=True, help_text='Last time Solr count was updated')
+    mapper_type = models.CharField(
+        null=True, blank=True, max_length=511, help_text='Auto-Generated from Enrichments')
 
     objects = models.Manager()
     published = PublishedCollectionManager()
@@ -226,13 +234,13 @@ class Collection(models.Model):
         return first_enrichment
 
     @property
-    def mapper_type(self):
+    def rikolti_mapper_type(self):
         if not self.enrichment_array:
             return None
         mapper_enrichment = None
         for enrichment in self.enrichment_array:
             if enrichment.startswith('/dpla_mapper'):
-                mapper_enrichment = enrichment
+                mapper_enrichment = enrichment.split('=')[1]
                 break
         return mapper_enrichment
 
@@ -241,15 +249,17 @@ class Collection(models.Model):
         if not self.mapper_type:
             print(f"no mapper type: {self.id}")
             return None
-        mapper_index = self.enrichment_array.index(self.mapper_type)
+        mapper_index = self.enrichment_array.index(
+            f"/dpla_mapper?mapper_type={self.rikolti_mapper_type}")
         return self.enrichment_array[:mapper_index]
 
     @property
     def self_enrichments(self):
-        if not self.mapper_type:
+        if not self.rikolti_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
-        mapper_index = self.enrichment_array.index(self.mapper_type)
+        mapper_index = self.enrichment_array.index(
+            f"/dpla_mapper?mapper_type={self.rikolti_mapper_type}")
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
         return self.enrichment_array[mapper_index+1:]
@@ -326,6 +336,7 @@ class Collection(models.Model):
         self.name = self.name.strip()
         if len(self.name) > 255:
             self.name = self.name[:255]
+        self.mapper_type = self.rikolti_mapper_type
         return super(Collection, self).save(*args, **kwargs)
 
 

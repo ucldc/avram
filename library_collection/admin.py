@@ -12,7 +12,8 @@ from library_collection.admin_actions import queue_harvest_normal_stage, \
     queue_deep_harvest_normal_stage, queue_delete_from_solr_normal_stage, \
     queue_deep_harvest_replace_normal_stage, \
     queue_delete_couchdb_collection_stage, \
-    queue_delete_couchdb_collection_production, export_as_csv
+    queue_delete_couchdb_collection_production, export_as_csv, \
+    retrieve_solr_counts
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -214,14 +215,15 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested', has_description,
-                    'id_enrichment', 'mapper_type')
+                    'mapper_type', 'solr_count', 'solr_last_updated')
     list_filter = [
         'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
         'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup,
-        HasDescriptionFilter
+        HasDescriptionFilter, 'mapper_type'
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
+        retrieve_solr_counts,
         export_as_csv,
         queue_harvest_normal_stage,
         queue_image_harvest_normal_stage,

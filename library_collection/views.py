@@ -143,7 +143,8 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
 def repository_collections(request, repoid=None, repo_slug=None):
     page = request.GET.get('page')
     harvest_type = request.GET.get('harvest_type', '')
-    if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
+    harvest_abbrevs = (x[0] for x in Collection.HARVEST_TYPE_CHOICES)
+    if harvest_type and harvest_type not in harvest_abbrevs:
         raise Http404
 
     repository = get_object_or_404(Repository, pk=repoid)
@@ -203,9 +204,14 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     query = request.GET.get('q', '')
     search = None
     harvest_type = request.GET.get('harvest_type', '')
+    mapper_type = request.GET.get('mapper_type', '')
+    if mapper_type == 'None':
+        mapper_type = 'isnull'
     merritt = request.GET.get('merritt', '')
+    ready_for_publication_filter = request.GET.get('ready_for_publication', '')
 
-    if harvest_type and not harvest_type in (x[0] for x in Collection.HARVEST_TYPE_CHOICES):
+    harvest_abbrevs = (x[0] for x in Collection.HARVEST_TYPE_CHOICES)
+    if harvest_type and harvest_type not in harvest_abbrevs:
         raise Http404
 
     # turn input query into search for later filtering
@@ -224,23 +230,41 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     if campus_slug:
         if campus_slug == 'UC-':
             campus = None
-            collections = Collection.objects.filter(campus=None).order_by('name')
+            collections = Collection.objects.filter(campus=None)
         else:
             campus = get_object_or_404(Campus, slug=campus_slug)
-            collections = Collection.objects.filter(campus__slug__exact=campus.slug).order_by('name').prefetch_related('campus')
+            collections = Collection.objects.filter(campus__slug__exact=campus.slug)
             try:
                 info = json.loads(urllib.request.urlopen('http://dsc.cdlib.org/institution-json/{0}'.format(campus.ark)).read())
             except Exception as e:
                 info = {'error': e }
 
     else:
-        collections = Collection.objects.all().order_by('name').prefetch_related('campus')
+        collections = Collection.objects.all()
 
     if harvest_type:
-        collections = collections.filter(Q(harvest_type=harvest_type))
+        collections = collections.filter(harvest_type=harvest_type)
+
+    if mapper_type:
+        if mapper_type == 'isnull':
+            collections = collections.filter(mapper_type__isnull=True)
+        else:
+            collections = collections.filter(mapper_type=mapper_type)
 
     if merritt:
         collections = collections.exclude(merritt_id='')
+
+    if ready_for_publication_filter:
+        collections = collections.filter(ready_for_publication=ready_for_publication_filter)
+
+    harvest_types = collections.values_list('harvest_type', flat=True).distinct()
+    harvest_types_display = [
+        choice_pair for choice_pair in Collection.HARVEST_TYPE_CHOICES
+        if choice_pair[0] in harvest_types
+    ]
+    mapper_types = collections.values_list('mapper_type', flat=True).distinct()
+    ready_for_publication_facets = collections.values_list('ready_for_publication', flat=True).distinct()
+    collections = collections.order_by('name').prefetch_related('campus')
 
     # if query yielded a search, filter
     if search:
@@ -278,8 +302,12 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             'query': query,
-            'harvest_types': Collection.HARVEST_TYPE_CHOICES,
+            'harvest_types': harvest_types_display,
             'harvest_type': harvest_type,
+            'mapper_types': mapper_types,
+            'mapper_type': mapper_type,
+            'ready_for_publication_facets': [str(x) for x in ready_for_publication_facets],
+            'ready_for_publication_filter': ready_for_publication_filter,
             'info': info,
         },
     )
