@@ -78,10 +78,12 @@ class CollectionCustomFacet(models.Model):
         ('count', 'number of results'),
         ('value', 'alphanumeric order')), default='count')
 
+
 class PublishedCollectionManager(models.Manager):
     def get_queryset(self):
         return super(PublishedCollectionManager, self).get_queryset().exclude(
             ready_for_publication=False).exclude(enrichments_item__exact='')
+
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -202,6 +204,10 @@ class Collection(models.Model):
         max_length=64,
         blank=True,
         help_text='put disqus on test with this shortcode')
+    solr_count = models.IntegerField(
+        default=0, help_text='Number of items in Solr index')
+    solr_last_updated = models.DateTimeField(
+        null=True, blank=True, help_text='Last time Solr count was updated')
 
     objects = models.Manager()
     published = PublishedCollectionManager()
