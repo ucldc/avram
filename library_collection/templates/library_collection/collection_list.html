@@ -69,7 +69,7 @@
           </td>
           <td>
             <small>
-            {{ collection.solr_count|intcomma }} items<br/>{{ collection.solr_last_updated|date:"n/j/Y g:i a" }}
+            {{ collection.solr_count|intcomma }} items as of {{ collection.solr_last_updated|date:"n/j/Y g:i a" }}
             </small>
           </td>
           <td>
@@ -139,6 +139,9 @@
   {% include "library_collection/_navbar_campus.html" with edit_this='edit_collections' this='collections' %}
   {% if ready_for_publication_facets %}
     {% include "library_collection/_navbar_published.html" with edit_this='edit_collections' this='collections' %}
+  {% endif %}
+  {% if solr_count_lookups %}
+    {% include "library_collection/_navbar_solr_count.html" with edit_this='edit_collections' this='collections' %}
   {% endif %}
   {% if harvest_types %}
     {% include "library_collection/_navbar_harvest_type.html" with edit_this='edit_collections' this='collections' %}

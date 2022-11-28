@@ -209,6 +209,9 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
         mapper_type = 'isnull'
     merritt = request.GET.get('merritt', '')
     ready_for_publication_filter = request.GET.get('ready_for_publication', '')
+    solr_count_filter = request.GET.get('solr_count_filter', '')
+    solr_count_range_gte = request.GET.get('solr_count__range_gte')
+    solr_count_range_lte = request.GET.get('solr_count__range_lte',)
 
     harvest_abbrevs = (x[0] for x in Collection.HARVEST_TYPE_CHOICES)
     if harvest_type and harvest_type not in harvest_abbrevs:
@@ -257,6 +260,16 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     if ready_for_publication_filter:
         collections = collections.filter(ready_for_publication=ready_for_publication_filter)
 
+    if solr_count_filter:
+        if solr_count_filter == '0':
+            collections = collections.filter(solr_count=0)
+        if solr_count_filter == '1':
+            collections = collections.filter(solr_count__gt=0)
+    if solr_count_range_gte:
+        collections = collections.filter(solr_count__gte=solr_count_range_gte)
+    if solr_count_range_lte:
+        collections = collections.filter(solr_count__lte=solr_count_range_lte)
+
     harvest_types = collections.values_list('harvest_type', flat=True).distinct()
     harvest_types_display = [
         choice_pair for choice_pair in Collection.HARVEST_TYPE_CHOICES
@@ -265,6 +278,8 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     mapper_types = collections.values_list('mapper_type', flat=True).distinct()
     ready_for_publication_facets = collections.values_list('ready_for_publication', flat=True).distinct()
     collections = collections.order_by('name').prefetch_related('campus')
+
+    solr_count_lookups = [('0', 'Empty'), ('1', 'Not Empty')]
 
     # if query yielded a search, filter
     if search:
@@ -308,6 +323,10 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
             'mapper_type': mapper_type,
             'ready_for_publication_facets': [str(x) for x in ready_for_publication_facets],
             'ready_for_publication_filter': ready_for_publication_filter,
+            'solr_count_lookups': solr_count_lookups,
+            'solr_count_filter': solr_count_filter,
+            'solr_count__range_gte': solr_count_range_gte,
+            'solr_count__range_lte': solr_count_range_lte,
             'info': info,
         },
     )
