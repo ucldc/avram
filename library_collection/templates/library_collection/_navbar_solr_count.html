@@ -1,0 +1,63 @@
+{% block navbar-harvest %}
+<h4>Limit by Solr Count</h4>
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+<!--           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a> -->
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse mb-3">
+        <!-- .nav, .navbar-search, .navbar-form, etc -->
+        <ul class="list-group" style="margin: 0px">
+          {% for facet in solr_count_lookups %}
+          <li class="list-group-item{% if facet == solr_count_filter %} list-group-item-secondary{% endif %}" style="width: 100%">
+              {% if facet.0 == solr_count_filter %}
+                <a href="{% url this %}">
+                  <div class="row-fluid">
+                    <div class="float-left"><span class="icon-remove" style="margin-right: .75em;">X</span></div>
+                    <div style="overflow: hidden; ">{{ facet.1|default:'none' }}</div>
+                  </div>
+                </a>
+              {% else %}
+                <!-- a href="{ % url this %}?ready_for_publication={{ facet }}" -->
+                {% if request.path != request.get_full_path %}
+                <a href="{{ request.get_full_path }}&solr_count_filter={{ facet.0 }}">
+                {% else %}
+                <a href="{{ request.path }}?solr_count_filter={{ facet.0 }}">
+                {% endif %}
+                  <div class="row-fluid">
+                    <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
+                    <div style="overflow: hidden;">{{ facet.1|default:'none' }}</div>
+                  </div></a>
+              {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <h4>Limit by Solr Count</h4>
+      <div>
+        <form style="margin-bottom: 10px">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col">
+                <label for="solr_count__range_gte" style="display: none">Solr Count Range Lower</label>
+                <input id="solr_count__range_gte" type="text" placeholder="From" class="form-control" name="solr_count__range_gte" {% if solr_count__range_gte %}value="{{solr_count__range_gte}}"{% endif %}/>
+            </div>
+            <div class="col">
+                <label for="solr_count__range_lte" style="display: none">Solr Count Range Upper</label>
+                <input id="solr_count__range_lte" type="text" placeholder="To" class="form-control" name="solr_count__range_lte" {% if solr_count__range_lte %}value="{{solr_count__range_lte}}"{% endif %}/>
+            </div>
+            {% if ready_for_publication_filter %}
+            <input type="hidden" name="ready_for_publication" value="{{ready_for_publication_filter}}">
+            {% endif %}
+            {% if harvest_type %}
+            <input type="hidden" name="harvest_type" value="{{harvest_type}}">
+            {% endif %}
+            {% if mapper_type %}
+            <input type="hidden" name="mapper_type" value="{{mapper_type}}">
+            {% endif %}
+        </div>
+        <button type="submit" class="btn" style="border: 1px solid grey">Filter</button>
+        </form>
+      </div>
+{% endblock %}

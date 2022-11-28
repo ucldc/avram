@@ -20,6 +20,7 @@ from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
 from django.db.models import F
+from rangefilter.filters import DateRangeFilter, NumericRangeFilter
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
@@ -142,6 +143,24 @@ class HasDescriptionFilter(SimpleListFilter):
             return queryset.filter(description='')
 
 
+class SolrCountFilter(SimpleListFilter):
+    title = 'Solr Count'
+    parameter_name = 'solr_count'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('0', 'Empty'),
+            ('1', 'Not Empty'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == '0':
+            return queryset.filter(solr_count__exact=0)
+        if self.value() == '1':
+            return queryset.filter(solr_count__gt=0)
+        return queryset
+
+
 # from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
     def response_action(self, request, queryset):
@@ -208,18 +227,29 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return bool(self.description)
     has_description.admin_order_field = 'description'
 
+    def solr_count_str(self):
+        return f'{self.solr_count:,}'
+    solr_count_str.short_description = 'Solr Count'
+    solr_count_str.admin_order_field = 'solr_count'
+
     def human_extent(self, obj):
         return obj.human_extent
     human_extent.admin_order_field = 'extent'
     human_extent.short_description = 'extent'
 
+    def solr_last_updated(self):
+        return self.solr_last_updated
+    solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
+
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested', has_description,
-                    'mapper_type', 'solr_count', 'solr_last_updated')
+                    'mapper_type', solr_count_str, solr_last_updated)
     list_filter = [
-        'campus', HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
-        'harvest_type', URLFieldsListFilter, 'repository', MerrittSetup,
-        HasDescriptionFilter, 'mapper_type'
+        'campus', SolrCountFilter,
+        ('solr_count', NumericRangeFilter), 'ready_for_publication',
+        NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
+        HasDescriptionFilter, 'mapper_type',
+        ('solr_last_updated', DateRangeFilter), HarvestOverdueFilter
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
