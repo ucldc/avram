@@ -20,6 +20,7 @@ from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
 from django.db.models import F
+from rangefilter.filters import DateRangeFilter, NumericRangeFilter
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
@@ -148,49 +149,17 @@ class SolrCountFilter(SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return (
-            ('0', 'No objects in Solr'),
-            ('1-100', 'Solr Count < 100'),
-            ('100-1000', '100 < Solr Count < 1,000'),
-            ('1000-10000', '1,000 < Solr Count < 10,000'),
-            ('large', '10,000 < Solr Count'),
+            ('0', 'Empty'),
+            ('1', 'Not Empty'),
         )
 
     def queryset(self, request, queryset):
-        if self.value() == 0:
-            return queryset.filter(solr_count=0)
-        if self.value() == 'large':
-            return queryset.filter(solr_count__gte=10000)
-        if self.value():
-            bounds = self.value().split('-')
-            lower_bound = int(bounds[0])
-            upper_bound = int(bounds[1])
-            return queryset.filter(
-                solr_count__lte=upper_bound,
-                solr_count__gte=lower_bound
-            )
+        if self.value() == '0':
+            return queryset.filter(solr_count__exact=0)
+        if self.value() == '1':
+            return queryset.filter(solr_count__gt=0)
+        return queryset
 
-
-class SolrCountUpdatedFilter(SimpleListFilter):
-    title = 'Solr Count Last Updated'
-    parameter_name = 'solr_count_updated'
-
-    def lookups(self, request, model_admin):
-        return (
-            ('-', 'Never'),
-            ('.5', 'In the last two weeks'),
-            ('1', 'In the past month'),
-            ('6', 'In the past six months'),
-            ('12', 'In the past year'),
-        )
-
-    def queryset(self, request, queryset):
-        if self.value() == '-':
-            return queryset.filter(solr_last_updated=None)
-        if self.value():
-            return queryset.filter(
-                solr_last_updated__gte=datetime.datetime.now() - 
-                datetime.timedelta(days=float(self.value()) * 30)
-            )
 
 # from: http://stackoverflow.com/questions/2805701/
 class ActionInChangeFormMixin(object):
@@ -268,14 +237,19 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     human_extent.admin_order_field = 'extent'
     human_extent.short_description = 'extent'
 
+    def solr_last_updated(self):
+        return self.solr_last_updated
+    solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
+
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested', has_description,
-                    'mapper_type', solr_count_str, 'solr_last_updated')
+                    'mapper_type', solr_count_str, solr_last_updated)
     list_filter = [
-        'campus', SolrCountFilter, SolrCountUpdatedFilter, 
-        HarvestOverdueFilter, 'ready_for_publication', NotInCampus,
-        'harvest_type', URLFieldsListFilter, MerrittSetup,
-        HasDescriptionFilter, 'mapper_type'
+        'campus', SolrCountFilter,
+        ('solr_count', NumericRangeFilter), 'ready_for_publication',
+        NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
+        HasDescriptionFilter, 'mapper_type',
+        ('solr_last_updated', DateRangeFilter), HarvestOverdueFilter
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [

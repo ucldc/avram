@@ -421,13 +421,13 @@ queue_delete_couchdb_collection_production.short_description = 'Queue ' \
 
 
 def retrieve_solr_counts(modeladmin, request, queryset):
-    collection_search = SOLR_select(
+    collections_search = SOLR_select(
         facet="true",
         facet_field="collection_url",
         facet_limit=-1,
         rows="0"
     )
-    collection_facets = collection_search.facet_counts.get(
+    collection_facets = collections_search.facet_counts.get(
         'facet_fields', {}).get('collection_url')
     for collection in queryset:
         solr_count = collection_facets.get(collection.url_api, 0)
