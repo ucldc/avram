@@ -9,6 +9,7 @@ from library_collection.api import CampusResource
 from library_collection.api import RepositoryResource
 from library_collection.api import RikoltiCollectionResource
 from library_collection.api import RikoltiFetcherResource
+from library_collection.api import RikoltiMapperResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(CollectionResource())
@@ -16,6 +17,7 @@ v1_api.register(CampusResource())
 v1_api.register(RepositoryResource())
 v1_api.register(RikoltiCollectionResource())
 v1_api.register(RikoltiFetcherResource())
+v1_api.register(RikoltiMapperResource())
 
 urlpatterns = [
     # Examples:
