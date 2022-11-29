@@ -249,7 +249,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         ('solr_count', NumericRangeFilter), 'ready_for_publication',
         NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
         HasDescriptionFilter, 'mapper_type',
-        ('solr_last_updated', DateRangeFilter), HarvestOverdueFilter
+        ('solr_last_updated', DateRangeFilter), HarvestOverdueFilter,
+        'repository'
     ]
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
