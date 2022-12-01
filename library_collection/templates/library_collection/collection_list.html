@@ -69,7 +69,11 @@
           </td>
           <td>
             <small>
-            {{ collection.solr_count|intcomma }} items as of {{ collection.solr_last_updated|date:"n/j/Y g:i a" }}
+            {{ collection.solr_count|intcomma }} items as of {{ collection.solr_last_updated|date:"n/j/Y g:i a" }}<br/>
+            {% if collection.metadata_density_score %}
+            {{ collection.metadata_density_score }} metadata density score as of {{ collection.metadata_density_score_last_updated|date:"n/j/Y g:i a" }}<br/>
+            <a href="https://calisphere.org/collections/{{ collection.id }}/metadata/" target="_blank">Metadata Report</a>
+            {% endif %}
             </small>
           </td>
           <td>
