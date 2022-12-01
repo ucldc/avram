@@ -210,6 +210,10 @@ class Collection(models.Model):
         null=True, blank=True, help_text='Last time Solr count was updated')
     mapper_type = models.CharField(
         null=True, blank=True, max_length=511, help_text='Auto-Generated from Enrichments')
+    metadata_density_score = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True)
+    metadata_density_score_last_updated = models.DateTimeField(
+        null=True, blank=True, help_text='Last time metadata density score was updated')
 
     objects = models.Manager()
     published = PublishedCollectionManager()

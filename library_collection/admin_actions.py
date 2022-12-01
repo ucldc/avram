@@ -3,6 +3,8 @@ import os
 import subprocess
 import shlex
 import csv
+import requests
+import json
 import django.contrib.messages as messages
 from django.http import HttpResponse
 from django.utils import timezone
@@ -436,7 +438,39 @@ def retrieve_solr_counts(modeladmin, request, queryset):
         collection.save()
     return None
 
+
 retrieve_solr_counts.short_description = 'Retrieve Solr counts'
+
+
+def retrieve_metadata_density(modeladmin, request, queryset):
+    url = (
+        "https://static-ucldc-cdlib-org.s3-us-west-2.amazonaws.com/"
+        "metadata_summary/collection/{}.json"
+    )
+    for collection in queryset:
+        metadata_report_location = url.format(collection.id)
+        try:
+            metadata_report = requests.get(url=metadata_report_location)
+            metadata_report.raise_for_status()
+        except requests.exceptions.RequestException:
+            continue
+
+        metadata_report = json.loads(metadata_report.content)
+        metadata_density_total = 0
+        metadata_fields = 0
+        for value in metadata_report.values():
+            # differentiate between a 0 percent value and a missing value
+            if isinstance(value, dict) and value.get('percent', -1) is not -1:
+                metadata_density_total += value['percent']
+                metadata_fields += 1
+        metadata_density_score = metadata_density_total / metadata_fields
+        collection.metadata_density_score = metadata_density_score
+        collection.metadata_density_score_last_updated = timezone.now()
+        collection.save()
+
+
+retrieve_metadata_density.short_description = 'Retrieve metadata density'
+
 
 def export_as_csv(modeladmin, request, queryset):
     queryset = queryset.filter(ready_for_publication=True)

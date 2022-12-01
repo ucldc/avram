@@ -13,7 +13,7 @@ from library_collection.admin_actions import queue_harvest_normal_stage, \
     queue_deep_harvest_replace_normal_stage, \
     queue_delete_couchdb_collection_stage, \
     queue_delete_couchdb_collection_production, export_as_csv, \
-    retrieve_solr_counts
+    retrieve_solr_counts, retrieve_metadata_density
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -237,13 +237,23 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     human_extent.admin_order_field = 'extent'
     human_extent.short_description = 'extent'
 
+    def metadata_report_link(self):
+        return (
+            f"<a href='https://calisphere.org/collections/"
+            f"{self.id}/metadata'>metadata report</a>"
+        )
+    metadata_report_link.short_description = 'Metadata Report'
+    metadata_report_link.allow_tags = True
+
     def solr_last_updated(self):
         return self.solr_last_updated
     solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
 
     list_display = ('name', campuses, repositories, 'human_extent',
                     numeric_key, 'date_last_harvested', has_description,
-                    'mapper_type', solr_count_str, solr_last_updated)
+                    'mapper_type', solr_count_str, solr_last_updated,
+                    metadata_report_link, 'metadata_density_score',
+                    'metadata_density_score_last_updated')
     list_filter = [
         'campus', SolrCountFilter,
         ('solr_count', NumericRangeFilter), 'ready_for_publication',
@@ -268,6 +278,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         queue_delete_couchdb_collection_production,
         queue_delete_from_solr_normal_production,
         set_ready_for_publication,
+        retrieve_metadata_density
     ]
 
     fieldsets = (
