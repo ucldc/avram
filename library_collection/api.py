@@ -61,8 +61,7 @@ harvest_fields = [
     'dcmi_type', 'rights_statement', 'rights_status', 'enrichments_item'
 ]
 
-mapper_fields = ['mapper_type']
-fetcher_fields = ['harvest_type', 'harvest_extra_data', 'url_harvest']
+fetcher_fields = ['harvest_extra_data', 'url_harvest']
 
 rikolti_excludes = [
     # disqus fields
@@ -128,7 +127,7 @@ class RikoltiFetcherResource(CollectionResource):
         queryset = Collection.objects.all()
         list_allowed_methods = ['get']
         filtering = rikolti_filters
-        excludes = rikolti_excludes + core_fields + harvest_fields + mapper_fields
+        excludes = rikolti_excludes + core_fields + harvest_fields
 
     def dehydrate_harvest_type(self, bundle):
         return self.rikolti_fetcher_registration.get(bundle.data['harvest_type'])
