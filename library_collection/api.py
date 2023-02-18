@@ -48,7 +48,8 @@ rikolti_filters = {
     "ready_for_publication": (ALL),
     "solr_count": ('gt', 'lt'),
     "enrichments_item": (ALL),
-    "mapper_type": (ALL)
+    "mapper_type": (ALL),
+    "rikolti_mapper_type": (ALL),
 }
 
 core_fields = [
@@ -79,7 +80,7 @@ rikolti_excludes = [
 class RikoltiCollectionResource(CollectionResource):
     # these API fields are used by rikolti's mapper component
     rikolti__pre_mapping = fields.ListField(attribute='pre_mapper_enrichments', null=True)
-    rikolti__mapper_type = fields.CharField(attribute='rikolti_mapper_type', null=True)
+    legacy__mapper_type = fields.CharField(attribute='legacy_mapper_type', null=True)
     rikolti__enrichments = fields.ListField(attribute='self_enrichments', null=True)
 
     class Meta:
