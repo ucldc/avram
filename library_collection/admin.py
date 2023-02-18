@@ -246,6 +246,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     metadata_report_link.allow_tags = True
 
     def solr_last_updated(self):
+        print(self.solr_last_updated)
         return self.solr_last_updated
     solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
 
@@ -258,7 +259,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         'campus', SolrCountFilter,
         ('solr_count', NumericRangeFilter), 'ready_for_publication',
         NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
-        HasDescriptionFilter, 'mapper_type', 'rikolti_mapper_type'
+        HasDescriptionFilter, 'mapper_type', 'rikolti_mapper_type',
         ('solr_last_updated', DateRangeFilter), HarvestOverdueFilter,
         'repository'
     ]
