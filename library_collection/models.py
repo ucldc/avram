@@ -52,6 +52,72 @@ class Format(models.Model):
         return self.name
 
 
+# mapper types
+# legacy keys, rikolti values
+rikolti_mapper_type_conversion = {
+    "dublin_core": None,
+    "cavpp_islandora": None,
+    "cca_vault_oai_dc": "oai.cca_vault",
+    "chapman_oai_dc": "oai.chapman",
+    "tv_academy_oai_dc": "oai.tv_academy",
+    "ucsc_oai_dpla": "oai.samvera",
+    "up_oai_dc": "oai.up",
+    "yosemite_oai_dc": "oai.yosemite",
+    "calpoly_oai_dc": None,
+    "contentdm_oai_dc": "oai.contentdm.contentdm",
+    "arck_oai": "oai.content_dm.arck",
+    "black_gold_oai": "oai.content_dm.blackgold",
+    "califa_oai_dc": None,
+    "chico_oai_dc": "oai.content_dm.chico",
+    "chula_vista_pl_contentdm_oai_dc": "oai.content_dm.cvpl",
+    "contentdm_oai_dc_get_sound_thumbs": "oai.content_dm.pepperdine",
+    "csu_sac_oai_dc": "oai.content_dm.csu_sac",
+    "csudh_contentdm_oai_dc": "oai.content_dm.csudh",
+    "lapl_oai": "oai.content_dm.lapl",
+    "quartex_oai": "oai.quartex",
+    "usc_oai_dc": None,
+    "csu_dspace_mets": "oai.csu_dspace",
+    "csuci_mets": "oai.csuci_mets",
+    "islandora_oai_dc": "oai.islandora",
+    "burbank_islandora": "oai.islandora.burbank",
+    "caltech_restrict": "oai.islandora.caltech",
+    "chs_islandora": "oai.islandora.chs",
+    "sjsu_islandora": "oai.islandora.sjsu",
+    "lapl_26096": "lapl_26096.lapl_26096",
+    "oac_dc": "oac.oac",
+    "oac_dc_suppress_desc_2": "oac.suppress_description",
+    "oac_dc_suppress_publisher": "oac.suppress_publisher",
+    "omeka": "omeka.omeka",
+    "csa_omeka": "omeka.ucsb_adc",
+    "omeka_nothumb": "omeka.no_thumb",
+    "omeka_santa_clara": "omeka.santa_clara",
+    "pspl_oai_dc": "pspl.pspl",
+    "ucla_solr_dc": "ucla_solr.ucla_solr",
+    "ucsd_blacklight_dc": "ucsd_blacklight.ucsd_blacklight",
+    "preservica_api": "preservica.preservica",
+    "cmis_atom": "cmis_atom.cmis_atom",
+    "emuseum_xml": "emuseum_xml.emuseum_xml",
+    "flickr_api": "flickr.flickr",
+    "flickr_sdasm": "flickr.sdasm",
+    "flickr_sppl": "flickr.sppl",
+    "internet_archive": "internet_archive.internet_archive",
+    "marc": "marc.marc",
+    "csl_marc": "marc.csl",
+    "sfpl_marc": None,
+    "sierramadre_marc": "marc.sierra",
+    "ucb_tind_marc": "marc.ucb_tind",
+    "ucsb_aleph_marc": "marc.ucsb_aleph",
+    "pastperfect_xml": "pastperfect_xml.pastperfect_xml",
+    "sanjose_pastperfect": "pastperfect_xml.san_jose",
+    "ucb_bampfa_solr": "ucb_bampfa.ucb_bampfa",
+    "ucd_json": "ucd_json.ucd_json",
+    "ucldc_nuxeo": "nuxeo.nuxeo",
+    "ucldc_nuxeo_dc": "nuxeo.nuxeo",
+    "ucsf_solr": "ucsf_solr.ucsf_solr",
+    "youtube_video_snippet": "youtube.youtube",
+}
+
+
 class CollectionCustomFacet(models.Model):
     '''This model is designed to allow a collection owner to select one of
     our Solr string values as a custom facet. Need to do as a separate model
@@ -210,6 +276,8 @@ class Collection(models.Model):
         null=True, blank=True, help_text='Last time Solr count was updated')
     mapper_type = models.CharField(
         null=True, blank=True, max_length=511, help_text='Auto-Generated from Enrichments')
+    rikolti_mapper_type = models.CharField(
+        null=True, blank=True, max_length=511, help_text='Matches module name in Rikolti')
     metadata_density_score = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
     metadata_density_score_last_updated = models.DateTimeField(
@@ -238,7 +306,7 @@ class Collection(models.Model):
         return first_enrichment
 
     @property
-    def rikolti_mapper_type(self):
+    def legacy_mapper_type(self):
         if not self.enrichment_array:
             return None
         mapper_enrichment = None
@@ -254,16 +322,16 @@ class Collection(models.Model):
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.rikolti_mapper_type}")
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
         return self.enrichment_array[:mapper_index]
 
     @property
     def self_enrichments(self):
-        if not self.rikolti_mapper_type:
+        if not self.legacy_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.rikolti_mapper_type}")
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
         return self.enrichment_array[mapper_index+1:]
@@ -340,7 +408,9 @@ class Collection(models.Model):
         self.name = self.name.strip()
         if len(self.name) > 255:
             self.name = self.name[:255]
-        self.mapper_type = self.rikolti_mapper_type
+        self.mapper_type = self.legacy_mapper_type
+        self.rikolti_mapper_type = rikolti_mapper_type_conversion.get(
+            self.mapper_type, None)
         return super(Collection, self).save(*args, **kwargs)
 
 
