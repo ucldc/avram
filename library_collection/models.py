@@ -82,7 +82,7 @@ rikolti_mapper_type_conversion = {
     "burbank_islandora": "oai.islandora.burbank",
     "caltech_restrict": "oai.islandora.caltech",
     "chs_islandora": "oai.islandora.chs",
-    "sjsu_islandora": "oai.islandora.sjsu",
+    "sjsu_islandora": "oai.islandora",
     "lapl_26096": "lapl_26096.lapl_26096",
     "oac_dc": "oac.oac",
     "oac_dc_suppress_desc_2": "oac.suppress_description",
