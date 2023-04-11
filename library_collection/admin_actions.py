@@ -476,12 +476,14 @@ def export_as_csv(modeladmin, request, queryset):
     queryset = queryset.filter(ready_for_publication=True)
 
     field_names = ['id', 'name', 'url_local', 'url_oac',
-                   'description', 'url_harvest']
+                   'description', 'url_harvest', 'harvest_extra_data']
+    header_row = ['id', 'name', 'Collection homepage URL', 'OAC URL',
+                  'Description', 'Harvest Endpoint', 'Harvest Extra Data']
 
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=collections.csv'
     writer = csv.writer(response)
-    writer.writerow(field_names + ['repositories'])
+    writer.writerow(header_row + ['repositories'])
 
     for obj in queryset:
         row = [getattr(obj, field) for field in field_names]
