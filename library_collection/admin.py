@@ -323,7 +323,6 @@ try:
     admin.site.unregister(Site)
 except admin.sites.NotRegistered:
     pass
-admin.site.disable_action('delete_selected')
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
