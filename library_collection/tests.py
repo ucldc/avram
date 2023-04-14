@@ -40,21 +40,13 @@ class CollectionTestCase(TestCase):
         """
         pc = Collection()
         pc.url_local = 'http://www.oac.cdlib.org/'
-        pc.extent = 1234567890
         pc.name = 'A test collection'
         self.assertEqual(pc.url, pc.url_local)
-        self.assertEqual(pc.human_extent, '1.1\xa0G')
         self.assertEqual(pc.name, str(pc))
         self.assertTrue(hasattr(pc, 'url_harvest'))
         self.assertTrue(hasattr(pc, 'harvest_type'))
         self.assertTrue(hasattr(pc, 'harvest_extra_data'))
         self.assertTrue(hasattr(pc, 'enrichments_item'))
-        # needs values before valid self.assertTrue(hasattr(pc, 'formats'))
-        self.assertTrue(hasattr(pc, 'staging_notes'))
-        self.assertTrue(hasattr(pc, 'files_in_hand'))
-        self.assertTrue(hasattr(pc, 'files_in_dams'))
-        self.assertTrue(hasattr(pc, 'metadata_in_dams'))
-        self.assertTrue(hasattr(pc, 'qa_completed'))
         self.assertTrue(hasattr(pc, 'ready_for_publication'))
         self.assertTrue(hasattr(pc, 'rights_status'))
         self.assertTrue(hasattr(pc, 'rights_statement'))
@@ -70,10 +62,6 @@ class CollectionTestCase(TestCase):
         self.assertFalse(hasattr(pc, 'phase_one'))
         self.assertTrue(hasattr(pc, 'local_id'))
         self.assertTrue(hasattr(pc, 'collectioncustomfacet_set'))
-        pc.files_in_hand = False
-        pc.files_in_dams = False
-        pc.metadata_in_dams = False
-        pc.qa_completed = False
         pc.save()
         pc.repository
 
@@ -82,10 +70,6 @@ class CollectionTestCase(TestCase):
         check that long names are truncated on save
         '''
         c = Collection(name=''.join('x' for i in range(300)))
-        c.files_in_hand = False
-        c.files_in_dams = False
-        c.metadata_in_dams = False
-        c.qa_completed = False
         c.save()
         self.assertEqual(255, len(c.name))
 
@@ -183,33 +167,17 @@ class CollectionAdminTestCase(TestCase):
         pc = Collection()
         pc.name = 'PC-1'
         pc.url_local = 'http://local'
-        pc.files_in_hand = False
-        pc.files_in_dams = False
-        pc.metadata_in_dams = False
-        pc.qa_completed = False
         pc.save()
         pc = Collection()
         pc.name = 'PC-2'
         pc.url_oac = 'http://oac'
-        pc.files_in_hand = False
-        pc.files_in_dams = False
-        pc.metadata_in_dams = False
-        pc.qa_completed = False
         pc.save()
         pc = Collection()
         pc.name = 'PC-3'
         pc.url_local = 'http://local'
-        pc.files_in_hand = False
-        pc.files_in_dams = False
-        pc.metadata_in_dams = False
-        pc.qa_completed = False
         pc.save()
         pc = Collection()
         pc.name = 'PC-4'
-        pc.files_in_hand = False
-        pc.files_in_dams = False
-        pc.metadata_in_dams = False
-        pc.qa_completed = False
         pc.save()
         u = User.objects.create_user(
             'test', 'mark.redar@ucop.edu', password='fake')
@@ -1047,10 +1015,6 @@ class EditViewTestCase(TestCase):
                 'local_id': 'LOCID',
                 'url_local': 'http://LOCURL.edu',
                 'url_oac': 'http://OACURL.edu',
-                'files_in_hand': 0,
-                'files_in_dams': 0,
-                'metadata_in_dams': 0,
-                'qa_completed': 0
             },
             HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'library_collection/collection.html')
