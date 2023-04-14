@@ -166,6 +166,9 @@ class CollectionCustomFacetInline(admin.StackedInline):
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CollectionAdminForm, self).__init__(*args, **kwargs)
+        self.fields['harvest_exception_notes'] = forms.CharField(
+            widget=forms.Textarea(attrs={'readonly': 'readonly'})
+        )
 
     class Meta:
         model = Collection
@@ -176,9 +179,6 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     inlines = [CollectionCustomFacetInline, ]
     form = CollectionAdminForm
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
@@ -217,7 +217,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
 
     list_display = ('name', campuses, repositories,
                     numeric_key, 'date_last_harvested', has_description,
-                    'mapper_type', 'rikolti_mapper_type', solr_count_str, solr_last_updated,
+                    'mapper_type', 'rikolti_mapper_type',
+                    solr_count_str, solr_last_updated,
                     metadata_report_link, 'metadata_density_score',
                     'metadata_density_score_last_updated')
     list_filter = [
@@ -228,6 +229,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         ('solr_last_updated', DateRangeFilter),
         'repository'
     ]
+    save_on_top = True
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
         retrieve_solr_counts,
@@ -252,41 +254,44 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
             'Descriptive Information',
             {
                 'fields': (
-                    'name',
+                    ('name', 'ready_for_publication'),
                     'campus',
                     'repository',
                     'description',
                     'local_id',
                     'url_local',
                     'url_oac',
-                    'rights_status',
-                    'rights_statement',
-                    'ready_for_publication',
                     'featured',
-                    'disqus_shortname_prod',
-                    'disqus_shortname_test',)
-            }, ),
-        (
+                    ('disqus_shortname_prod', 'disqus_shortname_test',)
+                )
+            },
+        ), (
             'For Nuxeo Collections',
             {
-                # 'classes': ('collapse',),
-                'fields': (
-                    'merritt_id',
-                    'merritt_extra_data',
-                )
-            }),
-        (
+                'fields': (('merritt_id', 'merritt_extra_data'),)
+            }
+        ), (
             'For Harvest Collections',
             {
                 'fields': (
                     'harvest_type',
-                    'dcmi_type',
                     'url_harvest',
                     'harvest_extra_data',
                     'enrichments_item',
                     'date_last_harvested',
                     'harvest_exception_notes')
-            }))
+            }
+        ), (
+            'For enrichment chain',
+            {
+                'fields': (
+                    'dcmi_type',
+                    'rights_status',
+                    'rights_statement',
+                )
+            }
+        )
+    )
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "repository":
