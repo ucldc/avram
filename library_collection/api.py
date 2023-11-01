@@ -65,16 +65,11 @@ harvest_fields = [
 fetcher_fields = ['harvest_extra_data', 'url_harvest']
 
 rikolti_excludes = [
-    # disqus fields
     'disqus_shortname_prod', 'disqus_shortname_test',
-    # defunct (?) fields
-    'files_in_dams', 'files_in_hand', 'date_last_harvested',
-    'harvest_frequency', 'metadata_in_dams', 'qa_completed', 'extent',
-    'harvest_exception_notes', 'hosted', 'staging_notes',
-    # merritt integration fields
     'merritt_extra_data', 'merritt_id',
-    # not sure what these are
     'local_id', 'url_local', 'url_oac',
+    # defunct-ish fields
+    'date_last_harvested', 'harvest_exception_notes',
 ]
 
 class RikoltiCollectionResource(CollectionResource):

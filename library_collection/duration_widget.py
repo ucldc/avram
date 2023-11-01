@@ -4,6 +4,14 @@ from datetime import timedelta
 from django import forms
 
 
+# The MultiValueDurationField was used in the admin interface for the
+# now deleted harvest_frequency field on Collections
+# left here for reference
+# in admin.py CollectionAdminForm's __init__ method
+#        self.fields['harvest_frequency'] = MultiValueDurationField(
+#            label='Harvest Frequency', help_text="In 30 day Months and Days")
+
+
 class SplitDurationWidget(forms.MultiWidget):
     """
     A Widget that splits duration input into tow number input boxes.

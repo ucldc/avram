@@ -57,34 +57,6 @@ class NotInCampus(SimpleListFilter):
             return queryset.exclude(campus=None)
 
 
-class HarvestOverdueFilter(SimpleListFilter):
-    '''Filter for collections where date_last_harvested + harvest_frequency
-    is in past.
-    '''
-    title = 'Overdue Harvest'
-    parameter_name = 'harvest_overdue'
-
-    def lookups(self, request, model_admin):
-        return (
-            ('Y', 'Harvest Overdue'),
-            ('N', 'Harvest Not Due'),
-            ('NP', 'Not periodic'),
-            ('P', 'Periodic'), )
-
-    def queryset(self, request, queryset):
-        if self.value() == 'Y':
-            return queryset.filter(date_last_harvested__lt=(
-                datetime.datetime.today() - F('harvest_frequency')))
-        if self.value() == 'N':
-            return queryset.filter(date_last_harvested__gt=(
-                datetime.datetime.today() - F('harvest_frequency')))
-        if self.value() == 'NP':
-            return queryset.filter(harvest_frequency__isnull=True)
-        if self.value() == 'P':
-            return queryset.filter(harvest_frequency__isnull=False)
-        return queryset
-
-
 class URLFieldsListFilter(SimpleListFilter):
     '''Filter to find blank or filled URL fields'''
     title = 'URL Fields'
@@ -194,8 +166,9 @@ class CollectionCustomFacetInline(admin.StackedInline):
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CollectionAdminForm, self).__init__(*args, **kwargs)
-        self.fields['harvest_frequency'] = MultiValueDurationField(
-            label='Harvest Frequency', help_text="In 30 day Months and Days")
+        self.fields['harvest_exception_notes'] = forms.CharField(
+            widget=forms.Textarea(attrs={'readonly': 'readonly'})
+        )
 
     class Meta:
         model = Collection
@@ -206,9 +179,6 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
     inlines = [CollectionCustomFacetInline, ]
     form = CollectionAdminForm
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
@@ -232,11 +202,6 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     solr_count_str.short_description = 'Solr Count'
     solr_count_str.admin_order_field = 'solr_count'
 
-    def human_extent(self, obj):
-        return obj.human_extent
-    human_extent.admin_order_field = 'extent'
-    human_extent.short_description = 'extent'
-
     def metadata_report_link(self):
         return (
             f"<a href='https://calisphere.org/collections/"
@@ -250,9 +215,10 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return self.solr_last_updated
     solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
 
-    list_display = ('name', campuses, repositories, 'human_extent',
+    list_display = ('name', campuses, repositories,
                     numeric_key, 'date_last_harvested', has_description,
-                    'mapper_type', 'rikolti_mapper_type', solr_count_str, solr_last_updated,
+                    'mapper_type', 'rikolti_mapper_type',
+                    solr_count_str, solr_last_updated,
                     metadata_report_link, 'metadata_density_score',
                     'metadata_density_score_last_updated')
     list_filter = [
@@ -260,9 +226,10 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         ('solr_count', NumericRangeFilter), 'ready_for_publication',
         NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
         HasDescriptionFilter, 'mapper_type', 'rikolti_mapper_type',
-        ('solr_last_updated', DateRangeFilter), HarvestOverdueFilter,
+        ('solr_last_updated', DateRangeFilter),
         'repository'
     ]
+    save_on_top = True
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
         retrieve_solr_counts,
@@ -287,49 +254,44 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
             'Descriptive Information',
             {
                 'fields': (
-                    'name',
+                    ('name', 'ready_for_publication'),
                     'campus',
                     'repository',
                     'description',
                     'local_id',
                     'url_local',
                     'url_oac',
-                    'rights_status',
-                    'rights_statement',
-                    'ready_for_publication',
                     'featured',
-                    'disqus_shortname_prod',
-                    'disqus_shortname_test',)
-            }, ),
-        (
+                    ('disqus_shortname_prod', 'disqus_shortname_test',)
+                )
+            },
+        ), (
             'For Nuxeo Collections',
             {
-                # 'classes': ('collapse',),
-                'fields': (
-                    'extent',
-                    'formats',
-                    'hosted',
-                    'merritt_id',
-                    'merritt_extra_data',
-                    'staging_notes',
-                    'files_in_hand',
-                    'files_in_dams',
-                    'metadata_in_dams',
-                    'qa_completed', )
-            }),
-        (
+                'fields': (('merritt_id', 'merritt_extra_data'),)
+            }
+        ), (
             'For Harvest Collections',
             {
                 'fields': (
                     'harvest_type',
-                    'dcmi_type',
                     'url_harvest',
                     'harvest_extra_data',
                     'enrichments_item',
                     'date_last_harvested',
-                    'harvest_frequency',
                     'harvest_exception_notes')
-            }))
+            }
+        ), (
+            'For enrichment chain',
+            {
+                'fields': (
+                    'dcmi_type',
+                    'rights_status',
+                    'rights_statement',
+                )
+            }
+        )
+    )
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "repository":
@@ -361,7 +323,6 @@ try:
     admin.site.unregister(Site)
 except admin.sites.NotRegistered:
     pass
-admin.site.disable_action('delete_selected')
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.

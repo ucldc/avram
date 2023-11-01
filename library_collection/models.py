@@ -44,14 +44,6 @@ class Campus(models.Model):
         return super(Campus, self).save(*args, **kwargs)
 
 
-class Format(models.Model):
-    '''File formats of data for input to DAMS.'''
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 # mapper types
 # legacy keys, rikolti values
 rikolti_mapper_type_conversion = {
@@ -174,15 +166,6 @@ class Collection(models.Model):
         max_length=255, blank=True, help_text='OAC finding aid URL')
     url_harvest = models.URLField(
         max_length=255, blank=True, verbose_name='Harvest Endpoint')
-    hosted = models.CharField(
-        max_length=255,
-        blank=True,
-        verbose_name='Existing metadata (Format/Output)',
-        help_text='Indicate format and output')
-    extent = models.BigIntegerField(
-        blank=True,
-        null=True,
-        help_text='must be entered in bytes, will take abbreviations later')
     HARVEST_TYPE_CHOICES = (
         ('X', 'None'),
         ('OAC', 'Legacy OAC'),
@@ -212,16 +195,6 @@ class Collection(models.Model):
     enrichments_item = models.TextField(
         blank=True,
         help_text='Enhancement chain to run on individual harvested items.')
-    formats = models.ManyToManyField(
-        Format, blank=True, help_text='File formats for DAMS ingest')
-    staging_notes = models.TextField(
-        blank=True,
-        default='',
-        help_text='Possible support needed by contributor')
-    files_in_hand = models.BooleanField(default=False)
-    files_in_dams = models.BooleanField(default=False)
-    metadata_in_dams = models.BooleanField(default=False)
-    qa_completed = models.BooleanField(default=False)
     ready_for_publication = models.BooleanField(default=False)
     featured = models.BooleanField(
         default=False, help_text='Collection featured on repository home page')
@@ -250,7 +223,6 @@ class Collection(models.Model):
         default='X',
         help_text='DCMI Type for objects in this collection')
     date_last_harvested = models.DateField(null=True, blank=True)
-    harvest_frequency = models.DurationField(null=True, blank=True)
     harvest_exception_notes = models.TextField(
         blank=True,
         help_text='Notes on processing quirks')
@@ -388,9 +360,6 @@ class Collection(models.Model):
         else:
             return False
 
-    @property
-    def human_extent(self):
-        return bytes2human(self.extent, format='%(value).1f\xa0%(symbol)s')
 
     def __str__(self):
         return self.name
