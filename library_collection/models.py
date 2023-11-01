@@ -81,7 +81,7 @@ rikolti_mapper_type_conversion = {
     "oac_dc_suppress_publisher": "oac.suppress_publisher",
     "omeka": "oai.omeka",
     "csa_omeka": "oai.omeka.csa",
-    "omeka_nothumb": "oai.omeka.no_thumb",
+    "omeka_nothumb": "oai.omeka.nothumb",
     "omeka_santa_clara": None,
     "pspl_oai_dc": "pspl.pspl",
     "ucla_solr_dc": "ucla_solr.ucla_solr",
