@@ -83,7 +83,7 @@ rikolti_mapper_type_conversion = {
     "csa_omeka": "oai.omeka.csa",
     "omeka_nothumb": "oai.omeka.nothumb",
     "omeka_santa_clara": None,
-    "pspl_oai_dc": "pspl.pspl",
+    "pspl_oai_dc": "oai.pspl",
     "ucla_solr_dc": "ucla_solr.ucla_solr",
     "ucsd_blacklight_dc": "ucsd_blacklight.ucsd_blacklight",
     "preservica_api": "preservica.preservica",
