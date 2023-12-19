@@ -168,6 +168,7 @@ class Collection(models.Model):
         max_length=255, blank=True, verbose_name='Harvest Endpoint')
     HARVEST_TYPE_CHOICES = (
         ('X', 'None'),
+        ('ETL', 'Rikolti ETL'),
         ('OAC', 'Legacy OAC'),
         # ('OAJ', 'OAC json api'),
         ('OAI', 'OAI-PMH'),
@@ -185,7 +186,7 @@ class Collection(models.Model):
         ('UCD', 'UC Davis JSON'),
         ('IAR', 'Internet Archive API'),
         ('PRA', 'Preservica API')
-        )
+    )
     harvest_type = models.CharField(
         max_length=3, choices=HARVEST_TYPE_CHOICES, default='X')
     harvest_extra_data = models.CharField(

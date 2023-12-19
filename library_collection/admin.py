@@ -13,7 +13,7 @@ from library_collection.admin_actions import queue_harvest_normal_stage, \
     queue_deep_harvest_replace_normal_stage, \
     queue_delete_couchdb_collection_stage, \
     queue_delete_couchdb_collection_production, export_as_csv, \
-    retrieve_solr_counts, retrieve_metadata_density
+    retrieve_solr_counts, retrieve_metadata_density, set_for_rikolti_etl
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -166,9 +166,9 @@ class CollectionCustomFacetInline(admin.StackedInline):
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CollectionAdminForm, self).__init__(*args, **kwargs)
-        self.fields['harvest_exception_notes'] = forms.CharField(
-            widget=forms.Textarea(attrs={'readonly': 'readonly'})
-        )
+        # self.fields['harvest_exception_notes'] = forms.CharField(
+        #     widget=forms.Textarea(attrs={'readonly': 'readonly'})
+        # )
 
     class Meta:
         model = Collection
@@ -232,6 +232,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     save_on_top = True
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
+        set_for_rikolti_etl,
         retrieve_solr_counts,
         export_as_csv,
         queue_harvest_normal_stage,
