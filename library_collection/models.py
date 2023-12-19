@@ -56,7 +56,7 @@ rikolti_mapper_type_conversion = {
     "up_oai_dc": "oai.up",
     "yosemite_oai_dc": "oai.yosemite",
     "calpoly_oai_dc": None,
-    "contentdm_oai_dc": "oai.contentdm.contentdm",
+    "contentdm_oai_dc": "oai.content_dm.contentdm",
     "arck_oai": "oai.content_dm.arck",
     "black_gold_oai": "oai.content_dm.blackgold",
     "califa_oai_dc": None,
