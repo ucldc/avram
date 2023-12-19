@@ -496,6 +496,24 @@ def export_as_csv(modeladmin, request, queryset):
 
 export_as_csv.short_description = 'Export selected as CSV'
 
+def set_for_rikolti_etl(modeladmin, request, queryset):
+    '''Set the ready_for_publication to True for the queryset'''
+    c_success = []
+    for collection in queryset:
+        collection.harvest_type = 'ETL'
+        collection.save()
+        c_success.append(collection)
+    msg = (
+        f"Set harvest type for {len(c_success)} collections to Rikolti ETL - "
+        "we will no longer harvest these collections from their source, but "
+        "we will maintain the existing data (January 2024) by ETLing these "
+        "collections from Solr to Rikolti's Open Search."
+    )
+    modeladmin.message_user(request, msg, level=messages.SUCCESS)
+
+
+set_for_rikolti_etl.short_description = 'Flag for Rikolti ETL'
+
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
 # Redistribution and use in source and binary forms, with or without
