@@ -166,9 +166,9 @@ class CollectionCustomFacetInline(admin.StackedInline):
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CollectionAdminForm, self).__init__(*args, **kwargs)
-        self.fields['harvest_exception_notes'] = forms.CharField(
-            widget=forms.Textarea(attrs={'readonly': 'readonly'})
-        )
+        # self.fields['harvest_exception_notes'] = forms.CharField(
+        #     widget=forms.Textarea(attrs={'readonly': 'readonly'})
+        # )
 
     class Meta:
         model = Collection
