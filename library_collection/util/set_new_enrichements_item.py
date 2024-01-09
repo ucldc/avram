@@ -16,7 +16,7 @@ from django.contrib.admin import actions
 
 HARVEST_TYPES = []
 for t in Collection.HARVEST_TYPE_CHOICES:
-    HARVEST_TYPES.append(t[0])
+    HARVEST_TYPES.append(t.registry_code)
 
 def overwrite_enrichments_for_collection(collection, enrichment):
     collection.enrichments_item = enrichment

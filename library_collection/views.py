@@ -143,7 +143,7 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
 def repository_collections(request, repoid=None, repo_slug=None):
     page = request.GET.get('page')
     harvest_type = request.GET.get('harvest_type', '')
-    harvest_abbrevs = (x[0] for x in Collection.HARVEST_TYPE_CHOICES)
+    harvest_abbrevs = (x.registry_code for x in Collection.HARVEST_TYPE_CHOICES)
     if harvest_type and harvest_type not in harvest_abbrevs:
         raise Http404
 
@@ -192,7 +192,10 @@ def repository_collections(request, repoid=None, repo_slug=None):
             'first_page_qs': first_page_qs,
             'last_page_qs': last_page_qs,
             #'query': query,
-            'harvest_types': Collection.HARVEST_TYPE_CHOICES,
+            'harvest_types': [
+                (fetch_type.registry_code, fetch_type.display_name)
+                for fetch_type in Collection.HARVEST_TYPE_CHOICES
+            ],
             'harvest_type': harvest_type,
             'info': info,
         },
@@ -213,7 +216,7 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     solr_count_range_gte = request.GET.get('solr_count__range_gte')
     solr_count_range_lte = request.GET.get('solr_count__range_lte',)
 
-    harvest_abbrevs = (x[0] for x in Collection.HARVEST_TYPE_CHOICES)
+    harvest_abbrevs = (x.registry_code for x in Collection.HARVEST_TYPE_CHOICES)
     if harvest_type and harvest_type not in harvest_abbrevs:
         raise Http404
 
@@ -272,8 +275,9 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
 
     harvest_types = collections.values_list('harvest_type', flat=True).distinct()
     harvest_types_display = [
-        choice_pair for choice_pair in Collection.HARVEST_TYPE_CHOICES
-        if choice_pair[0] in harvest_types
+        (choice.registry_code, choice.display_name)
+        for choice in Collection.HARVEST_TYPE_CHOICES
+        if choice.registry_code in harvest_types
     ]
     mapper_types = collections.values_list('mapper_type', flat=True).distinct()
     ready_for_publication_facets = collections.values_list('ready_for_publication', flat=True).distinct()

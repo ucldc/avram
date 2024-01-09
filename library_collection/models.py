@@ -144,27 +144,6 @@ class PublishedCollectionManager(models.Manager):
             ready_for_publication=False).exclude(enrichments_item__exact='')
 
 FetchType = namedtuple("FetchType", "registry_code display_name rikolti_code")
-HARVEST_TYPE_CHOICES = [
-    FetchType('X', 'None', 'None'),
-    FetchType('ETL', 'Rikolti ETL', 'etl'),
-    FetchType('OAC', 'Legacy OAC', 'oac'),
-    # ('OAJ', 'OAC json api'),
-    FetchType('OAI', 'OAI-PMH', 'oai'),
-    FetchType('SLR', 'Solr Index', 'solr'),
-    FetchType('MRC', 'MARC21', 'marc'),
-    FetchType('NUX', 'Shared DAMS', 'nuxeo'),
-    FetchType('ALX', 'Aleph MARC XML', 'aleph'),
-    FetchType('SFX', 'UCSF XML Search Results (tobacco)', 'ucsf_xml'),
-    FetchType('UCB', 'Solr Generic - cursorMark', 'ucb_solr'),
-    FetchType('PRE', 'Preservica CMIS Atom Feed', 'preservica_atom'),
-    FetchType('FLK', 'Flickr Api All Public Photos', 'flickr'),
-    FetchType('YTB', 'YouTube Api - Playlist Videos', 'youtube'),
-    FetchType('XML', 'XML File', 'xml_file'),
-    FetchType('EMS', 'eMuseum API', 'emuseum'),
-    FetchType('UCD', 'UC Davis JSON', 'ucd_json'),
-    FetchType('IAR', 'Internet Archive API', 'internet_archive'),
-    FetchType('PRA', 'Preservica API', 'preservica_api'),
-]
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -189,6 +168,27 @@ class Collection(models.Model):
         max_length=255, blank=True, help_text='OAC finding aid URL')
     url_harvest = models.URLField(
         max_length=255, blank=True, verbose_name='Harvest Endpoint')
+    HARVEST_TYPE_CHOICES = [
+        FetchType('X', 'None', 'None'),
+        FetchType('ETL', 'Rikolti ETL', 'etl'),
+        FetchType('OAC', 'Legacy OAC', 'oac'),
+        # ('OAJ', 'OAC json api'),
+        FetchType('OAI', 'OAI-PMH', 'oai'),
+        FetchType('SLR', 'Solr Index', 'solr'),
+        FetchType('MRC', 'MARC21', 'marc'),
+        FetchType('NUX', 'Shared DAMS', 'nuxeo'),
+        FetchType('ALX', 'Aleph MARC XML', 'aleph'),
+        FetchType('SFX', 'UCSF XML Search Results (tobacco)', 'ucsf_xml'),
+        FetchType('UCB', 'Solr Generic - cursorMark', 'ucb_solr'),
+        FetchType('PRE', 'Preservica CMIS Atom Feed', 'preservica_atom'),
+        FetchType('FLK', 'Flickr Api All Public Photos', 'flickr'),
+        FetchType('YTB', 'YouTube Api - Playlist Videos', 'youtube'),
+        FetchType('XML', 'XML File', 'xml_file'),
+        FetchType('EMS', 'eMuseum API', 'emuseum'),
+        FetchType('UCD', 'UC Davis JSON', 'ucd_json'),
+        FetchType('IAR', 'Internet Archive API', 'internet_archive'),
+        FetchType('PRA', 'Preservica API', 'preservica_api'),
+    ]
     harvest_type_choices = [
         (fetch_type.registry_code, fetch_type.display_name)
         for fetch_type in HARVEST_TYPE_CHOICES

@@ -5,7 +5,6 @@ from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
 from library_collection.models import CollectionCustomFacet
-from library_collection.models import HARVEST_TYPE_CHOICES
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 
@@ -66,7 +65,7 @@ rikolti_excludes = [
 class RikoltiCollectionResource(CollectionResource):
     rikolti_fetcher_registration = {
         fetch_type.registry_code: fetch_type.rikolti_code
-        for fetch_type in HARVEST_TYPE_CHOICES
+        for fetch_type in Collection.HARVEST_TYPE_CHOICES
     }
 
     # these API fields are used by rikolti's mapper component
