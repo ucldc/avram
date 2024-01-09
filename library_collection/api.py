@@ -64,6 +64,11 @@ rikolti_excludes = [
 ]
 
 class RikoltiCollectionResource(CollectionResource):
+    rikolti_fetcher_registration = {
+        fetch_type.registry_code: fetch_type.rikolti_code
+        for fetch_type in HARVEST_TYPE_CHOICES
+    }
+
     # these API fields are used by rikolti's mapper component
     rikolti__pre_mapping = fields.ListField(attribute='pre_mapper_enrichments', null=True)
     legacy__mapper_type = fields.CharField(attribute='legacy_mapper_type', null=True)
@@ -75,35 +80,11 @@ class RikoltiCollectionResource(CollectionResource):
         filtering = rikolti_filters
         excludes = rikolti_excludes
 
-    def dehydrate(self, bundle):
-        bundle.data['collection_id'] = bundle.data['id']
-        return bundle
-
-# kept for backwards compatibility
-class RikoltiMapperResource(RikoltiCollectionResource):
-    pass
-
-class RikoltiFetcherResource(CollectionResource):
-    rikolti_fetcher_registration = {
-        fetch_type.registry_code: fetch_type.rikolti_code
-        for fetch_type in HARVEST_TYPE_CHOICES
-    }
-
-    class Meta:
-        queryset = Collection.objects.all()
-        list_allowed_methods = ['get']
-        filtering = rikolti_filters
-        excludes = (
-            rikolti_excludes + 
-            ['dcmi_type', 'rights_statement', 'rights_status', 'enrichments_item']
-        )
-
     def dehydrate_harvest_type(self, bundle):
         return self.rikolti_fetcher_registration.get(bundle.data['harvest_type'])
 
     def dehydrate(self, bundle):
         bundle.data['collection_id'] = bundle.data['id']
-        bundle.data.pop('id')
         bundle.data['harvest_data'] = {
             'url': bundle.data['url_harvest'],
             'harvest_extra_data': bundle.data['harvest_extra_data']
@@ -112,6 +93,19 @@ class RikoltiFetcherResource(CollectionResource):
         bundle.data.pop('harvest_extra_data')
         return bundle
 
+# kept for backwards compatibility
+class RikoltiMapperResource(RikoltiCollectionResource):
+    pass
+
+class RikoltiFetcherResource(RikoltiCollectionResource):
+    class Meta:
+        queryset = Collection.objects.all()
+        list_allowed_methods = ['get']
+        filtering = rikolti_filters
+        excludes = (
+            rikolti_excludes +
+            ['dcmi_type', 'rights_statement', 'rights_status', 'enrichments_item']
+        )
 
 class CustomFacetResource(ModelResource):
     def __init__(self, *args, **kwargs):
