@@ -5,6 +5,7 @@ from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
 from library_collection.models import CollectionCustomFacet
+from library_collection.models import HARVEST_TYPE_CHOICES
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 
@@ -53,22 +54,11 @@ rikolti_filters = {
     "repository": ('exact'),
 }
 
-core_fields = [
-    'name', 'description', 'featured', 'slug', 'campus', 'repository',
-    'custom_facet'
-]
-
-harvest_fields = [ 
-    # harvest fields
-    'dcmi_type', 'rights_statement', 'rights_status', 'enrichments_item'
-]
-
-fetcher_fields = ['harvest_extra_data', 'url_harvest']
-
 rikolti_excludes = [
     'disqus_shortname_prod', 'disqus_shortname_test',
     'merritt_extra_data', 'merritt_id',
     'local_id', 'url_local', 'url_oac',
+    'description', 'slug', 'custom_facet',
     # defunct-ish fields
     'date_last_harvested', 'harvest_exception_notes',
 ]
@@ -85,46 +75,28 @@ class RikoltiCollectionResource(CollectionResource):
         filtering = rikolti_filters
         excludes = rikolti_excludes
 
-
-class RikoltiMapperResource(CollectionResource):
-    class Meta:
-        queryset = Collection.objects.all()
-        list_allowed_methods = ['get']
-        filtering = rikolti_filters
-        excludes = rikolti_excludes + core_fields + harvest_fields + fetcher_fields
-
     def dehydrate(self, bundle):
         bundle.data['collection_id'] = bundle.data['id']
-        bundle.data.pop('id')
         return bundle
 
+# kept for backwards compatibility
+class RikoltiMapperResource(RikoltiCollectionResource):
+    pass
 
 class RikoltiFetcherResource(CollectionResource):
     rikolti_fetcher_registration = {
-        'X': 'None',
-        'OAC': 'oac',
-        'OAI': 'oai',
-        'SLR': 'solr',
-        'MRC': 'marc',
-        'NUX': 'nuxeo',
-        'ALX': 'aleph',
-        'SFX': 'ucsf_xml',
-        'UCB': 'ucb_solr',
-        'PRE': 'preservica_atom',
-        'FLK': 'flickr',
-        'YTB': 'youtube',
-        'XML': 'xml_file',
-        'EMS': 'emuseum',
-        'UCD': 'ucd_json',
-        'IAR': 'internet_archive',
-        'PRA': 'preservica_api'
+        fetch_type.registry_code: fetch_type.rikolti_code
+        for fetch_type in HARVEST_TYPE_CHOICES
     }
 
     class Meta:
         queryset = Collection.objects.all()
         list_allowed_methods = ['get']
         filtering = rikolti_filters
-        excludes = rikolti_excludes + core_fields + harvest_fields
+        excludes = (
+            rikolti_excludes + 
+            ['dcmi_type', 'rights_statement', 'rights_status', 'enrichments_item']
+        )
 
     def dehydrate_harvest_type(self, bundle):
         return self.rikolti_fetcher_registration.get(bundle.data['harvest_type'])
