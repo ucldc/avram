@@ -50,6 +50,7 @@ rikolti_filters = {
     "enrichments_item": (ALL),
     "mapper_type": (ALL),
     "rikolti_mapper_type": (ALL),
+    "repository": ('exact'),
 }
 
 core_fields = [
