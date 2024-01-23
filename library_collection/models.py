@@ -170,7 +170,7 @@ class Collection(models.Model):
         max_length=255, blank=True, verbose_name='Harvest Endpoint')
     HARVEST_TYPE_CHOICES = [
         FetchType('X', 'None', 'None'),
-        FetchType('ETL', 'Rikolti ETL', 'etl'),
+        FetchType('ETL', 'Rikolti ETL', 'calisphere_solr'),
         FetchType('OAC', 'Legacy OAC', 'oac'),
         # ('OAJ', 'OAC json api'),
         FetchType('OAI', 'OAI-PMH', 'oai'),
