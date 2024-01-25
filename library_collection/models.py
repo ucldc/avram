@@ -297,6 +297,8 @@ class Collection(models.Model):
 
     @property
     def pre_mapper_enrichments(self):
+        if self.harvest_type == 'ETL':
+            return None
         if not self.mapper_type:
             print(f"no mapper type: {self.id}")
             return None
@@ -306,6 +308,8 @@ class Collection(models.Model):
 
     @property
     def self_enrichments(self):
+        if self.harvest_type == 'ETL':
+            return None
         if not self.legacy_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
@@ -385,8 +389,11 @@ class Collection(models.Model):
         if len(self.name) > 255:
             self.name = self.name[:255]
         self.mapper_type = self.legacy_mapper_type
-        self.rikolti_mapper_type = rikolti_mapper_type_conversion.get(
-            self.mapper_type, None)
+        if self.harvest_type == 'ETL':
+            self.rikolti_mapper_type = 'calisphere_solr.calisphere_solr'
+        else:
+            self.rikolti_mapper_type = rikolti_mapper_type_conversion.get(
+                self.mapper_type, None)
         return super(Collection, self).save(*args, **kwargs)
 
 
