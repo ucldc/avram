@@ -1,5 +1,4 @@
 from functools import wraps
-from django.utils.decorators import available_attrs
 from django.shortcuts import render
 
 from django.contrib.auth.models import User, Group
@@ -13,7 +12,7 @@ def user_passes_verification(test_func):
     """
     
     def decorator(view_func):
-        @wraps(view_func, assigned=available_attrs(view_func))
+        @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
             if test_func(request.user):
                 return view_func(request, *args, **kwargs)
