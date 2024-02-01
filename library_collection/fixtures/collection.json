@@ -13,8 +13,6 @@
         1,
         10
     ], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "on-demand-patron-requests", 
     "url_oac": "", 
@@ -31,8 +29,6 @@
       2
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "halberstadt-collection-selections-of-photographs-p", 
     "url_oac": "", 
@@ -49,8 +45,6 @@
       2
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Local (UCD File Server)", 
     "harvest_extra_data": "", 
     "slug": "viticulture-lectures-amerine-lectures", 
     "url_oac": "", 
@@ -67,8 +61,6 @@
       2
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Local (UCD File Server)", 
     "harvest_extra_data": "", 
     "slug": "crowly-carnivale-films-videos", 
     "url_oac": "", 
@@ -85,8 +77,6 @@
       2
     ], 
     "repository": [], 
-    "extent": 51539607552, 
-    "hosted": "Local (UCD File Server)", 
     "harvest_extra_data": "", 
     "slug": "1937-yolo-county-aerial-photographs-this-collectio", 
     "url_oac": "", 
@@ -103,8 +93,6 @@
       2
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Third-party (ProQuest and hopefully eScholarship in the future)", 
     "harvest_extra_data": "", 
     "slug": "electronic-theses-and-dissertations", 
     "url_oac": "", 
@@ -121,8 +109,6 @@
       2
     ], 
     "repository": [], 
-    "extent": 124554051584, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "university-archives-photos-the-collection-contains", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5h4nf5dx/", 
@@ -139,8 +125,6 @@
       2
     ], 
     "repository": [], 
-    "extent": 207232172032, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "eastman-originals", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf6w100646/", 
@@ -157,8 +141,6 @@
       2
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "higgins-images-of-mexican-beet-workers-in-1942-hig", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt309nf08j/", 
@@ -175,8 +157,6 @@
       2
     ], 
     "repository": [], 
-    "extent": 1610612736, 
-    "hosted": "Locally (UCD Library Web Server); CDL (OAC)", 
     "harvest_extra_data": "", 
     "slug": "british-women-romantic-poets-the-british-women-rom", 
     "url_oac": "", 
@@ -195,8 +175,6 @@
     "repository": [
       3
     ], 
-    "extent": null, 
-    "hosted": "Third-party (Internet Archive)", 
     "harvest_extra_data": "collection:caminesgeo", 
     "url_harvest": "http://archive.org/services/oai2.php", 
     "slug": "bulletin-of-calif-division-of-mines-and-geology-th", 
@@ -214,8 +192,6 @@
       2
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Third-party (Internet Archive)", 
     "harvest_extra_data": "", 
     "slug": "bulleting-of-calif-dept-of-water-resources-the-bul", 
     "url_oac": "", 
@@ -234,8 +210,6 @@
     "repository": [
       3
     ], 
-    "extent": null, 
-    "hosted": "Third-party (Internet Archive)", 
     "harvest_extra_data": "collection:californiaagriculturalexperimentstationpublications", 
     "url_harvest": "http://archive.org/services/oai2.php", 
     "slug": "california-agricultural-experiment-station-publica", 
@@ -253,8 +227,6 @@
       2
     ], 
     "repository": [], 
-    "extent": 139586437120, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "kw-lee-papers-contains-court-records-and-correspon", 
     "url_oac": "", 
@@ -271,8 +243,6 @@
       2
     ], 
     "repository": [], 
-    "extent": 4499439616, 
-    "hosted": "Locally (UCD Library Web Server); CDL (OAC)", 
     "harvest_extra_data": "", 
     "slug": "labor-contracts-ufw-this-collection-provides-digit", 
     "url_oac": "", 
@@ -289,8 +259,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 12884901888, 
-    "hosted": "Current: Locally (Redundantly on hard drives), Future: CDL (Merritt for Preservation) and Locally (UCISpace)", 
     "harvest_extra_data": "", 
     "slug": "f-sherwood-rowland-born-digital-files-dr-f-sherwoo", 
     "url_oac": "", 
@@ -307,8 +275,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 26843545600, 
-    "hosted": "Current: Locally (floppy disks and USB Hard Drives), Future: CDL (Merritt for Preservation) and Locally (UCISpace)", 
     "harvest_extra_data": "", 
     "slug": "j-hillis-miller-born-digital-files-3-12-floppy-dis", 
     "url_oac": "", 
@@ -325,8 +291,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Current: Locally (floppy disks and USB Hard Drives), Future: CDL (Merritt for Preservation) and Locally (UCISpace)", 
     "harvest_extra_data": "", 
     "slug": "stanley-fish-born-digital-files-80-35-floppies-158", 
     "url_oac": "", 
@@ -343,8 +307,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 15784004812, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "edward-cochems-photographs-this-collection-is-comp", 
     "url_oac": "", 
@@ -361,8 +323,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 21689584844, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "hugh-mcmillan-photographs-this-collection-consists", 
     "url_oac": "", 
@@ -379,8 +339,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 55405078118, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "w-gearhardt-photographs-photographs-of-newport-bea", 
     "url_oac": "", 
@@ -397,8 +355,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "ARTStor", 
     "harvest_extra_data": "", 
     "slug": "frank-cancian-photographs-of-orange-county-housecl", 
     "url_oac": "", 
@@ -415,8 +371,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 478150656, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "early-campus-photograph-albums-the-early-campus-ph", 
     "url_oac": "", 
@@ -433,8 +387,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 623843999744, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "university-communications-images", 
     "url_oac": "", 
@@ -451,8 +403,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 17072495001, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "eugene-loring-films-video-files-from-the-various-s", 
     "url_oac": "", 
@@ -469,8 +419,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 112742891520, 
-    "hosted": "Locally (Canto Cumulus)", 
     "harvest_extra_data": "", 
     "slug": "michael-merrifield-videos", 
     "url_oac": "", 
@@ -487,8 +435,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "duc-nguyen-video-footage-for-bolinao-52-raw-video", 
     "url_oac": "", 
@@ -505,8 +451,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 596639744, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "hugh-everett-iii-manuscripts-scanned-original-docu", 
     "url_oac": "", 
@@ -523,8 +467,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 183500800, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "jaded-magazines-jaded-an-alternative-media-magazin", 
     "url_oac": "", 
@@ -541,8 +483,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 311427072, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "paul-de-man-manuscripts-the-unpublished-manuscript", 
     "url_oac": "", 
@@ -559,8 +499,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "raymond-l-watson-born-digital-files-and-digitzed-s", 
     "url_oac": "", 
@@ -579,8 +517,6 @@
     "repository": [
       8
     ], 
-    "extent": 774897664, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "hdl_10575_10", 
     "url_harvest": "http://ucispace.lib.uci.edu/oai/request", 
     "slug": "richard-rorty-born-digital-files-richard-rorty-193", 
@@ -598,8 +534,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (WAS)", 
     "harvest_extra_data": "", 
     "slug": "orange-county-government-information-web-archive-t", 
     "url_oac": "", 
@@ -616,8 +550,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (WAS)", 
     "harvest_extra_data": "", 
     "slug": "salvadoran-presidential-election-march-2009-web-ar", 
     "url_oac": "", 
@@ -634,8 +566,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "mark-poster-papers-mark-poster-is-a-professor-emer", 
     "url_oac": "", 
@@ -652,8 +582,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (UCISpace dspace instance), CDL (Preserved in Merritt)", 
     "harvest_extra_data": "", 
     "slug": "vietnamese-american-oral-history-project-the-vietn", 
     "url_oac": "", 
@@ -670,8 +598,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally", 
     "harvest_extra_data": "", 
     "slug": "quest-for-peace-interviews-the-quest-for-peace-int", 
     "url_oac": "", 
@@ -688,8 +614,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "frank-cancian-photographs-of-main-street-uci-frank", 
     "url_oac": "", 
@@ -706,8 +630,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (Social Science Data Archive)", 
     "harvest_extra_data": "", 
     "slug": "orange-county-surveys-the-special-survey-of-orange", 
     "url_oac": "", 
@@ -724,8 +646,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (audio tape)", 
     "harvest_extra_data": "", 
     "slug": "sam-mcculloch-oral-histories-this-collection-compr", 
     "url_oac": "", 
@@ -742,8 +662,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (eScholarship)", 
     "harvest_extra_data": "", 
     "slug": "escholarship-lauc-i-and-library-staff-research", 
     "url_oac": "", 
@@ -760,8 +678,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (main site), CDL via Calisphere (some content)", 
     "harvest_extra_data": "", 
     "slug": "seaadoc-web-portal-that-consolidates-digitized-con", 
     "url_oac": "", 
@@ -778,8 +694,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally", 
     "harvest_extra_data": "", 
     "slug": "anteater-chronicles-database-with-a-web-front-end", 
     "url_oac": "", 
@@ -796,8 +710,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "bonner-mitchell-i-photographs-and-ephemera", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt996nd0d0/", 
@@ -814,8 +726,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "fort-chaffee-photographs-of-vietnamese-and-cambodi", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt2f59q35j/", 
@@ -832,8 +742,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (Social Science Data Archive)", 
     "harvest_extra_data": "", 
     "slug": "pacific-poll", 
     "url_oac": "", 
@@ -850,8 +758,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (Social Science Data Archive)", 
     "harvest_extra_data": "", 
     "slug": "world-values-survey-vietnam-this-dataset-is-provid", 
     "url_oac": "", 
@@ -868,8 +774,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "frank-anne-photographs-of-southeast-asian-american", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt4p3021fr/", 
@@ -886,8 +790,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "ly-kien-truc-photographs-of-the-hi-tek-demonstrati", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt85801594/", 
@@ -904,8 +806,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "marshall-brigitte-files-on-southeast-asian-refugee", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6dt/", 
@@ -922,8 +822,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "morrison-gayle-files-on-southeast-asian-refugees", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6s2013d1/", 
@@ -940,8 +838,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "project-ngoc-records", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt8z09p8pd/", 
@@ -958,8 +854,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "refugee-forums-collection-on", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt5s2013bp/", 
@@ -976,8 +870,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "southeast-asia-resource-action-center-records", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt467nc6pc/", 
@@ -994,8 +886,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "southeast-asian-archive-vertical-file-collection", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt7j49q6qg/", 
@@ -1012,8 +902,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "southeast-asian-genetics-program-records", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt1h4nb6fb/", 
@@ -1030,8 +918,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "tran-paul-files-on-southeast-asian-refugees", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf8f59p1tg/", 
@@ -1048,8 +934,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "walsh-robert-files-on-southeast-asian-refugee-rese", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt6v19p6sq/", 
@@ -1066,8 +950,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "egan-richard-manuscript-maps-of-orange-county", 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/tf9k4009f8/", 
@@ -1084,8 +966,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "orange-county-californio-families-portrait-photogr", 
     "url_oac": "", 
@@ -1102,8 +982,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "orange-county-rancho-title-abstracts-collection-of", 
     "url_oac": "", 
@@ -1120,8 +998,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "pleasants-family-papers", 
     "url_oac": "", 
@@ -1138,8 +1014,6 @@
       3
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (eScholarship)", 
     "harvest_extra_data": "", 
     "slug": "escholarship-time-will-tell-but-epistemology-wont", 
     "url_oac": "", 
@@ -1156,8 +1030,6 @@
       3
     ], 
     "repository": [], 
-    "extent": 15032385536, 
-    "hosted": "CDL (Merritt for preservation), Third Party (ProQuest for Access)", 
     "harvest_extra_data": "", 
     "slug": "uci-etds", 
     "url_oac": "", 
@@ -1174,8 +1046,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 510027366400, 
-    "hosted": "Local: Network Servers, CDL service: OAC/Calisphere, Third-party: UCB METS server, SDSC SRB storage", 
     "harvest_extra_data": "", 
     "slug": "ruth-and-sherman-lee-institute-for-japanese-art-co", 
     "url_oac": "", 
@@ -1192,8 +1062,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 1879048192, 
-    "hosted": "Local: Network Servers", 
     "harvest_extra_data": "", 
     "slug": "wwii-japanese-american-assembly-center-newsletters", 
     "url_oac": "", 
@@ -1210,8 +1078,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 61203283968, 
-    "hosted": "Local: Network Servers", 
     "harvest_extra_data": "", 
     "slug": "mugbook-merced-county-ca1890-1907-official-arrest", 
     "url_oac": "", 
@@ -1228,8 +1094,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 62277025792, 
-    "hosted": "Local: Network Servers", 
     "harvest_extra_data": "", 
     "slug": "mclean-collection-items-from-private-family-collec", 
     "url_oac": "", 
@@ -1246,8 +1110,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 1073741824, 
-    "hosted": "Local: Network Servers", 
     "harvest_extra_data": "", 
     "slug": "angels-camp-museum-documents-and-artifacts-related", 
     "url_oac": "", 
@@ -1264,8 +1126,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 2791728742, 
-    "hosted": "Local: Network Servers, website", 
     "harvest_extra_data": "", 
     "slug": "chinese-seals-imprints-and-drawings-of-chinese-sea", 
     "url_oac": "", 
@@ -1282,8 +1142,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 536870912, 
-    "hosted": "Local: Network Servers, CDL: Merritt, eScholarship", 
     "harvest_extra_data": "", 
     "slug": "etds-archive-and-make-available-theses-and-dissert", 
     "url_oac": "", 
@@ -1300,8 +1158,6 @@
       4
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "planned: CDL eScholarship", 
     "harvest_extra_data": "", 
     "slug": "us-census-of-manufactures-selected-years-faculty-r", 
     "url_oac": "", 
@@ -1318,8 +1174,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 1073741824, 
-    "hosted": "CDL (eScholarship)", 
     "harvest_extra_data": "", 
     "slug": "soil-resource-inventory-of-sequoia-national-park-c", 
     "url_oac": "", 
@@ -1336,8 +1190,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 80530636800, 
-    "hosted": "Local:Network Servers, CDL: eScholarship", 
     "harvest_extra_data": "", 
     "slug": "journal-of-california-anthropology-complete-run-of", 
     "url_oac": "", 
@@ -1356,8 +1208,6 @@
     "repository": [
       1
     ], 
-    "extent": 80530636800, 
-    "hosted": "Local:Network Servers, CDL: eScholarship", 
     "harvest_extra_data": "ucmercedlibrary_jcgba", 
     "url_harvest": "http://www.escholarship.org/uc/oai", 
     "slug": "journal-of-california-and-great-basin-anthropology", 
@@ -1375,8 +1225,6 @@
       4
     ], 
     "repository": [], 
-    "extent": 56908316672, 
-    "hosted": "Local: Network Servers, CDL: Merritt, OAC/Calisphere", 
     "harvest_extra_data": "", 
     "slug": "henry-o-nightingale-diary-diary-of-civil-war-soldi", 
     "url_oac": "", 
@@ -1393,8 +1241,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 375809638400, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "oral-history-interviews-oral-history-interviews-re", 
     "url_oac": "", 
@@ -1411,8 +1257,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 1073741824, 
-    "hosted": "Flickr", 
     "harvest_extra_data": "", 
     "slug": "university-archives-photographs-photographs-regard", 
     "url_oac": "", 
@@ -1429,8 +1273,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 8589934592, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "sabino-osuna-papers-glass-plate-negatives-of-the-m", 
     "url_oac": "", 
@@ -1447,8 +1289,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Flickr", 
     "harvest_extra_data": "", 
     "slug": "tuskgee-airmen-archive-documents-photographs-regar", 
     "url_oac": "", 
@@ -1465,8 +1305,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 12884901888, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "george-fujimoto-diaries-diaries-kept-by-george-fuj", 
     "url_oac": "", 
@@ -1483,8 +1321,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 3221225472, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "the-highlander-student-newspaper-born-digital-copi", 
     "url_oac": "", 
@@ -1501,8 +1337,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 46170898432, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "oswald-jonas-memorial-collection-documentsimages-r", 
     "url_oac": "", 
@@ -1519,8 +1353,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 1073741824, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "mexican-revolution-photographs-photographs-of-the", 
     "url_oac": "", 
@@ -1537,8 +1369,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 5368709120, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "toms-rivera-archive-photographsdocuments-from-the", 
     "url_oac": "", 
@@ -1555,8 +1385,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 1073741824, 
-    "hosted": "Flickr", 
     "harvest_extra_data": "", 
     "slug": "anne-mccaffrey-papers-documents-from-the-anne-mcca", 
     "url_oac": "", 
@@ -1573,8 +1401,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 1073741824, 
-    "hosted": "Flickr", 
     "harvest_extra_data": "", 
     "slug": "riverside-california-photographs-photographs-regar", 
     "url_oac": "", 
@@ -1591,8 +1417,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "n/a", 
     "harvest_extra_data": "", 
     "slug": "wrca-lippincott-collection-lee-collection-other-pu", 
     "url_oac": "", 
@@ -1609,8 +1433,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "the-citrus-industry-1967-1989-historic-work-relate", 
     "url_oac": "", 
@@ -1627,8 +1449,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 15728640, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "a-history-of-subtropical-fruits-and-nuts-in-califo", 
     "url_oac": "", 
@@ -1645,8 +1465,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 6291456, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "citrus-fruits-and-their-culture-in-kwangtung-provi", 
     "url_oac": "", 
@@ -1663,8 +1481,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 3221225472, 
-    "hosted": "CONTENTdm, Calisphere", 
     "harvest_extra_data": "", 
     "slug": "avery-e-field-collection-photographs-negatives-and", 
     "url_oac": "", 
@@ -1681,8 +1497,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "pre-1600-single-leaf-registry-slr-images-of-manusc", 
     "url_oac": "", 
@@ -1699,8 +1513,6 @@
       5
     ], 
     "repository": [], 
-    "extent": 5368709120, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "ucr-libraries-author-series-video-webcasts-video-f", 
     "url_oac": "", 
@@ -1717,8 +1529,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "wrca-lippincott-collection-los-angeles-aqueduct-ap", 
     "url_oac": "", 
@@ -1735,8 +1545,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "OCLC, Scotty, Melvyl", 
     "harvest_extra_data": "", 
     "slug": "wrca-contentdm-used-oclc-web-tool-to-harvest-catal", 
     "url_oac": "", 
@@ -1753,8 +1561,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (eScholarship)", 
     "harvest_extra_data": "", 
     "slug": "ucr-faculty-publications-research-publications-by", 
     "url_oac": "", 
@@ -1771,8 +1577,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "the-b-traven-collections-at-uc-riverside-libraries", 
     "url_oac": "", 
@@ -1789,8 +1593,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (web-based)", 
     "harvest_extra_data": "", 
     "slug": "citrus-experiment-station-centennial-exhibition-el", 
     "url_oac": "", 
@@ -1807,8 +1609,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (WAS)", 
     "harvest_extra_data": "", 
     "slug": "web-archiving-service-archived-web-pages-of-the-uc", 
     "url_oac": "", 
@@ -1827,8 +1627,6 @@
     "repository": [
       1
     ], 
-    "extent": null, 
-    "hosted": "CDL (eScholarship)", 
     "harvest_extra_data": "wrca", 
     "url_harvest": "http://www.escholarship.org/uc/oai", 
     "slug": "wrca-escholarship-wrca-currently-manages-four-pape", 
@@ -1846,8 +1644,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (WAS)", 
     "harvest_extra_data": "", 
     "slug": "wrca-web-archiving-service-california-water-distri", 
     "url_oac": "", 
@@ -1864,8 +1660,6 @@
       5
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (WAS)", 
     "harvest_extra_data": "", 
     "slug": "wrca-web-archiving-service-sacramento-san-joaquin", 
     "url_oac": "", 
@@ -1882,8 +1676,6 @@
       7
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally using Omeka", 
     "harvest_extra_data": "", 
     "slug": "cholera-collection-pamphlet-collection", 
     "url_oac": "", 
@@ -1900,8 +1692,6 @@
       7
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally using Omeka", 
     "harvest_extra_data": "", 
     "slug": "historic-photos-a-selection-of-historic-photos-fro", 
     "url_oac": "", 
@@ -1918,8 +1708,6 @@
       7
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally, on a website", 
     "harvest_extra_data": "", 
     "slug": "homeopathy-a-selection-of-key-items-of-homeopathy", 
     "url_oac": "", 
@@ -1936,8 +1724,6 @@
       7
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Third-party: DL Consulting hosts our Veridian instance", 
     "harvest_extra_data": "", 
     "slug": "synapse-ucsf-student-newspaper", 
     "url_oac": "", 
@@ -1954,8 +1740,6 @@
       7
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "CDL (Calisphere/OAC)", 
     "harvest_extra_data": "", 
     "slug": "japanese-prints-the-ucsf-japanese-woodblock-print", 
     "url_oac": "", 
@@ -1972,8 +1756,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 4288095348326, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "edvr-images-scanned-ledger-images-used-in-victor-d", 
     "url_oac": "", 
@@ -1990,8 +1772,6 @@
       8
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "special-colections-patron-scanningdigitizing-reque", 
     "url_oac": "", 
@@ -2008,8 +1788,6 @@
       8
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Locally (Omeka server)", 
     "harvest_extra_data": "", 
     "slug": "digitallibraryucsbedu-librarys-digital-collections", 
     "url_oac": "", 
@@ -2026,8 +1804,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 1539316278886, 
-    "hosted": "Local disc storage and at Library of congress", 
     "harvest_extra_data": "", 
     "slug": "edvrnational-jukebox-digitized-78rpm-discs", 
     "url_oac": "", 
@@ -2044,8 +1820,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 1429365116108, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "cylinder-preservation-and-digitization-project-cyl", 
     "url_oac": "", 
@@ -2062,8 +1836,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 1099511627776, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "air-photos-air-photos-held-by-map-and-imagery-lab", 
     "url_oac": "", 
@@ -2080,8 +1852,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 671088640000, 
-    "hosted": "Calisphere; Local storage", 
     "harvest_extra_data": "", 
     "slug": "library-calisphere-collections-chicano-and-asian-a", 
     "url_oac": "", 
@@ -2098,8 +1868,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 12864286044979, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "ongoing-av-preservationdigitization-various-analog", 
     "url_oac": "", 
@@ -2116,8 +1884,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 2199023255552, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "usgs-topos-scanning-75-ca-topo-maps-scanned-for-us", 
     "url_oac": "", 
@@ -2134,8 +1900,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 730144440320, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "el-teatro-campesino-videos-videotapes-from-el-teat", 
     "url_oac": "", 
@@ -2154,8 +1918,6 @@
     "repository": [
       3
     ], 
-    "extent": 590558003200, 
-    "hosted": "Local disc storage; Internet Archive", 
     "harvest_extra_data": "collection:californialightandsound", 
     "url_harvest": "http://archive.org/services/oai2.php", 
     "slug": "california-light-and-sound-participant-contributin", 
@@ -2173,8 +1935,6 @@
       8
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "maps-maps-various-usgs-topos", 
     "url_oac": "", 
@@ -2191,8 +1951,6 @@
       8
     ], 
     "repository": [], 
-    "extent": 1649267441664, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "mil-patron-scanningdigitizing-requests-various-map", 
     "url_oac": "", 
@@ -2209,8 +1967,6 @@
       8
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Local disc storage", 
     "harvest_extra_data": "", 
     "slug": "mil-finding-aids-air-photo-and-map-set-finding-aid", 
     "url_oac": "", 
@@ -2229,8 +1985,6 @@
     "repository": [
       7
     ], 
-    "extent": 365072220160, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "p265101coll10", 
     "url_harvest": "https://server16019.contentdm.oclc.org/cgi-bin/oai.exe", 
     "slug": "lick-observatory-records-images-from-the-lick-obse", 
@@ -2250,8 +2004,6 @@
     "repository": [
       7
     ], 
-    "extent": 214748364800, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "p265101coll30", 
     "url_harvest": "https://server16019.contentdm.oclc.org/cgi-bin/oai.exe", 
     "slug": "branson-decou-digital-collection-glass-plate-negat", 
@@ -2269,8 +2021,6 @@
       9
     ], 
     "repository": [], 
-    "extent": 2147483648, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "regional-oral-histories-transcripts-and-audio-clip", 
     "url_oac": "", 
@@ -2287,8 +2037,6 @@
       9
     ], 
     "repository": [], 
-    "extent": 26843545600, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "performing-arts-collections-photos-from-frank-kofs", 
     "url_oac": "", 
@@ -2305,8 +2053,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm, History Pin", 
     "harvest_extra_data": "", 
     "slug": "ucsc-campus-history-photos-documents-maps-audio-fr", 
     "url_oac": "", 
@@ -2323,8 +2069,6 @@
       9
     ], 
     "repository": [], 
-    "extent": 3298534883328, 
-    "hosted": "Hosted in CONTENTdm (not public), also in locally-hosted Omeka (public)", 
     "harvest_extra_data": "", 
     "slug": "grateful-dead-records-scanned-digital-objects-from", 
     "url_oac": "", 
@@ -2341,8 +2085,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm (not public), also in locally-hosted Omeka (public)", 
     "harvest_extra_data": "", 
     "slug": "herb-greene-photographs-photos-of-1960s-and-70s-ro", 
     "url_oac": "", 
@@ -2359,8 +2101,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "organic-farmingsustainable-ag-oral-histories-oral", 
     "url_oac": "", 
@@ -2377,8 +2117,6 @@
       9
     ], 
     "repository": [], 
-    "extent": 214748364800, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "ucsc-map-collections-local-and-historical-maps-san", 
     "url_oac": "", 
@@ -2395,8 +2133,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "ucsc-aerial-photograph-collection-regional-aerial", 
     "url_oac": "", 
@@ -2413,8 +2149,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "dibblee-geologic-maps-purchased-geologic-map-colle", 
     "url_oac": "", 
@@ -2431,8 +2165,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "santa-cruz-county-historical-photographs-local-pho", 
     "url_oac": "", 
@@ -2449,8 +2181,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "Hosted in CONTENTdm", 
     "harvest_extra_data": "", 
     "slug": "hihn-younger-archive-transcribed-deeds-and-letters", 
     "url_oac": "", 
@@ -2467,8 +2197,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "ARTStor", 
     "harvest_extra_data": "", 
     "slug": "instructional-image-collection-scanned-copystand-s", 
     "url_oac": "", 
@@ -2485,8 +2213,6 @@
       9
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "ARTStor", 
     "harvest_extra_data": "", 
     "slug": "history-of-costume-collection-scanned-publisher-co", 
     "url_oac": "", 
@@ -2503,8 +2229,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "earthquake-and-fire-digital-collection-the-1906-sa", 
     "url_oac": "", 
@@ -2521,8 +2245,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "cased-photographs-the-cased-photographs-project-pr", 
     "url_oac": "", 
@@ -2539,8 +2261,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "disability-rights-movement-the-world-view-on-disab", 
     "url_oac": "", 
@@ -2557,8 +2277,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "honeyman-collection-the-robert-b-honeyman-jr-colle", 
     "url_oac": "", 
@@ -2575,8 +2293,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "days-of-cal-a-virtual-tour-through-the-history-of", 
     "url_oac": "", 
@@ -2593,8 +2309,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "the-chinese-in-california-the-materials-selected-a", 
     "url_oac": "", 
@@ -2611,8 +2325,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "uc-history-digital-archives-this-websource-prototy", 
     "url_oac": "", 
@@ -2629,8 +2341,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "california-loyalty-oath-digital-collection-the-cal", 
     "url_oac": "", 
@@ -2647,8 +2357,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "eecs-technical-reports-the-eecs-technical-memorand", 
     "url_oac": "", 
@@ -2665,8 +2373,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "statistics-reports-technical-reports-preprints-for", 
     "url_oac": "", 
@@ -2683,8 +2389,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "anthrohub-anthrohub-includes-full-text-journals-an", 
     "url_oac": "", 
@@ -2703,8 +2407,6 @@
     "repository": [
       6
     ], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "bsmsp", 
     "url_harvest": "http://projecteuclid.org/DPubS", 
     "slug": "berkeley-symposium-on-mathematical-statistics-and", 
@@ -2722,8 +2424,6 @@
       1
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_type": "LA",
     "harvest_extra_data": "", 
     "slug": "wieslander-vegetation-type-maps-photographs-in-192", 
@@ -2743,8 +2443,6 @@
     "repository": [
       3
     ], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "collection:cawaterres", 
     "url_harvest": "http://archive.org/services/oai2.php", 
     "slug": "bulletin-of-calif-dept-of-water-resources-the-bull", 
@@ -2762,8 +2460,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "motion-picture-stills-american-motion-picture-film", 
     "url_oac": "", 
@@ -2782,8 +2478,6 @@
     "repository": [
       5
     ], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_type": "OAC", 
     "harvest_extra_data": "latimes", 
     "url_harvest": "http://digital2.library.ucla.edu/oai2_0.do", 
@@ -2802,8 +2496,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "los-angeles-daily-news-negatives-collection-consis", 
     "url_oac": "", 
@@ -2820,8 +2512,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "neutra-richard-and-dion-collections-a-collection-o", 
     "url_oac": "", 
@@ -2838,8 +2528,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "huxley-aldous-papers-collection-consists-of-digiti", 
     "url_oac": "", 
@@ -2858,8 +2546,6 @@
     "repository": [
       5
     ], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_type": "OAI", 
     "harvest_extra_data": "aidsposters", 
     "url_harvest": "http://digital2.library.ucla.edu/oai2_0.do", 
@@ -2878,8 +2564,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "arkatov-collection-of-photographs-of-musicians-pho", 
     "url_oac": "", 
@@ -2896,8 +2580,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ucla-historic-photographs-a-collection-photographs", 
     "url_oac": "", 
@@ -2914,8 +2596,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "bruman-map-collections-the-henry-j-bruman-map-coll", 
     "url_oac": "", 
@@ -2932,8 +2612,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "weber-mark-collection-a-collection-of-jazz-writer", 
     "url_oac": "", 
@@ -2950,8 +2628,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ucla-preserved-silent-animation-although-best-know", 
     "url_oac": "", 
@@ -2968,8 +2644,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ca-73-additional-collections-photographs-bound-man", 
     "url_oac": "", 
@@ -2986,8 +2660,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ucla-center-for-oral-history-research-ucla-library", 
     "url_oac": "", 
@@ -3004,8 +2676,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "chicano-studies-research-center", 
     "url_oac": "", 
@@ -3022,8 +2692,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ethnomusicology-archive-d-k-wilgus-archive-the-dk", 
     "url_oac": "", 
@@ -3040,8 +2708,6 @@
       10
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "internet-archive-collections-large-number-of-books", 
     "url_oac": "", 
@@ -3058,8 +2724,6 @@
       4
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "song-gis-web-archive-for-digital-gazetteer-of-song", 
     "url_oac": "", 
@@ -3076,8 +2740,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "advertising-artwork-of-dr-seuss-sketches-and-drawi", 
     "url_oac": "", 
@@ -3094,8 +2756,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "dr-seuss-went-to-war-a-collection-of-political-car", 
     "url_oac": "", 
@@ -3112,8 +2772,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "southworth-spanish-civil-war-collection-selections", 
     "url_oac": "", 
@@ -3132,8 +2790,6 @@
     "repository": [
       4
     ], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_type": "OAC", 
     "harvest_extra_data": "mscl_scheffler", 
     "url_harvest": "http://oai.ucsd.edu/Oai/Oai-script", 
@@ -3152,8 +2808,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "roger-keesing-papers-melanesian-archive-keesing-wa", 
     "url_oac": "", 
@@ -3170,8 +2824,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "sylvester-m-lambert-papers-melanesian-archive-this", 
     "url_oac": "", 
@@ -3188,8 +2840,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "scripps-images-selections-from-the-scripps-institu", 
     "url_oac": "", 
@@ -3206,8 +2856,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "visual-front-spanish-civil-war-posters-selections", 
     "url_oac": "", 
@@ -3224,8 +2872,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "shots-of-war-selections-documenting-spains-second", 
     "url_oac": "", 
@@ -3242,8 +2888,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "harry-crosby-collection-black-white-photographs-of", 
     "url_oac": "", 
@@ -3260,8 +2904,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "marquis-mcdonald-photographs-selections-documentin", 
     "url_oac": "", 
@@ -3278,8 +2920,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "howard-e-gulick-papers-photographs-of-baja-califor", 
     "url_oac": "", 
@@ -3296,8 +2936,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "call-to-arms-communist-ephemera-of-madrid-during-t", 
     "url_oac": "", 
@@ -3314,8 +2952,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "estado-que-manifiesta-el-que-tenian-las-misiones-d", 
     "url_oac": "", 
@@ -3332,8 +2968,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "missions-of-alta-california-images-from-the-series", 
     "url_oac": "", 
@@ -3350,8 +2984,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ucsd-history-oral-histories-50th-anniversary-oral", 
     "url_oac": "", 
@@ -3368,8 +3000,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "korean-posters-66-political-posters-purchased-by-j", 
     "url_oac": "", 
@@ -3386,8 +3016,6 @@
       6
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "paul-g-pickowicz-collection-of-chinese-cultural-re", 
     "url_oac": "", 
@@ -3404,8 +3032,6 @@
       7
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "cholera-collection-pamphlet-collection-2", 
     "url_oac": "", 
@@ -3422,8 +3048,6 @@
       8
     ], 
     "repository": [], 
-    "extent": null, 
-    "hosted": "", 
     "harvest_extra_data": "", 
     "slug": "ucsb-libraries-digital-collections-librarys-digita", 
     "url_oac": "", 
@@ -3435,14 +3059,12 @@
   "model": "library_collection.collection", 
   "fields": {
     "enrichments_item": "", 
-    "hosted": "", 
     "campus": [], 
     "url_oac": "http://www.oac.cdlib.org/findaid/ark:/13030/kt3v19r7v6", 
     "repository": [], 
     "url_harvest": "http://http://dsc.cdlib.org/search?facet=type-tab&style=cui&raw=1&relation=ark:/13030/kt3v19r7v6", 
     "description": "", 
     "harvest_type": "OAC", 
-    "extent": null, 
     "slug": "a-is-for-atom-b-is-for-bomb-video-tape", 
     "name": "\"A is for atom, B is for bomb\" video tape", 
     "url_local": "", 
