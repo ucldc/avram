@@ -5,51 +5,123 @@
 Playing around with a django app for managing a registry of UC Libraries
 Digital Collections.
 
-## notes
+## Installation
 
+### Clone repo:
+
+```sh
+cd ~/Projects       # or wherever you like to put source code
+git clone git@github.com:ucldc/avram.git
 ```
-virtualenv -p python3 --no-site-packages .
-source bin/activate
+
+### Make sure you're running Python 3.7.16:
+
+Install pyenv https://github.com/pyenv/pyenv, then run 
+
+```sh
+cd ~/Projects/avram     # or wherever you cloned this repo
+python --version        # should be Python 3.7.16, if not:
+pyenv install 3.7.16
+pyenv rehash
+python --version        # should be Python 3.7.16
+pyenv version-origin    # should be avram/.python-version
+```
+
+### Create virtual environment and install Avram requirements
+
+```sh
+cd ~/Projects/avram
+python3 -m venv ~/.envs/registry
+source ~/.envs/registry/bin/activate
 pip install -r requirements.txt
 ```
 
-Install exhibit application - the exhibit app code can be placed anywhere, as long as a link is established from `exhibitapp/exhibits/` to `avram/exhibits/`, here I've put the avram and exhibitapp folders next to each other. 
+### Install Exhibit Application
+The exhibit app code can be placed anywhere, as long as a link is established from `exhibitapp/exhibits/` to `avram/exhibits/`, here I've put the avram and exhibitapp folders next to each other. 
 
-```
-cd ..
-git clone https://github.com/ucldc/exhibitapp.git
+```sh
+cd ~/Projects
+git clone git@github.com:ucldc/exhibitapp.git
 cd exhibitapp
 pip install -r requirements.txt
+brew install libmagic           # https://pypi.org/project/python-magic/
 cd ../avram
 ln -s ../exhibitapp/exhibits/
 cp env.local.in env.local
 ```
 
 Modify env.local with solr connection details then:
-```
+```sh
 source env.local
 ```
 
-Using msyql? add:
+### Install Publishing Projects Application
+The publishing projects app code can be placed anywhere, as long as a link is established from `publishing_projects/` to `avram/publishing_projects`, here I've put the avram and publishing_project folders next to each other.
 
+```sh
+cd ~Projects
+git clone git@github.com:ucldc/publishing_projects.git
+cd avram
+ln -s ../publishing_projects
 ```
+
+### Install OAI Application
+The OAI app code can be placed anywhere, as long as a link is established from `oaiapp/oai` to `avram/oai`, here I've put the avram and oai folders next to each other.
+
+```sh
+cd ~Projects
+git clone git@github.com:ucldc/oaiapp.git
+cd avram
+ln -s ../oaiapp/oai
+```
+
+### [Optional] Using msyql? add:
+
+```sh
 pip install MySQL-python==1.2.4
 ```
 
-## load
+## Data Setup
 
-```
+### Create the database: 
+```sh
 python manage.py migrate
-python manage.py loaddata library_collection/fixtures/campus.json
-python manage.py loaddata library_collection/fixtures/collection.json
-python manage.py loaddata exhibits/fixtures/exhibits-2019-07-01-browseterm-retirement.json
+```
+
+### Dump data from a production instance:
+```sh
+python manage.py dumpdata library_collection -a --format=json --indent=2 --natural-foreign --natural-primary -o library_collection.json
+
+python manage.py dumpdata exhibits -a --format=json --indent=2 --natural-foreign --natural-primary -o exhibits.json
+
+python manage.py dumpdata oai -a --format=json --indent=2 --natural-foreign --natural-primary -o oai.json
+
+python manage.py dumpdata publishing_projects -a --format=json --indent=2 --natural-foreign --natural-primary -o publishing_projects.json
+```
+
+scp it to your local machine
+
+### Load data
+```sh
+python manage.py loaddata fixtures/library_collection.json
+python manage.py loaddata fixtures/exhibits.json
+python manage.py loaddata fixtures/publishing_projects.json
+python manage.py loaddata fixtures/oai.json
+```
+
+### Load static files
+```sh
 python manage.py collectstatic
-
 ```
 
+### Create super user
+```sh
+python manage.py createsuperuser --settings=collection_registry.test_settings
 ```
-export DJANGO_SETTINGS_MODULE=collection_registry.test_settings
-# python library_collection/util/sync_oac_repositories.py
+
+### Run dev server
+```sh
+python manage.py runserver --settings=collection_registry.test_settings
 ```
 
 ## Test:
@@ -58,14 +130,6 @@ The remoteuser shibboleth login won't work when testing. Use the collection_regi
 ```
 python manage.py test --settings=collection_registry.test_settings  library_collection
 ```
-
-This also works for local development.
-
-```
-python manage.py runserver --settings=collection_registry.test_settings
-```
- 
-
 
 License
 -------
