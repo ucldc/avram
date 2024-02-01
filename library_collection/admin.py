@@ -1,25 +1,17 @@
 # -*- coding: utf-8 -*-
-import datetime
 from django.contrib import admin
 from django import forms
-from library_collection.duration_widget import MultiValueDurationField
-from library_collection.models import Campus, Repository, \
-    Collection, CollectionCustomFacet
-from library_collection.admin_actions import queue_harvest_normal_stage, \
-    queue_image_harvest_normal_stage, queue_sync_couchdb, \
-    set_ready_for_publication, queue_delete_from_solr_normal_production, \
-    queue_sync_to_solr_normal_production, queue_sync_to_solr_normal_stage, \
-    queue_deep_harvest_normal_stage, queue_delete_from_solr_normal_stage, \
-    queue_deep_harvest_replace_normal_stage, \
-    queue_delete_couchdb_collection_stage, \
-    queue_delete_couchdb_collection_production, export_as_csv, \
-    retrieve_solr_counts, retrieve_metadata_density, set_for_rikolti_etl
+from library_collection.models import (
+    Campus, Repository, Collection, CollectionCustomFacet)
+from library_collection.admin_actions import (
+    set_ready_for_publication, export_as_csv, retrieve_solr_counts, 
+    retrieve_metadata_density, set_for_rikolti_etl)
+from library_collection.rikolti_actions import harvest_collection
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
-from django.db.models import F
 from rangefilter.filters import DateRangeFilter, NumericRangeFilter
 
 # Add is_active & date_joined to User admin list view
@@ -235,19 +227,20 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         set_for_rikolti_etl,
         retrieve_solr_counts,
         export_as_csv,
-        queue_harvest_normal_stage,
-        queue_image_harvest_normal_stage,
-        queue_deep_harvest_normal_stage,
-        queue_deep_harvest_replace_normal_stage,
-        queue_sync_to_solr_normal_stage,
-        queue_sync_couchdb,
-        queue_sync_to_solr_normal_production,
-        queue_delete_couchdb_collection_stage,
-        queue_delete_from_solr_normal_stage,
-        queue_delete_couchdb_collection_production,
-        queue_delete_from_solr_normal_production,
+        # queue_harvest_normal_stage,
+        # queue_image_harvest_normal_stage,
+        # queue_deep_harvest_normal_stage,
+        # queue_deep_harvest_replace_normal_stage,
+        # queue_sync_to_solr_normal_stage,
+        # queue_sync_couchdb,
+        # queue_sync_to_solr_normal_production,
+        # queue_delete_couchdb_collection_stage,
+        # queue_delete_from_solr_normal_stage,
+        # queue_delete_couchdb_collection_production,
+        # queue_delete_from_solr_normal_production,
         set_ready_for_publication,
-        retrieve_metadata_density
+        retrieve_metadata_density,
+        harvest_collection,
     ]
 
     fieldsets = (
