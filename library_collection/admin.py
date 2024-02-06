@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django import forms
+from django.utils.safestring import mark_safe
 from library_collection.models import (
-    Campus, Repository, Collection, CollectionCustomFacet)
+    Campus, Repository, Collection, CollectionCustomFacet, HarvestTrigger)
 from library_collection.admin_actions import (
     set_ready_for_publication, export_as_csv, retrieve_solr_counts, 
     retrieve_metadata_density, set_for_rikolti_etl)
-from library_collection.rikolti_actions import harvest_collection
+from library_collection.rikolti_actions import harvest_collection_set
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -154,6 +155,19 @@ class CollectionCustomFacetInline(admin.StackedInline):
     model = CollectionCustomFacet
     fk_name = 'collection'
 
+class CollectionHarvestTriggerInline(admin.TabularInline):
+    model = HarvestTrigger
+    def airflow_link(self, instance):
+        return mark_safe(
+            f"<a href='{instance.dag_run_link}'>{instance.dag_run_id}</a>"
+        )
+    airflow_link.short_description = 'Airflow Link'
+
+    fields = ('dag_run_id', 'airflow_execution_time', 'dag_id', 'airflow_link')
+    readonly_fields = ['dag_run_id', 'airflow_execution_time', 'dag_id', 'airflow_link']
+    can_delete = False
+    show_change_link = True
+    fk_name = 'collection'
 
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -169,7 +183,7 @@ class CollectionAdminForm(forms.ModelForm):
 
 class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
-    inlines = [CollectionCustomFacetInline, ]
+    inlines = [CollectionCustomFacetInline, CollectionHarvestTriggerInline]
     form = CollectionAdminForm
 
     def campuses(self):
@@ -195,15 +209,13 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     solr_count_str.admin_order_field = 'solr_count'
 
     def metadata_report_link(self):
-        return (
+        return mark_safe(
             f"<a href='https://calisphere.org/collections/"
             f"{self.id}/metadata'>metadata report</a>"
         )
     metadata_report_link.short_description = 'Metadata Report'
-    metadata_report_link.allow_tags = True
 
     def solr_last_updated(self):
-        print(self.solr_last_updated)
         return self.solr_last_updated
     solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
 
@@ -240,7 +252,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         # queue_delete_from_solr_normal_production,
         set_ready_for_publication,
         retrieve_metadata_density,
-        harvest_collection,
+        harvest_collection_set,
     ]
 
     fieldsets = (
@@ -308,6 +320,17 @@ class RepositoryAdmin(admin.ModelAdmin):
         return False
 
 
+class HarvestTriggerAdmin(admin.ModelAdmin):
+    def airflow_link(self):
+        return mark_safe(
+            f"<a href='{self.dag_run_link}'>{self.dag_run_id}</a>"
+        )
+    airflow_link.short_description = 'Airflow Link'
+
+    list_display = ('collection', 'dag_run_id', airflow_link, 'dag_id')
+    pass
+
+admin.site.register(HarvestTrigger, HarvestTriggerAdmin)
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
 admin.site.register(Repository, RepositoryAdmin)
