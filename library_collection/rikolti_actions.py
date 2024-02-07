@@ -74,7 +74,7 @@ def harvest_collection_set(modeladmin, request, queryset):
     user_message = '<br/>'.join(user_message)
     modeladmin.message_user(request, mark_safe(
         f"Started {successful_triggers} of {len(queryset)} "
-        "harvests: <br/>{user_message}"
+        f"harvests: <br/>{user_message}"
     ), level=message_level)
 
 harvest_collection_set.short_description = 'Harvest the collection[s]'
