@@ -2,9 +2,9 @@ import base64
 import os
 import re
 
-from collections import namedtuple
 from typing import NamedTuple
 from datetime import datetime
+from django.conf import settings
 
 import boto3
 import requests
@@ -25,14 +25,26 @@ class MwaaDagTrigger(NamedTuple):
     logical_date: datetime
 
 
+def assume_role(role_arn, role_session_name):
+    session = boto3.session.Session()
+    sts = session.client('sts')
+    resp = sts.assume_role(
+        RoleArn=role_arn,
+        RoleSessionName=role_session_name
+    )
+    cred = resp['Credentials']
+    subsession = boto3.session.Session(
+        aws_access_key_id=cred['AccessKeyId'],
+        aws_secret_access_key=cred['SecretAccessKey'],
+        aws_session_token=cred['SessionToken'],
+        region_name='us-west-2'
+    )
+    return subsession
+
+
 def get_mwaa_cli_token():
-    aws_access = {
-        "aws_access_key_id": os.environ.get('AWS_ACCESS_KEY_ID'),
-        "aws_secret_access_key": os.environ.get('AWS_SECRET_ACCESS_KEY'),
-        "aws_session_token": os.environ.get('AWS_SESSION_TOKEN'),
-        "region_name": 'us-west-2',
-    }
-    mwaa_client = boto3.client('mwaa', **aws_access)
+    session = assume_role(settings.MWAA_REGISTRY_ROLE_ARN, 'registry-access')
+    mwaa_client = session.client('mwaa')
     resp = mwaa_client.create_cli_token(Name="pad-airflow-mwaa")
     mwaa_token = resp.get('CliToken')
     mwaa_hostname = resp.get('WebServerHostname')
