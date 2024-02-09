@@ -18,3 +18,5 @@ DATABASES = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+MWAA_REGISTRY_ROLE_ARN = os.environ.get('MWAA_REGISTRY_ROLE_ARN', '')
