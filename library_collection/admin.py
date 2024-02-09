@@ -316,10 +316,6 @@ class CampusAdmin(admin.ModelAdmin):
 class RepositoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-
 class HarvestTriggerAdmin(admin.ModelAdmin):
     def airflow_link(self):
         return mark_safe(
