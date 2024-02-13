@@ -5,6 +5,7 @@ from django.urls import reverse
 from .human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 from collections import namedtuple
+from urllib.parse import urlencode
 
 
 class Campus(models.Model):
@@ -375,6 +376,12 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
+    def admin_url(self):
+        return reverse(
+            'admin:library_collection_collection_change', 
+            kwargs={'object_id': self.id}
+        )
+
     def get_absolute_url(self):
         return reverse('detail',
             kwargs={'colid': self.id, 'col_slug': str(self.slug)})
@@ -439,6 +446,76 @@ class Repository(models.Model):
                 except ObjectDoesNotExist:
                     pass
         return super(Repository, self).save(*args, **kwargs)
+
+
+class HarvestTrigger(models.Model):
+    '''Model to track harvest triggers for collections'''
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    dag_id = models.CharField(max_length=255)
+    hostname = models.CharField(max_length=255)
+    stdout = models.TextField(blank=True)
+    stderr = models.TextField(blank=True)
+
+    dag_run_id = models.CharField(max_length=255, blank=True, null=True)
+    airflow_execution_time = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        if self.dag_run_id:
+            return self.dag_run_id
+        else:
+            return "No dag_run_id, check stdout for details"
+    
+    @property
+    def dag_run_link(self):
+        query = {"dag_run_id": self.dag_run_id}
+        link = (
+            f"https://{self.hostname}/dags/{self.dag_id}/"
+            f"grid?&{urlencode(query)}"
+        )
+        return link
+    
+    def admin_url(self):
+        return reverse(
+            'admin:library_collection_harvesttrigger_change', 
+            kwargs={'object_id': self.id}
+        )
+
+AIRFLOW_STATES = [
+    ("deferred","deferred"),
+    ("failed","failed"),
+    ("queued","queued"),
+    ("removed","removed"),
+    ("restarting","restarting"),
+    ("running","running"),
+    ("scheduled","scheduled"),
+    ("shutdown","shutdown"),
+    ("skipped","skipped"),
+    ("success","success"),
+    ("up_for_reschedule","up for reschedule"),
+    ("up_for_retry","up for retry"),
+    ("upstream_failed","upstream failed"),
+    ("no_status","no status"),
+]
+class HarvestRun(models.Model):
+    '''Model to track harvest runs for collections'''
+    harvest_trigger = models.ForeignKey(HarvestTrigger, on_delete=models.CASCADE)
+
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True, blank=True)
+
+    status = models.CharField(
+        max_length=24, choices=AIRFLOW_STATES, default='X')
+
+    notes = models.TextField(blank=True)
+
+    # Copilot thought these might be useful
+    # num_records = models.IntegerField(null=True, blank=True)
+    # num_new_records = models.IntegerField(null=True, blank=True)
+    # num_updated_records = models.IntegerField(null=True, blank=True)
+    # num_deleted_records = models.IntegerField(null=True, blank=True)
+    # num_error_records = models.IntegerField(null=True, blank=True)
+    # num_skipped_records = models.IntegerField(null=True, blank=True)
+
 
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.

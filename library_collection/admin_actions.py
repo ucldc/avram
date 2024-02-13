@@ -473,8 +473,6 @@ retrieve_metadata_density.short_description = 'Retrieve metadata density'
 
 
 def export_as_csv(modeladmin, request, queryset):
-    queryset = queryset.filter(ready_for_publication=True)
-
     field_names = ['id', 'name', 'url_local', 'url_oac',
                    'description', 'url_harvest', 'harvest_extra_data']
     header_row = ['id', 'name', 'Collection homepage URL', 'OAC URL',
