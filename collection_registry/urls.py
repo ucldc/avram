@@ -4,7 +4,7 @@ from library_collection.models import Collection, Campus
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView
 from django.contrib.sitemaps import views as sitemaps_views
 # from ajax_select import urls as ajax_select_urls
 from django.contrib.sitemaps import GenericSitemap
@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
     url(r'^cal-cultures/', calCultures, name="cal-cultures"),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/', auth_views.login, name='login'),
+    url(r'^accounts/login/', LoginView.as_view(), name='login'),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     url(r'^', include('library_collection.urls'), name='registry'),
 ]

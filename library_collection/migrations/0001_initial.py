@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255, verbose_name=b'Collection Title')),
-                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=(b'name', b'description'), editable=False, blank=True)),
+                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=('name', 'description'), editable=False, blank=True)),
                 ('description', models.TextField(blank=True)),
                 ('local_id', models.CharField(help_text=b'used for google analytics subsetting', max_length=1028, blank=True)),
                 ('url_local', models.URLField(help_text=b'Collection homepage URL', max_length=255, blank=True)),
@@ -73,7 +73,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255)),
-                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=b'name', editable=False, blank=True)),
+                ('slug', django_extensions.db.fields.AutoSlugField(populate_from='name', editable=False, blank=True)),
                 ('ark', models.CharField(max_length=255, blank=True)),
                 ('google_analytics_tracking_code', models.CharField(help_text=b'Enable tracking of your digital assets hosted in the UCLDC by entering your Google Analytics tracking code.', max_length=64, blank=True)),
                 ('campus', models.ManyToManyField(to='library_collection.Campus', null=True, blank=True)),

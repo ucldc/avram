@@ -28,6 +28,7 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
 DJANGO_CACHE_TIMEOUT = int(getenv('DJANGO_CACHE_TIMEOUT', 60 * 15))  # seconds
 
