@@ -480,43 +480,6 @@ class HarvestTrigger(models.Model):
             kwargs={'object_id': self.id}
         )
 
-AIRFLOW_STATES = [
-    ("deferred","deferred"),
-    ("failed","failed"),
-    ("queued","queued"),
-    ("removed","removed"),
-    ("restarting","restarting"),
-    ("running","running"),
-    ("scheduled","scheduled"),
-    ("shutdown","shutdown"),
-    ("skipped","skipped"),
-    ("success","success"),
-    ("up_for_reschedule","up for reschedule"),
-    ("up_for_retry","up for retry"),
-    ("upstream_failed","upstream failed"),
-    ("no_status","no status"),
-]
-class HarvestRun(models.Model):
-    '''Model to track harvest runs for collections'''
-    harvest_trigger = models.ForeignKey(HarvestTrigger, on_delete=models.CASCADE)
-
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField(null=True, blank=True)
-
-    status = models.CharField(
-        max_length=24, choices=AIRFLOW_STATES, default='X')
-
-    notes = models.TextField(blank=True)
-
-    # Copilot thought these might be useful
-    # num_records = models.IntegerField(null=True, blank=True)
-    # num_new_records = models.IntegerField(null=True, blank=True)
-    # num_updated_records = models.IntegerField(null=True, blank=True)
-    # num_deleted_records = models.IntegerField(null=True, blank=True)
-    # num_error_records = models.IntegerField(null=True, blank=True)
-    # num_skipped_records = models.IntegerField(null=True, blank=True)
-
-
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
 # Redistribution and use in source and binary forms, with or without
