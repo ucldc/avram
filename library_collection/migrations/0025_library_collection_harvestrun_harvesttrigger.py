@@ -6,8 +6,6 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    replaces = [('library_collection', '0025_library_collection_harvestrun'), ('library_collection', '0026_auto_20240205_1920')]
-
     dependencies = [
         ('library_collection', '0024_auto_20231219_1408'),
     ]
