@@ -22,10 +22,14 @@ class Command(BaseCommand):
             for sqs_message in messages['Messages']:
                 sns_message = json.loads(sqs_message.pop('Body'))
                 event_msg = json.loads(sns_message.pop('Message'))
+                sns_timestamp = sns_message['Timestamp']
 
                 run = HarvestRun.objects.get_or_create_from_event(**event_msg)
                 event_msg.update({
                     'harvest_run': run,
+                    'sqs_message': sqs_message,
+                    'sns_message': sns_message,
+                    'sns_timestamp': sns_timestamp,
                 })
                 event = HarvestEvent.objects.create_from_event(**event_msg)
                 # print(

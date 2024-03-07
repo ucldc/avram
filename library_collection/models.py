@@ -8,6 +8,7 @@ from .human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 from collections import namedtuple
 from urllib.parse import urlencode
+from django.utils.dateparse import parse_datetime
 
 
 class Campus(models.Model):
@@ -561,7 +562,8 @@ class HarvestRun(models.Model):
 
 class HarvestEventManager(models.Manager):
     def create_from_event(self, harvest_run, task_id, try_number, map_index,
-                          rikolti_message, **kwargs):
+                          rikolti_message, sqs_message, sns_message,
+                          sns_timestamp, **kwargs):
         '''Create a HarvestEvent object from a HarvestRun and a Rikolti message
         '''
         error = False
@@ -581,6 +583,9 @@ class HarvestEventManager(models.Manager):
             map_index=map_index,
             rikolti_message=json.dumps(rikolti_message),
             error=error,
+            sqs_message=json.dumps(sqs_message),
+            sns_message=json.dumps(sns_message),
+            sns_timestamp=parse_datetime(sns_timestamp),
         )
         return event
 
@@ -595,6 +600,11 @@ class HarvestEvent(models.Model):
     map_index = models.IntegerField(blank=True, null=True)
     rikolti_message = models.TextField()
     error = models.BooleanField(default=False)
+    sns_timestamp = models.DateTimeField(blank=True, null=True)
+
+    # For Debugging
+    sqs_message = models.TextField(blank=True)
+    sns_message = models.TextField(blank=True)
 
     objects = HarvestEventManager()
 
