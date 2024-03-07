@@ -6,6 +6,27 @@ from django.core.management.base import BaseCommand
 from library_collection.models import HarvestEvent, HarvestRun
 
 
+def determine_run_status(run):
+    '''Determine the status of a HarvestRun based on a Rikolti message
+    '''
+    most_recent_event = run.most_recent_event()
+    rikolti_message = json.loads(most_recent_event.rikolti_message)
+
+    if not isinstance(rikolti_message, dict):
+        run.status = "running"
+    else: 
+        dag_complete = rikolti_message.get('dag_complete')
+        if dag_complete:
+            run.status = "succeeded"
+        elif dag_complete is False:
+            run.status = "failed"
+        else:
+            run.status = "running"
+
+    run.save()
+    return run
+
+
 class Command(BaseCommand):
     help = 'Rikolti status'
 
@@ -32,6 +53,7 @@ class Command(BaseCommand):
                     'sns_timestamp': sns_timestamp,
                 })
                 event = HarvestEvent.objects.create_from_event(**event_msg)
+                determine_run_status(run)
                 # print(
                 #     f"successfully created {run} and {event} from {event_msg}")
 
