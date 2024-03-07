@@ -116,7 +116,34 @@ class HarvestEventAdmin(admin.ModelAdmin):
     ]
 
 
+class HarvestRunHarvestEventInline(admin.TabularInline):
+    model = HarvestEvent
+    readonly_fields = [
+        'display_status', 
+        'display_date', 
+        'harvest_event_link', 
+        'airflow_event_link'
+    ]
+    fields = tuple(readonly_fields)
+    ordering = ('-sns_timestamp',)
+
+    can_delete = False
+    show_change_link = False
+    extra = 0
+    max_num = 0
+
+    @admin.display(description="Harvest Event")
+    def harvest_event_link(self, instance):
+        return make_link(
+            instance.admin_url(), f"{instance.task_display()}")
+
+    def airflow_event_link(self, instance):
+        return make_link(instance.event_airflow_url(), 'Airflow Logs', '_blank')
+
+
 class HarvestRunAdmin(admin.ModelAdmin):
+    inlines = [HarvestRunHarvestEventInline]
+
     list_display = (
         'display_status',
         'run_str',
@@ -170,6 +197,64 @@ class HarvestRunAdmin(admin.ModelAdmin):
         description = (
             f"Most recent event: {event_link} - See event in {event_airflow}")
         return mark_safe(f"{box} {description}")
+
+
+class CollectionHarvestRunInline(admin.TabularInline):
+    model = HarvestRun
+
+    fields = (
+        'display_status', 
+        'harvest_run_link', 
+        'dag_run_airflow_link',
+        'most_recent_event',
+        'most_recent_event_datetime',
+        'most_recent_event_logs',
+    )
+    readonly_fields = [
+        'display_status', 
+        'harvest_run_link', 
+        'dag_run_airflow_link',
+        'most_recent_event',
+        'most_recent_event_datetime',
+        'most_recent_event_logs',
+    ]
+
+    can_delete = False
+    show_change_link = False
+    extra = 0
+    max_num = 0
+
+    @admin.display(description="Harvest Run")
+    def harvest_run_link(self, instance):
+        return make_link(
+            instance.admin_url(), f"{instance.dag_id}: {instance.display_date}")
+
+    @admin.display(description="Airflow Dag Run Id", ordering="dag_run_id")
+    def dag_run_airflow_link(self, instance):
+        return make_link(
+            instance.dag_run_airflow_url(), instance.dag_run_id, '_blank')
+
+    @admin.display(description="Most Recent Event")
+    def most_recent_event(self, instance):
+        event = instance.most_recent_event()
+        event_link = make_link(
+            event.admin_url(), f"{event.task_display()} {event.display_date}"
+        )
+        return event_link
+
+    @admin.display(description="Most Recent Event Time")
+    def most_recent_event_datetime(self, instance):
+        event = instance.most_recent_event()
+        return event.display_date
+
+    @admin.display(description="Most Recent Event Logs")
+    def most_recent_event_logs(self, instance):
+        event = instance.most_recent_event()
+        return make_link(
+            event.event_airflow_url(), 
+            f"{event.task_display()} logs", 
+            '_blank'
+        )
 
 
 class MerrittSetup(SimpleListFilter):
@@ -333,7 +418,11 @@ class CollectionAdminForm(forms.ModelForm):
 
 class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     # http://stackoverflow.com/a/11321942/1763984
-    inlines = [CollectionCustomFacetInline, CollectionHarvestTriggerInline]
+    inlines = [
+        CollectionCustomFacetInline, 
+        CollectionHarvestTriggerInline, 
+        CollectionHarvestRunInline
+    ]
     form = CollectionAdminForm
 
     def campuses(self):
