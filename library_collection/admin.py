@@ -17,6 +17,7 @@ from django.http import HttpResponseRedirect
 from rangefilter.filters import DateRangeFilter, NumericRangeFilter
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
+from django.utils import timezone
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
@@ -489,10 +490,13 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return super().get_queryset(request).annotate(
             sortable_most_recent_harvestrun_status=(
                 models.Subquery(harvest_events.values('harvest_run__status')[:1])),
+            most_recent_harvestrun_id=(
+                models.Subquery(harvest_events.values('harvest_run__id')[:1])),
             sortable_most_recent_harvestevent_datetime=(
                 models.Subquery(harvest_events.values('sns_timestamp')[:1])),
-            most_recent_harvestrun_id=(
-                models.Subquery(harvest_events.values('harvest_run__id')[:1]))
+            most_recent_harvestevent_id=(
+                models.Subquery(harvest_events.values('id')[:1])
+            )
         )
 
     @admin.display(
@@ -510,7 +514,16 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
             description="Most Recent Event Time",
             ordering="sortable_most_recent_harvestevent_datetime")
     def most_recent_event_datetime(self, instance):
-        return instance.sortable_most_recent_harvestevent_datetime
+        event = HarvestEvent.objects.get(
+            id=instance.most_recent_harvestevent_id)
+        event_time = instance.sortable_most_recent_harvestevent_datetime
+        event_time = event_time.astimezone(timezone.get_current_timezone())
+        event_link = make_link(
+            event.admin_url(), event_time.strftime('%b %-d, %Y, %I:%M %p'))
+
+        run = HarvestRun.objects.get(id=instance.most_recent_harvestrun_id)
+        run_link = make_link(run.admin_url(), run.dag_id)
+        return mark_safe(f"{event_link}<br/>({run_link})")
 
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
