@@ -480,6 +480,68 @@ class HarvestTrigger(models.Model):
             kwargs={'object_id': self.id}
         )
 
+
+class HarvestRun(models.Model):
+    RUNNING = 'running'
+    SUCCEEDED = 'succeeded'
+    FAILED = 'failed'
+    STATUS_CHOICES = (
+        (RUNNING, "running"),
+        (SUCCEEDED, "succeeded"),
+        (FAILED, "failed")
+    )
+
+    collection = models.ForeignKey(
+        Collection, blank=True, null=True, on_delete=models.SET_NULL)
+    harvest_trigger = models.ForeignKey(
+        HarvestTrigger, blank=True, null=True, on_delete=models.PROTECT)
+    dag_id = models.CharField(max_length=255)
+    dag_run_id = models.CharField(max_length=255)
+    logical_date = models.DateTimeField()
+    dag_run_conf = models.TextField(blank=True, null=True)
+    status = models.CharField(
+        choices=STATUS_CHOICES,
+        max_length=255,
+        default=RUNNING,
+        verbose_name="Manually update status",
+    )
+
+    def __str__(self):
+        if not self.collection:
+            return (f"{self.dag_id}: {self.logical_date}")
+        return (f"{self.collection.id}: {self.dag_id}: {self.logical_date}")
+
+    def admin_url(self):
+        return reverse(
+            'admin:library_collection_harvestrun_change',
+            kwargs={'object_id': self.id}
+        )
+
+
+class HarvestEvent(models.Model):
+    '''Model to track harvest events for collections'''
+    collection = models.ForeignKey(
+        Collection, blank=True, null=True, on_delete=models.SET_NULL)
+    harvest_run = models.ForeignKey(HarvestRun, on_delete=models.PROTECT)
+    task_id = models.CharField(max_length=255, blank=True, null=True)
+    try_number = models.IntegerField(blank=True, null=True)
+    map_index = models.IntegerField(blank=True, null=True)
+    rikolti_message = models.TextField()
+    error = models.BooleanField(default=False)
+
+    def __str__(self):
+        if not self.collection:
+            return f"{self.harvest_run.dag_id}: {self.task_id}"
+        return (
+            f"{self.collection.id}: {self.harvest_run.dag_id}: {self.task_id}")
+
+    def admin_url(self):
+        return reverse(
+            'admin:library_collection_harvestevent_change',
+            kwargs={'object_id': self.id}
+        )
+
+
 # Copyright © 2016, Regents of the University of California
 # All rights reserved.
 # Redistribution and use in source and binary forms, with or without
