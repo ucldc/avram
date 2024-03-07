@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import json
+
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django.urls import reverse
@@ -481,6 +483,43 @@ class HarvestTrigger(models.Model):
         )
 
 
+class HarvestRunManager(models.Manager):
+    def get_or_create_from_event(self, dag_id, dag_run_id, logical_date, 
+                                 dag_run_conf, **kwargs):
+        '''Get or create a HarvestRun object from an sns message
+        '''
+        # TODO: create many HarvestRuns from a single event in the case of
+        # airflow-side batching - other dag_run_conf fields to consider:
+        # ['mapper_type', 'rikolti_mapper_type', 'registry_api_queryset', 
+        #  'limit', 'offset']
+        collection_id = dag_run_conf.get('collection_id')
+        if collection_id:
+            collection = Collection.objects.get(id=collection_id)
+        else:
+            collection = None
+
+        triggers = HarvestTrigger.objects.filter(
+            dag_id=kwargs.get('dag_id'),
+            dag_run_id=kwargs.get('dag_run_id'),
+            airflow_execution_time=kwargs.get('logical_date')
+        )
+        if len(triggers) == 1:
+            harvest_trigger = triggers.first()
+        else:
+            harvest_trigger = None
+
+        run, created = HarvestRun.objects.get_or_create(
+            collection=collection,
+            harvest_trigger=harvest_trigger,
+            dag_id=dag_id,
+            dag_run_id=dag_run_id,
+            logical_date=logical_date,
+            dag_run_conf=dag_run_conf,
+        )
+
+        return run
+
+
 class HarvestRun(models.Model):
     RUNNING = 'running'
     SUCCEEDED = 'succeeded'
@@ -506,6 +545,8 @@ class HarvestRun(models.Model):
         verbose_name="Manually update status",
     )
 
+    objects = HarvestRunManager()
+
     def __str__(self):
         if not self.collection:
             return (f"{self.dag_id}: {self.logical_date}")
@@ -518,6 +559,32 @@ class HarvestRun(models.Model):
         )
 
 
+class HarvestEventManager(models.Manager):
+    def create_from_event(self, harvest_run, task_id, try_number, map_index,
+                          rikolti_message, **kwargs):
+        '''Create a HarvestEvent object from a HarvestRun and a Rikolti message
+        '''
+        error = False
+        if 'error' in rikolti_message:
+            error = rikolti_message['error']
+        
+        if 'dag_complete' in rikolti_message:
+            task_id = None
+            try_number = None
+            map_index = None
+
+        event = HarvestEvent.objects.create(
+            harvest_run=harvest_run,
+            collection=harvest_run.collection,
+            task_id=task_id,
+            try_number=try_number,
+            map_index=map_index,
+            rikolti_message=json.dumps(rikolti_message),
+            error=error,
+        )
+        return event
+
+
 class HarvestEvent(models.Model):
     '''Model to track harvest events for collections'''
     collection = models.ForeignKey(
@@ -528,6 +595,8 @@ class HarvestEvent(models.Model):
     map_index = models.IntegerField(blank=True, null=True)
     rikolti_message = models.TextField()
     error = models.BooleanField(default=False)
+
+    objects = HarvestEventManager()
 
     def __str__(self):
         if not self.collection:
