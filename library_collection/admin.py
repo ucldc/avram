@@ -208,7 +208,7 @@ class HarvestRunAdmin(admin.ModelAdmin):
         'harvest_trigger',
         'verbose_status'
     ]
-    fields = tuple(readonly_fields) + ('status',)
+    fields = tuple(readonly_fields) + ('status','host',)
 
     @admin.display(ordering='status', description="status")
     def verbose_status(self, instance):

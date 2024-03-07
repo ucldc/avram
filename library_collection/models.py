@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django.urls import reverse
-from .human_to_bytes import bytes2human
+# from .human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 from collections import namedtuple
 from urllib.parse import urlencode
@@ -501,7 +501,7 @@ def make_status_box(href, text, color):
 
 class HarvestRunManager(models.Manager):
     def get_or_create_from_event(self, dag_id, dag_run_id, logical_date, 
-                                 dag_run_conf, **kwargs):
+                                 dag_run_conf, host, **kwargs):
         '''Get or create a HarvestRun object from an sns message
         '''
         # TODO: create many HarvestRuns from a single event in the case of
@@ -531,6 +531,7 @@ class HarvestRunManager(models.Manager):
             dag_run_id=dag_run_id,
             logical_date=logical_date,
             dag_run_conf=dag_run_conf,
+            host=host
         )
 
         return run
@@ -554,6 +555,7 @@ class HarvestRun(models.Model):
     dag_run_id = models.CharField(max_length=255)
     logical_date = models.DateTimeField()
     dag_run_conf = models.TextField(blank=True, null=True)
+    host = models.CharField(max_length=255, blank=True, null=True)
     status = models.CharField(
         choices=STATUS_CHOICES,
         max_length=255,
@@ -593,7 +595,7 @@ class HarvestRun(models.Model):
 
     def dag_run_airflow_url(self):
         query = {"dag_run_id": self.dag_run_id}
-        link = f"http://127.0.0.1:8080/dags/{self.dag_id}/grid?&{urlencode(query)}"
+        link = f"{self.host}/dags/{self.dag_id}/grid?&{urlencode(query)}"
         return link
 
     def admin_url(self):
@@ -708,7 +710,7 @@ class HarvestEvent(models.Model):
             query.update({"map_index": self.map_index, "tab": "logs"})
 
         link = (
-            f"http://127.0.0.1:8080/dags/{self.harvest_run.dag_id}"
+            f"{self.harvest_run.host}/dags/{self.harvest_run.dag_id}"
             f"/grid?&{urlencode(query)}"
         )
         return link
