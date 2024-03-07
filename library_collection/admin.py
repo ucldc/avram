@@ -148,10 +148,30 @@ class HarvestRunAdmin(admin.ModelAdmin):
         'display_status',
         'run_str',
         'display_date',
+        'most_recent_event_datetime',
         'collection_link',
         'dag_run_airflow_link',
     )
     list_display_links = ['run_str']
+    # setting a default order using "ordering" seems to be limited to actual
+    # model fields, we can't set a default ordering using a queryset annotation,
+    # so use order_by in get_queryset to define a default order for list_display
+    # ordering = ('-sortable_most_recent_event_datetime',)
+
+    def get_queryset(self, request):
+        # When getting the HarvestRun queryset, add a Subquery expression to 
+        # annotate the queryset with the most recent harvest event datetime
+        # to permit sorting of the list_display by most recent event datetime
+        harvest_events = (
+            HarvestEvent.objects
+                .filter(harvest_run_id=models.OuterRef('id'))
+                .order_by('-sns_timestamp')
+        )
+
+        return super().get_queryset(request).annotate(
+            sortable_most_recent_event_datetime=(
+                models.Subquery(harvest_events.values('sns_timestamp')[:1])),
+        ).order_by('-sortable_most_recent_event_datetime')
 
     @admin.display(description="Harvest Run", ordering='dag_id')
     def run_str(self, instance):
@@ -159,6 +179,12 @@ class HarvestRunAdmin(admin.ModelAdmin):
             return f"{instance.collection.id}: {instance.dag_id}"
         else:
             return f"{instance.dag_id}"
+
+    @admin.display(
+            description="Most Recent Event Time", 
+            ordering="sortable_most_recent_event_datetime")
+    def most_recent_event_datetime(self, instance):
+        return instance.sortable_most_recent_event_datetime
 
     @admin.display(ordering="collection__name", description="collection")
     def collection_link(self, instance):
@@ -219,10 +245,30 @@ class CollectionHarvestRunInline(admin.TabularInline):
         'most_recent_event_logs',
     ]
 
+    # ordering doesn't work, even with the annotated queryset built below, use
+    # order_by in get_queryset to set a default order for the tabular inline
+    # ordering = ('-sortable_most_recent_event_datetime',)
+
     can_delete = False
     show_change_link = False
     extra = 0
     max_num = 0
+
+    def get_queryset(self, request):
+        # When getting the HarvestRun queryset, add a Subquery expression to
+        # annotate the queryset with the most recent harvest event datetime
+        # to permit sorting of the HarvestRuns by their most recent event
+        # datetimes
+        harvest_events = (
+            HarvestEvent.objects
+                .filter(harvest_run_id=models.OuterRef('id'))
+                .order_by('-sns_timestamp')
+        )
+
+        return super().get_queryset(request).annotate(
+            sortable_most_recent_event_datetime=(
+                models.Subquery(harvest_events.values('sns_timestamp')[:1])),
+        ).order_by('-sortable_most_recent_event_datetime')
 
     @admin.display(description="Harvest Run")
     def harvest_run_link(self, instance):
@@ -242,10 +288,11 @@ class CollectionHarvestRunInline(admin.TabularInline):
         )
         return event_link
 
-    @admin.display(description="Most Recent Event Time")
+    @admin.display(
+            description="Most Recent Event Time", 
+            ordering="most_recent_event_datetime")
     def most_recent_event_datetime(self, instance):
-        event = instance.most_recent_event()
-        return event.display_date
+        return instance.most_recent_event_datetime
 
     @admin.display(description="Most Recent Event Logs")
     def most_recent_event_logs(self, instance):
@@ -425,6 +472,46 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     ]
     form = CollectionAdminForm
 
+    def get_queryset(self, request):
+        # When getting the Collection queryset, add a Subquery expression to
+        # annotate the queryset with the most recent harvest event's harvest run
+        # status, the most recent harvest event's datetime, and the most recent
+        # harvest event's harvest run id, to permit sorting of the list_display
+        # by most recent harvesting events, and most recent harvest run statuses
+        # and to permit display of the harvest run with the most recent event
+        # in the collection list view
+        harvest_events = (
+            HarvestEvent.objects
+                .filter(collection_id=models.OuterRef('id'))
+                .order_by('-sns_timestamp')
+        )
+
+        return super().get_queryset(request).annotate(
+            sortable_most_recent_harvestrun_status=(
+                models.Subquery(harvest_events.values('harvest_run__status')[:1])),
+            sortable_most_recent_harvestevent_datetime=(
+                models.Subquery(harvest_events.values('sns_timestamp')[:1])),
+            most_recent_harvestrun_id=(
+                models.Subquery(harvest_events.values('harvest_run__id')[:1]))
+        )
+
+    @admin.display(
+            description="Status",
+            ordering="sortable_most_recent_harvestrun_status")
+    def most_recent_harvestrun_status(self, instance):
+        if instance.most_recent_harvestrun_id:
+            harvest_run = HarvestRun.objects.get(
+                id=instance.most_recent_harvestrun_id)
+            return harvest_run.display_status()
+        else:
+            return '-'
+    
+    @admin.display(
+            description="Most Recent Event Time",
+            ordering="sortable_most_recent_harvestevent_datetime")
+    def most_recent_event_datetime(self, instance):
+        return instance.sortable_most_recent_harvestevent_datetime
+
     def campuses(self):
         return ", ".join([x.__str__() for x in self.campus.all()])
     campuses.short_description = "Campus"
@@ -458,12 +545,15 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return self.solr_last_updated
     solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
 
-    list_display = ('name', campuses, repositories,
+    list_display = ('most_recent_harvestrun_status', 
+                    'most_recent_event_datetime',
+                    'name', campuses, repositories,
                     numeric_key, 'date_last_harvested', has_description,
                     'mapper_type', 'rikolti_mapper_type',
                     solr_count_str, solr_last_updated,
                     metadata_report_link, 'metadata_density_score',
                     'metadata_density_score_last_updated')
+    list_display_links = ['name']
     list_filter = [
         'campus', SolrCountFilter,
         ('solr_count', NumericRangeFilter), 'ready_for_publication',
