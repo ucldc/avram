@@ -7,3 +7,4 @@ django-webtest==1.9.11
 mock==5.1.0
 aws-xray-sdk==2.12.1
 django-admin-rangefilter==0.12.0
+django-json-widget==1.1.1

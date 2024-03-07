@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
+from django.contrib import admin
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django.urls import reverse
@@ -8,7 +9,9 @@ from .human_to_bytes import bytes2human
 from django.core.exceptions import ObjectDoesNotExist
 from collections import namedtuple
 from urllib.parse import urlencode
+from django.utils import timezone
 from django.utils.dateparse import parse_datetime
+from django.utils.safestring import mark_safe
 
 
 class Campus(models.Model):
@@ -484,6 +487,18 @@ class HarvestTrigger(models.Model):
         )
 
 
+def make_status_box(href, text, color):
+    box = f"""
+        <a href='{href}' target='_blank' alt='{text}'
+           style='
+               display: inline-block; 
+               height: 12px; width: 12px; 
+               border-radius: 2px; 
+               background-color: {color};'></a>
+        """
+    return mark_safe(box)
+
+
 class HarvestRunManager(models.Manager):
     def get_or_create_from_event(self, dag_id, dag_run_id, logical_date, 
                                  dag_run_conf, **kwargs):
@@ -609,10 +624,60 @@ class HarvestEvent(models.Model):
     objects = HarvestEventManager()
 
     def __str__(self):
+        event_str = (
+            f"{self.harvest_run.dag_id}: {self.task_display()} {self.display_date}"
+        )
         if not self.collection:
-            return f"{self.harvest_run.dag_id}: {self.task_id}"
-        return (
-            f"{self.collection.id}: {self.harvest_run.dag_id}: {self.task_id}")
+            return event_str
+        return (f"{self.collection.id}: {event_str}")
+
+    @property
+    @admin.display(description="Event Timestamp", ordering="sns_timestamp")
+    def display_date(self):
+        dt = self.sns_timestamp.astimezone(timezone.get_current_timezone())
+        display_dt = timezone.datetime.strftime(dt, "%b %d, %Y, %-I:%M:%S %p %Z")
+        return display_dt
+
+    @property
+    @admin.display(description="Event Timestamp", ordering="sns_timestamp")
+    def utc_date(self):
+        return self.logical_date.strftime('%Y-%m-%d %H:%M:%S %Z')
+
+    def task_display(self):
+        if self.task_id and self.map_index != -1:
+            task = f"{self.task_id} [{self.map_index}]: try {self.try_number}"
+        elif self.task_id:
+            task = f"{self.task_id}: try {self.try_number}"
+        elif 'dag_complete' in self.rikolti_message:
+            task = "dag run complete"
+        else:
+            task = '-'
+        return task
+
+    @admin.display(description="Status", ordering="error")
+    def display_status(self):
+        alt_text = "Airflow Logs"
+        if self.error:
+            color = 'red'
+        else:
+            color= 'green'
+        return make_status_box(self.event_airflow_url(), alt_text, color)
+
+    def event_airflow_url(self):
+        query = {"dag_run_id": self.harvest_run.dag_run_id}
+
+        if self.task_id:
+            query.update({"task_id": self.task_id, "tab": "logs"})
+        if self.try_number:
+            query.update({"try_number": self.try_number, "tab": "logs"})
+        if self.map_index and self.map_index != '-1':
+            query.update({"map_index": self.map_index, "tab": "logs"})
+
+        link = (
+            f"http://127.0.0.1:8080/dags/{self.harvest_run.dag_id}"
+            f"/grid?&{urlencode(query)}"
+        )
+        return link
 
     def admin_url(self):
         return reverse(
