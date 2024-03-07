@@ -4,7 +4,7 @@ from django import forms
 from django.utils.safestring import mark_safe
 from library_collection.models import (
     Campus, Repository, Collection, CollectionCustomFacet, HarvestTrigger,
-    HarvestEvent)
+    HarvestEvent, HarvestRun)
 from library_collection.admin_actions import (
     set_ready_for_publication, export_as_csv, retrieve_solr_counts, 
     retrieve_metadata_density, set_for_rikolti_etl)
@@ -114,6 +114,62 @@ class HarvestEventAdmin(admin.ModelAdmin):
             "fields": ['sqs_message', 'sns_message']
         })
     ]
+
+
+class HarvestRunAdmin(admin.ModelAdmin):
+    list_display = (
+        'display_status',
+        'run_str',
+        'display_date',
+        'collection_link',
+        'dag_run_airflow_link',
+    )
+    list_display_links = ['run_str']
+
+    @admin.display(description="Harvest Run", ordering='dag_id')
+    def run_str(self, instance):
+        if instance.collection:
+            return f"{instance.collection.id}: {instance.dag_id}"
+        else:
+            return f"{instance.dag_id}"
+
+    @admin.display(ordering="collection__name", description="collection")
+    def collection_link(self, instance):
+        if instance.collection:
+            return make_link(
+                instance.collection.admin_url(), instance.collection.name)
+        else:
+            return '-'
+
+    @admin.display(description="Airflow Dag Run Id", ordering="dag_run_id")
+    def dag_run_airflow_link(self, instance):
+        return make_link(
+            instance.dag_run_airflow_url(), instance.dag_run_id, '_blank')
+
+    readonly_fields = [
+        'collection_link', 
+        'dag_id', 
+        'dag_run_airflow_link', 
+        'utc_date', 
+        'dag_run_conf',
+        'harvest_trigger',
+        'verbose_status'
+    ]
+    fields = tuple(readonly_fields) + ('status',)
+
+    @admin.display(ordering='status', description="status")
+    def verbose_status(self, instance):
+        box = instance.display_status()
+        event = instance.most_recent_event()
+
+        event_link = make_link(
+            event.admin_url(), f"{event.task_display()} {event.display_date}")
+        event_airflow = make_link(
+            event.event_airflow_url(), 'airflow', '_blank')
+
+        description = (
+            f"Most recent event: {event_link} - See event in {event_airflow}")
+        return mark_safe(f"{box} {description}")
 
 
 class MerrittSetup(SimpleListFilter):
@@ -420,6 +476,7 @@ class HarvestTriggerAdmin(admin.ModelAdmin):
     list_display = ('collection', 'dag_run_id', airflow_link, 'dag_id')
     pass
 
+admin.site.register(HarvestRun, HarvestRunAdmin)
 admin.site.register(HarvestEvent, HarvestEventAdmin)
 admin.site.register(HarvestTrigger, HarvestTriggerAdmin)
 admin.site.register(Collection, CollectionAdmin)

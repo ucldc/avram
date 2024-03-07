@@ -565,14 +565,48 @@ class HarvestRun(models.Model):
 
     def __str__(self):
         if not self.collection:
-            return (f"{self.dag_id}: {self.logical_date}")
-        return (f"{self.collection.id}: {self.dag_id}: {self.logical_date}")
+            return f"{self.dag_id}: {self.display_date}"
+        return f"{self.collection.id}: {self.dag_id}: {self.display_date}"
+
+    @property
+    @admin.display(description="Dag Run Logical Date", ordering='logical_date')
+    def display_date(self):
+        # logical date is in UTC time, display in local timezone
+        dt = self.logical_date.astimezone(timezone.get_current_timezone())
+        display_dt = timezone.datetime.strftime(dt, "%b %d, %Y, %-I:%M:%S %p %Z")
+        return display_dt
+
+    @property
+    @admin.display(description="Dag Run Logical Date", ordering="logical_date")
+    def utc_date(self):
+        return self.logical_date.strftime('%Y-%m-%d %H:%M:%S %Z')
+
+    @admin.display(description="Status", ordering='status')
+    def display_status(self):
+        alt_text = "Airflow Dag Run Id"
+        color = 'lawngreen'
+        if self.status == 'failed':
+            color = 'red'
+        elif self.status == 'succeeded':
+            color = 'green'
+        return make_status_box(self.dag_run_airflow_url(), alt_text, color)
+
+    def dag_run_airflow_url(self):
+        query = {"dag_run_id": self.dag_run_id}
+        link = f"http://127.0.0.1:8080/dags/{self.dag_id}/grid?&{urlencode(query)}"
+        return link
 
     def admin_url(self):
         return reverse(
             'admin:library_collection_harvestrun_change',
             kwargs={'object_id': self.id}
         )
+
+    def most_recent_event(self):
+        if self.harvestevent_set.exists():
+            return self.harvestevent_set.order_by('-sns_timestamp').first()
+        else:
+            return None
 
 
 class HarvestEventManager(models.Manager):
