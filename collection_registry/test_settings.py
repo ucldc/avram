@@ -1,3 +1,4 @@
+import os
 from .settings import *
 
 MIDDLEWARE = [
@@ -20,3 +21,10 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 MWAA_REGISTRY_ROLE_ARN = os.environ.get('MWAA_REGISTRY_ROLE_ARN', '')
+RIKOLTI_EVENTS_QUEUE_URL = os.environ.get('RIKOLTI_EVENTS_QUEUE_URL', '')
+AWS = {
+    "aws_access_key_id": os.environ.get('AWS_ACCESS_KEY_ID', ''),
+    "aws_secret_access_key": os.environ.get('AWS_SECRET_ACCESS_KEY', ''),
+    "aws_session_token": os.environ.get('AWS_SESSION_TOKEN', ''),
+    "region_name": "us-west-2"
+}
