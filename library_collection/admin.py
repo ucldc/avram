@@ -3,7 +3,8 @@ from django.contrib import admin
 from django import forms
 from django.utils.safestring import mark_safe
 from library_collection.models import (
-    Campus, Repository, Collection, CollectionCustomFacet, HarvestTrigger)
+    Campus, Repository, Collection, CollectionCustomFacet, HarvestTrigger,
+    HarvestEvent)
 from library_collection.admin_actions import (
     set_ready_for_publication, export_as_csv, retrieve_solr_counts, 
     retrieve_metadata_density, set_for_rikolti_etl)
@@ -14,12 +15,105 @@ from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
 from rangefilter.filters import DateRangeFilter, NumericRangeFilter
+from django_json_widget.widgets import JSONEditorWidget
+from django.db import models
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
                           'is_active', 'date_joined', 'is_staff')
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+
+def make_link(href, text, target='_self'):
+    return mark_safe(f"<a href='{href}' target='{target}'>{text}</a>")
+
+
+class HarvestEventAdmin(admin.ModelAdmin):
+    list_display = (
+        'display_status', 
+        'event_str', 
+        'display_date', 
+        'harvest_run_link', 
+        'event_airflow_link'
+    )
+    ordering=('-sns_timestamp',)
+    list_display_links = ['event_str']
+
+    @admin.display(description="Harvest Event", ordering="task_id")
+    def event_str(self, instance):
+        if not instance.collection:
+            return f"{instance.harvest_run.dag_id}: {instance.task_display()}"
+        return (
+            f"{instance.collection.id}: {instance.harvest_run.dag_id}: "
+            f"{instance.task_display()}"
+        )
+
+    @admin.display(description="Harvest Run")
+    def harvest_run_link(self, instance):
+        if not instance.collection:
+            link_text = f"{instance.harvest_run.dag_id}"
+        else:
+            link_text = f"{instance.collection.id}: {instance.harvest_run.dag_id}"
+        return make_link(instance.harvest_run.admin_url(), link_text)
+
+    @admin.display(description="Event in Airflow")
+    def event_airflow_link(self, instance):
+        return make_link(instance.event_airflow_url(), 'Airflow Logs', '_blank')
+
+    readonly_fields = [
+        'collection_link',
+        'harvest_run_link', 
+        'task_id', 
+        'try_number', 
+        'map_index', 
+        'verbose_status', 
+        'display_date',
+    ]
+
+    @admin.display(description="Collection")
+    def collection_link(self, instance):
+        if instance.collection:
+            return make_link(instance.collection.admin_url(), instance.collection)
+        else:
+            return '-'
+
+    @admin.display(description="Status", ordering="error")
+    def verbose_status(self, instance):
+        box = instance.display_status()
+
+        event_airflow = make_link(
+            instance.event_airflow_url(), 'airflow', '_blank')
+        description = (
+            f"See 'rikolti message' below for "
+            f"{'error' if instance.error else 'success'} information - "
+            f"See event in {event_airflow}"
+        )
+
+        return mark_safe(f"{box} {description}")
+
+    formfield_overrides = {
+        models.TextField: {
+            'widget': JSONEditorWidget(
+                height='300px', 
+                width='100%', 
+                options={
+                    'mode': 'view', 
+                    'modes': ['view', 'preview'], 
+                    'mainMenuBar': True, 
+                    'navigationBar': False
+                }
+            )
+        }
+    }
+
+    fieldsets = [
+        (None, {"fields": readonly_fields + ['rikolti_message']}),
+        ('SNS and SQS Details for Debugging', {
+            "classes": ['collapse'],
+            "fields": ['sqs_message', 'sns_message']
+        })
+    ]
 
 
 class MerrittSetup(SimpleListFilter):
@@ -326,6 +420,7 @@ class HarvestTriggerAdmin(admin.ModelAdmin):
     list_display = ('collection', 'dag_run_id', airflow_link, 'dag_id')
     pass
 
+admin.site.register(HarvestEvent, HarvestEventAdmin)
 admin.site.register(HarvestTrigger, HarvestTriggerAdmin)
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Campus, CampusAdmin)
