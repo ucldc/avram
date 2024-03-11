@@ -45,6 +45,11 @@ class Command(BaseCommand):
                 event_msg = json.loads(sns_message.pop('Message'))
                 sns_timestamp = sns_message['Timestamp']
 
+                # TODO: Remove once we've processed all old messages sitting in
+                # the queue
+                if 'host' not in event_msg and 'version' not in event_msg:
+                    event_msg['host'] = 'https://7a8067cb-3b99-477e-a883-7e311175a9b4.c3.us-west-2.airflow.amazonaws.com/'
+
                 run = HarvestRun.objects.get_or_create_from_event(**event_msg)
                 event_msg.update({
                     'harvest_run': run,
