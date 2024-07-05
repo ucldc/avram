@@ -209,7 +209,7 @@ class Collection(models.Model):
     enrichments_item = models.TextField(
         blank=True,
         help_text='Enhancement chain to run on individual harvested items.')
-    ready_for_publication = models.BooleanField(default=False)
+    ready_for_publication = models.BooleanField(default=False, help_text='Deprecated')
     featured = models.BooleanField(
         default=False, help_text='Collection featured on repository home page')
     RIGHTS_CHOICES = (('CR', 'copyrighted'), ('PD', 'public domain'),
@@ -268,6 +268,12 @@ class Collection(models.Model):
         max_digits=5, decimal_places=2, null=True, blank=True)
     metadata_density_score_last_updated = models.DateTimeField(
         null=True, blank=True, help_text='Last time metadata density score was updated')
+    production_target_version = models.CharField(
+        max_length=255, blank=True, help_text=(
+            "s3 path to metadata version to target for production. Updating "
+            "this field will trigger the Publish Collection task."
+        )
+    )
 
     objects = models.Manager()
     published = PublishedCollectionManager()

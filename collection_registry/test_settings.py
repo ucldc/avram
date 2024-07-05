@@ -28,3 +28,11 @@ AWS = {
     "aws_session_token": os.environ.get('AWS_SESSION_TOKEN', ''),
     "region_name": "us-west-2"
 }
+
+OPENSEARCH = {
+    'endpoint': "http://localhost:9200",
+    'user': "admin",
+    'pass': "Rikolti_05",
+    'ignore_tls': True,
+    'aws_region': "us-west-2"
+}
