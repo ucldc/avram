@@ -8,7 +8,8 @@ from library_collection.models import (
 from library_collection.admin_actions import (
     set_ready_for_publication, export_as_csv, retrieve_solr_counts, 
     retrieve_metadata_density, set_for_rikolti_etl)
-from library_collection.rikolti_actions import harvest_collection_set
+from library_collection.rikolti_actions import (
+    harvest_collection_set, publish_collection_set)
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -599,6 +600,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         set_ready_for_publication,
         retrieve_metadata_density,
         harvest_collection_set,
+        publish_collection_set
     ]
 
     def published_versions(self, collection):
