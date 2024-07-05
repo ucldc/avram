@@ -18,6 +18,7 @@ from rangefilter.filters import DateRangeFilter, NumericRangeFilter
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 from django.utils import timezone
+from . import opensearch_client as opensearch
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
@@ -437,6 +438,7 @@ class ActionInChangeFormMixin(object):
 class CollectionCustomFacetInline(admin.StackedInline):
     model = CollectionCustomFacet
     fk_name = 'collection'
+    extra = 0
 
 class CollectionHarvestTriggerInline(admin.TabularInline):
     model = HarvestTrigger
@@ -449,8 +451,10 @@ class CollectionHarvestTriggerInline(admin.TabularInline):
     fields = ('dag_run_id', 'airflow_execution_time', 'dag_id', 'airflow_link')
     readonly_fields = ['dag_run_id', 'airflow_execution_time', 'dag_id', 'airflow_link']
     can_delete = False
-    show_change_link = True
+    show_change_link = False
     fk_name = 'collection'
+    extra = 0
+    max_num = 0
 
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -597,12 +601,42 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         harvest_collection_set,
     ]
 
+    def published_versions(self, collection):
+        return opensearch.get_versions('rikolti-prd', collection)
+
+    def staged_versions(self, collection):
+        return opensearch.get_versions('rikolti-stg', collection)
+
+    def is_successfully_published(self, collection):
+        production_target_version = collection.production_target_version
+        published_versions = opensearch.get_versions('rikolti-prd', collection)
+        if len(published_versions) == 1:
+            published_version = list(published_versions.keys())[0]
+            return production_target_version == published_version
+        else:
+            return False
+
+    def is_published(self, collection):
+        return bool(opensearch.record_count('rikolti-prd', collection))
+
+    def solr_count(self, instance):
+        return instance.solr_count
+
+    def record_count(self, collection):
+        return opensearch.record_count('rikolti-prd', collection)
+
+    readonly_fields = [
+        'published_versions', 'staged_versions', 'is_successfully_published',
+        'is_published', 'solr_count', 'record_count',
+        'production_target_version'
+    ]
+
     fieldsets = (
         (
             'Descriptive Information',
             {
                 'fields': (
-                    ('name', 'ready_for_publication'),
+                    ('name', 'is_published', 'ready_for_publication'),
                     'campus',
                     'repository',
                     'description',
@@ -614,12 +648,23 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                 )
             },
         ), (
+            'Publication Information',
+            {
+                'fields': (
+                    'production_target_version',
+                    'published_versions',
+                    'is_successfully_published',
+                    'staged_versions',
+                    ('record_count', 'solr_count'),
+                )
+            }
+        ), (
             'For Nuxeo Collections',
             {
                 'fields': (('merritt_id', 'merritt_extra_data'),)
             }
         ), (
-            'For Harvest Collections',
+            'Harvesting Information',
             {
                 'fields': (
                     'harvest_type',
@@ -630,7 +675,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'harvest_exception_notes')
             }
         ), (
-            'For enrichment chain',
+            'Enrichment Chain Information',
             {
                 'fields': (
                     'dcmi_type',
