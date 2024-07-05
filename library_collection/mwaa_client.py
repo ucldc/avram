@@ -63,16 +63,13 @@ def parse_cli_resp(resp):
     return MwaaCliResponse(stdout, stderr)
 
 
-def cli_trigger_dag(mwaa, dag_id, collection_id):
+def cli_trigger_dag(mwaa, dag_id, dag_conf):
     url = f"https://{mwaa.hostname}/aws_mwaa/cli"
     headers = {
         "Authorization": f"Bearer {mwaa.token}",
         "Content-Type": "text/plain",
     }
-    data = (
-        f"dags trigger -o yaml {dag_id} -c"
-        f"'{{\"collection_id\": \"{collection_id}\"}}'"
-    )
+    data = f"dags trigger -o yaml {dag_id} -c {dag_conf}"
     resp = requests.post(url, headers=headers, data=data)
     if resp.status_code == 403:
         # maybe our token expired, get a new one and retry:

@@ -4,8 +4,8 @@ from .models import HarvestTrigger
 
 from .mwaa_client import get_mwaa_cli_token, cli_trigger_dag
 
-def trigger_harvest(collection, dag_id, mwaa):
-    mwaa_dag_trigger = cli_trigger_dag(mwaa, dag_id, collection.id)
+def trigger_job(collection, dag_id, mwaa, configuration):
+    mwaa_dag_trigger = cli_trigger_dag(mwaa, dag_id, configuration)
     harvest_trigger = HarvestTrigger(
         collection=collection,
         dag_id=dag_id,
@@ -57,7 +57,8 @@ def harvest_collection_set(modeladmin, request, queryset):
 
     for collection in queryset:
         try:
-            harvest_trigger = trigger_harvest(collection, dag_id, mwaa)
+            configuration = f"'{{\"collection_id\": \"{collection.id}\"}}'"
+            harvest_trigger = trigger_job(collection, dag_id, mwaa, configuration)
             if harvest_trigger.stderr:
                 user_message.append(mwaa_failure_message(harvest_trigger))
                 message_level = messages.WARNING
