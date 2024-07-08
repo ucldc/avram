@@ -84,6 +84,17 @@ def harvest_collection_set(modeladmin, request, queryset):
 harvest_collection_set.short_description = 'Harvest the collection[s]'
 
 
+def valid_staged_version(staged_versions):
+    # verify that staged_version is a list of strings of length 1
+    if isinstance(staged_versions, list) and len(staged_versions) == 1:
+        return staged_versions[0]
+    else:
+        raise ValueError(
+            "Invalid staged_versions, not sure what to publish: "
+            f"{staged_versions}"
+        )
+
+
 def publish_collection_set(modeladmin, request, queryset):
     """Try to trigger the publish_collection DAG for each collection
     in the queryset. Report any errors - both MWAA side and registry side - out
@@ -96,12 +107,16 @@ def publish_collection_set(modeladmin, request, queryset):
     successful_triggers = 0
 
     for collection in queryset:
-        staged_version = opensearch.get_version('rikolti-stg', collection)[0]
-        dag_conf = (
-            f"'{{\"collection_id\": \"{collection.id}\", "
-            f"\"version\": \"{staged_version}\"}}'"
-        )
         try:
+            staged_versions = opensearch.get_version('rikolti-stg', collection)
+            if valid_staged_version(staged_versions):
+                staged_version = staged_versions[0]
+                collection.production_target_version = staged_version
+                collection.save()
+            dag_conf = (
+                f"'{{\"collection_id\": \"{collection.id}\", "
+                f"\"version\": \"{staged_version}\"}}'"
+            )
             harvest_trigger = trigger_job(collection, dag_id, mwaa, dag_conf)
             if harvest_trigger.stderr:
                 user_message.append(mwaa_failure_message(harvest_trigger))
