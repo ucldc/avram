@@ -5,10 +5,10 @@ from django.utils.safestring import mark_safe
 from library_collection.models import (
     Campus, Repository, Collection, CollectionCustomFacet, HarvestTrigger,
     HarvestEvent, HarvestRun)
-from library_collection.admin_actions import (
-    set_ready_for_publication, export_as_csv, retrieve_solr_counts, 
+from library_collection.admin_actions import (export_as_csv,
     retrieve_metadata_density, set_for_rikolti_etl)
-from library_collection.rikolti_actions import harvest_collection_set
+from library_collection.rikolti_actions import (
+    harvest_collection_set, publish_collection_set)
 from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -18,6 +18,7 @@ from rangefilter.filters import DateRangeFilter, NumericRangeFilter
 from django_json_widget.widgets import JSONEditorWidget
 from django.db import models
 from django.utils import timezone
+from . import opensearch_client as opensearch
 
 # Add is_active & date_joined to User admin list view
 UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name',
@@ -391,22 +392,23 @@ class HasDescriptionFilter(SimpleListFilter):
             return queryset.filter(description='')
 
 
-class SolrCountFilter(SimpleListFilter):
-    title = 'Solr Count'
-    parameter_name = 'solr_count'
+# TODO: replace with something similar for OpenSearch
+# class SolrCountFilter(SimpleListFilter):
+#     title = 'Solr Count'
+#     parameter_name = 'solr_count'
 
-    def lookups(self, request, model_admin):
-        return (
-            ('0', 'Empty'),
-            ('1', 'Not Empty'),
-        )
+#     def lookups(self, request, model_admin):
+#         return (
+#             ('0', 'Empty'),
+#             ('1', 'Not Empty'),
+#         )
 
-    def queryset(self, request, queryset):
-        if self.value() == '0':
-            return queryset.filter(solr_count__exact=0)
-        if self.value() == '1':
-            return queryset.filter(solr_count__gt=0)
-        return queryset
+#     def queryset(self, request, queryset):
+#         if self.value() == '0':
+#             return queryset.filter(solr_count__exact=0)
+#         if self.value() == '1':
+#             return queryset.filter(solr_count__gt=0)
+#         return queryset
 
 
 # from: http://stackoverflow.com/questions/2805701/
@@ -437,6 +439,7 @@ class ActionInChangeFormMixin(object):
 class CollectionCustomFacetInline(admin.StackedInline):
     model = CollectionCustomFacet
     fk_name = 'collection'
+    extra = 0
 
 class CollectionHarvestTriggerInline(admin.TabularInline):
     model = HarvestTrigger
@@ -449,8 +452,10 @@ class CollectionHarvestTriggerInline(admin.TabularInline):
     fields = ('dag_run_id', 'airflow_execution_time', 'dag_id', 'airflow_link')
     readonly_fields = ['dag_run_id', 'airflow_execution_time', 'dag_id', 'airflow_link']
     can_delete = False
-    show_change_link = True
+    show_change_link = False
     fk_name = 'collection'
+    extra = 0
+    max_num = 0
 
 class CollectionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -542,11 +547,6 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         return bool(self.description)
     has_description.admin_order_field = 'description'
 
-    def solr_count_str(self):
-        return f'{self.solr_count:,}'
-    solr_count_str.short_description = 'Solr Count'
-    solr_count_str.admin_order_field = 'solr_count'
-
     def metadata_report_link(self):
         return mark_safe(
             f"<a href='https://calisphere.org/collections/"
@@ -554,47 +554,57 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         )
     metadata_report_link.short_description = 'Metadata Report'
 
-    def solr_last_updated(self):
-        return self.solr_last_updated
-    solr_last_updated.short_description = 'Solr-Registry Connection Last Updated'
-
     list_display = ('most_recent_harvestrun_status', 
                     'most_recent_event_datetime',
                     'name', campuses, repositories,
                     numeric_key, 'date_last_harvested', has_description,
                     'mapper_type', 'rikolti_mapper_type',
-                    solr_count_str, solr_last_updated,
                     metadata_report_link, 'metadata_density_score',
                     'metadata_density_score_last_updated')
     list_display_links = ['name']
     list_filter = [
-        'campus', SolrCountFilter,
-        ('solr_count', NumericRangeFilter), 'ready_for_publication',
+        # SolrCountFilter, ('solr_count', NumericRangeFilter), 
+        'campus', 'ready_for_publication',
         NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
         HasDescriptionFilter, 'mapper_type', 'rikolti_mapper_type',
-        ('solr_last_updated', DateRangeFilter),
+        ('date_last_harvested', DateRangeFilter),
         'repository'
     ]
     save_on_top = True
     search_fields = ['name', 'description', 'enrichments_item']
     actions = [
         set_for_rikolti_etl,
-        retrieve_solr_counts,
         export_as_csv,
-        # queue_harvest_normal_stage,
-        # queue_image_harvest_normal_stage,
-        # queue_deep_harvest_normal_stage,
-        # queue_deep_harvest_replace_normal_stage,
-        # queue_sync_to_solr_normal_stage,
-        # queue_sync_couchdb,
-        # queue_sync_to_solr_normal_production,
-        # queue_delete_couchdb_collection_stage,
-        # queue_delete_from_solr_normal_stage,
-        # queue_delete_couchdb_collection_production,
-        # queue_delete_from_solr_normal_production,
-        set_ready_for_publication,
         retrieve_metadata_density,
         harvest_collection_set,
+        publish_collection_set
+    ]
+
+    def published_versions(self, collection):
+        return opensearch.get_versions('rikolti-prd', collection)
+
+    def staged_versions(self, collection):
+        return opensearch.get_versions('rikolti-stg', collection)
+
+    def is_successfully_published(self, collection):
+        production_target_version = collection.production_target_version
+        published_versions = opensearch.get_versions('rikolti-prd', collection)
+        if len(published_versions) == 1:
+            published_version = list(published_versions.keys())[0]
+            return production_target_version == published_version
+        else:
+            return False
+
+    def is_published(self, collection):
+        return bool(opensearch.record_count('rikolti-prd', collection))
+
+    def record_count(self, collection):
+        return opensearch.record_count('rikolti-prd', collection)
+
+    readonly_fields = [
+        'published_versions', 'staged_versions', 'is_successfully_published',
+        'is_published', 'record_count',
+        'production_target_version'
     ]
 
     fieldsets = (
@@ -602,7 +612,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
             'Descriptive Information',
             {
                 'fields': (
-                    ('name', 'ready_for_publication'),
+                    ('name', 'is_published', 'ready_for_publication'),
                     'campus',
                     'repository',
                     'description',
@@ -614,12 +624,23 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                 )
             },
         ), (
+            'Publication Information',
+            {
+                'fields': (
+                    'production_target_version',
+                    'published_versions',
+                    'is_successfully_published',
+                    'staged_versions',
+                    'record_count',
+                )
+            }
+        ), (
             'For Nuxeo Collections',
             {
                 'fields': (('merritt_id', 'merritt_extra_data'),)
             }
         ), (
-            'For Harvest Collections',
+            'Harvesting Information',
             {
                 'fields': (
                     'harvest_type',
@@ -630,7 +651,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'harvest_exception_notes')
             }
         ), (
-            'For enrichment chain',
+            'Enrichment Chain Information',
             {
                 'fields': (
                     'dcmi_type',

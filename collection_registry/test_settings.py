@@ -46,3 +46,11 @@ elif ES_HOST:
     DEFAULT_INDEX = "es"
 else:
     raise AttributeError("No index or thumbnail server specified")
+
+OPENSEARCH = {
+    'endpoint': "http://localhost:9200",
+    'user': "admin",
+    'pass': "Rikolti_05",
+    'ignore_tls': True,
+    'aws_region': "us-west-2"
+}
