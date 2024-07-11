@@ -392,22 +392,23 @@ class HasDescriptionFilter(SimpleListFilter):
             return queryset.filter(description='')
 
 
-class SolrCountFilter(SimpleListFilter):
-    title = 'Solr Count'
-    parameter_name = 'solr_count'
+# TODO: replace with something similar for OpenSearch
+# class SolrCountFilter(SimpleListFilter):
+#     title = 'Solr Count'
+#     parameter_name = 'solr_count'
 
-    def lookups(self, request, model_admin):
-        return (
-            ('0', 'Empty'),
-            ('1', 'Not Empty'),
-        )
+#     def lookups(self, request, model_admin):
+#         return (
+#             ('0', 'Empty'),
+#             ('1', 'Not Empty'),
+#         )
 
-    def queryset(self, request, queryset):
-        if self.value() == '0':
-            return queryset.filter(solr_count__exact=0)
-        if self.value() == '1':
-            return queryset.filter(solr_count__gt=0)
-        return queryset
+#     def queryset(self, request, queryset):
+#         if self.value() == '0':
+#             return queryset.filter(solr_count__exact=0)
+#         if self.value() == '1':
+#             return queryset.filter(solr_count__gt=0)
+#         return queryset
 
 
 # from: http://stackoverflow.com/questions/2805701/
@@ -562,8 +563,8 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'metadata_density_score_last_updated')
     list_display_links = ['name']
     list_filter = [
-        'campus', SolrCountFilter,
-        ('solr_count', NumericRangeFilter), 'ready_for_publication',
+        # SolrCountFilter, ('solr_count', NumericRangeFilter), 
+        'campus', 'ready_for_publication',
         NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
         HasDescriptionFilter, 'mapper_type', 'rikolti_mapper_type',
         ('date_last_harvested', DateRangeFilter),
