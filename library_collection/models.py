@@ -269,7 +269,7 @@ class Collection(models.Model):
     metadata_density_score_last_updated = models.DateTimeField(
         null=True, blank=True, help_text='Last time metadata density score was updated')
     production_target_version = models.CharField(
-        max_length=255, blank=True, help_text=(
+        max_length=512, blank=True, help_text=(
             "s3 path to metadata version to target for production. Updating "
             "this field will trigger the Publish Collection task."
         )
