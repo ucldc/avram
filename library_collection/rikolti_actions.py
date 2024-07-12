@@ -108,7 +108,7 @@ def publish_collection_set(modeladmin, request, queryset):
 
     for collection in queryset:
         try:
-            staged_versions = opensearch.get_version('rikolti-stg', collection)
+            staged_versions = opensearch.get_versions('rikolti-stg', collection)
             if valid_staged_version(staged_versions):
                 staged_version = staged_versions[0]
                 collection.production_target_version = staged_version
