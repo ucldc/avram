@@ -86,8 +86,8 @@ harvest_collection_set.short_description = 'Harvest the collection[s]'
 
 def valid_staged_version(staged_versions):
     # verify that staged_version is a list of strings of length 1
-    if isinstance(staged_versions, list) and len(staged_versions) == 1:
-        return staged_versions[0]
+    if isinstance(staged_versions, dict) and len(staged_versions) == 1:
+        return list(staged_versions.keys())[0]
     else:
         raise ValueError(
             "Invalid staged_versions, not sure what to publish: "
@@ -109,10 +109,9 @@ def publish_collection_set(modeladmin, request, queryset):
     for collection in queryset:
         try:
             staged_versions = opensearch.get_versions('rikolti-stg', collection)
-            if valid_staged_version(staged_versions):
-                staged_version = staged_versions[0]
-                collection.production_target_version = staged_version
-                collection.save()
+            staged_version = valid_staged_version(staged_versions)
+            collection.production_target_version = staged_version
+            collection.save()
             dag_conf = (
                 f"'{{\"collection_id\": \"{collection.id}\", "
                 f"\"version\": \"{staged_version}\"}}'"
