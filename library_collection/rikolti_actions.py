@@ -152,7 +152,7 @@ def unpublish_collection_set(modeladmin, request, queryset):
 
     for collection in queryset:
         try:
-            collection.production_target_version = None
+            collection.production_target_version = ''
             collection.save()
             dag_conf = f"'{{\"collection_id\": \"{collection.id}\"}}'"
             harvest_trigger = trigger_job(collection, dag_id, mwaa, dag_conf)

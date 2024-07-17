@@ -145,12 +145,27 @@ class CollectionCustomFacet(models.Model):
         ('value', 'alphanumeric order')), default='count')
 
 
-class PublishedCollectionManager(models.Manager):
-    def get_queryset(self):
-        return super(PublishedCollectionManager, self).get_queryset().exclude(
-            ready_for_publication=False).exclude(enrichments_item__exact='')
-
 FetchType = namedtuple("FetchType", "registry_code display_name rikolti_code")
+
+
+class CollectionManager(models.Manager):
+    def update_from_event(self, dag_id, dag_run_conf, **kwargs):
+        collection_id = dag_run_conf.get('collection_id')
+        if collection_id:
+            collection = Collection.objects.get(id=collection_id)
+        else:
+            return None
+
+        if dag_id == "publish_collection":
+            event_target_version = dag_run_conf.get('version')
+            if collection.production_target_version != event_target_version:
+                collection.production_target_version = event_target_version
+                collection.save()
+        if dag_id == "unpublish_collection" and collection.production_target_version:
+            collection.production_target_version = ''
+            collection.save()
+        return collection
+
 
 class Collection(models.Model):
     DAMNS = 'D'
@@ -274,8 +289,7 @@ class Collection(models.Model):
         )
     )
 
-    objects = models.Manager()
-    published = PublishedCollectionManager()
+    objects = CollectionManager()
 
     @property
     def enrichment_array(self):
