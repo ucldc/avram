@@ -137,3 +137,42 @@ def publish_collection_set(modeladmin, request, queryset):
     ), level=message_level)
 
 publish_collection_set.short_description = 'Publish staged collection[s]'
+
+
+def unpublish_collection_set(modeladmin, request, queryset):
+    """Try to trigger the publish_collection DAG for each collection
+    in the queryset. Report any errors - both MWAA side and registry side - out
+    to the user via the Admin interface message system."""
+
+    mwaa = get_mwaa_cli_token()
+    dag_id = 'unpublish_collection'
+    user_message = []
+    message_level = messages.SUCCESS
+    successful_triggers = 0
+
+    for collection in queryset:
+        try:
+            collection.production_target_version = None
+            collection.save()
+            dag_conf = f"'{{\"collection_id\": \"{collection.id}\"}}'"
+            harvest_trigger = trigger_job(collection, dag_id, mwaa, dag_conf)
+            if harvest_trigger.stderr:
+                user_message.append(mwaa_failure_message(harvest_trigger))
+                message_level = messages.WARNING
+            else:
+                user_message.append(mwaa_success_message(harvest_trigger))
+                successful_triggers += 1
+        except Exception as e:
+            user_message.append(registry_failure_message(collection, e))
+            message_level = messages.WARNING
+
+    if successful_triggers == 0:
+        message_level = messages.ERROR
+
+    user_message = '<br/>'.join(user_message)
+    modeladmin.message_user(request, mark_safe(
+        f"Started {successful_triggers} of {len(queryset)} "
+        f"unpublish_collection jobs: <br/>{user_message}"
+    ), level=message_level)
+
+unpublish_collection_set.short_description = 'Unpublish collection[s]'
