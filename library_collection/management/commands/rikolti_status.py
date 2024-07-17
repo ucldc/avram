@@ -3,7 +3,7 @@ import boto3
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from library_collection.models import HarvestEvent, HarvestRun
+from library_collection.models import HarvestEvent, HarvestRun, Collection
 
 
 def determine_run_status(run):
@@ -57,7 +57,9 @@ class Command(BaseCommand):
                     'sns_message': sns_message,
                     'sns_timestamp': sns_timestamp,
                 })
-                event = HarvestEvent.objects.create_from_event(**event_msg)
+                HarvestEvent.objects.create_from_event(**event_msg)
+                Collection.objects.update_from_event(**event_msg)
+
                 determine_run_status(run)
                 # print(
                 #     f"successfully created {run} and {event} from {event_msg}")
