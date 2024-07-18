@@ -50,6 +50,8 @@ def get_client():
 
 
 def get_versions(alias, collection: 'Collection'):
+    if not collection.id:
+        return {}
     try:
         client = get_client()
         response = client.search(
@@ -73,13 +75,15 @@ def get_versions(alias, collection: 'Collection'):
         )
     except ConnectionError:
         return f"Unable to connect to OpenSearch @ {settings.OPENSEARCH['endpoint']}"
-    except ValueError as e:
-        return f"Error: {e}"
+    except Exception as e:
+        return f"Error fetching versions from OpenSearch: {e}"
     versions = response['aggregations']['published_versions']['buckets']
     return {v['key']: v['doc_count'] for v in versions}
 
 
 def record_count(alias, collection: 'Collection'):
+    if not collection.id:
+        return 0
     try:
         client = get_client()
         response = client.count(
@@ -94,7 +98,7 @@ def record_count(alias, collection: 'Collection'):
         )
     except ConnectionError:
         return f"Unable to connect to OpenSearch @ {settings.OPENSEARCH['endpoint']}"
-    except ValueError as e:
-        return f"Error: {e}"
+    except Exception as e:
+        return f"Error fetching versions from OpenSearch: {e}"
     return response['count']
 
