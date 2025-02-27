@@ -495,7 +495,7 @@ class HarvestTrigger(models.Model):
         query = {"dag_run_id": self.dag_run_id}
         link = (
             f"https://{self.hostname}/dags/{self.dag_id}/"
-            f"grid?&{urlencode(query)}"
+            f"grid?&{urlencode(query)}&base_date="
         )
         return link
     
