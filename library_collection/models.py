@@ -614,7 +614,7 @@ class HarvestRun(models.Model):
 
     def dag_run_airflow_url(self):
         query = {"dag_run_id": self.dag_run_id}
-        link = f"{self.host}/dags/{self.dag_id}/grid?&{urlencode(query)}"
+        link = f"{self.host}/dags/{self.dag_id}/grid?&{urlencode(query)}&base_date="
         return link
 
     def admin_url(self):
