@@ -12,7 +12,7 @@ from django.contrib.sitemaps import GenericSitemap
 # from django.views.generic.simple import redirect_to
 #from some_app.views import AboutView
 from django.views.generic import TemplateView
-from exhibits.views import calCultures
+# from exhibits.views import calCultures
 
 admin.autodiscover()
 
@@ -31,10 +31,10 @@ sitemaps = {
 
 urlpatterns = [
     url(r'^robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
-    url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
+    # url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
     url(r'^oai/', include('oai.urls', namespace="oai")),
-    url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
-    url(r'^cal-cultures/', calCultures, name="cal-cultures"),
+    # url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
+    # url(r'^cal-cultures/', calCultures, name="cal-cultures"),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', LoginView.as_view(), name='login'),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap, {'sitemaps': sitemaps}, name='sitemap'),

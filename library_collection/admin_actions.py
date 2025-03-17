@@ -8,7 +8,7 @@ import json
 import django.contrib.messages as messages
 from django.http import HttpResponse
 from django.utils import timezone
-from exhibits.cache_retry import SOLR_select
+# from exhibits.cache_retry import SOLR_select
 
 HARVEST_SCRIPT = os.environ.get('HARVEST_SCRIPT', os.environ['HOME'] +
                                 '/code/harvester/queue_harvest.sh')
@@ -422,24 +422,24 @@ queue_delete_couchdb_collection_production.short_description = 'Queue ' \
         'deletion of documents from CouchDB production'
 
 
-def retrieve_solr_counts(modeladmin, request, queryset):
-    collections_search = SOLR_select(
-        facet="true",
-        facet_field="collection_url",
-        facet_limit=-1,
-        rows="0"
-    )
-    collection_facets = collections_search.facet_counts.get(
-        'facet_fields', {}).get('collection_url')
-    for collection in queryset:
-        solr_count = collection_facets.get(collection.url_api, 0)
-        collection.solr_count = solr_count
-        collection.solr_last_updated = timezone.now()
-        collection.save()
-    return None
+# def retrieve_solr_counts(modeladmin, request, queryset):
+#     collections_search = SOLR_select(
+#         facet="true",
+#         facet_field="collection_url",
+#         facet_limit=-1,
+#         rows="0"
+#     )
+#     collection_facets = collections_search.facet_counts.get(
+#         'facet_fields', {}).get('collection_url')
+#     for collection in queryset:
+#         solr_count = collection_facets.get(collection.url_api, 0)
+#         collection.solr_count = solr_count
+#         collection.solr_last_updated = timezone.now()
+#         collection.save()
+#     return None
 
 
-retrieve_solr_counts.short_description = 'Retrieve Solr counts'
+# retrieve_solr_counts.short_description = 'Retrieve Solr counts'
 
 
 def retrieve_metadata_density(modeladmin, request, queryset):

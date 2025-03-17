@@ -135,7 +135,7 @@ TEMPLATES = [
             os.path.join(SITE_ROOT, '..', 'oai', 'templates')
         ),
         'OPTIONS': {
-            'builtins': ["exhibits.templatetags.exhibit_extras"],
+            # 'builtins': ["exhibits.templatetags.exhibit_extras"],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -143,7 +143,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'library_collection.context_processors.active_tab',
                 'library_collection.context_processors.google_verification_code',
-                'exhibits.context_processors.settings'
+                # 'exhibits.context_processors.settings'
             ],
         }
     },
@@ -151,7 +151,7 @@ TEMPLATES = [
 
 # When EXHIBIT_PREVIEW = False, show only exhibits, themes, lesson plans, and essays marked 'published'
 # When EXHIBIT_PREVIEW = True, show ALL exhibits, themes, lesson plans, and essays
-EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW', False))
+# EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW', False))
 THUMBNAIL_URL = getenv('UCLDC_THUMBNAIL_URL',
                           'http://localhost:8888/')  # `python thumbnail.py`
 CALISPHERE = False
@@ -163,7 +163,7 @@ OAI_RESULTS_LIMIT = 100
 OAI_RESUMPTION_TOKEN_SALT = getenv('OAI_RESUMPTION_TOKEN_SALT', 'AAaaBBbbCCcc')
 
 INSTALLED_APPS = (
-    'exhibits.apps.ExhibitsConfig', 
+    # 'exhibits.apps.ExhibitsConfig', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
