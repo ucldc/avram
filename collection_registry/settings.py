@@ -178,7 +178,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'rangefilter',
     'library_collection',
-    'publishing_projects',
+    # 'publishing_projects',
     'oai',
     'django_json_widget',
     # 'rest_framework',
