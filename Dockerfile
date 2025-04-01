@@ -79,6 +79,16 @@ RUN mkdir -p /home/registry/servers/mod_wsgi-express-8000/logs
 COPY ./httpd/registry.conf /home/registry/servers/mod_wsgi-express-8000/registry.conf
 RUN echo "Include /home/registry/servers/mod_wsgi-express-8000/registry.conf" >> /home/registry/servers/mod_wsgi-express-8000/httpd.conf
 
+# Configure shibboleth
+WORKDIR /home/registry
+COPY --chown=registry:registry ./shibboleth/ ./servers/shibboleth/
+COPY --chown=registry:registry ./shibboleth/etc/shibboleth2.xml.stage ./servers/shibboleth/etc/shibboleth2.xml
+COPY --chown=registry:registry ./httpd/shib.conf ./servers/mod_wsgi-express-8000/shib.conf
+RUN curl http://md.incommon.org/certs/inc-md-cert-mdq.pem -o ./servers/shibboleth/etc/inc-md-cert.pem
+RUN echo "Include /home/registry/servers/mod_wsgi-express-8000/shib.conf" >> /home/registry/servers/mod_wsgi-express-8000/httpd.conf
+
+WORKDIR /home/registry/avram
+
 # Expose the application port
 EXPOSE 8000
 
