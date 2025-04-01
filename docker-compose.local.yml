@@ -5,7 +5,7 @@ services:
       context: .
     container_name: registry
     ports:
-      - 80:80
+      - 8000:8000
     environment:
       DJANGO_SETTINGS_MODULE: collection_registry.test_settings
     env_file:

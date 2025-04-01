@@ -13,6 +13,7 @@ RUN dnf install -y \
     tk-devel libffi-devel xz-devel \
     # dev tooling
     which \
+    vi \
     && dnf clean all \
     && rm -rf /var/cache/dnf
 
@@ -69,11 +70,12 @@ RUN python manage.py collectstatic --noinput
 RUN mkdir -p /home/registry/servers
 RUN mod_wsgi-express setup-server \
     /home/registry/avram/collection_registry/wsgi.py \
-    --port=80 \
+    --port=8000 \
     --user registry \
     --group registry \
     --server-root=/home/registry/servers/mod_wsgi-express-8000
 
+RUN mkdir -p /home/registry/servers/mod_wsgi-express-8000/logs
 COPY ./httpd/registry.conf /home/registry/servers/mod_wsgi-express-8000/registry.conf
 RUN echo "Include /home/registry/servers/mod_wsgi-express-8000/registry.conf" >> /home/registry/servers/mod_wsgi-express-8000/httpd.conf
 
