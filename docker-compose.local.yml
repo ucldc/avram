@@ -1,0 +1,12 @@
+services:
+
+  registry-app:
+    build: 
+      context: .
+    container_name: registry
+    ports:
+      - 80:80
+    environment:
+      DJANGO_SETTINGS_MODULE: collection_registry.test_settings
+    env_file:
+      - docker.env
