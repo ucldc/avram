@@ -460,7 +460,7 @@ def retrieve_metadata_density(modeladmin, request, queryset):
         metadata_fields = 0
         for value in metadata_report.values():
             # differentiate between a 0 percent value and a missing value
-            if isinstance(value, dict) and value.get('percent', -1) is not -1:
+            if isinstance(value, dict) and value.get('percent', -1) != -1:
                 metadata_density_total += value['percent']
                 metadata_fields += 1
         metadata_density_score = metadata_density_total / metadata_fields
