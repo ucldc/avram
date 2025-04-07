@@ -65,6 +65,7 @@ RUN ln -s ./oaiapp/oai ./avram/oai
 
 # Collect static files
 WORKDIR /home/registry/avram
+RUN ls -la /home/registry/avram/oai
 RUN python manage.py collectstatic --noinput
 
 # Create the mod_wsgi configuration
