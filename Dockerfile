@@ -1,6 +1,7 @@
-# define an alias for the specific python version used in this file.
+# Dockerfile for the Collection Registry
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
+# Install build dependencies
 RUN dnf install -y \
     git \
     httpd-devel \
@@ -37,8 +38,8 @@ WORKDIR /home/registry
 # Install pyenv and python 3.8.12 as the registry user
 USER registry
 RUN curl -fsSL https://pyenv.run | bash
-ENV PYENV_ROOT "/home/registry/.pyenv"
-ENV PATH "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
+ENV PYENV_ROOT="/home/registry/.pyenv"
+ENV PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 RUN eval "$(pyenv init -)" && pyenv install 3.8
 RUN pyenv global 3.8
 
