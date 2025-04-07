@@ -61,11 +61,11 @@ COPY --chown=registry:registry . /home/registry/avram
 
 # Copy the oaiapp repository
 RUN git clone https://github.com/ucldc/oaiapp ./oaiapp
-RUN ln -s ./oaiapp/oai ./avram/oai
+WORKDIR /home/registry/avram
+RUN ln -s ../oaiapp/oai oai
 
 # Collect static files
-WORKDIR /home/registry/avram
-RUN ls -la /home/registry/avram/oai
+RUN ls -la /home/registry/avram/oai/
 RUN python manage.py collectstatic --noinput
 
 # Create the mod_wsgi configuration
