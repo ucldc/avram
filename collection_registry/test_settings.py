@@ -29,6 +29,24 @@ AWS = {
     "region_name": "us-west-2"
 }
 
+EXHIBITS_SOLR_URL = getenv('UCLDC_EXHIBITS_SOLR_URL','http://localhost:8983/solr')
+EXHIBITS_SOLR_API_KEY = getenv('UCLDC_EXHIBITS_SOLR_API_KEY', '')
+ES_HOST = getenv('ES_HOST', '')
+ES_USER = getenv('ES_USER', '')
+ES_PASS = getenv('ES_PASS', '')
+ES_ALIAS = getenv('ES_ALIAS', '')
+
+MULTI_INDEX = bool(SOLR_URL and ES_HOST)
+if MULTI_INDEX:
+    DEFAULT_INDEX = "es"
+elif SOLR_URL:
+    DEFAULT_INDEX = "solr"
+    THUMBNAIL_URL = SOLR_THUMBNAILS
+elif ES_HOST:
+    DEFAULT_INDEX = "es"
+else:
+    raise AttributeError("No index or thumbnail server specified")
+
 OPENSEARCH = {
     'endpoint': "http://localhost:9200",
     'user': "admin",

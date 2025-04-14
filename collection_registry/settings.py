@@ -154,6 +154,9 @@ TEMPLATES = [
 EXHIBIT_PREVIEW = bool(getenv('UCLDC_EXHIBIT_PREVIEW', False))
 THUMBNAIL_URL = getenv('UCLDC_THUMBNAIL_URL',
                           'http://localhost:8888/')  # `python thumbnail.py`
+SOLR_THUMBNAILS = getenv(
+        'UCLDC_THUMBNAIL_URL_SOLR', getenv(
+            'UCLDC_THUMBNAIL_URL', 'https://calisphere.org/'))
 CALISPHERE = False
 EXHIBIT_TEMPLATE = 'exhibitBase.html'
 SOLR_URL = getenv('UCLDC_SOLR_URL', 'http://localhost:8983/solr')
