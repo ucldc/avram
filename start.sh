@@ -5,7 +5,7 @@ set -o pipefail
 set -o nounset
 
 echo "Starting Apache"
-/apps/registry/servers/mod_wsgi-express-8000/apachectl -D FOREGROUND
+/apps/registry/servers/mod_wsgi-express/apachectl -D FOREGROUND
 
 # mod_wsgi-express start-server /app/avram/collection_registry/wsgi.py \
 #     --user registry \
