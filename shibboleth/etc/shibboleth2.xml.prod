@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config" xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" clockSkew="180">
-  <UnixListener address="/home/registry/servers/shibboleth/var/shibd.sock"/>
+  <UnixListener address="/apps/registry/servers/shibboleth/var/shibd.sock"/>
   <ApplicationDefaults entityID="https://registry.cdlib.org/shibboleth" REMOTE_USER="mail persistent-id targeted-id">
     <Sessions lifetime="28800" timeout="3600" checkAddress="false" relayState="ss:mem" handlerSSL="true" cookieProps="https">
       <!-- https://wiki.shibboleth.net/confluence/display/EDS10/3.1+Configuring+the+Service+Provider#id-31ConfiguringtheServiceProvider-311SPsinstalledsinceVersion24andlater
@@ -16,7 +16,7 @@
      <MetadataProvider type="MDQ" id="incommon" ignoreTransport="true" cacheDirectory="inc-mdq-cache"
         maxCacheDuration="86400" minCacheDuration="60"
         baseUrl="https://mdq.incommon.org/">
-      <MetadataFilter type="Signature" certificate="/home/registry/servers/shibboleth/etc/inc-md-cert-mdq.pem"/>
+      <MetadataFilter type="Signature" certificate="/apps/registry/servers/shibboleth/etc/inc-md-cert-mdq.pem"/>
       <MetadataFilter type="RequireValidUntil" maxValidityInterval="1209600"/>
       <!-- https://atyourserviceonline.ucop.edu/Shibboleth.sso/DiscoFeed -->
       <MetadataFilter type="Whitelist">
@@ -37,10 +37,10 @@
       <TrustEngine type="ExplicitKey"/>
       <TrustEngine type="PKIX"/>
     </TrustEngine>
-    <AttributeExtractor type="XML" validate="true" path="/home/registry/servers/shibboleth/etc/attribute-map.xml"/>
+    <AttributeExtractor type="XML" validate="true" path="/apps/registry/servers/shibboleth/etc/attribute-map.xml"/>
     <AttributeResolver type="Query" subjectMatch="true"/>
     <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
-    <CredentialResolver type="File" key="/home/registry/servers/shibboleth/etc/sp-key.pem" certificate="/home/registry/servers/shibboleth/etc/sp-cert.pem"/>
+    <CredentialResolver type="File" key="/apps/registry/servers/shibboleth/etc/sp-key.pem" certificate="/apps/registry/servers/shibboleth/etc/sp-cert.pem"/>
     <!-- sp-key.pem and sp-cert.pem will be different on each virtual machine -->
   </ApplicationDefaults>
   <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
