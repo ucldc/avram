@@ -13,7 +13,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.c
 cd $DIR
 
 set +u
-source $HOME/python/bin/activate
+source $HOME/venv/bin/activate
 set -u
 
 # run python manage.py rikolti_status every 20 seconds
