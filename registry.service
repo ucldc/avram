@@ -1,0 +1,15 @@
+[Unit]
+Description=Registry apps and services
+After=network.target local-fs.target remote-fs.target nss-lookup.target
+
+[Service]
+User=registry
+Type=forking
+RemainAfterExit=yes
+ExecStart=/bin/bash /apps/registry/avram/ctl_registry_apps.sh start
+ExecReload=/bin/bash /apps/registry/avram/ctl_registry_apps.sh restart
+ExecStop=/bin/bash /apps/registry/avram/ctl_registry_apps.sh stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
