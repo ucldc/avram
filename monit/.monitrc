@@ -1,0 +1,28 @@
+set daemon 30
+#set logfile syslog facility log_daemon
+set logfile /apps/registry/monit/log/monit.log
+
+Include /apps/registry/monit/config/*
+
+set httpd port 28812
+    allow localhost
+    allow 127.0.0.1
+
+
+check process shibd
+    with pidfile "/apps/registry/servers/shibboleth/var/shibd.pid"
+    start program "/apps/registry/monit/shibd-clean-start"
+        with timeout 300 seconds
+    stop program "/apps/registry/monit/shibd-clean-stop"
+    if failed unixsocket
+        /apps/registry/servers/shibboleth/var/shibd.sock
+    then 
+        restart
+
+check process http
+    with pidfile "/apps/registry/servers/mod_wsgi-express/httpd.pid"
+    start program "/apps/registry/servers/mod_wsgi-express/apachectl start"
+    stop program "/apps/registry/servers/mod_wsgi-express/apachectl stop"
+    if failed host dsc-registry-stg.cdlib.org port 443 type TCPSSL protocol http
+    then 
+        restart
