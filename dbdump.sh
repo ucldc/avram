@@ -14,7 +14,7 @@ cd $DIR
 DATE=`date +%Y-%m-%d-%H`
 
 set +u
-source $HOME/python/bin/activate
+source $HOME/venv/bin/activate
 set -u
 python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json --natural-foreign --natural-primary
 
