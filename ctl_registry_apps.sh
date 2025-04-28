@@ -1,5 +1,7 @@
 #!/bin/bash
- 
+
+source /apps/registry/venv/bin/activate
+
 case "$1" in
     start)
         echo ">>> Starting services..."
