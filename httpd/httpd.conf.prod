@@ -259,20 +259,28 @@ Listen 18443
     Alias /.well-known/acme-challenge/ "/apps/registry/webroot/.well-known/acme-challenge/"
 
     #   General setup for the virtual host
-    ServerName registry-stg.cdlib.org:443
+    ServerName registry.cdlib.org:443
+
+    TransferLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/ssl_access_log.%Y-%m-%d 86400"
+    ErrorLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/error.%Y-%m-%d 86400"
+    CustomLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/access.%Y-%m-%d 86400" combinedcookie
+    CustomLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/response-time.%Y-%m-%d 86400" responsetime
+
     # TransferLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/ssl_access_log /apps/registry/servers/mod_wsgi-express/logs/ssl_access_log.%Y.%m.%d"
     # ErrorLog  "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/error /apps/registry/servers/mod_wsgi-express/logs/error.%Y.%m.%d"
     # CustomLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/access /apps/registry/servers/mod_wsgi-express/logs/access.%Y.%m.%d" combinedcookie
     # CustomLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/response-time /apps/registry/servers/mod_wsgi-express/logs/response-time.%Y.%m.%d" responsetime
 
     SSLEngine on
-    SSLCertificateFile "/apps/registry/letsencrypt/config/live/registry-stg.cdlib.org/cert.pem"
-    SSLCertificateKeyFile "/apps/registry/letsencrypt/config/live/registry-stg.cdlib.org/privkey.pem"
-    SSLCertificateChainFile "/apps/registry/letsencrypt/config/live/registry-stg.cdlib.org/fullchain.pem"
+    SSLCertificateFile "/apps/registry/letsencrypt/config/live/registry.cdlib.org/cert.pem"
+    SSLCertificateKeyFile "/apps/registry/letsencrypt/config/live/registry.cdlib.org/privkey.pem"
+    SSLCertificateChainFile "/apps/registry/letsencrypt/config/live/registry.cdlib.org/fullchain.pem"
 
     Protocols h2 http/1.1
     Header always set Strict-Transport-Security "max-age=63072000"
 
+    CustomLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/ssl_request_log.%Y-%m-%d 86400" \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
     # CustomLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/ssl_request_log /apps/registry/servers/mod_wsgi-express/logs/ssl_request_log.%Y.%m.%d" \
     #       "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 
