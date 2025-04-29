@@ -1,0 +1,294 @@
+ServerRoot '/apps/registry/servers/mod_wsgi-express'
+DefaultRuntimeDir '/apps/registry/servers/mod_wsgi-express'
+PidFile '/apps/registry/servers/mod_wsgi-express/httpd.pid'
+
+LoadModule slotmem_shm_module /etc/httpd/modules/mod_slotmem_shm.so
+LoadModule unixd_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_unixd.so'
+LoadModule access_compat_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_access_compat.so'
+LoadModule authn_file_module /etc/httpd/modules/mod_authn_file.so
+LoadModule authn_dbm_module /etc/httpd/modules/mod_authn_dbm.so
+LoadModule authn_anon_module /etc/httpd/modules/mod_authn_anon.so
+LoadModule authn_dbd_module /etc/httpd/modules/mod_authn_dbd.so
+LoadModule authn_core_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_authn_core.so'
+LoadModule authz_core_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_authz_core.so'
+LoadModule authz_host_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_authz_host.so'
+LoadModule authz_groupfile_module /etc/httpd/modules/mod_authz_groupfile.so
+LoadModule authz_user_module /etc/httpd/modules/mod_authz_user.so
+LoadModule authz_dbm_module /etc/httpd/modules/mod_authz_dbm.so
+LoadModule authz_owner_module /etc/httpd/modules/mod_authz_owner.so
+LoadModule auth_basic_module /etc/httpd/modules/mod_auth_basic.so
+LoadModule auth_digest_module /etc/httpd/modules/mod_auth_digest.so
+LoadModule cache_module /etc/httpd/modules/mod_cache.so
+LoadModule dbd_module /etc/httpd/modules/mod_dbd.so
+LoadModule dumpio_module /etc/httpd/modules/mod_dumpio.so
+LoadModule echo_module /etc/httpd/modules/mod_echo.so
+LoadModule reqtimeout_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_reqtimeout.so'
+LoadModule ext_filter_module /etc/httpd/modules/mod_ext_filter.so
+LoadModule include_module /etc/httpd/modules/mod_include.so
+LoadModule filter_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_filter.so'
+LoadModule substitute_module /etc/httpd/modules/mod_substitute.so
+LoadModule charset_lite_module /etc/httpd/modules/mod_charset_lite.so
+LoadModule deflate_module /etc/httpd/modules/mod_deflate.so
+LoadModule log_config_module /etc/httpd/modules/mod_log_config.so
+LoadModule log_forensic_module /etc/httpd/modules/mod_log_forensic.so
+LoadModule logio_module /etc/httpd/modules/mod_logio.so
+LoadModule env_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_env.so'
+LoadModule mime_magic_module /etc/httpd/modules/mod_mime_magic.so
+LoadModule expires_module /etc/httpd/modules/mod_expires.so
+LoadModule headers_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_headers.so'
+LoadModule usertrack_module /etc/httpd/modules/mod_usertrack.so
+LoadModule unique_id_module /etc/httpd/modules/mod_unique_id.so
+LoadModule setenvif_module /etc/httpd/modules/mod_setenvif.so
+LoadModule version_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_version.so'
+LoadModule proxy_module /etc/httpd/modules/mod_proxy.so
+LoadModule proxy_connect_module /etc/httpd/modules/mod_proxy_connect.so
+LoadModule proxy_ftp_module /etc/httpd/modules/mod_proxy_ftp.so
+LoadModule proxy_http_module /etc/httpd/modules/mod_proxy_http.so
+LoadModule proxy_scgi_module /etc/httpd/modules/mod_proxy_scgi.so
+LoadModule proxy_ajp_module /etc/httpd/modules/mod_proxy_ajp.so
+LoadModule proxy_balancer_module /etc/httpd/modules/mod_proxy_balancer.so
+LoadModule ssl_module /etc/httpd/modules/mod_ssl.so
+LoadModule socache_shmcb_module /etc/httpd/modules/mod_socache_shmcb.so
+LoadModule mime_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_mime.so'
+LoadModule dav_module /etc/httpd/modules/mod_dav.so
+LoadModule status_module /etc/httpd/modules/mod_status.so
+LoadModule autoindex_module /etc/httpd/modules/mod_autoindex.so
+LoadModule asis_module /etc/httpd/modules/mod_asis.so
+LoadModule info_module /etc/httpd/modules/mod_info.so
+LoadModule cgi_module /etc/httpd/modules/mod_cgi.so
+LoadModule cgid_module /etc/httpd/modules/mod_cgid.so
+LoadModule dav_fs_module /etc/httpd/modules/mod_dav_fs.so
+LoadModule dav_lock_module /etc/httpd/modules/mod_dav_lock.so
+LoadModule vhost_alias_module /etc/httpd/modules/mod_vhost_alias.so
+LoadModule negotiation_module /etc/httpd/modules/mod_negotiation.so
+LoadModule dir_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_dir.so'
+LoadModule actions_module /etc/httpd/modules/mod_actions.so
+LoadModule speling_module /etc/httpd/modules/mod_speling.so
+LoadModule userdir_module /etc/httpd/modules/mod_userdir.so
+LoadModule alias_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_alias.so'
+LoadModule rewrite_module '${MOD_WSGI_MODULES_DIRECTORY}/mod_rewrite.so'
+LoadModule mpm_prefork_module /etc/httpd/modules/mod_mpm_prefork.so
+
+ServerAdmin ucldc@ucop.edu
+
+# Unclear what ServerName should be, was commented out in old config
+# is localhost in generated config
+# ServerName localhost
+
+# Unclear what DocumentRoot should be, was "/app/webroot" in old config
+# is /apps/registry/servers/mod_wsgi-express/htdocs in generated config
+DocumentRoot "/apps/registry/webroot"
+
+<Directory />
+    Options FollowSymLinks
+    AllowOverride None
+    Require all denied
+</Directory>
+
+<Directory '/apps/registry/webroot'>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+    # added in generated config:
+    RewriteEngine On
+    Include /apps/registry/servers/mod_wsgi-express/rewrite.conf
+</Directory>
+
+<IfModule dir_module>
+    DirectoryIndex index.html
+</IfModule>
+
+<FilesMatch "^\.ht">
+    Require all denied
+</FilesMatch>
+
+ErrorLog "/apps/registry/servers/mod_wsgi-express/logs/error_log"
+LogLevel warn
+<IfModule log_config_module>
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T" combinedplus
+    LogFormat "%h %v %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Cookie}i\"" combinedcookie
+    LogFormat "%D  \"%r\" %>s %B %t" responsetime
+    <IfModule logio_module>
+      # You need to enable mod_logio.c to use %I and %O
+      LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+    </IfModule>
+    CustomLog "/apps/registry/servers/mod_wsgi-express/logs/access_log" common
+</IfModule>
+
+<IfModule mime_module>
+    TypesConfig /etc/mime.types
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+</IfModule>
+
+UseCanonicalName On
+
+WSGISocketPrefix /apps/registry/servers/mod_wsgi-express/wsgi
+# WSGISocketRotation specified in generated config
+WSGISocketRotation Off
+
+Listen 18880
+<VirtualHost *:18880>
+    DocumentRoot /apps/registry/webroot
+    Alias /.well-known/acme-challenge/ "/apps/registry/webroot/.well-known/acme-challenge/"
+    ## comment out the following redirect to boot start the first https certificate
+    ## certbot --config-dir ~/letsencrypt/config/ --work-dir ~/letsencrypt/work/ --logs-dir ~/letsencrypt/logs/
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} !^/.well-known/acme-challenge/
+    RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,QSA,L]
+</VirtualHost>
+
+#   Some MIME-types for downloading Certificates and CRLs
+AddType application/x-x509-ca-cert .crt
+AddType application/x-pkcs7-crl    .crl
+
+#   Pass Phrase Dialog:
+SSLPassPhraseDialog  builtin
+
+#   Inter-Process Session Cache:
+SSLSessionCache        "shmcb:/apps/registry/servers/mod_wsgi-express/run/ssl_scache(512000)"
+SSLSessionCacheTimeout  300
+
+Listen 18443
+<VirtualHost *:18443>
+
+    # https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPApacheConfig
+    LoadModule mod_shib /usr/lib64/shibboleth/mod_shib_24.so
+    ShibCompatValidUser Off
+    ShibConfig /apps/registry/servers/shibboleth/etc/shibboleth2.xml
+    <Location /Shibboleth.sso>
+        AuthType None
+        Require all granted
+    </Location>
+
+    <IfModule mod_alias.c>
+        <Location /shibboleth-sp>
+            AuthType None
+            Require all granted
+        </Location>
+        Alias /shibboleth-sp/main.css /usr/share/shibboleth/main.css
+    </IfModule>
+
+    LoadModule wsgi_module '/apps/registry/venv/lib/python3.8/site-packages/mod_wsgi/server/mod_wsgi-py38.cpython-38-x86_64-linux-gnu.so'
+    <Location "/admin">
+        AuthType shibboleth
+        ShibRequestSetting requireSession 1
+        require valid-user
+    </Location>
+
+    <Location "/edit">
+        AuthType shibboleth
+        ShibRequestSetting requireSession 1
+        require valid-user
+    </Location>
+
+    <Location /Shibboleth.sso> 
+        SetHandler default-handler 
+    </Location> 
+
+    # reverse proxy
+    ProxyRequests Off
+    ProxyVia On
+    RewriteEngine on
+
+    RedirectMatch ^/api$ /api/v1/
+    RedirectMatch ^/api/$ /api/v1/
+
+    RedirectMatch ^/documentation/docs/dams/.*$ https://help.oac.cdlib.org/support/solutions/folders/9000174412
+    RedirectMatch ^/documentation/docs/technical/.*$ https://help.oac.cdlib.org/support/solutions/articles/9000101639-calisphere-api
+    RedirectMatch ^/documentation/.*$ https://help.oac.cdlib.org/support/home/
+    RedirectMatch /documentation$ /documentation/
+    Redirect /ucldc-docs/ /documentation/
+
+    <Directory '/apps/registry/webroot'>
+        Require all granted
+    </Directory>
+
+    <Directory /apps/registry/avram/admin_bootstrap/static>
+        Require all granted
+    </Directory>
+
+    # positional argument is 'registry' in legacy config, rather than localhost:8000
+    WSGIDaemonProcess registry \
+        display-name='(wsgi:registry:1000)' \
+        home='/apps/registry/avram' \
+        processes=2 \
+        threads=15 \
+        maximum-requests=0 \
+        python-path='' \
+        python-eggs='/apps/registry/servers/mod_wsgi-express/python-eggs' \
+        lang='en_US.UTF-8' \
+        locale='en_US.UTF-8' \
+        listen-backlog=100 \
+        queue-timeout=45 \
+        socket-timeout=60 \
+        connect-timeout=15 \
+        request-timeout=60 \
+        inactivity-timeout=0 \
+        startup-timeout=15 \
+        deadlock-timeout=60 \
+        graceful-timeout=15 \
+        eviction-timeout=0 \
+        restart-interval=0 \
+        cpu-time-limit=0 \
+        shutdown-timeout=5 \
+        send-buffer-size=0 \
+        receive-buffer-size=0 \
+        header-buffer-size=0 \
+        response-buffer-size=0 \
+        response-socket-timeout=0 \
+        server-metrics=Off
+    # this config doesn't exist in new config
+    WSGIProcessGroup registry
+    WSGIScriptAlias / /apps/registry/avram/collection_registry/wsgi.py
+
+    Alias /static/ /apps/registry/avram/admin_bootstrap/static/
+    <Directory /apps/registry/avram/collection_registry>
+        Require all granted
+    </Directory>
+
+    RedirectMatch /ds$ /ds/
+    Alias /ds/ /apps/registry/avram/ucds/
+    AliasMatch ^/([^/]*\.css) /apps/registry/webroot/styles/$1
+    <Directory /apps/registry/avram/ucds>
+        Require all granted
+    </Directory>
+
+    Alias /.well-known/acme-challenge/ "/apps/registry/webroot/.well-known/acme-challenge/"
+
+    #   General setup for the virtual host
+    ServerName registry-stg.cdlib.org:443
+
+    TransferLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/ssl_access_log.%Y-%m-%d 86400"
+    ErrorLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/error.%Y-%m-%d 86400"
+    CustomLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/access.%Y-%m-%d 86400" combinedcookie
+    CustomLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/response-time.%Y-%m-%d 86400" responsetime
+
+    # TransferLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/ssl_access_log /apps/registry/servers/mod_wsgi-express/logs/ssl_access_log.%Y.%m.%d"
+    # ErrorLog  "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/error /apps/registry/servers/mod_wsgi-express/logs/error.%Y.%m.%d"
+    # CustomLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/access /apps/registry/servers/mod_wsgi-express/logs/access.%Y.%m.%d" combinedcookie
+    # CustomLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/response-time /apps/registry/servers/mod_wsgi-express/logs/response-time.%Y.%m.%d" responsetime
+
+    SSLEngine on
+    SSLCertificateFile "/apps/registry/letsencrypt/config/live/registry-stg.cdlib.org/cert.pem"
+    SSLCertificateKeyFile "/apps/registry/letsencrypt/config/live/registry-stg.cdlib.org/privkey.pem"
+    SSLCertificateChainFile "/apps/registry/letsencrypt/config/live/registry-stg.cdlib.org/fullchain.pem"
+
+    Protocols h2 http/1.1
+    Header always set Strict-Transport-Security "max-age=63072000"
+
+    CustomLog "|/usr/sbin/rotatelogs /apps/registry/servers/mod_wsgi-express/logs/ssl_request_log.%Y-%m-%d 86400" \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+    # CustomLog "|/usr/sbin/cronolog --symlink /apps/registry/servers/mod_wsgi-express/logs/ssl_request_log /apps/registry/servers/mod_wsgi-express/logs/ssl_request_log.%Y.%m.%d" \
+    #       "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+</VirtualHost>
+
+SSLProtocol all -SSLv2 -SSLv3 +TLSv1.3
+SSLOpenSSLConfCmd       Curves X25519:prime256v1:secp384r1
+SSLHonorCipherOrder     off
+SSLSessionTickets       off
+SSLUseStapling On
+SSLStaplingCache "shmcb:logs/ssl_stapling(32768)"
