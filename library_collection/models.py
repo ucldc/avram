@@ -22,9 +22,25 @@ class Campus(models.Model):
     google_analytics_tracking_code = models.CharField(
         max_length=64,
         blank=True,
-        help_text='Enable tracking of your digital assets hosted in the '
-        'UCLDC by entering your Google Analytics tracking code.'
+        help_text=(
+            "Tracking via Google Analytics has been disabled as of 2023; "
+            "code displayed for historical reference purposes only."
+        )
     )
+
+    address1 = models.CharField(max_length=255, blank=True)
+    address2 = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=255, blank=True)
+    county = models.CharField(max_length=255, blank=True)
+    zip4 = models.CharField(max_length=255, blank=True)
+    url = models.URLField(max_length=255, blank=True)
+    phone = models.CharField(max_length=63, blank=True)
+    fax = models.CharField(max_length=63, blank=True)
+    email = models.CharField(max_length=63, blank=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+
+    description = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = 'campuses'
@@ -442,6 +458,26 @@ class Repository(models.Model):
         blank=True,
         help_text='Enable tracking of your digital assets hosted in the '
         'UCLDC by entering your Google Analytics tracking code.'
+    )
+    address1 = models.CharField(max_length=255, blank=True)
+    address2 = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=255, blank=True)
+    county = models.CharField(max_length=255, blank=True)
+    zip4 = models.CharField(max_length=255, blank=True)
+    url = models.URLField(max_length=255, blank=True)
+    phone = models.CharField(max_length=63, blank=True)
+    fax = models.CharField(max_length=63, blank=True)
+    email = models.CharField(max_length=63, blank=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+
+    description = models.TextField(blank=True)
+    ga = models.CharField(
+        max_length=64, blank=True,
+        help_text=(
+            "Tracking via Google Analytics has been disabled as of 2023; "
+            "code displayed for historical reference purposes only."
+        )
     )
 
     class Meta:
