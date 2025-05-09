@@ -58,7 +58,8 @@ class Campus(models.Model):
                 'Campus slug must currently start with UC. Causes problem '
                 'with reverse lookups if not currently'
             )
-        if self.ark:  # not blank
+        if not self.id and self.ark:  # new campus with ark
+            # prevent duplicates
             try:
                 Campus.objects.get(ark=self.ark)
                 raise ValueError('Campus with ark ' + self.ark +
