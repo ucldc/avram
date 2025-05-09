@@ -473,13 +473,6 @@ class Repository(models.Model):
     longitude = models.FloatField(blank=True, null=True)
 
     description = models.TextField(blank=True)
-    ga = models.CharField(
-        max_length=64, blank=True,
-        help_text=(
-            "Tracking via Google Analytics has been disabled as of 2023; "
-            "code displayed for historical reference purposes only."
-        )
-    )
 
     class Meta:
         verbose_name_plural = 'repositories'
