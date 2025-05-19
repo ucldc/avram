@@ -69,8 +69,6 @@ class Command(BaseCommand):
                     QueueUrl=queue_url,
                     ReceiptHandle=sqs_message['ReceiptHandle']
                 )
-        else:
-            print("No messages to process. Waiting for new messages...")
 
 
     def handle(self, *args, **options):
