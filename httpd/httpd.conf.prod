@@ -171,7 +171,7 @@ Listen 18443
         Alias /shibboleth-sp/main.css /usr/share/shibboleth/main.css
     </IfModule>
 
-    LoadModule wsgi_module '/apps/registry/venv/lib/python3.8/site-packages/mod_wsgi/server/mod_wsgi-py38.cpython-38-x86_64-linux-gnu.so'
+    LoadModule wsgi_module '/apps/registry/venv/lib/python3.9/site-packages/mod_wsgi/server/mod_wsgi-py39.cpython-39-x86_64-linux-gnu.so'
     <Location "/admin">
         AuthType shibboleth
         ShibRequestSetting requireSession 1
