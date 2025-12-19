@@ -73,7 +73,7 @@ class Campus(models.Model):
 # legacy keys, rikolti values
 rikolti_mapper_type_conversion = {
     "dublin_core": None,
-    "cavpp_islandora": None,
+    "cavpp_islandora": "oai.islandora.glbths",
     "cca_vault_oai_dc": "oai.cca_vault",
     "chapman_oai_dc": "oai.chapman",
     "tv_academy_oai_dc": "oai.tv_academy",
