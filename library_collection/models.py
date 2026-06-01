@@ -124,6 +124,7 @@ rikolti_mapper_type_conversion = {
     "sfpl_marc": None,
     "sierramadre_marc": "marc.sierra",
     "ucb_tind_marc": "marc.ucb_tind",
+    "sfpl_tind_marc": "marc.sfpl_tind",
     "ucsb_aleph_marc": "marc.ucsb_aleph",
     "pastperfect_xml": "pastperfect_xml.pastperfect_xml",
     "sanjose_pastperfect": "pastperfect_xml.san_jose",
