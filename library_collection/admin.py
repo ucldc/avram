@@ -559,7 +559,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'most_recent_event_datetime',
                     'name', campuses, repositories,
                     numeric_key, 'date_last_harvested', has_description,
-                    'mapper_type', 'rikolti_mapper_type',
+                    'legacy_mapper_type', 'rikolti_mapper_type',
                     metadata_report_link, 'metadata_density_score',
                     'metadata_density_score_last_updated')
     list_display_links = ['name']
@@ -567,7 +567,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
         # SolrCountFilter, ('solr_count', NumericRangeFilter), 
         'campus', 'ready_for_publication',
         NotInCampus, 'harvest_type', URLFieldsListFilter, MerrittSetup,
-        HasDescriptionFilter, 'mapper_type', 'rikolti_mapper_type',
+        HasDescriptionFilter, 'legacy_mapper_type', 'rikolti_mapper_type',
         ('date_last_harvested', DateRangeFilter),
         'repository'
     ]
@@ -606,7 +606,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     readonly_fields = [
         'published_versions', 'staged_versions', 'is_successfully_published',
         'is_published', 'record_count',
-        'production_target_version', 'mapper_type', 'legacy_harvest_notes'
+        'production_target_version', 'legacy_mapper_type', 'legacy_harvest_notes'
     ]
 
     fieldsets = (
@@ -649,7 +649,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'url_harvest',
                     'harvest_extra_data',
                     'enrichments_item',
-                    'mapper_type',
+                    'legacy_mapper_type',
                     'rikolti_mapper_type',
                     'date_last_harvested',
                     'harvest_exception_notes',
