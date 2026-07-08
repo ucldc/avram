@@ -369,8 +369,7 @@ class Collection(models.Model):
             return None
         return first_enrichment
 
-    @property
-    def legacy_mapper_type(self):
+    def get_legacy_mapper_type(self):
         if not self.legacy_enrichment_array:
             return None
         mapper_enrichment = None
@@ -388,7 +387,7 @@ class Collection(models.Model):
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
+            f"/dpla_mapper?mapper_type={self.mapper_type}")
         return self.enrichment_array[:mapper_index]
 
     @property
@@ -397,29 +396,29 @@ class Collection(models.Model):
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.legacy_enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
+            f"/dpla_mapper?mapper_type={self.mapper_type}")
         return self.legacy_enrichment_array[:mapper_index]
 
     @property
     def self_enrichments(self):
         if self.harvest_type == 'ETL':
             return None
-        if not self.legacy_mapper_type:
+        if not self.mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
+            f"/dpla_mapper?mapper_type={self.mapper_type}")
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
         return self.enrichment_array[mapper_index+1:]
 
     @property
     def legacy_self_enrichments(self):
-        if not self.legacy_mapper_type:
+        if not self.mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.legacy_enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
+            f"/dpla_mapper?mapper_type={self.mapper_type}")
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.legacy_enrichment_array[:mapper_index+1]}")
         return self.legacy_enrichment_array[mapper_index+1:]
@@ -499,7 +498,7 @@ class Collection(models.Model):
         self.name = self.name.strip()
         if len(self.name) > 255:
             self.name = self.name[:255]
-        self.mapper_type = self.legacy_mapper_type
+        self.mapper_type = self.get_legacy_mapper_type()
         if self.harvest_type == 'ETL':
             self.rikolti_mapper_type = 'calisphere_solr.calisphere_solr'
         else:
