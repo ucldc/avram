@@ -606,7 +606,7 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
     readonly_fields = [
         'published_versions', 'staged_versions', 'is_successfully_published',
         'is_published', 'record_count',
-        'production_target_version'
+        'production_target_version', 'mapper_type', 'legacy_harvest_notes'
     ]
 
     fieldsets = (
@@ -649,8 +649,11 @@ class CollectionAdmin(ActionInChangeFormMixin, admin.ModelAdmin):
                     'url_harvest',
                     'harvest_extra_data',
                     'enrichments_item',
+                    'mapper_type',
+                    'rikolti_mapper_type',
                     'date_last_harvested',
-                    'harvest_exception_notes')
+                    'harvest_exception_notes',
+                    'legacy_harvest_notes')
             }
         ), (
             'Enrichment Chain Information',
