@@ -273,6 +273,10 @@ class Collection(models.Model):
     harvest_exception_notes = models.TextField(
         blank=True,
         help_text='Notes on processing quirks')
+    legacy_harvest_notes = models.TextField(
+        blank=True,
+        help_text='Notes on legacy harvests, for historical reference'
+    )
     merritt_id = models.CharField(
         max_length=100,
         blank=True,
