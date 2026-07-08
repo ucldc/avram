@@ -297,7 +297,7 @@ class Collection(models.Model):
         default=0, help_text='Number of items in Solr index')
     solr_last_updated = models.DateTimeField(
         null=True, blank=True, help_text='Last time Solr count was updated')
-    mapper_type = models.CharField(
+    legacy_mapper_type = models.CharField(
         null=True, blank=True, max_length=511, help_text='Auto-Generated from Enrichments')
     rikolti_mapper_type = models.CharField(
         null=True, blank=True, max_length=511, help_text='Matches module name in Rikolti')
@@ -383,42 +383,42 @@ class Collection(models.Model):
     def pre_mapper_enrichments(self):
         if self.harvest_type == 'ETL':
             return None
-        if not self.mapper_type:
+        if not self.legacy_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.mapper_type}")
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
         return self.enrichment_array[:mapper_index]
 
     @property
     def legacy_pre_mapper_enrichments(self):
-        if not self.mapper_type:
+        if not self.legacy_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.legacy_enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.mapper_type}")
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
         return self.legacy_enrichment_array[:mapper_index]
 
     @property
     def self_enrichments(self):
         if self.harvest_type == 'ETL':
             return None
-        if not self.mapper_type:
+        if not self.legacy_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.mapper_type}")
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
         return self.enrichment_array[mapper_index+1:]
 
     @property
     def legacy_self_enrichments(self):
-        if not self.mapper_type:
+        if not self.legacy_mapper_type:
             print(f"no mapper type: {self.id}")
             return None
         mapper_index = self.legacy_enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.mapper_type}")
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.legacy_enrichment_array[:mapper_index+1]}")
         return self.legacy_enrichment_array[mapper_index+1:]
@@ -498,12 +498,12 @@ class Collection(models.Model):
         self.name = self.name.strip()
         if len(self.name) > 255:
             self.name = self.name[:255]
-        self.mapper_type = self.get_legacy_mapper_type()
+        self.legacy_mapper_type = self.get_legacy_mapper_type()
         if self.harvest_type == 'ETL':
             self.rikolti_mapper_type = 'calisphere_solr.calisphere_solr'
         else:
             self.rikolti_mapper_type = rikolti_mapper_type_conversion.get(
-                self.mapper_type, None)
+                self.legacy_mapper_type, None)
         return super(Collection, self).save(*args, **kwargs)
 
 
@@ -616,7 +616,7 @@ class HarvestRunManager(models.Manager):
         '''
         # TODO: create many HarvestRuns from a single event in the case of
         # airflow-side batching - other dag_run_conf fields to consider:
-        # ['mapper_type', 'rikolti_mapper_type', 'registry_api_queryset', 
+        # ['legacy_mapper_type', 'rikolti_mapper_type', 'registry_api_queryset', 
         #  'limit', 'offset']
         collection_id = dag_run_conf.get('collection_id')
         if collection_id:

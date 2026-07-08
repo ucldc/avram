@@ -207,7 +207,7 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
     query = request.GET.get('q', '')
     search = None
     harvest_type = request.GET.get('harvest_type', '')
-    mapper_type = request.GET.get('mapper_type', '')
+    mapper_type = request.GET.get('legacy_mapper_type', '')
     if mapper_type == 'None':
         mapper_type = 'isnull'
     merritt = request.GET.get('merritt', '')
@@ -279,7 +279,7 @@ def collections(request, campus_slug=None, show_harvest_type_none=False):
         for choice in Collection.HARVEST_TYPE_CHOICES
         if choice.registry_code in harvest_types
     ]
-    mapper_types = collections.values_list('mapper_type', flat=True).distinct()
+    mapper_types = collections.values_list('legacy_mapper_type', flat=True).distinct()
     ready_for_publication_facets = collections.values_list('ready_for_publication', flat=True).distinct()
     collections = collections.order_by('name').prefetch_related('campus')
 
