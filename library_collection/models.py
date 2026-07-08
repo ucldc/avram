@@ -134,7 +134,14 @@ rikolti_mapper_type_conversion = {
     "ucsf_solr": "ucsf_solr.ucsf_solr",
     "youtube_video_snippet": "youtube.youtube",
 }
-
+rikolti_mapper_type_choices = (
+    (value, value) for value in rikolti_mapper_type_conversion.values()
+    if value is not None
+)
+# add new mapper types, that don't have a legacy mapper type equivalent, here:
+# rikolti_mapper_type_choices += (
+#     ('oai.some_new_mapper_type', 'oai.some_new_mapper_type')
+# )
 
 class CollectionCustomFacet(models.Model):
     '''This model is designed to allow a collection owner to select one of
@@ -300,7 +307,9 @@ class Collection(models.Model):
     legacy_mapper_type = models.CharField(
         null=True, blank=True, max_length=511, help_text='Auto-Generated from Enrichments')
     rikolti_mapper_type = models.CharField(
-        null=True, blank=True, max_length=511, help_text='Matches module name in Rikolti')
+        null=True, blank=True, max_length=511,
+        choices=rikolti_mapper_type_choices,
+        help_text='Matches module name in Rikolti')
     metadata_density_score = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
     metadata_density_score_last_updated = models.DateTimeField(
@@ -499,11 +508,11 @@ class Collection(models.Model):
         if len(self.name) > 255:
             self.name = self.name[:255]
         self.legacy_mapper_type = self.get_legacy_mapper_type()
-        if self.harvest_type == 'ETL':
-            self.rikolti_mapper_type = 'calisphere_solr.calisphere_solr'
-        else:
-            self.rikolti_mapper_type = rikolti_mapper_type_conversion.get(
-                self.legacy_mapper_type, None)
+        # if self.harvest_type == 'ETL':
+        #     self.rikolti_mapper_type = 'calisphere_solr.calisphere_solr'
+        # else:
+        #     self.rikolti_mapper_type = rikolti_mapper_type_conversion.get(
+        #         self.legacy_mapper_type, None)
         return super(Collection, self).save(*args, **kwargs)
 
 
