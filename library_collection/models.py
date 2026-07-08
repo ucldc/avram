@@ -313,15 +313,43 @@ class Collection(models.Model):
 
     objects = CollectionManager()
 
-    @property
-    def enrichment_array(self):
-        split_enrichments = self.enrichments_item.split(',\r\n')
+    def parse_enrichments(self, enrichments_text):
+        split_enrichments = enrichments_text.split(',\r\n')
         if len(split_enrichments[0]) > 255:
-            split_enrichments = self.enrichments_item.split(',\n')
+            split_enrichments = enrichments_text.split(',\n')
         if len(split_enrichments[0]) > 255:
             f"split failed: {self.id}"
             return None
         return split_enrichments
+    
+    # legacy notes should look like a series of headings with data following, e.g.
+    # ***harvest_type***
+    # <harvest type text>
+    # ***enrichments_item***
+    # <enrichments text>
+    def parse_legacy_notes(self):
+        if not self.legacy_harvest_notes:
+            return None
+        lines = self.legacy_harvest_notes.splitlines()
+        notes_dict = {}
+        current_heading = None
+        for line in lines:
+            line = line.strip()
+            if line.startswith('***') and line.endswith('***'):
+                current_heading = line.strip('*').strip()
+                notes_dict[current_heading] = ''
+            elif current_heading is not None:
+                notes_dict[current_heading] += line + '\n'
+        return notes_dict
+
+    @property
+    def enrichment_array(self):
+        return self.parse_enrichments(self.enrichments_item)
+
+    @property
+    def legacy_enrichment_array(self):
+        enrichments_text = self.parse_legacy_notes().get('enrichments_item', '')
+        return self.parse_enrichments(enrichments_text)
 
     @property
     def id_enrichment(self):
@@ -333,11 +361,20 @@ class Collection(models.Model):
         return first_enrichment
 
     @property
+    def legacy_id_enrichment(self):
+        if not self.legacy_enrichment_array:
+            return None
+        first_enrichment = self.legacy_enrichment_array[0]
+        if first_enrichment.startswith('/dpla_mapper'):
+            return None
+        return first_enrichment
+
+    @property
     def legacy_mapper_type(self):
-        if not self.enrichment_array:
+        if not self.legacy_enrichment_array:
             return None
         mapper_enrichment = None
-        for enrichment in self.enrichment_array:
+        for enrichment in self.legacy_enrichment_array:
             if enrichment.startswith('/dpla_mapper'):
                 mapper_enrichment = enrichment.split('=')[1]
                 break
@@ -355,6 +392,15 @@ class Collection(models.Model):
         return self.enrichment_array[:mapper_index]
 
     @property
+    def legacy_pre_mapper_enrichments(self):
+        if not self.mapper_type:
+            print(f"no mapper type: {self.id}")
+            return None
+        mapper_index = self.legacy_enrichment_array.index(
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
+        return self.legacy_enrichment_array[:mapper_index]
+
+    @property
     def self_enrichments(self):
         if self.harvest_type == 'ETL':
             return None
@@ -366,6 +412,17 @@ class Collection(models.Model):
         if mapper_index not in [0,1]:
             print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
         return self.enrichment_array[mapper_index+1:]
+
+    @property
+    def legacy_self_enrichments(self):
+        if not self.legacy_mapper_type:
+            print(f"no mapper type: {self.id}")
+            return None
+        mapper_index = self.legacy_enrichment_array.index(
+            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
+        if mapper_index not in [0,1]:
+            print(f"too many items before mapper: {self.legacy_enrichment_array[:mapper_index+1]}")
+        return self.legacy_enrichment_array[mapper_index+1:]
 
     def index_of_enrichment(self, enrichment):
         if not self.enrichment_array:
