@@ -361,15 +361,6 @@ class Collection(models.Model):
         return self.parse_enrichments(enrichments_text)
 
     @property
-    def id_enrichment(self):
-        if not self.enrichment_array:
-            return None
-        first_enrichment = self.enrichment_array[0]
-        if first_enrichment.startswith('/dpla_mapper'):
-            return None
-        return first_enrichment
-
-    @property
     def legacy_id_enrichment(self):
         if not self.legacy_enrichment_array:
             return None
@@ -390,14 +381,13 @@ class Collection(models.Model):
 
     @property
     def pre_mapper_enrichments(self):
-        if self.harvest_type == 'ETL':
+        # todo: can delete after dealing with jsonfy prop on ucsd_blacklight collections
+        legacy_mapper_enrichment = f"/dpla_mapper?mapper_type={self.legacy_mapper_type}"
+        if legacy_mapper_enrichment in self.enrichment_array:
+            mapper_index = self.enrichment_array.index(legacy_mapper_enrichment)
+            return self.enrichment_array[:mapper_index]
+        else:
             return None
-        if not self.legacy_mapper_type:
-            print(f"no mapper type: {self.id}")
-            return None
-        mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
-        return self.enrichment_array[:mapper_index]
 
     @property
     def legacy_pre_mapper_enrichments(self):
@@ -410,16 +400,13 @@ class Collection(models.Model):
 
     @property
     def self_enrichments(self):
-        if self.harvest_type == 'ETL':
-            return None
-        if not self.legacy_mapper_type:
-            print(f"no mapper type: {self.id}")
-            return None
-        mapper_index = self.enrichment_array.index(
-            f"/dpla_mapper?mapper_type={self.legacy_mapper_type}")
-        if mapper_index not in [0,1]:
-            print(f"too many items before mapper: {self.enrichment_array[:mapper_index+1]}")
-        return self.enrichment_array[mapper_index+1:]
+        # todo: can simply return self.enrichment_array after dealing with jsonfy prop on ucsd_blacklight collections
+        legacy_mapper_enrichment = f"/dpla_mapper?mapper_type={self.legacy_mapper_type}"
+        if legacy_mapper_enrichment in self.enrichment_array:
+            mapper_index = self.enrichment_array.index(legacy_mapper_enrichment)
+            return self.enrichment_array[mapper_index+1:]
+        else:
+            return self.enrichment_array
 
     @property
     def legacy_self_enrichments(self):
