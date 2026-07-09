@@ -69,6 +69,7 @@ class RikoltiCollectionResource(CollectionResource):
     }
 
     # these API fields are used by rikolti's mapper component
+    # todo: remove rikolti__pre_mapping once we've updated the enrichment chain
     rikolti__pre_mapping = fields.ListField(attribute='pre_mapper_enrichments', null=True)
     legacy__mapper_type = fields.CharField(attribute='legacy_mapper_type', null=True)
     rikolti__enrichments = fields.ListField(attribute='self_enrichments', null=True)
