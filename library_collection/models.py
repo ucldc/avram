@@ -336,9 +336,9 @@ class Collection(models.Model):
     # <harvest type text>
     # ***enrichments_item***
     # <enrichments text>
-    def parse_legacy_notes(self):
+    def parse_legacy_notes(self) -> dict:
         if not self.legacy_harvest_notes:
-            return None
+            return {}
         lines = self.legacy_harvest_notes.splitlines()
         notes_dict = {}
         current_heading = None
