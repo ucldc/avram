@@ -142,7 +142,9 @@ rikolti_mapper_type_choices = (
 # rikolti_mapper_type_choices += (
 #     ('oai.some_new_mapper_type', 'oai.some_new_mapper_type')
 # )
-
+rikolti_mapper_type_choices += (
+    ('oai.omeka.chssc', 'oai.omeka.chssc')
+)
 class CollectionCustomFacet(models.Model):
     '''This model is designed to allow a collection owner to select one of
     our Solr string values as a custom facet. Need to do as a separate model
