@@ -6,7 +6,7 @@ def active_tab(request):
     by parsing the request.path
     '''
     tab = ''
-    if 'about' in request.path or request.path == '/':
+    if 'about' in request.path or request.path in ['/', '/edit/']:
         tab = 'about'
     if 'collection' in request.path:
         tab = 'collection'
