@@ -1,18 +1,14 @@
 # urls.py
 from django.conf.urls import include, url
 from library_collection.models import Collection, Campus
+from library_collection import views
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.contrib.sitemaps import views as sitemaps_views
-# from ajax_select import urls as ajax_select_urls
 from django.contrib.sitemaps import GenericSitemap
-# http://stackoverflow.com/questions/11428427/no-module-named-simple-error-in-django
-# from django.views.generic.simple import redirect_to
-#from some_app.views import AboutView
 from django.views.generic import TemplateView
-# from exhibits.views import calCultures
+from library_collection.api import v1_api
 
 admin.autodiscover()
 
@@ -30,13 +26,12 @@ sitemaps = {
 }
 
 urlpatterns = [
+    url(r'^$', views.about, name='about'),
     url(r'^robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
-    # url(r'^exhibitions/', include('exhibits.urls', namespace="exhibits")),
+    url(r'^api/', include(v1_api.urls)),
     url(r'^oai/', include('oai.urls', namespace="oai")),
-    # url(r'^for-educators/', include(('exhibits.teacher_urls', 'for-teachers'), namespace="for-teachers")),
-    # url(r'^cal-cultures/', calCultures, name="cal-cultures"),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', LoginView.as_view(), name='login'),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap, {'sitemaps': sitemaps}, name='sitemap'),
-    url(r'^', include('library_collection.urls'), name='registry'),
+    url(r'^edit/', include('library_collection.urls'), name='registry'),
 ]
