@@ -1,7 +1,7 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.serializers import Serializer
-from tastypie.authentication import Authentication
+from tastypie.authentication import ApiKeyAuthentication as Authentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
 from library_collection.models import CollectionCustomFacet
@@ -76,6 +76,7 @@ class RikoltiCollectionResource(CollectionResource):
 
     class Meta:
         queryset = Collection.objects.all()
+        authentication = Authentication()
         list_allowed_methods = ['get']
         filtering = rikolti_filters
         excludes = rikolti_excludes
@@ -100,6 +101,7 @@ class RikoltiMapperResource(RikoltiCollectionResource):
 class RikoltiFetcherResource(RikoltiCollectionResource):
     class Meta:
         queryset = Collection.objects.all()
+        authentication = Authentication()
         list_allowed_methods = ['get']
         filtering = rikolti_filters
         excludes = (
