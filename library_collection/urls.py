@@ -2,6 +2,7 @@ from django.conf.urls import url
 from library_collection import views
 
 urlpatterns = [
+    url(r'^$', views.about),
     url(r'^collections/$', views.edit_collections, name='collections'),
     url(r'^repositories/$', views.edit_repositories, name='repositories'),
     url(r'^(?P<campus_slug>UC.*)/repositories/$', views.edit_repositories, name='repositories'),
