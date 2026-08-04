@@ -5,8 +5,8 @@ from tastypie.authentication import Authentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
 from library_collection.models import CollectionCustomFacet
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
-
+from tastypie.constants import ALL
+from tastypie.api import Api
 
 class CampusResource(ModelResource):
     class Meta:
@@ -117,3 +117,11 @@ class CustomFacetResource(ModelResource):
         authentication = Authentication()
         authorization = ReadOnlyAuthorization()
         resource_name = 'custom_facet'
+
+v1_api = Api(api_name='v1')
+v1_api.register(CollectionResource())
+v1_api.register(CampusResource())
+v1_api.register(RepositoryResource())
+v1_api.register(RikoltiCollectionResource())
+v1_api.register(RikoltiFetcherResource())
+v1_api.register(RikoltiMapperResource())

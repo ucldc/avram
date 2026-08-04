@@ -68,11 +68,7 @@
       <div class="row no-gutters">
         <div class="col-8" >
           <h3 class="logo">
-            {% if user.is_authenticated and editing %}
-            <a href="{% url 'edit_collections' %}">
-            {% else %}
-            <a href="{% url 'collections' %}">
-            {% endif %}
+            <a href="{% url 'about' %}">
               UCLDC Collection Registry
             </a>
           </h3>
@@ -81,8 +77,8 @@
           <span class="float-right">
             {% if user.is_authenticated %}
             Welcome {{user}}
-            {%else%}
-            <!-- <a href="/edit{{current_path}}" title="Login to edit collections or repositories">Edit</a> -->
+            {% else %}
+            <a href="{% url 'login' %}" title="Login to edit collections or repositories">Login</a>
             {%endif%}
           </span>
         </div>
@@ -98,40 +94,20 @@
       <ul class="nav nav-tabs col-12 mb-3 registry-nav" style="margin-left: 0px;">
         <li class="nav-item">
           {%if campus %}
-            {% if user.is_authenticated and editing %}
-            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'edit_collections' campus_slug=campus.slug %}">Collections</a>
-            {% else %}
-            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'collections' campus_slug=campus.slug %}">Collections</a>
-            {% endif %}
+            <a class="nav-link{% if active_tab == 'collection' or next == '/collections/' %} active{%endif%}" href="{%url 'collections' campus_slug=campus.slug %}">Collections</a>
           {% else %}
-            {% if user.is_authenticated and editing %}
-            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'edit_collections' %}">Collections</a>
-            {% else %}
-            <a class="nav-link{% if active_tab == 'collection' %} active{%endif%}" href="{%url 'collections' %}">Collections</a>
-            {% endif %}
+            <a class="nav-link{% if active_tab == 'collection' or next == '/collections/' %} active{%endif%}" href="{%url 'collections' %}">Collections</a>
           {% endif %}
         </li>
         <li class="nav-item">
           {%if campus %}
-            {% if user.is_authenticated and editing %}
-            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'edit_repositories' campus_slug=campus.slug %}">Units</a>
-            {% else %}
-            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'repositories' campus_slug=campus.slug %}">Units</a>
-            {% endif %}
+            <a class="nav-link{% if active_tab == 'repositories' or next == '/repositories/' %} active{%endif%}" href="{%url 'repositories' campus_slug=campus.slug %}">Units</a>
           {% else %}
-            {% if user.is_authenticated and editing %}
-            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'edit_repositories' %}">Units</a>
-            {% else %}
-            <a class="nav-link{% if active_tab == 'repositories' %} active{%endif%}" href="{%url 'repositories' %}">Units</a>
-            {% endif %}
+            <a class="nav-link{% if active_tab == 'repositories' or next == '/repositories/' %} active{%endif%}" href="{%url 'repositories' %}">Units</a>
           {% endif %}
         </li>
         <li class="nav-item">
-          {% if user.is_authenticated and editing %}
-          <a class="nav-link{% if active_tab == 'about' %} active{%endif%}" href="{%url 'edit_about' %}">About</a>
-          {% else %}
           <a class="nav-link{% if active_tab == 'about' %} active{%endif%}" href="{%url 'about' %}">About</a>
-          {% endif %}
         </li>
         <li class="nav-item">
           {% if active_tab == 'exhibitions' %}
@@ -159,11 +135,7 @@
       <div class="col-1"><img src="{% static 'images/uc_seal.gif' %}" alt="University of California"></div>
       <div class="col-3">Powered by the <a href="http://www.cdlib.org" target="_blank">California&#160;Digital&#160;Library</a></div>
       <div class="col-1">
-        {% if user.is_authenticated and editing %}
-        <a href="{%url 'edit_about' %}">Terms</a>
-        {% else %}
         <a href="{%url 'about' %}">Terms</a>
-        {% endif %}
       </div>
       <div class="col-1">
         <a href="http://www.cdlib.org/about/privacy.html" target="_blank">Privacy</a>

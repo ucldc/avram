@@ -29,18 +29,16 @@
 {% block content %}
 <div class="row">
   <div class="col-8">
-    {% if user.is_authenticated and editing %}
-        <form action="{% url 'edit_repositories' %}" method="post">
-          {% csrf_token %}
-          <button type="submit" name="edit" value="true" class="btn btn-secondary mb-3"><i class="icon-plus"></i> Add new Unit</button>
-        </form>
-    {% endif %}
+      <form action="{% url 'repositories' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="edit" value="true" class="btn btn-secondary mb-3"><i class="icon-plus"></i> Add new Unit</button>
+      </form>
 
     {{ repositories.count }} Units
     <table class="table table-bordered table-striped">
       <tbody>
         {% if edit %}
-          <form action="{% url 'edit_repositories' %}" method="post">
+          <form action="{% url 'repositories' %}" method="post">
             {% csrf_token %}
             <tr>
               <td class="form-inline">
@@ -55,7 +53,7 @@
                   {% endfor %}
                 </select>
                 <button type="submit" class="btn btn-primary ml-sm-2 mr-sm-2"><i class="icon-ok icon-white"></i> Save</button>
-                <a href="{% url 'edit_repositories' %}" class="btn btn-secondary"><i class="icon-ban-circle"></i> Cancel</a>
+                <a href="{% url 'repositories' %}" class="btn btn-secondary"><i class="icon-ban-circle"></i> Cancel</a>
               </td>
             </tr>
           </form>
@@ -76,7 +74,7 @@
     </table>
   </div>
   <div class="col-2">
-  {% include "library_collection/_navbar_campus.html" with edit_this="edit_repositories" this="repositories"%}
+  {% include "library_collection/_navbar_campus.html" with this="repositories"%}
   </div>
 </div>
 {% endblock content %}

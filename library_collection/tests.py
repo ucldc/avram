@@ -867,7 +867,7 @@ class EditViewTestCase(TestCase):
 
 
     def testRootView(self):
-        url = reverse('edit_collections')
+        url = reverse('collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response,
@@ -879,7 +879,7 @@ class EditViewTestCase(TestCase):
             '/5/1937-yolo-county-aerial-photographs-this-collectio/')
 
     def testUCBCollectionView(self):
-        url = reverse('edit_collections', kwargs={'campus_slug': 'UCB', })
+        url = reverse('collections', kwargs={'campus_slug': 'UCB', })
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertContains(response, 'Collections')
@@ -888,7 +888,7 @@ class EditViewTestCase(TestCase):
             '/150/wieslander-vegetation-type-maps-photographs-in-192/')
 
     def testRepositoriesView(self):
-        url = reverse('edit_repositories')
+        url = reverse('repositories')
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response,
@@ -898,21 +898,21 @@ class EditViewTestCase(TestCase):
         self.assertContains(response, '/edit/')
 
     def testUCBRepositoriesView(self):
-        url = reverse('edit_repositories', kwargs={'campus_slug': 'UCB', })
+        url = reverse('repositories', kwargs={'campus_slug': 'UCB', })
         response = self.client.get(url, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response,
                                 'library_collection/repository_list.html')
         self.assertNotContains(response, 'Mandeville')
         self.assertContains(response, 'Bancroft Library')
-        url_edit_base = reverse('edit_collections')
+        url_edit_base = reverse('collections')
         self.assertContains(response, url_edit_base)
         self.assertContains(response, url_edit_base + 'UCB')
 
     def testCollectionView(self):
         '''Test view of one collection'''
         url = reverse(
-            'edit_detail',
+            'detail',
             kwargs={
                 'colid': 2,
                 'col_slug':
@@ -927,7 +927,7 @@ class EditViewTestCase(TestCase):
     def testCollectionViewForm(self):
         '''Test form for modifying a collection'''
         url = reverse(
-            'edit_detail',
+            'detail',
             kwargs={
                 'colid': 2,
                 'col_slug':
@@ -942,7 +942,7 @@ class EditViewTestCase(TestCase):
     def testCollectionViewFormSubmission(self):
         '''Test form submission to modify a collection'''
         url = reverse(
-            'edit_detail',
+            'detail',
             kwargs={
                 'colid': 2,
                 'col_slug':
@@ -980,7 +980,7 @@ class EditViewTestCase(TestCase):
     def testCollectionViewFormSubmissionEmptyForm(self):
         '''Test form submission to modify a collection with an empty form'''
         url = reverse(
-            'edit_detail',
+            'detail',
             kwargs={
                 'colid': 2,
                 'col_slug':
@@ -995,7 +995,7 @@ class EditViewTestCase(TestCase):
 
     def testCollectionCreateViewForm(self):
         '''Test form to create a new collection'''
-        url = reverse('edit_collections')
+        url = reverse('collections')
         response = self.client.post(
             url, {'new': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response,
@@ -1004,7 +1004,7 @@ class EditViewTestCase(TestCase):
 
     def testCollectionCreateViewFormSubmission(self):
         '''Test form submission to create a collection'''
-        url = reverse('edit_collections')
+        url = reverse('collections')
         response = self.client.post(
             url, {
                 'appendix': 'B',
@@ -1029,7 +1029,7 @@ class EditViewTestCase(TestCase):
 
     def testCollectionCreateViewFormSubmissionInvalid(self):
         '''Test form submission to create a collection'''
-        url = reverse('edit_collections')
+        url = reverse('collections')
         response = self.client.post(
             url, {'appendix': 'B',
                   'name': 'new collection 2'},
@@ -1052,7 +1052,7 @@ class EditViewTestCase(TestCase):
 
     def testCollectionCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty collection'''
-        url = reverse('edit_collections')
+        url = reverse('collections')
         response = self.client.post(
             url, {'name': ''}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response,
@@ -1061,7 +1061,7 @@ class EditViewTestCase(TestCase):
 
     def testRepositoryCreateViewForm(self):
         '''Test form to create a new repository'''
-        url = reverse('edit_repositories')
+        url = reverse('repositories')
         response = self.client.post(
             url, {'edit': 'true'}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response,
@@ -1070,7 +1070,7 @@ class EditViewTestCase(TestCase):
 
     def testRepositoryCreateViewFormSubmission(self):
         '''Test form submission to create a repository'''
-        url = reverse('edit_repositories')
+        url = reverse('repositories')
         response = self.client.post(
             url, {'name': 'new repository',
                   'campuses': ['1', '4']},
@@ -1086,7 +1086,7 @@ class EditViewTestCase(TestCase):
 
     def testRepositoryCreateViewFormSubmissionEmptyForm(self):
         '''Test form submission to create an empty repository'''
-        url = reverse('edit_repositories')
+        url = reverse('repositories')
         response = self.client.post(
             url, {'name': ''}, HTTP_AUTHORIZATION=self.http_auth)
         self.assertTemplateUsed(response,
@@ -1191,7 +1191,7 @@ class NewUserTestCase(TestCase):
         # http_auth = 'basic ' + 'bogus_new_user:bogus_new_user'.encode('base64')
         http_auth = 'basic ' + b64encode('bogus_new_user:bogus_new_user'.encode()).decode()
 
-        url = reverse('edit_collections')
+        url = reverse('collections')
         response = self.client.get(url, HTTP_AUTHORIZATION=http_auth)
         self.assertTemplateUsed(
             response, 'library_collection/verification_required.html')
