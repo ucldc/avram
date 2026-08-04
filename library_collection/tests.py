@@ -548,6 +548,19 @@ class TastyPieAPITest(TestCase):
         response = self.client.get(self.url_api)
         self.assertContains(response, 'collection')
 
+    def test_api_access_with_logged_in_user(self):
+        '''Logged-in users should be able to access Tastypie API resources.'''
+        user = User.objects.create_user(
+            username='apiuser', email='apiuser@example.com', password='fake')
+        user.is_active = True
+        user.save()
+        self.client.force_login(user)
+
+        url_collection = self.url_api + 'collection/?limit=1&format=json'
+        response = self.client.get(url_collection)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'objects')
+
     def testDataInApiFeed(self):
         '''Test that the required data elements appear in the api'''
         url_collection = self.url_api + 'collection/?limit=200&format=json'

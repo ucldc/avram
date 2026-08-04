@@ -9,7 +9,7 @@ except AttributeError:
 try:
     paths_locked = settings.REMOTE_USER_MOCK_PATHS
 except AttributeError:
-    paths_locked = ['/edit', '/admin']
+    paths_locked = ['/edit', '/admin', '/api']
 
 # https://docs.djangoproject.com/en/2.2/topics/http/middleware/#upgrading-middleware
 class RemoteUserMockMiddleware(MiddlewareMixin):
