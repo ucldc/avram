@@ -184,6 +184,12 @@ Listen 18443
         require valid-user
     </Location>
 
+    <LocationMatch "/api(/|$)">
+        AuthType shibboleth
+        ShibRequestSetting requireSession Off
+        Require shibboleth
+    </LocationMatch>
+
     <Location /Shibboleth.sso> 
         SetHandler default-handler 
     </Location> 
