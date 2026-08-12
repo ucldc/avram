@@ -2,7 +2,7 @@ Django>=3.2.23,==3.2.*
 defusedxml==0.7.1
 django-tastypie==0.14.6
 django-extensions==3.2.3
-lxml==5.1.0
+lxml==6.1.0
 django-webtest==1.9.11
 mock==5.1.0
 aws-xray-sdk==2.12.1
