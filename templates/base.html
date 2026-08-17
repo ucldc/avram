@@ -9,7 +9,7 @@
     <link href="{% static 'chosen/css/chosen.css' %}" rel="stylesheet"/>
     <style>
       body { font-family: Arial, Helvetica, sans-serif;
-       color: #7C7E7F;
+       /* color: #7C7E7F; */
       }
       h3.logo { 
         background: 
@@ -131,14 +131,17 @@
       <!-- <div class="col-3 float-right">
         Copyright © 2013 UC Regents.<br/> All rights reserved.
       </div> -->
-      <div class="col-5">Copyright © {% now "Y" %} The&#160;Regents of The University&#160;of&#160;California</div>
-      <div class="col-1"><img src="{% static 'images/uc_seal.gif' %}" alt="University of California"></div>
-      <div class="col-3">Powered by the <a href="http://www.cdlib.org" target="_blank">California&#160;Digital&#160;Library</a></div>
+      <!-- <div class="col-5">Copyright © {% now "Y" %} The&#160;Regents of The University&#160;of&#160;California</div> -->
+      <!-- <div class="col-1"><img src="{% static 'images/uc_seal.gif' %}" alt="University of California"></div> -->
+      <div class="col-5">Powered by the <a href="http://www.cdlib.org">California&#160;Digital&#160;Library</a></div>
       <div class="col-1">
-        <a href="{%url 'about' %}">Terms</a>
+        <a href="https://calisphere.org/privacy/">Privacy Statement</a>
       </div>
       <div class="col-1">
-        <a href="http://www.cdlib.org/about/privacy.html" target="_blank">Privacy</a>
+        <a href="https://www.cdlib.org/about/accessibility.html">Accessibility</a>
+      </div>
+      <div class="col-1">
+        <a href="https://calisphere.org/contact/">Contact Us</a>
       </div>
     </div>
     
