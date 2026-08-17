@@ -11,7 +11,7 @@
       body { font-family: Arial, Helvetica, sans-serif;
        /* color: #7C7E7F; */
       }
-      h3.logo { 
+      nav.logo { 
         background: 
           transparent 
           url("{% static 'images/ucldc-registry.png' %}") 
@@ -26,7 +26,7 @@
         border: 0;
         margin: 20px 0;
       }
-      h3.logo a {
+      nav.logo a {
         display: block;
         width: 370px;
         height: 56px;
@@ -67,11 +67,11 @@
     <div class="container-fluid" style="padding: 0 20px;">
       <div class="row no-gutters">
         <div class="col-8" >
-          <h3 class="logo">
+          <nav class="logo">
             <a href="{% url 'about' %}">
               UCLDC Collection Registry
             </a>
-          </h3>
+          </nav>
         </div>
         <div class="col-4">
           <span class="float-right">
