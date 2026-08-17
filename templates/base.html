@@ -78,7 +78,7 @@
             {% if user.is_authenticated %}
             Welcome {{user}}
             {% else %}
-            <a href="{% url 'login' %}" title="Login to edit collections or repositories">Login</a>
+            <a href="{% url 'collections' %}" title="Login to edit collections or repositories">Login</a>
             {%endif%}
           </span>
         </div>
