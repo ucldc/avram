@@ -140,6 +140,8 @@ def _get_direct_navigate_page_links(get_qd, page_number, num_pages, total_displa
     return previous_page_qs, next_page_qs, previous_group_start, next_group_start
 
 # collections in a repository
+@login_required
+@verification_required
 def repository_collections(request, repoid=None, repo_slug=None):
     page = request.GET.get('page')
     harvest_type = request.GET.get('harvest_type', '')
@@ -399,6 +401,8 @@ def edit_details(request, colid=None, col_slug=None, error=None):
         )
 
 # view for collection details
+@login_required
+@verification_required
 def details(request, colid=None, col_slug=None):
     collection = get_object_or_404(Collection, pk=colid)
     # if the collection id matches, but the slug does not, redirect (for seo)
@@ -416,13 +420,6 @@ def details(request, colid=None, col_slug=None):
 
 @login_required
 @verification_required
-def edit_details_by_id(request, colid):
-    return details_by_id(request, colid)
-
-def details_by_id(request, colid):
-    collection = get_object_or_404(Collection, pk=colid)
-    return redirect(collection, permanent=True)
-
 def repository_by_id(request, repoid):
     repository = get_object_or_404(Repository, pk=repoid)
     return redirect(repository, permanent=True)
@@ -486,6 +483,8 @@ def edit_repositories(request, campus_slug=None, error=None):
     
     return repositories(request, campus_slug)
 
+@login_required
+@verification_required
 def repositories(request, campus_slug=None):
     '''View of repositories, for whole collection or just single campus'''
     campus = None
@@ -515,10 +514,6 @@ def repositories(request, campus_slug=None):
             },
     )
 
-@login_required
-@verification_required
-def edit_about(request):
-    return about(request)
 
 def about(request):
     return render(request, 

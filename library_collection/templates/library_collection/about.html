@@ -2,39 +2,31 @@
 
 {% block content %}
 <div class="row">
-  <div class="col-10" style="line-height:25px">
+  <div class="col-lg-10" style="line-height:25px">
     <div class="card bg-light">
       <div class="card-body">
+    <h1>
+      Welcome to the Calisphere Collection Registry.
+    </h1>
+    
+    <h2>About the Registry</h2>
     <p>
-      Welcome to the Collection Registry for the UC Libraries Digital Collection (UCLDC)!
+      The Collection Registry is an administrative interface (requires login) used by CDL staff to orchestrate harvesting* of digital collections for publication in the Calisphere website. The Collection Registry contains basic information about the collection (such as title and description) that displays in Calisphere. 
+    </p>
+    <p>
+      Staff at University of California campus libraries/departments  may request login access to the Collection Registry, so that campus digital collection administrators may manage collection details, such as collection titles and descriptions. Please <a href="https://help.oac.cdlib.org/support/tickets/new">contact us</a> to request an account.
+    </p>
+    <p>
+      *Calisphere is based on a harvest model, where the CDL retrieves item records (metadata and associated thumbnails) from each contributors’ digital collections platforms. Setting up the harvesting process requires some initial setup at the beginning, so that the CDL can establish a connection with a given digital collections platform. Learn more about our process for <a href="https://help.oac.cdlib.org/support/solutions/9000115811">harvesting collections to Calisphere</a>.
+    </p>
+    <p>
+      <b><a href="{% url 'collections' %}">Login (UC Single Sign-On)</a></b>
     </p>
     
-    <h4>What it is</h4>
+    <h2>Terms of use</h2>
     <p>
-      The Collection Registry is a key component of the UCLDC that will enable campus library staff to:
-    </p>
-    
-    <ol style="margin-left:40px">
-      <li style="line-height:25px">
-        Create information that will be displayed in the UCLDC’s public interface, for example as facets.
-      </li>
-      <li style="line-height:25px">
-        Track the status of digital collections slated for the UCLDC, for example by indicating the location of collections ready for harvest.
-      </li>
-      <li style="line-height:25px">
-        Engage in collaborative digital collection development and/or digitization planning.
-      </li>
-    </ol>
-    
-    <h4>Terms of use</h4>
-    <p>
-      This interface is under development, as part of the broader implementation of the UCLDC. At this time, parts of this site are limited to our project collaborators. Use of the site by other individuals is restricted to viewing this web interface.
-    </p>
-    
-    <h4>Learn more</h4>
-    <p>
-      We welcome your feedback! Please report any bugs, questions, or ideas to <a href="mailto:oacops@cdlib.org">oacops@cdlib.org</a>. For more information about the UCLDC and the Implementation Project, visit our project <a href="https://wiki.library.ucsf.edu/display/UCLDC/UCLDC+Implementation">wiki</a>.
-    </p>
+      Access to the Registry is restricted to CDL staff and designated University of California library/department digital collection administrators. 
+    </p>    
   </div>
 </div>
   </div>

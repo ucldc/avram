@@ -92,7 +92,7 @@
       {% if edit == "true" %}
         <br><button type="submit" name="submit" form="edit_collection_detail">Save</button>
       {% else %}
-        <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post">
+        <form action="{% url 'detail' colid=collection.id col_slug=collection.slug %}" method="post">
           {% csrf_token %}
           <button type="submit" name="edit" value="true" class="btn btn-secondary"><i class="icon-edit"></i> Edit this collection</button>
         </form>

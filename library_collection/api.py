@@ -1,17 +1,22 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.serializers import Serializer
-from tastypie.authentication import Authentication
+from tastypie.authentication import ApiKeyAuthentication, SessionAuthentication, MultiAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from library_collection.models import Collection, Campus, Repository
 from library_collection.models import CollectionCustomFacet
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
+from tastypie.constants import ALL
+from tastypie.api import Api
 
+default_authentication = MultiAuthentication(
+    ApiKeyAuthentication(),
+    SessionAuthentication()
+)
 
 class CampusResource(ModelResource):
     class Meta:
         queryset = Campus.objects.all()
-        authentication = Authentication()
+        authentication = default_authentication
         authorization = ReadOnlyAuthorization()
 
 
@@ -19,7 +24,7 @@ class RepositoryResource(ModelResource):
     campus = fields.ToManyField(CampusResource, 'campus', full=True)
     class Meta:
         queryset = Repository.objects.all()
-        authentication = Authentication()
+        authentication = default_authentication
         authorization = ReadOnlyAuthorization()
 
 
@@ -31,7 +36,7 @@ class CollectionResource(ModelResource):
 
     class Meta:
         queryset = Collection.objects.all()
-        authentication = Authentication()
+        authentication = default_authentication
         authorization = ReadOnlyAuthorization()
         serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'plist'])
         filtering = {
@@ -76,6 +81,7 @@ class RikoltiCollectionResource(CollectionResource):
 
     class Meta:
         queryset = Collection.objects.all()
+        authentication = default_authentication
         list_allowed_methods = ['get']
         filtering = rikolti_filters
         excludes = rikolti_excludes
@@ -100,6 +106,7 @@ class RikoltiMapperResource(RikoltiCollectionResource):
 class RikoltiFetcherResource(RikoltiCollectionResource):
     class Meta:
         queryset = Collection.objects.all()
+        authentication = default_authentication
         list_allowed_methods = ['get']
         filtering = rikolti_filters
         excludes = (
@@ -114,6 +121,14 @@ class CustomFacetResource(ModelResource):
 
     class Meta:
         queryset = CollectionCustomFacet.objects.all()
-        authentication = Authentication()
+        authentication = default_authentication
         authorization = ReadOnlyAuthorization()
         resource_name = 'custom_facet'
+
+v1_api = Api(api_name='v1')
+v1_api.register(CollectionResource())
+v1_api.register(CampusResource())
+v1_api.register(RepositoryResource())
+v1_api.register(RikoltiCollectionResource())
+v1_api.register(RikoltiFetcherResource())
+v1_api.register(RikoltiMapperResource())

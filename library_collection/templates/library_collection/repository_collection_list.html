@@ -5,12 +5,10 @@
 {% block content %}
 <div class="row">
   <div class="col-8">
-    {% if user.is_authenticated and editing %}
-      <form action="{% url 'edit_collections' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="new" value="true" class="btn btn-secondary"><i class="icon-plus"></i> Add new Collection</button>
-      </form>
-    {% endif %}
+    <form action="{% url 'collections' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" name="new" value="true" class="btn btn-secondary"><i class="icon-plus"></i> Add new Collection</button>
+    </form>
 
     <div class="card bg-light" style="margin-bottom: 20px">
       <div class="card-body">
@@ -40,11 +38,7 @@
           {% for collection in collections %}
           <tr>
             <td>
-              {% if user.is_authenticated and editing %}
-              <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
-              {% else %}
               <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}">{{ collection.name }}</a>
-              {% endif %}
               <small class="muted">
                   {% for name in collection.courtesy %}
                       {{ name }}
@@ -103,7 +97,7 @@
     {%endif%}
   </div>
   <div class="col-2">
-  {% include "library_collection/_navbar_harvest_type2.html" with edit_this='edit_collections' this='repository_collections' %}
+  {% include "library_collection/_navbar_harvest_type2.html" with this='repository_collections' %}
   </div>
 </div>
 {% endblock content %}

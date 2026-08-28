@@ -142,8 +142,10 @@ rikolti_mapper_type_choices = (
 # rikolti_mapper_type_choices += (
 #     ('oai.some_new_mapper_type', 'oai.some_new_mapper_type')
 # )
+
 rikolti_mapper_type_choices += (
-    ('oai.omeka.chssc', 'oai.omeka.chssc')
+    ('oai.omeka.chssc', 'oai.omeka.chssc'),
+    ('oai.recollect', 'oai.recollect'),
 )
 class CollectionCustomFacet(models.Model):
     '''This model is designed to allow a collection owner to select one of

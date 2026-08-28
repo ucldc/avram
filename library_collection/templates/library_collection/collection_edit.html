@@ -11,9 +11,9 @@
   <div class="card bg-light">
   <div class="card-body">
     {% if edit %}
-    <form action="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" method="post" id="edit_collection_detail">
+    <form action="{% url 'detail' colid=collection.id col_slug=collection.slug %}" method="post" id="edit_collection_detail">
     {% elif new %}
-    <form action="{% url 'edit_collections' %}" method="post" id="new_collection">
+    <form action="{% url 'collections' %}" method="post" id="new_collection">
     {% endif %}
       {% csrf_token %}
       <div class="form-group">
@@ -111,9 +111,9 @@
 
       <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save</button>
       {% if edit %}
-      <a href="{% url 'edit_detail' colid=collection.id col_slug=collection.slug %}" class="btn btn-secondary"><i class="icon-ban-circle"></i> Cancel</a>
+      <a href="{% url 'detail' colid=collection.id col_slug=collection.slug %}" class="btn btn-secondary"><i class="icon-ban-circle"></i> Cancel</a>
       {% elif new %}
-      <a href="{% url 'edit_collections' %}" class="btn btn-secondary"><i class="icon-ban-circle"></i> Cancel</a>
+      <a href="{% url 'collections' %}" class="btn btn-secondary"><i class="icon-ban-circle"></i> Cancel</a>
       {% endif %}
 
       

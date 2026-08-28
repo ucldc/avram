@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'django_json_widget',
     # 'rest_framework',
     #'dbdump',
+    'tastypie',
 )
 
 ALLOWED_HOSTS = ['dsc-registry2-dev.cdlib.org', 'localhost', '127.0.0.1']

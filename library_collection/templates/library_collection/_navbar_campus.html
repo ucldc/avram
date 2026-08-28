@@ -12,38 +12,20 @@
             <ul class="list-group" style="margin: 0px">
               {% for campus_iter in campuses %}
               <li class="list-group-item{% if campus_iter == campus %} list-group-item-secondary{% endif %}" style="width: 100%">
-                {% if user.is_authenticated and editing %}
-                  {% if campus_iter == campus %}
-                    <a href="{% url edit_this %}">
-                      <div class="row-fluid">
-                        <div class="float-left"><span class="icon-remove" style="margin-right: .75em;">X</span></div>
-                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% else %}
-                    <a href="{% url edit_this campus_slug=campus_iter.slug %}">
-                      <div class="row-fluid">
-                        <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
-                        <div style="overflow: hidden;">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% endif %}
+                {% if campus_iter == campus %}
+                  <a href="{% url this %}">
+                    <div class="row-fluid">
+                      <div class="float-left"><span class="icon-remove" style="margin-right: .75em;">X</span></div>
+                      <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
+                    </div>
+                  </a>
                 {% else %}
-                  {% if campus_iter == campus %}
-                    <a href="{% url this %}">
-                      <div class="row-fluid">
-                        <div class="float-left"><span class="icon-remove" style="margin-right: .75em;">X</span></div>
-                        <div style="overflow: hidden; ">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% else %}
-                    <a href="{% url this campus_slug=campus_iter.slug %}">
-                      <div class="row-fluid">
-                        <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
-                        <div style="overflow: hidden;">{{ campus_iter.name }}</div>
-                      </div>
-                    </a>
-                  {% endif %}
+                  <a href="{% url this campus_slug=campus_iter.slug %}">
+                    <div class="row-fluid">
+                      <div class="float-left"><span class="icon-remove" style="visibility:hidden; margin-left: .75em">X</span></div>
+                      <div style="overflow: hidden;">{{ campus_iter.name }}</div>
+                    </div>
+                  </a>
                 {% endif %}
               </li>
               {% endfor %}
