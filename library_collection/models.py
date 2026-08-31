@@ -134,19 +134,17 @@ rikolti_mapper_type_conversion = {
     "ucsf_solr": "ucsf_solr.ucsf_solr",
     "youtube_video_snippet": "youtube.youtube",
 }
-rikolti_mapper_type_choices = (
+rikolti_legacy_mapper_types= [
     (value, value) for value in rikolti_mapper_type_conversion.values()
     if value is not None
-)
+]
 # add new mapper types, that don't have a legacy mapper type equivalent, here:
-# rikolti_mapper_type_choices += (
-#     ('oai.some_new_mapper_type', 'oai.some_new_mapper_type')
-# )
-
-rikolti_mapper_type_choices += (
+rikolti_new_mapper_types = [
     ('oai.omeka.chssc', 'oai.omeka.chssc'),
-    ('oai.recollect', 'oai.recollect'),
-)
+    ('oai.recollect', 'oai.recollect')
+]
+rikolti_mapper_type_choices = tuple(rikolti_legacy_mapper_types + rikolti_new_mapper_types)
+
 class CollectionCustomFacet(models.Model):
     '''This model is designed to allow a collection owner to select one of
     our Solr string values as a custom facet. Need to do as a separate model
