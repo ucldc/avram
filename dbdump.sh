@@ -18,4 +18,6 @@ source $HOME/venv/bin/activate
 set -u
 python manage.py dumpdata --output=$HOME/dbdumps/$DATE.json --natural-foreign --natural-primary
 
-find $HOME/dbdumps/ -name "????-??-??-01.json" -mtime +7 -exec rm {} \;
+gzip -f $HOME/dbdumps/$DATE.json
+
+find $HOME/dbdumps/ -name "????-??-??-01.json.gz" -mtime +7 -exec rm {} \;
